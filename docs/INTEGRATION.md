@@ -1,0 +1,244 @@
+# Integrating with SIL HR
+
+SIL HR is the hospital's system of record for **people and organisation structure**.
+Procurement, the HMIS, the lab systems and finance read from it, react to its events and,
+where agreed, feed it. This guide is for developers of those systems.
+
+| You want to… | Use |
+|---|---|
+| Read departments, cost centres, positions (and, from slice 2, staff) | REST API with a client-credentials token |
+| Keep a local copy in sync | `updated_since` incremental sync **plus** events |
+| Be told when something changes | Webhooks (outside the hospital network) or the Redis Stream (inside) |
+| Store HR's id against your own, or yours against HR's | `PUT /api/v1/external-refs` |
+
+The API reference is generated from code: `GET /api/v1/docs` (Swagger UI) and
+`GET /api/v1/openapi.json` (OpenAPI 3.1). The event catalogue: `GET /api/v1/events/catalogue`
+(public) or **Integrations → Event catalogue** in the web app. Both are also checked in as
+[`openapi.json`](openapi.json) and [`events.json`](events.json).
+
+## 1. Get credentials
+
+An HR administrator creates a client under **Integrations → API clients**, ticks only the
+scopes your system needs, and gives you the client id and secret (the secret is shown once).
+
+| Scope | Grants |
+|---|---|
+| `org:read` | organisation, branches, departments (+ tree), cost centres, job grades, positions |
+| `events:read` | event catalogue |
+| `external_refs:write` | read and write your system's identifiers in `external_ref` |
+| `documents:read` | download documents |
+| `employees:read`, `employees.sensitive:read`, `leave:read`, `attendance:write`, `payroll.journal:read` | reserved: the endpoints arrive in slices 2–5 |
+
+## 2. Get a token
+
+OAuth 2.0 client credentials (RFC 6749 §4.4). Tokens are EdDSA-signed JWTs valid for
+15 minutes; cache one and fetch a new one shortly before `expires_in`.
+
+```bash
+curl -s -u "$CLIENT_ID:$CLIENT_SECRET" \
+  -d grant_type=client_credentials -d scope=org:read \
+  http://localhost:3310/api/v1/oauth/token
+# {"access_token":"eyJ…","token_type":"Bearer","expires_in":900,"scope":"org:read"}
+```
+
+The public keys are at `/api/v1/.well-known/jwks.json` if you want to inspect tokens.
+Disabling a client, revoking a secret or removing a scope takes effect immediately, even
+for tokens already issued. When an administrator rotates your secret, the previous one keeps
+working for the grace period they choose (24 hours by default).
+
+## 3. Read
+
+```bash
+TOKEN=…   # from step 2
+curl -s -H "Authorization: Bearer $TOKEN" "http://localhost:3310/api/v1/departments?limit=100&sort=code"
+curl -s -H "Authorization: Bearer $TOKEN" "http://localhost:3310/api/v1/departments/tree"
+```
+
+Every collection follows the same rules:
+
+* **Cursor pagination.** `limit` (1–500, default 50) and `cursor`. The response is
+  `{ "data": [...], "next_cursor": "…" | null }`. Pass `next_cursor` back until it is null.
+* **Sorting.** `sort=code` or `sort=-code`; the allowed fields are listed in the OpenAPI doc.
+* **Incremental sync.** `updated_since=<ISO timestamp>` returns everything changed after
+  it, oldest change first, **including soft-deleted records as tombstones**
+  `{ "id": "…", "deleted": true, "deleted_at": "…" }`. Store the largest `updated_at` you
+  saw and use it next time (overlap by a few seconds; processing is idempotent by id).
+* **Errors** are RFC 9457 `application/problem+json`: `type`, `title`, `status`, `detail`,
+  a stable `code`, `errors[]` for field validation, and `correlation_id`. Quote the
+  correlation id when reporting a problem.
+* **Rate limits** are per client (default 600 requests/minute). Over the limit you get
+  `429` with `Retry-After`.
+* **Correlation.** Send `X-Correlation-Id`; it is echoed, logged, and copied into any event
+  your request causes (`correlationid` extension).
+
+Writes (for clients granted them) also use:
+
+* **`If-Match`** with the `ETag` you read, on every PATCH/DELETE. Missing → `428`; stale →
+  `412` with the current version.
+* **`Idempotency-Key`** on POSTs that create something. A retry with the same key and body
+  returns the first response (`Idempotent-Replayed: true`); the same key with a different
+  body is refused with `422`.
+
+### Typed TypeScript client
+
+`packages/shared` contains a client generated from the OpenAPI document:
+
+```ts
+import { createHrClient } from '@sil/hr-shared/client';
+
+const hr = createHrClient({ baseUrl: 'http://localhost:3310', token: () => getCachedToken() });
+const { data, error } = await hr.GET('/api/v1/departments', { params: { query: { limit: 100 } } });
+```
+
+Other languages: generate a client from `/api/v1/openapi.json`.
+
+## 4. Events
+
+Every change another system could care about is written to a transactional outbox in the
+same database transaction as the change and published by the worker. So: **no event for a
+change that rolled back, and none lost while the publisher is down** (they are published
+when it comes back). Delivery is **at least once**: de-duplicate on the event `id`.
+
+Envelope: [CloudEvents 1.0](https://cloudevents.io), structured mode:
+
+```json
+{
+  "specversion": "1.0",
+  "id": "0199b1a2-…",
+  "source": "urn:sil:hr",
+  "type": "hr.organisation.department.updated.v1",
+  "subject": "<department id>",
+  "time": "2026-11-14T08:15:02.120Z",
+  "datacontenttype": "application/json",
+  "dataschema": "http://localhost:3310/api/v1/events/catalogue#hr.organisation.department.updated.v1",
+  "correlationid": "…",
+  "data": { "id": "…", "code": "NURS", "name": "Nursing", "branch_id": "…", "parent_id": null,
+            "cost_centre_id": "…", "status": "active", "path": [], "changed_fields": ["name"] }
+}
+```
+
+Payloads carry ids and non-sensitive fields only. Fetch detail through the API with your
+own scopes. Event types are versioned: a breaking change is published as a new `.v2`
+alongside the old type for a transition period, and a published type is never removed
+without notice (a contract test enforces this).
+
+Slice 1 publishes: `hr.organisation.branch.created|updated.v1`,
+`hr.organisation.department.created|updated|deleted.v1`,
+`hr.organisation.cost_centre.created|updated.v1`, `hr.organisation.position.created|updated.v1`.
+Moving a department publishes `updated` for it and for every department beneath it.
+
+### Webhooks
+
+An administrator registers your URL under **Integrations → Webhooks** with the event types
+you want, and gives you the signing secret (`whsec_…`, shown once). Each delivery is a
+`POST` of the CloudEvent with these headers ([Standard Webhooks](https://www.standardwebhooks.com)):
+
+| Header | Value |
+|---|---|
+| `webhook-id` | Delivery id. **Identical on every retry**: use it to de-duplicate. |
+| `webhook-timestamp` | Unix seconds when this attempt was signed. |
+| `webhook-signature` | `v1,<base64 HMAC-SHA256(secret, "{id}.{timestamp}.{raw body}")>` |
+| `content-type` | `application/cloudevents+json` |
+
+The HMAC key is the base64-decoded part of the secret after `whsec_`. Verify the
+signature over the **raw** body, reject timestamps more than 5 minutes from your clock, and
+answer `2xx` within 10 seconds (queue your own processing). Anything else is retried with
+backoff: 30 s, 2 min, 10 min, 30 min, 1 h, 3 h, 6 h, 12 h (±10 %), then the delivery is
+dead-lettered. After 5 dead-lettered deliveries in a row the subscription is paused and HR
+administrators are notified; they resume it and replay from the delivery log.
+
+Node.js:
+
+```js
+import { createHmac, timingSafeEqual } from 'node:crypto';
+
+export function verifyWebhook(secret, headers, rawBody) {
+  const id = headers['webhook-id'], ts = Number(headers['webhook-timestamp']);
+  if (!id || !Number.isFinite(ts) || Math.abs(Date.now() / 1000 - ts) > 300) return false;
+  const key = Buffer.from(secret.replace(/^whsec_/, ''), 'base64');
+  const expected = Buffer.from('v1,' + createHmac('sha256', key).update(`${id}.${ts}.${rawBody}`).digest('base64'));
+  return String(headers['webhook-signature']).split(' ').some((s) => {
+    const b = Buffer.from(s);
+    return b.length === expected.length && timingSafeEqual(b, expected);
+  });
+}
+```
+
+PHP (Laravel):
+
+```php
+function verifyWebhook(string $secret, array $h, string $raw): bool {
+    $ts = (int) ($h['webhook-timestamp'] ?? 0);
+    if (abs(time() - $ts) > 300) return false;
+    $key = base64_decode(preg_replace('/^whsec_/', '', $secret));
+    $expected = 'v1,' . base64_encode(hash_hmac('sha256', "{$h['webhook-id']}.{$ts}.{$raw}", $key, true));
+    foreach (explode(' ', $h['webhook-signature'] ?? '') as $sig) if (hash_equals($expected, $sig)) return true;
+    return false;
+}
+```
+
+Python:
+
+```python
+import base64, hmac, hashlib, time
+
+def verify_webhook(secret, headers, raw_body: bytes) -> bool:
+    ts = int(headers.get("webhook-timestamp", "0"))
+    if abs(time.time() - ts) > 300:
+        return False
+    key = base64.b64decode(secret.removeprefix("whsec_"))
+    mac = hmac.new(key, f"{headers['webhook-id']}.{ts}.".encode() + raw_body, hashlib.sha256).digest()
+    expected = "v1," + base64.b64encode(mac).decode()
+    return any(hmac.compare_digest(expected, s) for s in headers.get("webhook-signature", "").split(" "))
+```
+
+In development, the `webhook-sink` container is subscribed to every event and verifies each
+signature: browse <http://localhost:8099/hooks> to see what HR sent. Its source
+(`apps/api/src/tools/webhook-sink.ts`) is a complete consumer in 50 lines.
+
+### Redis Stream (inside the network)
+
+Every event is also appended to the Redis Stream `silhr:events` (fields `id`, `type`,
+`event` = the JSON envelope). Use a consumer group so each of your instances gets each event
+once:
+
+```bash
+redis-cli XGROUP CREATE silhr:events procurement $ MKSTREAM
+redis-cli XREADGROUP GROUP procurement worker-1 COUNT 100 BLOCK 5000 STREAMS silhr:events '>'
+redis-cli XACK silhr:events procurement <entry-id>
+```
+
+The stream is trimmed to about a million entries. If you fall further behind than that,
+resynchronise with `updated_since`.
+
+## 5. Ownership of shared data
+
+| Data | Owner | Others |
+|---|---|---|
+| Employees, departments, positions, reporting lines, cost-centre membership | **HR** | read through the API / events; never edit locally |
+| Assets, suppliers | Procurement | HR stores only "which employee holds which asset" by procurement's asset id |
+| Credentials (when SSO is deployed) | Identity provider | HR provisions accounts from HR data (SCIM, slice 2) |
+| Chart of accounts | Finance | HR maps payroll lines to it through a configurable table (slice 5) |
+
+Another system's identifiers are stored in HR only through `external_ref`
+(`entity_type`, `entity_id`, `system`, `external_id`): one id per system per record, and an
+external id maps to exactly one record.
+
+```bash
+curl -s -X PUT -H "Authorization: Bearer $TOKEN" -H 'content-type: application/json' \
+  -d '{"entity_type":"department","entity_id":"<hr id>","system":"procurement","external_id":"DEPT-0007"}' \
+  http://localhost:3310/api/v1/external-refs
+curl -s -H "Authorization: Bearer $TOKEN" "http://localhost:3310/api/v1/external-refs?system=procurement&external_id=DEPT-0007"
+```
+
+## 6. Contracts that still need confirmation
+
+These adapters will be built against the assumed contracts below, with mock servers in the
+tests, until the owning team confirms them.
+
+| System | Assumption | Status |
+|---|---|---|
+| Procurement → HR: assets held by an employee (exit clearance) | `GET /api/v1/assets?custodianEmployeeId=` on procurement, with HR's employee id stored as the custodian. Today procurement stores the custodian as **its own user id plus free text**, and has no such query. | **Needs procurement change** (slice 6) |
+| HR → procurement: staff, departments, cost centres, approvers | Procurement consumes HR events / API and maps its `department.code` and `cost_centre_code` to HR's codes via `external_ref`. | To agree with the procurement team |
+| HMIS | FHIR R4 `Practitioner` / `PractitionerRole` with licence status. | Slice 9 |
+| Finance / GL | Payroll journal per run as an API resource and a file. | Slice 5 |

@@ -1,0 +1,83 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-brand-50: #eef6f5;
+  --color-brand-100: #d5ebe8;
+  --color-brand-500: #1f7a6d;
+  --color-brand-600: #17665b;
+  --color-brand-700: #115248;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+:root {
+  --bg: #f6f7f8;
+  --surface: #ffffff;
+  --border: #e2e5e9;
+  --text: #16191d;
+  --muted: #5b6470;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1214;
+    --surface: #171b1f;
+    --border: #2a3036;
+    --text: #e8eaed;
+    --muted: #9aa3ad;
+  }
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.surface {
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.input {
+  width: 100%;
+  border-radius: 0.375rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+}
+.input:focus {
+  outline: 2px solid var(--color-brand-500);
+  outline-offset: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand-500);
+  outline-offset: 2px;
+}
+
+table.data {
+  width: 100%;
+  font-size: 0.875rem;
+  border-collapse: collapse;
+}
+table.data th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--muted);
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+table.data td {
+  padding: 0.55rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+table.data tbody tr:hover {
+  background: color-mix(in srgb, var(--color-brand-500) 6%, transparent);
+}
