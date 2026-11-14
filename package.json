@@ -1,0 +1,34 @@
+{
+  "name": "sil-hr",
+  "private": true,
+  "description": "SIL HR: human resources and payroll, the hospital's system of record for people and structure",
+  "packageManager": "pnpm@10.34.7",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "pnpm build:shared && pnpm --filter @sil/hr-api build && pnpm --filter @sil/hr-web build",
+    "build:shared": "pnpm --filter @sil/hr-shared build",
+    "dev:api": "pnpm --filter @sil/hr-api dev",
+    "dev:worker": "pnpm --filter @sil/hr-api dev:worker",
+    "dev:web": "pnpm --filter @sil/hr-web dev",
+    "db:migrate": "pnpm --filter @sil/hr-api db:migrate",
+    "db:seed": "pnpm --filter @sil/hr-api db:seed",
+    "test": "pnpm build:shared && pnpm --filter @sil/hr-api test && pnpm --filter @sil/hr-web test",
+    "test:api": "pnpm build:shared && pnpm --filter @sil/hr-api test",
+    "test:web": "pnpm --filter @sil/hr-web test",
+    "openapi:update": "pnpm build:shared && UPDATE_OPENAPI=1 pnpm --filter @sil/hr-api exec jest test/openapi.spec.ts && pnpm --filter @sil/hr-shared generate:client",
+    "typecheck": "pnpm -r typecheck"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@nestjs/core",
+      "argon2",
+      "esbuild",
+      "sharp",
+      "msgpackr-extract",
+      "unrs-resolver",
+      "@tailwindcss/oxide"
+    ]
+  }
+}
