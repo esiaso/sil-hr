@@ -14,6 +14,8 @@ export default function MePage() {
   const l = useLookups();
   const qc = useQueryClient();
   const me = useQuery({ queryKey: ['me', 'employee'], queryFn: () => unwrap(hr.GET('/api/v1/me/employee')), retry: false });
+  // Position and department names from the directory (employees may not read the organisation lists).
+  const dir = useQuery({ queryKey: ['me', 'directory', me.data?.id], enabled: !!me.data, queryFn: () => unwrap(hr.GET('/api/v1/directory/staff/{id}', { params: { path: { id: me.data!.id } } })) });
   const licences = useQuery({ queryKey: ['me', 'licences'], enabled: !!me.data, queryFn: () => unwrap(hr.GET('/api/v1/me/licences')) });
   const team = useQuery({ queryKey: ['me', 'team'], enabled: !!me.data, queryFn: () => unwrap(hr.GET('/api/v1/me/team')) });
   const changes = useQuery({ queryKey: ['me', 'changes'], enabled: !!me.data, queryFn: () => unwrap(hr.GET('/api/v1/me/contact-changes')) });
@@ -32,11 +34,11 @@ export default function MePage() {
   const pending = changes.data?.find((c) => c.status === 'pending');
   return (
     <div className="max-w-3xl space-y-4">
-      <PageHeader title={e.display_name} description={`${e.staff_number} · ${e.position_id ? l.positions.get(e.position_id)?.title ?? '' : ''}`} />
+      <PageHeader title={e.display_name} description={[e.staff_number, dir.data?.position_title].filter(Boolean).join(' · ')} />
       <Card>
         <div className="mb-2 flex items-center justify-between"><h2 className="font-semibold">My details</h2>{!pending && <Button variant="secondary" onClick={() => { setV({ personal_email: e.personal_email ?? '', personal_phone: e.personal_phone ?? '', postal_address: e.postal_address ?? '', residential_address: e.residential_address ?? '', marital_status: e.marital_status ?? '' }); setEditing(true); }}>Request a change</Button>}</div>
         <dl className="grid gap-x-6 gap-y-1 text-sm sm:grid-cols-2">
-          {[['Department', e.department_id ? l.departments.get(e.department_id)?.name : ''], ['Hired', df(e.hire_date)], ['Employment', e.employment_type], ['Status', e.status], ['National ID', e.national_id], ['KRA PIN', e.kra_pin], ['NSSF', e.nssf_number], ['SHA', e.sha_number], ['Work email', e.work_email], ['Personal email', e.personal_email], ['Personal phone', e.personal_phone], ['Residence', e.residential_address]].map(([k, val]) => (
+          {[['Department', dir.data?.department_name ?? (e.department_id ? l.departments.get(e.department_id)?.name : '')], ['Hired', df(e.hire_date)], ['Employment', e.employment_type], ['Status', e.status], ['National ID', e.national_id], ['KRA PIN', e.kra_pin], ['NSSF', e.nssf_number], ['SHA', e.sha_number], ['Work email', e.work_email], ['Personal email', e.personal_email], ['Personal phone', e.personal_phone], ['Residence', e.residential_address]].map(([k, val]) => (
             <div key={k} className="flex justify-between gap-2 border-b border-[var(--border)] py-1"><dt className="muted">{k}</dt><dd className="text-right">{val || '—'}</dd></div>
           ))}
         </dl>

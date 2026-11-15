@@ -108,7 +108,8 @@ export async function seedSampleEmployees(m: EntityManager, app: INestApplicatio
 
   for (const [username, code] of Object.entries(LINKS)) {
     const holder = holders.get(code)?.[code === 'RN-MED' ? 1 : 0];
-    if (holder) await m.getRepository(User).update({ username }, { employeeId: holder.id });
+    // The login shows the same person as the employee record it belongs to.
+    if (holder) await m.getRepository(User).update({ username }, { employeeId: holder.id, displayName: `${holder.displayName} (${username})` });
   }
   // The sample employee reports to the sample line manager.
   const rn = holders.get('RN-MED')?.[1];
