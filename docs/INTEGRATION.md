@@ -33,6 +33,8 @@ scopes your system needs, and gives you the client id and secret (the secret is 
 | `leave:read` | leave requests (`/api/v1/leave/requests`), balances and the team calendar |
 | `attendance:read` | daily attendance, rosters and timesheets (`/api/v1/attendance/days`, `/api/v1/rosters`) |
 | `attendance:write` | post clock events (`POST /api/v1/clock-events`, §7) |
+| `medical:read` | medical cover: eligibility and remaining limits by member number (§9) |
+| `medical:write` | medical billing: place holds, post and reverse claims (§9) |
 | `payroll.journal:read` | payroll journals of approved runs (`GET /api/v1/payroll/runs/{id}/journal`, §8) |
 
 ## 2. Get a token
@@ -328,3 +330,43 @@ from HR's mapping table (Payroll setup → Accounts): a row per component code, 
 defaults for anything unmapped. Until the chart of accounts is confirmed the accounts are
 placeholders starting `TBD-`, and `unmapped` lists them; post nothing while it is
 not empty.
+
+## 9. Staff medical scheme (HMIS billing)
+
+Staff and their dependants carry member numbers such as `SMS-SIL00042-00` (the
+staff member) and `-01`, `-02` (dependants). The HMIS billing module checks cover
+before treatment and posts what the scheme pays.
+
+```bash
+# Is this member covered for outpatient care today, and how much is left?
+curl -s -H "Authorization: Bearer $TOKEN" \
+  "http://localhost:3310/api/v1/medical/eligibility?member_number=SMS-SIL00042-01&category_code=outpatient"
+# {"eligible":true,"reason":null,"member":{…},"balances":[{"category_code":"outpatient","remaining":"83350.00","co_pay_pct":10,"per_visit_cap":"20000.00",…}]}
+
+# Reserve an amount on admission (released when claimed, released, or on expires_on)
+curl -s -X POST -H "Authorization: Bearer $TOKEN" -H 'content-type: application/json' -H "Idempotency-Key: adm-77812" \
+  -d '{"member_number":"SMS-SIL00042-00","category_code":"inpatient","amount":"120000.00","expires_on":"2026-12-31","external_ref":"ADM-77812"}' \
+  http://localhost:3310/api/v1/medical/holds
+
+# Post the bill. The scheme pays the invoice less co-payment, up to the per-visit cap.
+curl -s -X POST -H "Authorization: Bearer $TOKEN" -H 'content-type: application/json' -H "Idempotency-Key: bill-99120" \
+  -d '{"member_number":"SMS-SIL00042-00","category_code":"inpatient","occurred_on":"2026-12-03","invoice_amount":"110000.00","facility":"SIL Hospital","invoice_ref":"INV-99120","external_ref":"BILL-99120","hold_id":"<hold id>"}' \
+  http://localhost:3310/api/v1/medical/claims
+# {"status":"posted","claim":{…,"amount":"110000.00"},"remaining":"890000.00","message":null}
+
+# A wrong bill is reversed (never edited)
+curl -s -X POST -H "Authorization: Bearer $TOKEN" -H 'content-type: application/json' -d '{"reason":"Billed to the wrong patient"}' \
+  http://localhost:3310/api/v1/medical/claims/<claim id>/reverse
+```
+
+* Send an `Idempotency-Key` on every POST: a retry returns the first answer
+  (`Idempotent-Replayed: true`) and posts nothing twice. `external_ref` (your bill
+  number) is also unique per source, so a repeat with a new key is refused as a duplicate.
+* A claim over the remaining limit, or inside a waiting period, answers
+  `"status": "pending_approval"` with an `application_id` when the scheme sends such
+  claims for approval (the default), or `422 over_limit` when it refuses them. Nothing
+  is charged to the limit until HR approves.
+* Events: `hr.medical.enrolled.v1` (accept the member number from `cover_start`),
+  `hr.medical.claim_posted.v1`, `hr.medical.limit_threshold.v1` (80% and 100%) and
+  `hr.medical.cover_ended.v1` (stop accepting the number after `cover_end`). No event or
+  endpoint carries a diagnosis.

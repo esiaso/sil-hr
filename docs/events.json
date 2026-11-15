@@ -2109,6 +2109,251 @@
     }
   },
   {
+    "type": "hr.medical.enrolled.v1",
+    "version": 1,
+    "description": "A member (staff or dependant) joined a medical scheme. Billing systems can start accepting the member number from cover_start.",
+    "subject": "medical member id",
+    "data_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "employee_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "scheme_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "member_number": {
+          "type": "string"
+        },
+        "relationship": {
+          "type": "string",
+          "enum": [
+            "principal",
+            "spouse",
+            "child",
+            "other"
+          ]
+        },
+        "cover_start": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "employee_id",
+        "scheme_id",
+        "member_number",
+        "relationship",
+        "cover_start"
+      ],
+      "additionalProperties": false
+    },
+    "example": {
+      "id": "0199a6b0-0000-7000-8000-0000000000d1",
+      "employee_id": "0199a6b0-0000-7000-8000-0000000000e1",
+      "scheme_id": "0199a6b0-0000-7000-8000-0000000000d0",
+      "member_number": "MED-SIL00042-00",
+      "relationship": "principal",
+      "cover_start": "2026-12-01"
+    }
+  },
+  {
+    "type": "hr.medical.claim_posted.v1",
+    "version": 1,
+    "description": "A claim was posted against a medical limit (no diagnosis is ever recorded).",
+    "subject": "medical member id",
+    "data_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "member_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "member_number": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "scheme_amount": {
+          "type": "string"
+        },
+        "invoice_amount": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "occurred_on": {
+          "type": "string"
+        },
+        "facility": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source": {
+          "type": "string",
+          "enum": [
+            "web",
+            "api",
+            "system"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "member_id",
+        "member_number",
+        "category",
+        "scheme_amount",
+        "invoice_amount",
+        "occurred_on",
+        "facility",
+        "source"
+      ],
+      "additionalProperties": false
+    },
+    "example": {
+      "id": "0199a6b0-0000-7000-8000-0000000000d2",
+      "member_id": "0199a6b0-0000-7000-8000-0000000000d1",
+      "member_number": "MED-SIL00042-00",
+      "category": "outpatient",
+      "scheme_amount": "4500.00",
+      "invoice_amount": "5000.00",
+      "occurred_on": "2026-12-03",
+      "facility": "SIL Hospital OPD",
+      "source": "api"
+    }
+  },
+  {
+    "type": "hr.medical.limit_threshold.v1",
+    "version": 1,
+    "description": "A medical limit reached 80% or 100% of its value for the scheme year.",
+    "subject": "medical member id (the limit holder)",
+    "data_schema": {
+      "type": "object",
+      "properties": {
+        "member_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "employee_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "category": {
+          "type": "string"
+        },
+        "scheme_year": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "threshold": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "utilisation_pct": {
+          "type": "number"
+        },
+        "remaining": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "member_id",
+        "employee_id",
+        "category",
+        "scheme_year",
+        "threshold",
+        "utilisation_pct",
+        "remaining"
+      ],
+      "additionalProperties": false
+    },
+    "example": {
+      "member_id": "0199a6b0-0000-7000-8000-0000000000d1",
+      "employee_id": "0199a6b0-0000-7000-8000-0000000000e1",
+      "category": "outpatient",
+      "scheme_year": 2026,
+      "threshold": 80,
+      "utilisation_pct": 82.5,
+      "remaining": "8750.00"
+    }
+  },
+  {
+    "type": "hr.medical.cover_ended.v1",
+    "version": 1,
+    "description": "A member's cover ended (the employee left, a dependant was removed, or the scheme closed). Stop accepting the member number after cover_end.",
+    "subject": "medical member id",
+    "data_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "employee_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "scheme_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "member_number": {
+          "type": "string"
+        },
+        "cover_end": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "employee_id",
+        "scheme_id",
+        "member_number",
+        "cover_end",
+        "reason"
+      ],
+      "additionalProperties": false
+    },
+    "example": {
+      "id": "0199a6b0-0000-7000-8000-0000000000d1",
+      "employee_id": "0199a6b0-0000-7000-8000-0000000000e1",
+      "scheme_id": "0199a6b0-0000-7000-8000-0000000000d0",
+      "member_number": "MED-SIL00042-00",
+      "cover_end": "2026-12-31",
+      "reason": "Employee left"
+    }
+  },
+  {
     "type": "hr.webhook.test.v1",
     "version": 1,
     "description": "Sent only to one subscription when an administrator presses \"Send test event\".",

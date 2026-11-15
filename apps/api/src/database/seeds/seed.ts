@@ -14,6 +14,7 @@ import { DocumentType } from '../../modules/employees/employee.entities';
 import { seedSampleEmployees } from './sample-employees';
 import { seedLeaveDefaults } from './leave-defaults';
 import { seedPayrollDefaults, seedSamplePayroll } from './payroll-defaults';
+import { seedMedicalDefaults, seedSampleMedical } from './medical-defaults';
 import { ingestSamplePunches, seedSampleAttendance, seedShifts, type SamplePunches } from './sample-attendance';
 import { WebhookSubscription } from '../../modules/webhooks/webhook.entities';
 
@@ -121,6 +122,12 @@ async function seedReference(m: EntityManager): Promise<void> {
       description: 'Sent to the requester when their request is decided',
     },
     {
+      code: 'medical_limit_threshold',
+      subject: '{{name}}: {{category}} cover is at {{threshold}}%',
+      body: '{{name}} has used {{threshold}}% of the {{category}} limit for this scheme year. KES {{remaining}} is left. Claims over the limit need approval.',
+      description: 'Sent to the member and to medical scheme administrators when a limit reaches 80% or 100%',
+    },
+    {
       code: 'payslip_ready',
       subject: 'Your payslip for {{period}} is ready',
       body: 'Your payslip for {{period}} (paid on {{pay_date}}) is ready. Open My payslips in SIL HR to view or download it.',
@@ -145,6 +152,7 @@ async function seedReference(m: EntityManager): Promise<void> {
   await seedLeaveDefaults(m);
   await seedShifts(m);
   await seedPayrollDefaults(m);
+  await seedMedicalDefaults(m);
   for (const d of documentTypes) {
     if (!(await m.getRepository(DocumentType).existsBy({ code: d.code }))) await m.getRepository(DocumentType).save(m.getRepository(DocumentType).create(d));
   }
@@ -220,6 +228,7 @@ const USERS: { username: string; name: string; role: string; scope: DataScope; b
   { username: 'recruiter', name: 'Faith Chebet (Recruiter)', role: 'recruiter', scope: 'organisation' },
   { username: 'employee', name: 'John Kiprono (Employee)', role: 'employee', scope: 'own' },
   { username: 'auditor', name: 'Internal Auditor', role: 'auditor', scope: 'organisation' },
+  { username: 'billing', name: 'Mary Wanjiku (Medical scheme billing)', role: 'medical_billing', scope: 'organisation' },
 ];
 
 async function seedSample(m: EntityManager, app: INestApplicationContext, password: string): Promise<SamplePunches> {
@@ -301,6 +310,7 @@ async function seedSample(m: EntityManager, app: INestApplicationContext, passwo
 
   await seedSampleEmployees(m, app);
   await seedSamplePayroll(m);
+  await seedSampleMedical(m);
   const punches = await seedSampleAttendance(m);
 
   // A sample webhook pointed at the development sink that verifies signatures (compose: webhook-sink).

@@ -2916,6 +2916,454 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/medical/schemes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["MedicalSetup_list"];
+        put?: never;
+        post: operations["MedicalSetup_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/medical/schemes/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["MedicalSetup_get"];
+        put: operations["MedicalSetup_update"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/medical/schemes/{id}/categories": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["MedicalSetup_addCategory"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/medical/schemes/{id}/categories/{cid}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["MedicalSetup_updateCategory"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/medical/schemes/{id}/limit-rules": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["MedicalSetup_addRule"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/medical/schemes/{id}/limit-rules/{rid}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["MedicalSetup_updateRule"];
+        post?: never;
+        delete: operations["MedicalSetup_deleteRule"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/medical/schemes/{id}/contribution-rates": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["MedicalSetup_addRate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/medical/schemes/{id}/contribution-rates/{rid}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["MedicalSetup_updateRate"];
+        post?: never;
+        delete: operations["MedicalSetup_deleteRate"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/me/medical/documents": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Medical_myDocument"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/medical/documents": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Medical_invoice"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/me/medical": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Medical_mine"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/me/medical/applications": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Medical_apply"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/medical/members": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Medical_members"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/medical/members/{id}/ledger": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Medical_ledger"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/medical/members/{id}/adjustments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Medical_adjust"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/medical/applications": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Medical_applications"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/medical/lookup": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Medical_lookup"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/medical/members/{id}/cover": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Medical_cover"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/medical/eligibility": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Medical_eligibility"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/medical/claims": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Medical_claim"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/medical/claims/{id}/reverse": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Medical_reverse"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/medical/holds": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Medical_hold"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/medical/holds/{id}/release": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Medical_release"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/medical/reports/utilisation": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Medical_utilisation"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/medical/reports/near-limit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Medical_nearLimit"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/medical/reports/facilities": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Medical_facilities"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/medical/reports/funding": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Medical_funding"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/medical/reports/export": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Medical_export"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/health": {
         parameters: {
             query?: never;
@@ -8152,7 +8600,7 @@ export interface operations {
                 "application/json": {
                     name: string;
                     description?: string | null;
-                    scopes: ("org:read" | "employees:read" | "employees.sensitive:read" | "scim" | "leave:read" | "attendance:write" | "attendance:read" | "payroll.journal:read" | "events:read" | "external_refs:write" | "documents:read")[];
+                    scopes: ("org:read" | "employees:read" | "employees.sensitive:read" | "scim" | "leave:read" | "attendance:write" | "attendance:read" | "payroll.journal:read" | "medical:read" | "medical:write" | "events:read" | "external_refs:write" | "documents:read")[];
                     /** @default 600 */
                     rate_limit_per_minute?: number;
                 };
@@ -8318,7 +8766,7 @@ export interface operations {
                 "application/json": {
                     name?: string;
                     description?: string | null;
-                    scopes?: ("org:read" | "employees:read" | "employees.sensitive:read" | "scim" | "leave:read" | "attendance:write" | "attendance:read" | "payroll.journal:read" | "events:read" | "external_refs:write" | "documents:read")[];
+                    scopes?: ("org:read" | "employees:read" | "employees.sensitive:read" | "scim" | "leave:read" | "attendance:write" | "attendance:read" | "payroll.journal:read" | "medical:read" | "medical:write" | "events:read" | "external_refs:write" | "documents:read")[];
                     rate_limit_per_minute?: number;
                     is_active?: boolean;
                 };
@@ -13017,7 +13465,7 @@ export interface operations {
                     code: string;
                     name: string;
                     /** @enum {string} */
-                    request_type: "leave_request" | "contact_change" | "attendance_regularisation" | "payroll_run";
+                    request_type: "leave_request" | "contact_change" | "attendance_regularisation" | "payroll_run" | "medical_application";
                     description?: string | null;
                     /** @default {} */
                     conditions?: {
@@ -13140,7 +13588,7 @@ export interface operations {
                     code: string;
                     name: string;
                     /** @enum {string} */
-                    request_type: "leave_request" | "contact_change" | "attendance_regularisation" | "payroll_run";
+                    request_type: "leave_request" | "contact_change" | "attendance_regularisation" | "payroll_run" | "medical_application";
                     description?: string | null;
                     /** @default {} */
                     conditions?: {
@@ -20385,6 +20833,2651 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    MedicalSetup_list: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Schemes staff can join (anyone signed in) */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        code: string;
+                        name: string;
+                        description: string | null;
+                        year_start_month: number;
+                        /** @enum {string} */
+                        unused_limit_policy: "reset" | "carry_over";
+                        carry_over_max_pct: number;
+                        max_dependants: number;
+                        /** @enum {string} */
+                        over_limit_action: "block" | "approval";
+                        contributions_enabled: boolean;
+                        /** @enum {string} */
+                        status: "active" | "inactive";
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    }[];
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    MedicalSetup_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    code: string;
+                    name: string;
+                    description?: string | null;
+                    /** @default 1 */
+                    year_start_month?: number;
+                    /**
+                     * @default reset
+                     * @enum {string}
+                     */
+                    unused_limit_policy?: "reset" | "carry_over";
+                    /** @default 100 */
+                    carry_over_max_pct?: number;
+                    /** @default 5 */
+                    max_dependants?: number;
+                    /**
+                     * @default approval
+                     * @enum {string}
+                     */
+                    over_limit_action?: "block" | "approval";
+                    /** @default false */
+                    contributions_enabled?: boolean;
+                    /**
+                     * @default active
+                     * @enum {string}
+                     */
+                    status?: "active" | "inactive";
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        code: string;
+                        name: string;
+                        description: string | null;
+                        year_start_month: number;
+                        /** @enum {string} */
+                        unused_limit_policy: "reset" | "carry_over";
+                        carry_over_max_pct: number;
+                        max_dependants: number;
+                        /** @enum {string} */
+                        over_limit_action: "block" | "approval";
+                        contributions_enabled: boolean;
+                        /** @enum {string} */
+                        status: "active" | "inactive";
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: medical_setup:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    MedicalSetup_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description With categories, dated limits and contribution rates */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        code: string;
+                        name: string;
+                        description: string | null;
+                        year_start_month: number;
+                        /** @enum {string} */
+                        unused_limit_policy: "reset" | "carry_over";
+                        carry_over_max_pct: number;
+                        max_dependants: number;
+                        /** @enum {string} */
+                        over_limit_action: "block" | "approval";
+                        contributions_enabled: boolean;
+                        /** @enum {string} */
+                        status: "active" | "inactive";
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                        categories: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            scheme_id: string;
+                            code: string;
+                            name: string;
+                            /** @enum {string} */
+                            sharing: "shared" | "per_person";
+                            co_pay_pct: number;
+                            per_visit_cap: string | null;
+                            waiting_days: number;
+                            principal_and_spouse_only: boolean;
+                            sort_order: number;
+                            /** @enum {string} */
+                            status: "active" | "inactive";
+                            version: number;
+                        }[];
+                        limit_rules: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            scheme_id: string;
+                            /** Format: uuid */
+                            category_id: string;
+                            job_grade_id: string | null;
+                            employment_type: ("permanent" | "contract" | "casual" | "locum" | "intern") | null;
+                            annual_limit: string;
+                            dependant_limit: string | null;
+                            /** Format: date */
+                            effective_from: string;
+                            effective_to: string | null;
+                            version: number;
+                        }[];
+                        contribution_rates: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            scheme_id: string;
+                            job_grade_id: string | null;
+                            employment_type: ("permanent" | "contract" | "casual" | "locum" | "intern") | null;
+                            /** @enum {string} */
+                            method: "fixed" | "percent_basic";
+                            value: number;
+                            per_dependant: string;
+                            /** Format: date */
+                            effective_from: string;
+                            effective_to: string | null;
+                            version: number;
+                        }[];
+                    };
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    MedicalSetup_update: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description ETag of the version being changed */
+                "If-Match": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    code: string;
+                    name: string;
+                    description?: string | null;
+                    /** @default 1 */
+                    year_start_month?: number;
+                    /**
+                     * @default reset
+                     * @enum {string}
+                     */
+                    unused_limit_policy?: "reset" | "carry_over";
+                    /** @default 100 */
+                    carry_over_max_pct?: number;
+                    /** @default 5 */
+                    max_dependants?: number;
+                    /**
+                     * @default approval
+                     * @enum {string}
+                     */
+                    over_limit_action?: "block" | "approval";
+                    /** @default false */
+                    contributions_enabled?: boolean;
+                    /**
+                     * @default active
+                     * @enum {string}
+                     */
+                    status?: "active" | "inactive";
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        code: string;
+                        name: string;
+                        description: string | null;
+                        year_start_month: number;
+                        /** @enum {string} */
+                        unused_limit_policy: "reset" | "carry_over";
+                        carry_over_max_pct: number;
+                        max_dependants: number;
+                        /** @enum {string} */
+                        over_limit_action: "block" | "approval";
+                        contributions_enabled: boolean;
+                        /** @enum {string} */
+                        status: "active" | "inactive";
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: medical_setup:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    MedicalSetup_addCategory: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    code: string;
+                    name: string;
+                    /**
+                     * @default shared
+                     * @enum {string}
+                     */
+                    sharing?: "shared" | "per_person";
+                    /** @default 0 */
+                    co_pay_pct?: number;
+                    per_visit_cap?: string | null;
+                    /** @default 0 */
+                    waiting_days?: number;
+                    /** @default false */
+                    principal_and_spouse_only?: boolean;
+                    /** @default 100 */
+                    sort_order?: number;
+                    /**
+                     * @default active
+                     * @enum {string}
+                     */
+                    status?: "active" | "inactive";
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        scheme_id: string;
+                        code: string;
+                        name: string;
+                        /** @enum {string} */
+                        sharing: "shared" | "per_person";
+                        co_pay_pct: number;
+                        per_visit_cap: string | null;
+                        waiting_days: number;
+                        principal_and_spouse_only: boolean;
+                        sort_order: number;
+                        /** @enum {string} */
+                        status: "active" | "inactive";
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: medical_setup:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    MedicalSetup_updateCategory: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description ETag of the version being changed */
+                "If-Match": string;
+            };
+            path: {
+                id: string;
+                cid: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    code: string;
+                    name: string;
+                    /**
+                     * @default shared
+                     * @enum {string}
+                     */
+                    sharing?: "shared" | "per_person";
+                    /** @default 0 */
+                    co_pay_pct?: number;
+                    per_visit_cap?: string | null;
+                    /** @default 0 */
+                    waiting_days?: number;
+                    /** @default false */
+                    principal_and_spouse_only?: boolean;
+                    /** @default 100 */
+                    sort_order?: number;
+                    /**
+                     * @default active
+                     * @enum {string}
+                     */
+                    status?: "active" | "inactive";
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        scheme_id: string;
+                        code: string;
+                        name: string;
+                        /** @enum {string} */
+                        sharing: "shared" | "per_person";
+                        co_pay_pct: number;
+                        per_visit_cap: string | null;
+                        waiting_days: number;
+                        principal_and_spouse_only: boolean;
+                        sort_order: number;
+                        /** @enum {string} */
+                        status: "active" | "inactive";
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: medical_setup:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    MedicalSetup_addRule: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    category_id: string;
+                    job_grade_id?: string | null;
+                    employment_type?: ("permanent" | "contract" | "casual" | "locum" | "intern") | null;
+                    annual_limit: string;
+                    dependant_limit?: string | null;
+                    /** Format: date */
+                    effective_from: string;
+                    effective_to?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description A dated limit; an open-ended limit for the same grade and type closes the day before */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        scheme_id: string;
+                        /** Format: uuid */
+                        category_id: string;
+                        job_grade_id: string | null;
+                        employment_type: ("permanent" | "contract" | "casual" | "locum" | "intern") | null;
+                        annual_limit: string;
+                        dependant_limit: string | null;
+                        /** Format: date */
+                        effective_from: string;
+                        effective_to: string | null;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: medical_setup:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    MedicalSetup_updateRule: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description ETag of the version being changed */
+                "If-Match": string;
+            };
+            path: {
+                id: string;
+                rid: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    category_id: string;
+                    job_grade_id?: string | null;
+                    employment_type?: ("permanent" | "contract" | "casual" | "locum" | "intern") | null;
+                    annual_limit: string;
+                    dependant_limit?: string | null;
+                    /** Format: date */
+                    effective_from: string;
+                    effective_to?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        scheme_id: string;
+                        /** Format: uuid */
+                        category_id: string;
+                        job_grade_id: string | null;
+                        employment_type: ("permanent" | "contract" | "casual" | "locum" | "intern") | null;
+                        annual_limit: string;
+                        dependant_limit: string | null;
+                        /** Format: date */
+                        effective_from: string;
+                        effective_to: string | null;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: medical_setup:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    MedicalSetup_deleteRule: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                rid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Requires: medical_setup:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    MedicalSetup_addRate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    job_grade_id?: string | null;
+                    employment_type?: ("permanent" | "contract" | "casual" | "locum" | "intern") | null;
+                    /** @enum {string} */
+                    method: "fixed" | "percent_basic";
+                    value: number;
+                    /** @default 0.00 */
+                    per_dependant?: string;
+                    /** Format: date */
+                    effective_from: string;
+                    effective_to?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        scheme_id: string;
+                        job_grade_id: string | null;
+                        employment_type: ("permanent" | "contract" | "casual" | "locum" | "intern") | null;
+                        /** @enum {string} */
+                        method: "fixed" | "percent_basic";
+                        value: number;
+                        per_dependant: string;
+                        /** Format: date */
+                        effective_from: string;
+                        effective_to: string | null;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: medical_setup:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    MedicalSetup_updateRate: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description ETag of the version being changed */
+                "If-Match": string;
+            };
+            path: {
+                id: string;
+                rid: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    job_grade_id?: string | null;
+                    employment_type?: ("permanent" | "contract" | "casual" | "locum" | "intern") | null;
+                    /** @enum {string} */
+                    method: "fixed" | "percent_basic";
+                    value: number;
+                    /** @default 0.00 */
+                    per_dependant?: string;
+                    /** Format: date */
+                    effective_from: string;
+                    effective_to?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        scheme_id: string;
+                        job_grade_id: string | null;
+                        employment_type: ("permanent" | "contract" | "casual" | "locum" | "intern") | null;
+                        /** @enum {string} */
+                        method: "fixed" | "percent_basic";
+                        value: number;
+                        per_dependant: string;
+                        /** Format: date */
+                        effective_from: string;
+                        effective_to: string | null;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: medical_setup:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    MedicalSetup_deleteRate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                rid: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Requires: medical_setup:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Medical_myDocument: {
+        parameters: {
+            query: {
+                title: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": {
+                    /** Format: binary */
+                    file: string;
+                    title?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description A sensitive document owned by you; quote its id in document_ids */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        title: string;
+                    };
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Medical_invoice: {
+        parameters: {
+            query: {
+                title: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": {
+                    /** Format: binary */
+                    file: string;
+                    title?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Quote the id as document_id on the claim */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        title: string;
+                    };
+                };
+            };
+            /** @description Requires: medical_claim:write */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Medical_mine: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        memberships: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            scheme_id: string;
+                            scheme_name: string;
+                            /** Format: uuid */
+                            employee_id: string;
+                            staff_number: string;
+                            principal_member_id: string | null;
+                            member_number: string;
+                            name: string;
+                            /** @enum {string} */
+                            relationship: "principal" | "spouse" | "child" | "other";
+                            date_of_birth: string | null;
+                            /** Format: date */
+                            cover_start: string;
+                            cover_end: string | null;
+                            /** @enum {string} */
+                            status: "active" | "ended";
+                            department: string | null;
+                            balances: {
+                                /** Format: uuid */
+                                category_id: string;
+                                category_code: string;
+                                category_name: string;
+                                /** @enum {string} */
+                                sharing: "shared" | "per_person";
+                                /** Format: uuid */
+                                pool_member_id: string;
+                                scheme_year: number;
+                                limit: string;
+                                top_ups: string;
+                                carried_over: string;
+                                used: string;
+                                held: string;
+                                remaining: string;
+                                utilisation_pct: number;
+                                co_pay_pct: number;
+                                per_visit_cap: string | null;
+                                waiting_until: string | null;
+                                eligible: boolean;
+                            }[];
+                            holds: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                member_id: string;
+                                category_code: string;
+                                amount: string;
+                                /** Format: date */
+                                expires_on: string;
+                                reference: string | null;
+                                /** Format: date-time */
+                                created_at: string;
+                            }[];
+                            family: {
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                scheme_id: string;
+                                scheme_name: string;
+                                /** Format: uuid */
+                                employee_id: string;
+                                staff_number: string;
+                                principal_member_id: string | null;
+                                member_number: string;
+                                name: string;
+                                /** @enum {string} */
+                                relationship: "principal" | "spouse" | "child" | "other";
+                                date_of_birth: string | null;
+                                /** Format: date */
+                                cover_start: string;
+                                cover_end: string | null;
+                                /** @enum {string} */
+                                status: "active" | "ended";
+                            }[];
+                        }[];
+                        applications: {
+                            /** Format: uuid */
+                            id: string;
+                            number: string;
+                            /** @enum {string} */
+                            kind: "enrol" | "add_dependant" | "remove_dependant" | "top_up" | "pre_auth" | "over_limit_claim";
+                            /** Format: uuid */
+                            scheme_id: string;
+                            scheme_name: string;
+                            /** Format: uuid */
+                            employee_id: string;
+                            employee_name: string;
+                            member_id: string | null;
+                            member_name: string | null;
+                            category_id: string | null;
+                            category_name: string | null;
+                            amount: string | null;
+                            effective_date: string | null;
+                            details: {
+                                [key: string]: unknown;
+                            };
+                            document_ids: string[];
+                            reason: string | null;
+                            /** @enum {string} */
+                            status: "pending" | "approved" | "rejected" | "returned" | "cancelled";
+                            decision_comment: string | null;
+                            workflow_instance_id: string | null;
+                            /** Format: date-time */
+                            created_at: string;
+                        }[];
+                    };
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Medical_apply: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @constant */
+                    kind: "enrol";
+                    /** Format: uuid */
+                    scheme_id: string;
+                    /** Format: date */
+                    effective_date?: string;
+                    /** @default [] */
+                    dependants?: {
+                        name: string;
+                        /** @enum {string} */
+                        relationship: "spouse" | "child" | "other";
+                        /** Format: date */
+                        date_of_birth: string;
+                        gender?: ("female" | "male" | "other" | "undisclosed") | null;
+                    }[];
+                    /** @default [] */
+                    document_ids?: string[];
+                    reason?: string | null;
+                } | {
+                    /** @constant */
+                    kind: "add_dependant";
+                    /** Format: uuid */
+                    scheme_id: string;
+                    /** Format: date */
+                    effective_date?: string;
+                    dependant: {
+                        name: string;
+                        /** @enum {string} */
+                        relationship: "spouse" | "child" | "other";
+                        /** Format: date */
+                        date_of_birth: string;
+                        gender?: ("female" | "male" | "other" | "undisclosed") | null;
+                    };
+                    document_ids: string[];
+                    reason?: string | null;
+                } | {
+                    /** @constant */
+                    kind: "remove_dependant";
+                    /** Format: uuid */
+                    scheme_id: string;
+                    /** Format: uuid */
+                    member_id: string;
+                    /** Format: date */
+                    effective_date?: string;
+                    reason: string;
+                } | {
+                    /** @constant */
+                    kind: "top_up";
+                    /** Format: uuid */
+                    scheme_id: string;
+                    /** Format: uuid */
+                    member_id: string;
+                    /** Format: uuid */
+                    category_id: string;
+                    amount: string;
+                    /** @default [] */
+                    document_ids?: string[];
+                    reason: string;
+                } | {
+                    /** @constant */
+                    kind: "pre_auth";
+                    /** Format: uuid */
+                    scheme_id: string;
+                    /** Format: uuid */
+                    member_id: string;
+                    /** Format: uuid */
+                    category_id: string;
+                    amount: string;
+                    /** Format: date */
+                    planned_date: string;
+                    facility: string;
+                    procedure: string;
+                    /** @default [] */
+                    document_ids?: string[];
+                    reason?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Goes to the medical scheme approval workflow (HR officer, then HR manager) */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** @enum {string} */
+                        kind: "enrol" | "add_dependant" | "remove_dependant" | "top_up" | "pre_auth" | "over_limit_claim";
+                        /** Format: uuid */
+                        scheme_id: string;
+                        scheme_name: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        member_id: string | null;
+                        member_name: string | null;
+                        category_id: string | null;
+                        category_name: string | null;
+                        amount: string | null;
+                        effective_date: string | null;
+                        details: {
+                            [key: string]: unknown;
+                        };
+                        document_ids: string[];
+                        reason: string | null;
+                        /** @enum {string} */
+                        status: "pending" | "approved" | "rejected" | "returned" | "cancelled";
+                        decision_comment: string | null;
+                        workflow_instance_id: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                    };
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Medical_members: {
+        parameters: {
+            query?: {
+                scheme_id?: string;
+                search?: string;
+                status?: "active" | "ended";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        scheme_id: string;
+                        scheme_name: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        staff_number: string;
+                        principal_member_id: string | null;
+                        member_number: string;
+                        name: string;
+                        /** @enum {string} */
+                        relationship: "principal" | "spouse" | "child" | "other";
+                        date_of_birth: string | null;
+                        /** Format: date */
+                        cover_start: string;
+                        cover_end: string | null;
+                        /** @enum {string} */
+                        status: "active" | "ended";
+                    }[];
+                };
+            };
+            /** @description Requires: medical:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Medical_ledger: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Usage of the member and their family, newest first */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        member_id: string;
+                        member_name: string;
+                        category_code: string;
+                        scheme_year: number;
+                        /** @enum {string} */
+                        entry_type: "claim" | "reversal" | "adjustment" | "top_up" | "carry_over" | "hold" | "hold_release";
+                        amount: string;
+                        invoice_amount: string | null;
+                        member_share: string | null;
+                        /** Format: date */
+                        occurred_on: string;
+                        facility: string | null;
+                        department: string | null;
+                        invoice_ref: string | null;
+                        external_ref: string | null;
+                        /** @enum {string} */
+                        source: "web" | "api" | "system";
+                        reverses_id: string | null;
+                        reversed: boolean;
+                        hold_id: string | null;
+                        expires_on: string | null;
+                        reason: string | null;
+                        document_id: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                    }[];
+                };
+            };
+            /** @description Requires: medical:lookup */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Medical_adjust: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    category_id: string;
+                    amount: string;
+                    reason: string;
+                    scheme_year?: number;
+                };
+            };
+        };
+        responses: {
+            /** @description A positive amount uses limit, a negative one gives it back; the reason is required */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        member_id: string;
+                        member_name: string;
+                        category_code: string;
+                        scheme_year: number;
+                        /** @enum {string} */
+                        entry_type: "claim" | "reversal" | "adjustment" | "top_up" | "carry_over" | "hold" | "hold_release";
+                        amount: string;
+                        invoice_amount: string | null;
+                        member_share: string | null;
+                        /** Format: date */
+                        occurred_on: string;
+                        facility: string | null;
+                        department: string | null;
+                        invoice_ref: string | null;
+                        external_ref: string | null;
+                        /** @enum {string} */
+                        source: "web" | "api" | "system";
+                        reverses_id: string | null;
+                        reversed: boolean;
+                        hold_id: string | null;
+                        expires_on: string | null;
+                        reason: string | null;
+                        document_id: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                    };
+                };
+            };
+            /** @description Requires: medical_setup:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Medical_applications: {
+        parameters: {
+            query?: {
+                status?: "pending" | "approved" | "rejected" | "returned" | "cancelled";
+                employee_id?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** @enum {string} */
+                        kind: "enrol" | "add_dependant" | "remove_dependant" | "top_up" | "pre_auth" | "over_limit_claim";
+                        /** Format: uuid */
+                        scheme_id: string;
+                        scheme_name: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        member_id: string | null;
+                        member_name: string | null;
+                        category_id: string | null;
+                        category_name: string | null;
+                        amount: string | null;
+                        effective_date: string | null;
+                        details: {
+                            [key: string]: unknown;
+                        };
+                        document_ids: string[];
+                        reason: string | null;
+                        /** @enum {string} */
+                        status: "pending" | "approved" | "rejected" | "returned" | "cancelled";
+                        decision_comment: string | null;
+                        workflow_instance_id: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                    }[];
+                };
+            };
+            /** @description Requires: medical:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Medical_lookup: {
+        parameters: {
+            query: {
+                q: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description By member number, staff number or name (staff or dependant). Audited. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        scheme_id: string;
+                        scheme_name: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        staff_number: string;
+                        principal_member_id: string | null;
+                        member_number: string;
+                        name: string;
+                        /** @enum {string} */
+                        relationship: "principal" | "spouse" | "child" | "other";
+                        date_of_birth: string | null;
+                        /** Format: date */
+                        cover_start: string;
+                        cover_end: string | null;
+                        /** @enum {string} */
+                        status: "active" | "ended";
+                    }[];
+                };
+            };
+            /** @description Requires: medical:lookup */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Medical_cover: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Cover, remaining limits and active holds. No pay or HR data. Audited. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        scheme_id: string;
+                        scheme_name: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        staff_number: string;
+                        principal_member_id: string | null;
+                        member_number: string;
+                        name: string;
+                        /** @enum {string} */
+                        relationship: "principal" | "spouse" | "child" | "other";
+                        date_of_birth: string | null;
+                        /** Format: date */
+                        cover_start: string;
+                        cover_end: string | null;
+                        /** @enum {string} */
+                        status: "active" | "ended";
+                        department: string | null;
+                        balances: {
+                            /** Format: uuid */
+                            category_id: string;
+                            category_code: string;
+                            category_name: string;
+                            /** @enum {string} */
+                            sharing: "shared" | "per_person";
+                            /** Format: uuid */
+                            pool_member_id: string;
+                            scheme_year: number;
+                            limit: string;
+                            top_ups: string;
+                            carried_over: string;
+                            used: string;
+                            held: string;
+                            remaining: string;
+                            utilisation_pct: number;
+                            co_pay_pct: number;
+                            per_visit_cap: string | null;
+                            waiting_until: string | null;
+                            eligible: boolean;
+                        }[];
+                        holds: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            member_id: string;
+                            category_code: string;
+                            amount: string;
+                            /** Format: date */
+                            expires_on: string;
+                            reference: string | null;
+                            /** Format: date-time */
+                            created_at: string;
+                        }[];
+                        family: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            scheme_id: string;
+                            scheme_name: string;
+                            /** Format: uuid */
+                            employee_id: string;
+                            staff_number: string;
+                            principal_member_id: string | null;
+                            member_number: string;
+                            name: string;
+                            /** @enum {string} */
+                            relationship: "principal" | "spouse" | "child" | "other";
+                            date_of_birth: string | null;
+                            /** Format: date */
+                            cover_start: string;
+                            cover_end: string | null;
+                            /** @enum {string} */
+                            status: "active" | "ended";
+                        }[];
+                    };
+                };
+            };
+            /** @description Requires: medical:lookup */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Medical_eligibility: {
+        parameters: {
+            query?: {
+                member_number?: string;
+                member_id?: string;
+                category_code?: string;
+                on?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description For billing systems: is this member covered (for this category) on this date, and how much is left? */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        eligible: boolean;
+                        reason: string | null;
+                        member: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            scheme_id: string;
+                            scheme_name: string;
+                            /** Format: uuid */
+                            employee_id: string;
+                            staff_number: string;
+                            principal_member_id: string | null;
+                            member_number: string;
+                            name: string;
+                            /** @enum {string} */
+                            relationship: "principal" | "spouse" | "child" | "other";
+                            date_of_birth: string | null;
+                            /** Format: date */
+                            cover_start: string;
+                            cover_end: string | null;
+                            /** @enum {string} */
+                            status: "active" | "ended";
+                        } | null;
+                        balances: {
+                            /** Format: uuid */
+                            category_id: string;
+                            category_code: string;
+                            category_name: string;
+                            /** @enum {string} */
+                            sharing: "shared" | "per_person";
+                            /** Format: uuid */
+                            pool_member_id: string;
+                            scheme_year: number;
+                            limit: string;
+                            top_ups: string;
+                            carried_over: string;
+                            used: string;
+                            held: string;
+                            remaining: string;
+                            utilisation_pct: number;
+                            co_pay_pct: number;
+                            per_visit_cap: string | null;
+                            waiting_until: string | null;
+                            eligible: boolean;
+                        }[];
+                    };
+                };
+            };
+            /** @description Requires: medical:lookup */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Medical_claim: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    member_id?: string;
+                    member_number?: string;
+                    category_code: string;
+                    /** Format: date */
+                    occurred_on: string;
+                    invoice_amount: string;
+                    facility: string;
+                    department?: string | null;
+                    invoice_ref: string;
+                    external_ref?: string;
+                    /** Format: uuid */
+                    hold_id?: string;
+                    /** Format: uuid */
+                    document_id?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Posted, or sent for approval when over the limit or inside a waiting period (scheme setting). Send an Idempotency-Key. */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        status: "posted" | "pending_approval";
+                        claim: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            member_id: string;
+                            member_name: string;
+                            category_code: string;
+                            scheme_year: number;
+                            /** @enum {string} */
+                            entry_type: "claim" | "reversal" | "adjustment" | "top_up" | "carry_over" | "hold" | "hold_release";
+                            amount: string;
+                            invoice_amount: string | null;
+                            member_share: string | null;
+                            /** Format: date */
+                            occurred_on: string;
+                            facility: string | null;
+                            department: string | null;
+                            invoice_ref: string | null;
+                            external_ref: string | null;
+                            /** @enum {string} */
+                            source: "web" | "api" | "system";
+                            reverses_id: string | null;
+                            reversed: boolean;
+                            hold_id: string | null;
+                            expires_on: string | null;
+                            reason: string | null;
+                            document_id: string | null;
+                            /** Format: date-time */
+                            created_at: string;
+                        } | null;
+                        application_id: string | null;
+                        remaining: string;
+                        message: string | null;
+                    };
+                };
+            };
+            /** @description Requires: medical_claim:write */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Medical_reverse: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            /** @description A reversal entry; the claim itself never changes */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        member_id: string;
+                        member_name: string;
+                        category_code: string;
+                        scheme_year: number;
+                        /** @enum {string} */
+                        entry_type: "claim" | "reversal" | "adjustment" | "top_up" | "carry_over" | "hold" | "hold_release";
+                        amount: string;
+                        invoice_amount: string | null;
+                        member_share: string | null;
+                        /** Format: date */
+                        occurred_on: string;
+                        facility: string | null;
+                        department: string | null;
+                        invoice_ref: string | null;
+                        external_ref: string | null;
+                        /** @enum {string} */
+                        source: "web" | "api" | "system";
+                        reverses_id: string | null;
+                        reversed: boolean;
+                        hold_id: string | null;
+                        expires_on: string | null;
+                        reason: string | null;
+                        document_id: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                    };
+                };
+            };
+            /** @description Requires: medical_claim:write */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Medical_hold: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    member_id?: string;
+                    member_number?: string;
+                    category_code: string;
+                    amount: string;
+                    /** Format: date */
+                    expires_on: string;
+                    external_ref?: string;
+                    reason?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Holds an amount of the limit until it is claimed, released or expires */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        member_id: string;
+                        member_name: string;
+                        category_code: string;
+                        scheme_year: number;
+                        /** @enum {string} */
+                        entry_type: "claim" | "reversal" | "adjustment" | "top_up" | "carry_over" | "hold" | "hold_release";
+                        amount: string;
+                        invoice_amount: string | null;
+                        member_share: string | null;
+                        /** Format: date */
+                        occurred_on: string;
+                        facility: string | null;
+                        department: string | null;
+                        invoice_ref: string | null;
+                        external_ref: string | null;
+                        /** @enum {string} */
+                        source: "web" | "api" | "system";
+                        reverses_id: string | null;
+                        reversed: boolean;
+                        hold_id: string | null;
+                        expires_on: string | null;
+                        reason: string | null;
+                        document_id: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                    };
+                };
+            };
+            /** @description Requires: medical_claim:write */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Medical_release: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        member_id: string;
+                        member_name: string;
+                        category_code: string;
+                        scheme_year: number;
+                        /** @enum {string} */
+                        entry_type: "claim" | "reversal" | "adjustment" | "top_up" | "carry_over" | "hold" | "hold_release";
+                        amount: string;
+                        invoice_amount: string | null;
+                        member_share: string | null;
+                        /** Format: date */
+                        occurred_on: string;
+                        facility: string | null;
+                        department: string | null;
+                        invoice_ref: string | null;
+                        external_ref: string | null;
+                        /** @enum {string} */
+                        source: "web" | "api" | "system";
+                        reverses_id: string | null;
+                        reversed: boolean;
+                        hold_id: string | null;
+                        expires_on: string | null;
+                        reason: string | null;
+                        document_id: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                    };
+                };
+            };
+            /** @description Requires: medical_claim:write */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Medical_utilisation: {
+        parameters: {
+            query: {
+                scheme_id: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        scheme: string;
+                        category: string;
+                        department: string | null;
+                        members: number;
+                        limit: string;
+                        used: string;
+                        held: string;
+                        utilisation_pct: number;
+                    }[];
+                };
+            };
+            /** @description Requires: medical:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Medical_nearLimit: {
+        parameters: {
+            query?: {
+                threshold?: number;
+                scheme_id?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        member_number: string;
+                        name: string;
+                        staff_number: string;
+                        department: string | null;
+                        scheme: string;
+                        category: string;
+                        limit: string;
+                        used: string;
+                        remaining: string;
+                        utilisation_pct: number;
+                    }[];
+                };
+            };
+            /** @description Requires: medical:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Medical_facilities: {
+        parameters: {
+            query: {
+                from: string;
+                to: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        facility: string;
+                        claims: number;
+                        invoiced: string;
+                        scheme_paid: string;
+                        member_paid: string;
+                    }[];
+                };
+            };
+            /** @description Requires: medical:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Medical_funding: {
+        parameters: {
+            query: {
+                from: string;
+                to: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Per month: claims paid by the hospital and staff contributions from approved payrolls */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        period: string;
+                        hospital_share: string;
+                        staff_contributions: string;
+                        claims: number;
+                    }[];
+                };
+            };
+            /** @description Requires: medical:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Medical_export: {
+        parameters: {
+            query: {
+                report: "utilisation" | "near_limit" | "facilities" | "funding";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Requires: medical:read */
+            403: {
                 headers: {
                     [name: string]: unknown;
                 };

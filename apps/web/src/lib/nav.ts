@@ -14,7 +14,7 @@ export interface NavGroup {
 }
 
 export const NAV: NavGroup[] = [
-  { label: 'Home', items: [{ label: 'Dashboard', href: '/' }, { label: 'My profile', href: '/me' }, { label: 'My leave', href: '/leave' }, { label: 'Clock in / my attendance', href: '/attendance/me' }, { label: 'My payslips', href: '/me/payslips' }, { label: 'Approvals', href: '/approvals' }, { label: 'Staff directory', href: '/directory', permission: 'directory:read' }] },
+  { label: 'Home', items: [{ label: 'Dashboard', href: '/' }, { label: 'My profile', href: '/me' }, { label: 'My leave', href: '/leave' }, { label: 'Clock in / my attendance', href: '/attendance/me' }, { label: 'My payslips', href: '/me/payslips' }, { label: 'My medical cover', href: '/medical' }, { label: 'Approvals', href: '/approvals' }, { label: 'Staff directory', href: '/directory', permission: 'directory:read' }] },
   {
     label: 'People',
     items: [
@@ -48,6 +48,15 @@ export const NAV: NavGroup[] = [
       { label: 'Payroll runs', href: '/payroll', permission: 'payroll:read' },
       { label: 'Pay and loans', href: '/payroll/people', permission: 'salary:read' },
       { label: 'Payroll setup', href: '/payroll/setup', permission: 'salary:read' },
+    ],
+  },
+  {
+    label: 'Medical scheme',
+    items: [
+      { label: 'Billing desk', href: '/medical/billing', permission: 'medical:lookup' },
+      { label: 'Members and applications', href: '/medical/members', permission: 'medical:read' },
+      { label: 'Reports', href: '/medical/reports', permission: 'medical:read' },
+      { label: 'Scheme setup', href: '/medical/setup', permission: 'medical_setup:manage' },
     ],
   },
   {

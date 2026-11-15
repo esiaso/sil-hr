@@ -40,6 +40,8 @@ const COMPONENTS: Partial<PayComponent>[] = [
   { code: 'SACCO', name: 'SACCO contribution', kind: 'deduction', method: 'fixed', taxable: false, prorate: false, sortOrder: 65 },
   { code: 'WELFARE', name: 'Staff welfare', kind: 'deduction', method: 'fixed', taxable: false, prorate: false, sortOrder: 66 },
   { code: 'RECOVERY', name: 'Overpayment recovery', kind: 'deduction', method: 'fixed', taxable: false, prorate: false, sortOrder: 67 },
+  // Staff contributions to the hospital medical scheme, added by the medical module when contributions are on.
+  { code: 'MEDICAL', name: 'Medical scheme contribution', kind: 'deduction', method: 'fixed', taxable: false, prorate: false, isSystem: true, sortOrder: 68 },
   { code: 'MEDICAL_BENEFIT', name: 'Medical cover (taxable benefit)', kind: 'benefit', method: 'fixed', taxable: true, prorate: false, sortOrder: 30 },
 ];
 

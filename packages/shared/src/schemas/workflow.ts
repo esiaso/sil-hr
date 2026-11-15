@@ -11,6 +11,7 @@ export const REQUEST_TYPES = {
   contact_change: 'Self-service contact change',
   attendance_regularisation: 'Attendance correction (missed clock-in or clock-out)',
   payroll_run: 'Payroll run approval',
+  medical_application: 'Medical scheme application (joining, dependants, top-ups, pre-authorisations, over-limit claims)',
 } as const;
 export type RequestType = keyof typeof REQUEST_TYPES;
 export const REQUEST_TYPE_CODES = Object.keys(REQUEST_TYPES) as RequestType[];

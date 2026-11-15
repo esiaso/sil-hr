@@ -77,6 +77,11 @@ export const PERMISSIONS = {
   'salary:read': 'View salaries, pay items and loans',
   'salary:manage': 'Set salaries, pay items, loans and one-off items',
   'payroll.journal:read': 'Read payroll journals (finance systems)',
+  // medical scheme
+  'medical:read': 'View scheme members, applications, usage and reports',
+  'medical_setup:manage': 'Define medical schemes, categories, limits and contribution rates; adjust limits',
+  'medical:lookup': 'Look up a member’s cover and remaining limits (billing; no pay or HR data)',
+  'medical_claim:write': 'Record claims, holds and reversals against medical limits',
 } as const;
 
 export type PermissionCode = keyof typeof PERMISSIONS;
@@ -91,6 +96,7 @@ export const PERMISSION_GROUPS: { label: string; prefixes: string[] }[] = [
   { label: 'Workflow & leave', prefixes: ['workflow', 'leave', 'leave_setup'] },
   { label: 'Time & attendance', prefixes: ['shift', 'roster', 'attendance', 'clock_event', 'connector'] },
   { label: 'Payroll', prefixes: ['payroll', 'payroll_setup', 'salary', 'payroll.journal'] },
+  { label: 'Medical scheme', prefixes: ['medical', 'medical_setup', 'medical_claim'] },
   { label: 'Integration', prefixes: ['api_client', 'webhook', 'event', 'system', 'scim'] },
 ];
 
@@ -112,6 +118,8 @@ export const CLIENT_SCOPES: Record<string, { description: string; permissions: P
   'attendance:write': { description: 'Post clock events (POST /clock-events)', permissions: ['clock_event:write'] },
   'attendance:read': { description: 'Daily attendance, rosters and timesheets', permissions: ['attendance:read', 'roster:read'] },
   'payroll.journal:read': { description: 'Payroll journals per approved run (GET /payroll/runs/{id}/journal)', permissions: ['payroll.journal:read'] },
+  'medical:read': { description: 'Medical cover: eligibility and remaining limits by member number', permissions: ['medical:lookup'] },
+  'medical:write': { description: 'Medical billing: place holds, post and reverse claims (HMIS)', permissions: ['medical:lookup', 'medical_claim:write'] },
   'events:read': { description: 'Event catalogue', permissions: ['event:read'] },
   'external_refs:write': { description: 'Map this system’s identifiers onto HR records', permissions: ['external_ref:read', 'external_ref:manage'] },
   'documents:read': { description: 'Download documents', permissions: ['document:read'] },
@@ -130,7 +138,7 @@ export const SYSTEM_ROLES: {
     code: 'hr_manager',
     name: 'HR Manager',
     description: 'Owns organisation structure and HR records',
-    permissions: ['payroll:read', 'salary:read', 'shift:manage', 'roster:read', 'roster:manage', 'attendance:read', 'attendance:manage', 'connector:manage', 'workflow:manage', 'workflow:read', 'leave:read', 'leave:apply_for_others', 'leave:adjust', 'leave_setup:manage', 'employee:read', 'employee:hire', 'employee:update', 'employee:lifecycle', 'employee.sensitive:read', 'licence:read', 'licence:manage', 'licence:verify', 'document_type:manage', 'employee_document:verify', 'directory:read', 'import_export:run', 'contact_change:decide', 
+    permissions: ['medical:read', 'medical_setup:manage', 'medical:lookup', 'payroll:read', 'salary:read', 'shift:manage', 'roster:read', 'roster:manage', 'attendance:read', 'attendance:manage', 'connector:manage', 'workflow:manage', 'workflow:read', 'leave:read', 'leave:apply_for_others', 'leave:adjust', 'leave_setup:manage', 'employee:read', 'employee:hire', 'employee:update', 'employee:lifecycle', 'employee.sensitive:read', 'licence:read', 'licence:manage', 'licence:verify', 'document_type:manage', 'employee_document:verify', 'directory:read', 'import_export:run', 'contact_change:decide', 
       'organisation:read', 'organisation:update', 'branch:read', 'branch:manage', 'department:read', 'department:manage',
       'cost_centre:read', 'cost_centre:manage', 'job_grade:read', 'job_grade:manage', 'position:read', 'position:manage',
       'user:read', 'role:read', 'audit:read', 'setting:read', 'numbering:read', 'numbering:manage',
@@ -141,7 +149,7 @@ export const SYSTEM_ROLES: {
     code: 'hr_officer',
     name: 'HR Officer',
     description: 'Day-to-day HR administration within their scope',
-    permissions: ['roster:read', 'roster:manage', 'attendance:read', 'attendance:manage', 'workflow:read', 'leave:read', 'leave:apply_for_others', 'leave:adjust', 'employee:read', 'employee:hire', 'employee:update', 'employee:lifecycle', 'licence:read', 'licence:manage', 'licence:verify', 'employee_document:verify', 'directory:read', 'contact_change:decide', 
+    permissions: ['medical:read', 'medical:lookup', 'roster:read', 'roster:manage', 'attendance:read', 'attendance:manage', 'workflow:read', 'leave:read', 'leave:apply_for_others', 'leave:adjust', 'employee:read', 'employee:hire', 'employee:update', 'employee:lifecycle', 'licence:read', 'licence:manage', 'licence:verify', 'employee_document:verify', 'directory:read', 'contact_change:decide', 
       'organisation:read', 'branch:read', 'department:read', 'department:manage', 'cost_centre:read', 'job_grade:read',
       'position:read', 'position:manage', 'document:read', 'document:write', 'setting:read', 'numbering:read',
     ],
@@ -175,6 +183,12 @@ export const SYSTEM_ROLES: {
     name: 'Recruiter',
     description: 'Runs recruitment',
     permissions: ['directory:read', 'organisation:read', 'branch:read', 'department:read', 'job_grade:read', 'position:read', 'document:read', 'document:write'],
+  },
+  {
+    code: 'medical_billing',
+    name: 'Medical scheme billing',
+    description: 'Looks up staff cover and records claims; sees no pay or HR records',
+    permissions: ['medical:lookup', 'medical_claim:write'],
   },
   {
     code: 'employee',

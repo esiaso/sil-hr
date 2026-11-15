@@ -39,9 +39,20 @@ const dayBefore = (d: string) => new Date(Date.parse(`${d}T00:00:00Z`) - 86_400_
 const daysBetween = (a: string, b: string) => Math.round((Date.parse(`${b}T00:00:00Z`) - Date.parse(`${a}T00:00:00Z`)) / 86_400_000) + 1;
 export const prevPeriod = (p: string) => { const [y, m] = p.split('-').map(Number); return m === 1 ? `${y - 1}-12` : `${y}-${String(m - 1).padStart(2, '0')}`; };
 
+/**
+ * Other modules add pay items for a person and month (e.g. medical scheme contributions).
+ * Items come back as one-off lines: the provider decides amounts from its own dated data.
+ */
+export type PayItemsProvider = (m: EntityManager, e: Employee, period: { period: string; start: string; end: string; from: string; to: string }, basicMonthly: number) => Promise<CalcOneOff[]>;
+
 @Injectable()
 export class PayrollService implements OnModuleInit {
   private readonly logger = new Logger('Payroll');
+  private readonly providers: PayItemsProvider[] = [];
+
+  registerItemsProvider(fn: PayItemsProvider): void {
+    this.providers.push(fn);
+  }
 
   constructor(
     @InjectDataSource() private readonly dataSource: DataSource,
@@ -470,6 +481,8 @@ export class PayrollService implements OnModuleInit {
           const c = byId.get(o.componentId)!;
           return { code: c.code, name: c.name, kind: c.kind, amount: Number(o.amount), taxable: c.taxable, pensionable: c.pensionable, treatment: c.taxTreatment, note: o.note };
         });
+
+        for (const p of this.providers) oneOffs.push(...(await p(m, e, { period: run.period, start: run.periodStart, end: run.periodEnd, from, to }, Number(salaries[0].basic))));
 
         const otRows: { day_type: string; minutes: number }[] = await m.query(
           `SELECT day_type, sum(overtime_minutes)::int AS minutes FROM attendance_day WHERE employee_id = $1 AND work_date BETWEEN $2 AND $3 AND overtime_minutes > 0 GROUP BY 1`, [e.id, from, to],
