@@ -279,6 +279,27 @@ export const EVENT_CATALOGUE = [
     example: { id: '0199a6b0-0000-7000-8000-0000000000a1', number: 'PR/2026/11', period: '2026-11', paid_at: '2026-11-27T09:12:00Z' },
   },
   {
+    type: 'hr.employee.promoted.v1',
+    description: 'An approved promotion: a new position (and usually grade and pay) from effective_from. Transfers without promotion publish hr.employee.transferred.v1.',
+    subject: 'employee id',
+    schema: z.object({ id, staff_number: z.string(), position_id: id, previous_position_id: id.nullable(), job_grade_id: id.nullable(), effective_from: z.string() }),
+    example: { id: E1, staff_number: 'SIL00042', position_id: P1, previous_position_id: null, job_grade_id: null, effective_from: '2027-01-01' },
+  },
+  {
+    type: 'hr.contract.expiring.v1',
+    description: 'A fixed-term contract ends within the reminder window (Settings, contracts.reminder_days). Sent once per contract.',
+    subject: 'employee id',
+    schema: z.object({ contract_id: id, employee_id: id, staff_number: z.string(), end_date: z.string(), days_left: z.number().int() }),
+    example: { contract_id: '0199a6b0-0000-7000-8000-0000000000c9', employee_id: E1, staff_number: 'SIL00042', end_date: '2027-01-31', days_left: 60 },
+  },
+  {
+    type: 'hr.employee.offboarding_started.v1',
+    description: 'An exit was approved: the last working day is known. IT, facilities and other systems can plan handover; access ends at hr.employee.exited.v1.',
+    subject: 'employee id',
+    schema: z.object({ id, staff_number: z.string(), exit_date: z.string(), exit_kind: z.string() }),
+    example: { id: E1, staff_number: 'SIL00042', exit_date: '2026-12-31', exit_kind: 'resignation' },
+  },
+  {
     type: 'hr.medical.enrolled.v1',
     description: 'A member (staff or dependant) joined a medical scheme. Billing systems can start accepting the member number from cover_start.',
     subject: 'medical member id',

@@ -69,6 +69,8 @@ export const SETTINGS = {
   'attendance.early_leave_grace_minutes': def({ schema: z.number().int().min(0).max(240), default: 0, type: 'number', description: 'Minutes before the shift end someone may leave without counting as early' }),
   'attendance.half_day_min_hours': def({ schema: z.number().min(1).max(12), default: 4, type: 'number', description: 'Worked hours below which a day counts as a half day' }),
   'attendance.self_clock_enabled': def({ schema: z.boolean(), default: true, type: 'boolean', description: 'Staff may clock in and out from the web app or a phone' }),
+  'contracts.reminder_days': def({ schema: z.number().int().min(1).max(365), default: 60, type: 'number', description: 'Days before a fixed-term contract ends that HR is reminded to renew or end it' }),
+  'lifecycle.leave_pay_days_divisor': def({ schema: z.number().min(20).max(31), default: 22, type: 'number', description: 'Working days in a month used to pay out unused leave at exit (basic ÷ this × days)' }),
   'payroll.proration_basis': def({ schema: z.enum(['working_days', 'calendar_days']), default: 'working_days', type: 'string', description: 'How joiners, leavers and unpaid leave are prorated: working days in the month (less public holidays) or calendar days' }),
   'payroll.monthly_hours': def({ schema: z.number().min(100).max(300), default: 195, type: 'number', description: 'Hours in a month for the overtime hourly rate (basic ÷ hours); 195 = 45 hours a week' }),
   'payroll.pay_day': def({ schema: z.number().int().min(0).max(31), default: 0, type: 'number', description: 'Day of the month salaries are paid; 0 = the last working day' }),

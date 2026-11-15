@@ -16,3 +16,6 @@ process.env.PUBLIC_BASE_URL = 'http://localhost:3310';
 delete process.env.SAMPLE_WEBHOOK_URL;
 // Background work is driven explicitly by the tests (as the worker does), never on timers.
 process.env.JOBS_MODE = 'queue';
+// Exit clearance asks a mock sil_procurement (started by lifecycle.spec.ts).
+process.env.PROCUREMENT_API_URL = 'http://127.0.0.1:39125';
+process.env.PROCUREMENT_API_KEY = 'test-hr-key';

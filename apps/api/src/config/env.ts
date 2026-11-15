@@ -42,6 +42,9 @@ export interface Env {
     forcePathStyle: boolean;
   };
   maxUploadMb: number;
+  /** sil_procurement base URL and API key (scope "hr") for exit clearance; empty disables the check. */
+  procurementUrl: string | null;
+  procurementApiKey: string | null;
   smtpUrl: string | null;
   mailFrom: string;
   eventStream: string;
@@ -113,6 +116,8 @@ export function loadEnv(source: NodeJS.ProcessEnv = process.env, useCache = true
       forcePathStyle: bool(e.S3_FORCE_PATH_STYLE, true),
     },
     maxUploadMb: int(e.MAX_UPLOAD_MB, 20),
+    procurementUrl: e.PROCUREMENT_API_URL ? e.PROCUREMENT_API_URL.replace(/\/$/, '') : null,
+    procurementApiKey: e.PROCUREMENT_API_KEY || null,
     smtpUrl: e.SMTP_URL || null,
     mailFrom: e.MAIL_FROM ?? 'SIL HR <hr@localhost>',
     eventStream: e.EVENT_STREAM ?? 'silhr:events',

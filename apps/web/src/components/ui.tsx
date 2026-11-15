@@ -68,6 +68,19 @@ export function Card({ children, className }: { children: ReactNode; className?:
 }
 
 const BADGE: Record<string, string> = {
+  "needed before exit": "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300",
+  "items held": "bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300",
+  "cleared": "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300",
+  "ready": "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300",
+  "not cleared": "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300",
+  "submitted": "bg-sky-100 text-sky-800 dark:bg-sky-900/40 dark:text-sky-300",
+  "posted": "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300",
+  "restricted": "bg-violet-100 text-violet-800 dark:bg-violet-900/40 dark:text-violet-300",
+  "renewed": "bg-sky-100 text-sky-800 dark:bg-sky-900/40 dark:text-sky-300",
+  "overdue": "bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300",
+  "met": "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300",
+  "not_met": "bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300",
+  "open": "bg-sky-100 text-sky-800 dark:bg-sky-900/40 dark:text-sky-300",
   "not covered": "bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-300",
   "used up": "bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300",
   "near limit": "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300",

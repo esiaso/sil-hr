@@ -77,3 +77,12 @@ export function scopeAllows(filter: ScopeFilter, row: { branchId?: string | null
     (!!row.employeeId && filter.employeeIds.includes(row.employeeId))
   );
 }
+
+/**
+ * Organisation-wide access for work done on someone's behalf after an approval (the
+ * approver's decision is the authority; the engine has already checked who may approve).
+ */
+export function systemAccess(actorId: string, actorName = 'approval', permissions: readonly string[]): AccessProfile {
+  const grants = new Map<string, Grant[]>(permissions.map((p) => [p, [{ scope: 'organisation' as DataScope, branchId: null, departmentId: null }]]));
+  return new AccessProfile('user', actorId, actorName, null, grants);
+}

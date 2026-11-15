@@ -252,17 +252,19 @@ export class PayrollService implements OnModuleInit {
     };
   }
 
-  async setSalary(access: AccessProfile, employeeId: string, dto: Dto<typeof setSalary>) {
-    const e = await this.employeeOr404(employeeId);
+  async setSalary(access: AccessProfile, employeeId: string, dto: Dto<typeof setSalary>, outer?: EntityManager) {
+    const e = await this.employeeOr404(employeeId, outer);
     await this.assertScope(access, 'salary:manage', e);
-    await this.dataSource.transaction(async (m) => {
+    const work = async (m: EntityManager) => {
       await this.assertOpen(m, dto.effective_from, 'A salary');
       const repo = m.getRepository(EmployeeSalary);
       // Later rows are replaced; the row in force is closed the day before.
       await repo.createQueryBuilder().delete().where('employee_id = :id AND effective_from >= :d', { id: employeeId, d: dto.effective_from }).execute();
       await m.query(`UPDATE employee_salary SET effective_to = $3, updated_at = now(), version = version + 1 WHERE employee_id = $1 AND effective_from < $2 AND (effective_to IS NULL OR effective_to >= $2)`, [employeeId, dto.effective_from, dayBefore(dto.effective_from)]);
       await repo.save(repo.create({ employeeId, basic: dto.basic, effectiveFrom: dto.effective_from, effectiveTo: null, reason: dto.reason ?? null }));
-    });
+    };
+    if (outer) { await work(outer); return null; }
+    await this.dataSource.transaction(work);
     return this.employeePay(access, employeeId);
   }
 

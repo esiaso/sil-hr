@@ -249,7 +249,22 @@ export class LeaveService implements OnModuleInit {
     return { days: Math.round(detail.reduce((a, d) => a + d.days, 0) * 100) / 100, detail };
   }
 
-  /** For payroll proration: working days between two dates on the organisation's week, less public holidays. */
+/** At exit: the annual leave still available this leave year (days). */
+  async annualAvailableAt(m: EntityManager, employeeId: string, date: string): Promise<{ leaveTypeId: string | null; year: number; days: number }> {
+    const type = await m.getRepository(LeaveType).findOneBy({ code: 'annual' });
+    const year = leaveYearOf(date, await this.settings.get('leave.year_start_month', m));
+    if (!type) return { leaveTypeId: null, year, days: 0 };
+    const [{ total }] = await m.query(`SELECT coalesce(sum(days), 0)::float AS total FROM leave_ledger WHERE employee_id = $1 AND leave_type_id = $2 AND leave_year = $3`, [employeeId, type.id, year]);
+    return { leaveTypeId: type.id, year, days: Math.max(0, Math.round(Number(total) * 100) / 100) };
+  }
+
+  /** At exit: pays out unused annual leave by removing it from the balance (encashment). */
+  async encashAtExit(m: EntityManager, employeeId: string, leaveTypeId: string, year: number, days: number, date: string, actor: string | null): Promise<void> {
+    if (days <= 0) return;
+    await this.post(m, { employeeId, leaveTypeId, leaveYear: year }, 'encashment', -days, date, { note: 'Paid out at exit', actor });
+  }
+
+    /** For payroll proration: working days between two dates on the organisation's week, less public holidays. */
   async workingDaysBetween(m: EntityManager, branchId: string | null, from: string, to: string): Promise<number> {
     if (to < from) return 0;
     const workingDays = await this.settings.get('calendar.working_days', m);

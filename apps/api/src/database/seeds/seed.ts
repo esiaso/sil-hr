@@ -15,6 +15,7 @@ import { seedSampleEmployees } from './sample-employees';
 import { seedLeaveDefaults } from './leave-defaults';
 import { seedPayrollDefaults, seedSamplePayroll } from './payroll-defaults';
 import { seedMedicalDefaults, seedSampleMedical } from './medical-defaults';
+import { seedLifecycleDefaults, seedSampleContracts } from './lifecycle-defaults';
 import { ingestSamplePunches, seedSampleAttendance, seedShifts, type SamplePunches } from './sample-attendance';
 import { WebhookSubscription } from '../../modules/webhooks/webhook.entities';
 
@@ -122,6 +123,30 @@ async function seedReference(m: EntityManager): Promise<void> {
       description: 'Sent to the requester when their request is decided',
     },
     {
+      code: 'checklist_tasks_assigned',
+      subject: '{{kind}} tasks for {{name}}',
+      body: 'There are {{kind}} tasks for {{name}} for your team. Open My tasks in SIL HR.',
+      description: 'Sent to each team with tasks when an onboarding or offboarding checklist starts',
+    },
+    {
+      code: 'contract_expiring',
+      subject: '{{name}}: contract ends {{end_date}}',
+      body: "{{name}}'s contract ends on {{end_date}} ({{days_left}} days). Renew it or plan the exit.",
+      description: 'Sent to contract managers once per fixed-term contract nearing its end',
+    },
+    {
+      code: 'relations_case_opened',
+      subject: 'A {{kind}} has been recorded: {{subject}}',
+      body: 'A {{kind}} has been recorded on your file: {{subject}}. Open it in SIL HR to read it and acknowledge it.',
+      description: 'Sent to an employee when a warning, improvement plan or award is recorded',
+    },
+    {
+      code: 'relations_complaint_raised',
+      subject: 'New complaint {{number}}',
+      body: 'A member of staff raised complaint {{number}}. Only the people named on it can see it.',
+      description: 'Sent to HR managers when staff raise a grievance',
+    },
+    {
       code: 'medical_limit_threshold',
       subject: '{{name}}: {{category}} cover is at {{threshold}}%',
       body: '{{name}} has used {{threshold}}% of the {{category}} limit for this scheme year. KES {{remaining}} is left. Claims over the limit need approval.',
@@ -153,6 +178,7 @@ async function seedReference(m: EntityManager): Promise<void> {
   await seedShifts(m);
   await seedPayrollDefaults(m);
   await seedMedicalDefaults(m);
+  await seedLifecycleDefaults(m);
   for (const d of documentTypes) {
     if (!(await m.getRepository(DocumentType).existsBy({ code: d.code }))) await m.getRepository(DocumentType).save(m.getRepository(DocumentType).create(d));
   }
@@ -229,6 +255,8 @@ const USERS: { username: string; name: string; role: string; scope: DataScope; b
   { username: 'employee', name: 'John Kiprono (Employee)', role: 'employee', scope: 'own' },
   { username: 'auditor', name: 'Internal Auditor', role: 'auditor', scope: 'organisation' },
   { username: 'billing', name: 'Mary Wanjiku (Medical scheme billing)', role: 'medical_billing', scope: 'organisation' },
+  { username: 'it.support', name: 'Kevin Otieno (IT support)', role: 'it_support', scope: 'organisation' },
+  { username: 'facilities', name: 'Ruth Akinyi (Facilities)', role: 'facilities', scope: 'organisation' },
 ];
 
 async function seedSample(m: EntityManager, app: INestApplicationContext, password: string): Promise<SamplePunches> {
@@ -311,6 +339,7 @@ async function seedSample(m: EntityManager, app: INestApplicationContext, passwo
   await seedSampleEmployees(m, app);
   await seedSamplePayroll(m);
   await seedSampleMedical(m);
+  await seedSampleContracts(m);
   const punches = await seedSampleAttendance(m);
 
   // A sample webhook pointed at the development sink that verifies signatures (compose: webhook-sink).

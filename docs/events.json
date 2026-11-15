@@ -2109,6 +2109,159 @@
     }
   },
   {
+    "type": "hr.employee.promoted.v1",
+    "version": 1,
+    "description": "An approved promotion: a new position (and usually grade and pay) from effective_from. Transfers without promotion publish hr.employee.transferred.v1.",
+    "subject": "employee id",
+    "data_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "staff_number": {
+          "type": "string"
+        },
+        "position_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "previous_position_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "job_grade_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "effective_from": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "staff_number",
+        "position_id",
+        "previous_position_id",
+        "job_grade_id",
+        "effective_from"
+      ],
+      "additionalProperties": false
+    },
+    "example": {
+      "id": "0199a6b0-0000-7000-8000-0000000000e1",
+      "staff_number": "SIL00042",
+      "position_id": "0199a6b0-0000-7000-8000-0000000000f1",
+      "previous_position_id": null,
+      "job_grade_id": null,
+      "effective_from": "2027-01-01"
+    }
+  },
+  {
+    "type": "hr.contract.expiring.v1",
+    "version": 1,
+    "description": "A fixed-term contract ends within the reminder window (Settings, contracts.reminder_days). Sent once per contract.",
+    "subject": "employee id",
+    "data_schema": {
+      "type": "object",
+      "properties": {
+        "contract_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "employee_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "staff_number": {
+          "type": "string"
+        },
+        "end_date": {
+          "type": "string"
+        },
+        "days_left": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "contract_id",
+        "employee_id",
+        "staff_number",
+        "end_date",
+        "days_left"
+      ],
+      "additionalProperties": false
+    },
+    "example": {
+      "contract_id": "0199a6b0-0000-7000-8000-0000000000c9",
+      "employee_id": "0199a6b0-0000-7000-8000-0000000000e1",
+      "staff_number": "SIL00042",
+      "end_date": "2027-01-31",
+      "days_left": 60
+    }
+  },
+  {
+    "type": "hr.employee.offboarding_started.v1",
+    "version": 1,
+    "description": "An exit was approved: the last working day is known. IT, facilities and other systems can plan handover; access ends at hr.employee.exited.v1.",
+    "subject": "employee id",
+    "data_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "staff_number": {
+          "type": "string"
+        },
+        "exit_date": {
+          "type": "string"
+        },
+        "exit_kind": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "staff_number",
+        "exit_date",
+        "exit_kind"
+      ],
+      "additionalProperties": false
+    },
+    "example": {
+      "id": "0199a6b0-0000-7000-8000-0000000000e1",
+      "staff_number": "SIL00042",
+      "exit_date": "2026-12-31",
+      "exit_kind": "resignation"
+    }
+  },
+  {
     "type": "hr.medical.enrolled.v1",
     "version": 1,
     "description": "A member (staff or dependant) joined a medical scheme. Billing systems can start accepting the member number from cover_start.",

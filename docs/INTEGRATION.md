@@ -268,7 +268,7 @@ tests, until the owning team confirms them.
 
 | System | Assumption | Status |
 |---|---|---|
-| Procurement → HR: assets held by an employee (exit clearance) | `GET /api/v1/assets?custodianEmployeeId=` on procurement, with HR's employee id stored as the custodian. Today procurement stores the custodian as **its own user id plus free text**, and has no such query. | **Needs procurement change** (slice 6) |
+| Procurement → HR: what a leaver still holds (exit clearance) | `GET {PROCUREMENT_API_URL}/api/v1/integration/hr/staff/{staff_number}/exit-clearance` with `x-api-key` (scope `hr`): assets in custody, unretired advances, petty cash floats, `cleared` and `blockers`. Procurement matches HR's staff number to its users' `employeeNo`. | **Implemented** against procurement's main branch (slice 6); needs the key and employee numbers set in production |
 | HR → procurement: staff, departments, cost centres, approvers | Procurement consumes HR events / API and maps its `department.code` and `cost_centre_code` to HR's codes via `external_ref`. | To agree with the procurement team |
 | ZKTeco BioTime (pull) | `POST /jwt-api-token-auth/`, then `GET /iclock/api/transactions/?start_time=&end_time=&page=` (BioTime 8 personnel API). `punch_state` 0 = in, 1 = out. | **Needs a trial against the hospital's BioTime** |
 | ZKTeco devices (ADMS push) | Device server set to SIL HR; `POST /iclock/cdata?SN=…&table=ATTLOG` with tab-separated `PIN, time, state` lines. | **Needs a trial with the hospital's model and firmware** |

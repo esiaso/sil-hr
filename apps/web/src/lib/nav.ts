@@ -14,7 +14,7 @@ export interface NavGroup {
 }
 
 export const NAV: NavGroup[] = [
-  { label: 'Home', items: [{ label: 'Dashboard', href: '/' }, { label: 'My profile', href: '/me' }, { label: 'My leave', href: '/leave' }, { label: 'Clock in / my attendance', href: '/attendance/me' }, { label: 'My payslips', href: '/me/payslips' }, { label: 'My medical cover', href: '/medical' }, { label: 'Approvals', href: '/approvals' }, { label: 'Staff directory', href: '/directory', permission: 'directory:read' }] },
+  { label: 'Home', items: [{ label: 'Dashboard', href: '/' }, { label: 'My profile', href: '/me' }, { label: 'My leave', href: '/leave' }, { label: 'Clock in / my attendance', href: '/attendance/me' }, { label: 'My payslips', href: '/me/payslips' }, { label: 'My medical cover', href: '/medical' }, { label: 'My tasks', href: '/lifecycle/tasks' }, { label: 'My HR file', href: '/lifecycle/relations' }, { label: 'Approvals', href: '/approvals' }, { label: 'Staff directory', href: '/directory', permission: 'directory:read' }] },
   {
     label: 'People',
     items: [
@@ -40,6 +40,16 @@ export const NAV: NavGroup[] = [
       { label: 'Rosters', href: '/attendance/rosters', permission: 'roster:read' },
       { label: 'Shifts', href: '/attendance/shifts', permission: 'shift:manage' },
       { label: 'Overtime rules', href: '/attendance/overtime', permission: 'attendance:read' },
+    ],
+  },
+  {
+    label: 'Lifecycle',
+    items: [
+      { label: 'Contracts', href: '/lifecycle/contracts', permission: 'contract:read' },
+      { label: 'Promotions and changes', href: '/lifecycle/changes', permission: 'lifecycle:request' },
+      { label: 'Onboarding and offboarding', href: '/lifecycle/checklists', permission: 'checklist:manage' },
+      { label: 'Exits', href: '/lifecycle/exits', permission: 'exit:manage' },
+      { label: 'Letters', href: '/lifecycle/letters', permission: 'letter:issue' },
     ],
   },
   {

@@ -13,6 +13,7 @@ import { EMPLOYEE_ENTITIES } from '../modules/employees/employee.entities';
 import { ATTENDANCE_ENTITIES } from '../modules/attendance/attendance.entities';
 import { PAYROLL_ENTITIES } from '../modules/payroll/payroll.entities';
 import { MEDICAL_ENTITIES } from '../modules/medical/medical.entities';
+import { LIFECYCLE_ENTITIES } from '../modules/lifecycle/lifecycle.entities';
 import { LEAVE_ENTITIES } from '../modules/leave/leave.entities';
 import { WORKFLOW_ENTITIES } from '../modules/workflow/workflow.entities';
 import { EmailOutbox, Notification, NotificationTemplate } from '../modules/notifications/notifications.module';
@@ -46,6 +47,7 @@ export const ENTITIES = [
   ...ATTENDANCE_ENTITIES,
   ...PAYROLL_ENTITIES,
   ...MEDICAL_ENTITIES,
+  ...LIFECYCLE_ENTITIES,
 ];
 
 export function typeOrmOptions(overrides: Partial<DataSourceOptions> = {}): DataSourceOptions {

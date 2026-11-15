@@ -252,8 +252,9 @@ export class EmployeesService implements OnModuleInit {
     }
   }
 
-  async changeStatus(access: AccessProfile, id: string, dto: ChangeStatus): Promise<EmployeeDto> {
-    return this.dataSource.transaction(async (m) => {
+  async changeStatus(access: AccessProfile, id: string, dto: ChangeStatus, outer?: EntityManager): Promise<EmployeeDto> {
+    const run = (fn: (m: EntityManager) => Promise<EmployeeDto>) => (outer ? fn(outer) : this.dataSource.transaction(fn));
+    return run(async (m) => {
       const e = await this.load(access, id, 'employee:lifecycle', m, true);
       const from = e.status;
       if (from === dto.status) throw conflict('no_change', `Already ${from}`);
@@ -283,8 +284,9 @@ export class EmployeesService implements OnModuleInit {
    * before, a new one starts. The current fields follow at once if the date has come,
    * otherwise when the daily job reaches it.
    */
-  async transfer(access: AccessProfile, id: string, dto: TransferEmployee): Promise<EmployeeDto> {
-    return this.dataSource.transaction(async (m) => {
+  async transfer(access: AccessProfile, id: string, dto: TransferEmployee, outer?: EntityManager): Promise<EmployeeDto> {
+    const run = (fn: (m: EntityManager) => Promise<EmployeeDto>) => (outer ? fn(outer) : this.dataSource.transaction(fn));
+    return run(async (m) => {
       const e = await this.load(access, id, 'employee:lifecycle', m, true);
       if (e.status === 'exited') throw conflict('employee_exited', 'This person has left');
       const place = await this.placement(m, dto.position_id);

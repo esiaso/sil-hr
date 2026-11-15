@@ -3364,6 +3364,358 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/contracts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Lifecycle_contracts"];
+        put?: never;
+        post: operations["Lifecycle_createContract"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/me/contracts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Lifecycle_myContracts"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/lifecycle-requests": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Lifecycle_requests"];
+        put?: never;
+        post: operations["Lifecycle_createRequest"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/checklist-templates": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Lifecycle_templates"];
+        put?: never;
+        post: operations["Lifecycle_createTemplate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/checklist-templates/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["Lifecycle_updateTemplate"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/checklists": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Lifecycle_checklists"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/employees/{id}/checklists/{kind}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Lifecycle_start"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/me/checklist-tasks": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Lifecycle_myTasks"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/checklist-tasks/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["Lifecycle_updateTask"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/exit-clearances": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Lifecycle_clearances"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/employees/{id}/exit-clearance": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Lifecycle_clearance"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/employees/{id}/exit-clearance/procurement-check": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Lifecycle_check"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/employees/{id}/exit-clearance/final-dues": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Lifecycle_finalDues"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/employees/{id}/exit-clearance/complete": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Lifecycle_complete"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/relations-cases": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Relations_list"];
+        put?: never;
+        post: operations["Relations_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/relations-cases/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Relations_get"];
+        put: operations["Relations_update"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/relations-cases/{id}/notes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Relations_note"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/relations-cases/{id}/acknowledge": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Relations_ack"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/me/complaints": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Relations_raise"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/letter-templates": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Letters_templates"];
+        put?: never;
+        post: operations["Letters_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/letter-templates/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["Letters_update"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/letters": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Letters_issued"];
+        put?: never;
+        post: operations["Letters_issue"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/health": {
         parameters: {
             query?: never;
@@ -13465,7 +13817,7 @@ export interface operations {
                     code: string;
                     name: string;
                     /** @enum {string} */
-                    request_type: "leave_request" | "contact_change" | "attendance_regularisation" | "payroll_run" | "medical_application";
+                    request_type: "leave_request" | "contact_change" | "attendance_regularisation" | "payroll_run" | "lifecycle_change" | "medical_application";
                     description?: string | null;
                     /** @default {} */
                     conditions?: {
@@ -13588,7 +13940,7 @@ export interface operations {
                     code: string;
                     name: string;
                     /** @enum {string} */
-                    request_type: "leave_request" | "contact_change" | "attendance_regularisation" | "payroll_run" | "medical_application";
+                    request_type: "leave_request" | "contact_change" | "attendance_regularisation" | "payroll_run" | "lifecycle_change" | "medical_application";
                     description?: string | null;
                     /** @default {} */
                     conditions?: {
@@ -23477,6 +23829,2628 @@ export interface operations {
         requestBody?: never;
         responses: {
             /** @description Requires: medical:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    Lifecycle_contracts: {
+        parameters: {
+            query?: {
+                employee_id?: string;
+                expiring_within_days?: number;
+                status?: "draft" | "active" | "ended" | "renewed" | "terminated";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name?: string;
+                        staff_number?: string;
+                        /** @enum {string} */
+                        contract_type: "permanent" | "fixed_term" | "probation" | "locum" | "internship" | "casual";
+                        position_id: string | null;
+                        position_title?: string | null;
+                        /** Format: date */
+                        start_date: string;
+                        end_date: string | null;
+                        probation_months: number | null;
+                        notice_days: number;
+                        basic: string | null;
+                        terms: string | null;
+                        document_id: string | null;
+                        /** @enum {string} */
+                        status: "draft" | "active" | "ended" | "renewed" | "terminated";
+                        renewed_from_id: string | null;
+                        days_left: number | null;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    }[];
+                };
+            };
+            /** @description Requires: contract:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Lifecycle_createContract: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    employee_id: string;
+                    /** @enum {string} */
+                    contract_type: "permanent" | "fixed_term" | "probation" | "locum" | "internship" | "casual";
+                    position_id?: string | null;
+                    /** Format: date */
+                    start_date: string;
+                    end_date?: string | null;
+                    probation_months?: number | null;
+                    /** @default 30 */
+                    notice_days?: number;
+                    basic?: string | null;
+                    terms?: string | null;
+                    document_id?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description A new contract; the one in force ends the day before it starts. Renewals go through POST /lifecycle-requests. */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name?: string;
+                        staff_number?: string;
+                        /** @enum {string} */
+                        contract_type: "permanent" | "fixed_term" | "probation" | "locum" | "internship" | "casual";
+                        position_id: string | null;
+                        position_title?: string | null;
+                        /** Format: date */
+                        start_date: string;
+                        end_date: string | null;
+                        probation_months: number | null;
+                        notice_days: number;
+                        basic: string | null;
+                        terms: string | null;
+                        document_id: string | null;
+                        /** @enum {string} */
+                        status: "draft" | "active" | "ended" | "renewed" | "terminated";
+                        renewed_from_id: string | null;
+                        days_left: number | null;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: contract:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Lifecycle_myContracts: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name?: string;
+                        staff_number?: string;
+                        /** @enum {string} */
+                        contract_type: "permanent" | "fixed_term" | "probation" | "locum" | "internship" | "casual";
+                        position_id: string | null;
+                        position_title?: string | null;
+                        /** Format: date */
+                        start_date: string;
+                        end_date: string | null;
+                        probation_months: number | null;
+                        notice_days: number;
+                        basic: string | null;
+                        terms: string | null;
+                        document_id: string | null;
+                        /** @enum {string} */
+                        status: "draft" | "active" | "ended" | "renewed" | "terminated";
+                        renewed_from_id: string | null;
+                        days_left: number | null;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    }[];
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Lifecycle_requests: {
+        parameters: {
+            query?: {
+                employee_id?: string;
+                status?: "pending" | "approved" | "rejected" | "returned" | "cancelled";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** @enum {string} */
+                        kind: "promotion" | "transfer" | "confirmation" | "contract_renewal" | "resignation" | "termination" | "final_dues";
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        /** Format: date */
+                        effective_date: string;
+                        details: {
+                            [key: string]: unknown;
+                        };
+                        reason: string | null;
+                        /** @enum {string} */
+                        status: "pending" | "approved" | "rejected" | "returned" | "cancelled";
+                        decision_comment: string | null;
+                        workflow_instance_id: string | null;
+                        result: {
+                            [key: string]: unknown;
+                        } | null;
+                        /** Format: date-time */
+                        created_at: string;
+                    }[];
+                };
+            };
+            /** @description Requires: lifecycle:request */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Lifecycle_createRequest: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @constant */
+                    kind: "promotion";
+                    /** Format: uuid */
+                    employee_id: string;
+                    /** Format: date */
+                    effective_date: string;
+                    /** Format: uuid */
+                    position_id: string;
+                    manager_id?: string | null;
+                    new_basic?: string | null;
+                    reason: string;
+                } | {
+                    /** @constant */
+                    kind: "transfer";
+                    /** Format: uuid */
+                    employee_id: string;
+                    /** Format: date */
+                    effective_date: string;
+                    /** Format: uuid */
+                    position_id: string;
+                    manager_id?: string | null;
+                    reason: string;
+                } | {
+                    /** @constant */
+                    kind: "confirmation";
+                    /** Format: uuid */
+                    employee_id: string;
+                    /** Format: date */
+                    effective_date: string;
+                    reason: string;
+                } | {
+                    /** @constant */
+                    kind: "contract_renewal";
+                    /** Format: uuid */
+                    employee_id: string;
+                    /** Format: date */
+                    effective_date: string;
+                    end_date?: string | null;
+                    /**
+                     * @default fixed_term
+                     * @enum {string}
+                     */
+                    contract_type?: "permanent" | "fixed_term" | "probation" | "locum" | "internship" | "casual";
+                    new_basic?: string | null;
+                    notice_days?: number;
+                    reason: string;
+                } | {
+                    /** @constant */
+                    kind: "resignation";
+                    /** Format: uuid */
+                    employee_id: string;
+                    /** Format: date */
+                    effective_date: string;
+                    /** Format: date */
+                    notice_given_on: string;
+                    document_id?: string | null;
+                    reason: string;
+                } | {
+                    /** @constant */
+                    kind: "termination";
+                    /** Format: uuid */
+                    employee_id: string;
+                    /** Format: date */
+                    effective_date: string;
+                    /**
+                     * @default termination
+                     * @enum {string}
+                     */
+                    exit_kind?: "termination" | "contract_end" | "retirement" | "death" | "other";
+                    /** @default false */
+                    pay_notice_in_lieu?: boolean;
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Promotion, transfer, confirmation, contract renewal, resignation or termination; goes to the LIFECYCLE approval workflow */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** @enum {string} */
+                        kind: "promotion" | "transfer" | "confirmation" | "contract_renewal" | "resignation" | "termination" | "final_dues";
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        /** Format: date */
+                        effective_date: string;
+                        details: {
+                            [key: string]: unknown;
+                        };
+                        reason: string | null;
+                        /** @enum {string} */
+                        status: "pending" | "approved" | "rejected" | "returned" | "cancelled";
+                        decision_comment: string | null;
+                        workflow_instance_id: string | null;
+                        result: {
+                            [key: string]: unknown;
+                        } | null;
+                        /** Format: date-time */
+                        created_at: string;
+                    };
+                };
+            };
+            /** @description Requires: lifecycle:request */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Lifecycle_templates: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        code: string;
+                        name: string;
+                        /** @enum {string} */
+                        kind: "onboarding" | "offboarding";
+                        employment_types: string[];
+                        is_default: boolean;
+                        /** @enum {string} */
+                        status: "active" | "inactive";
+                        tasks: {
+                            /** Format: uuid */
+                            id: string;
+                            title: string;
+                            description?: string | null;
+                            /** @enum {string} */
+                            assignee: "hr" | "it" | "facilities" | "finance" | "line_manager" | "employee";
+                            /** @default 0 */
+                            due_offset_days: number;
+                            /** @default false */
+                            blocks_exit: boolean;
+                        }[];
+                        version: number;
+                    }[];
+                };
+            };
+            /** @description Requires: checklist:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Lifecycle_createTemplate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    code: string;
+                    name: string;
+                    /** @enum {string} */
+                    kind: "onboarding" | "offboarding";
+                    /** @default [] */
+                    employment_types?: string[];
+                    /** @default false */
+                    is_default?: boolean;
+                    /**
+                     * @default active
+                     * @enum {string}
+                     */
+                    status?: "active" | "inactive";
+                    tasks: {
+                        /** Format: uuid */
+                        id?: string;
+                        title: string;
+                        description?: string | null;
+                        /** @enum {string} */
+                        assignee: "hr" | "it" | "facilities" | "finance" | "line_manager" | "employee";
+                        /** @default 0 */
+                        due_offset_days?: number;
+                        /** @default false */
+                        blocks_exit?: boolean;
+                    }[];
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        code: string;
+                        name: string;
+                        /** @enum {string} */
+                        kind: "onboarding" | "offboarding";
+                        employment_types: string[];
+                        is_default: boolean;
+                        /** @enum {string} */
+                        status: "active" | "inactive";
+                        tasks: {
+                            /** Format: uuid */
+                            id: string;
+                            title: string;
+                            description?: string | null;
+                            /** @enum {string} */
+                            assignee: "hr" | "it" | "facilities" | "finance" | "line_manager" | "employee";
+                            /** @default 0 */
+                            due_offset_days: number;
+                            /** @default false */
+                            blocks_exit: boolean;
+                        }[];
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: checklist:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Lifecycle_updateTemplate: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description ETag of the version being changed */
+                "If-Match": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    code: string;
+                    name: string;
+                    /** @enum {string} */
+                    kind: "onboarding" | "offboarding";
+                    /** @default [] */
+                    employment_types?: string[];
+                    /** @default false */
+                    is_default?: boolean;
+                    /**
+                     * @default active
+                     * @enum {string}
+                     */
+                    status?: "active" | "inactive";
+                    tasks: {
+                        /** Format: uuid */
+                        id?: string;
+                        title: string;
+                        description?: string | null;
+                        /** @enum {string} */
+                        assignee: "hr" | "it" | "facilities" | "finance" | "line_manager" | "employee";
+                        /** @default 0 */
+                        due_offset_days?: number;
+                        /** @default false */
+                        blocks_exit?: boolean;
+                    }[];
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        code: string;
+                        name: string;
+                        /** @enum {string} */
+                        kind: "onboarding" | "offboarding";
+                        employment_types: string[];
+                        is_default: boolean;
+                        /** @enum {string} */
+                        status: "active" | "inactive";
+                        tasks: {
+                            /** Format: uuid */
+                            id: string;
+                            title: string;
+                            description?: string | null;
+                            /** @enum {string} */
+                            assignee: "hr" | "it" | "facilities" | "finance" | "line_manager" | "employee";
+                            /** @default 0 */
+                            due_offset_days: number;
+                            /** @default false */
+                            blocks_exit: boolean;
+                        }[];
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: checklist:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Lifecycle_checklists: {
+        parameters: {
+            query?: {
+                status?: "open" | "completed" | "cancelled";
+                kind?: "onboarding" | "offboarding";
+                employee_id?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        /** @enum {string} */
+                        kind: "onboarding" | "offboarding";
+                        /** Format: date */
+                        anchor_date: string;
+                        /** @enum {string} */
+                        status: "open" | "completed" | "cancelled";
+                        done: number;
+                        total: number;
+                        overdue: number;
+                        tasks: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            checklist_id: string;
+                            seq: number;
+                            title: string;
+                            description: string | null;
+                            /** @enum {string} */
+                            assignee: "hr" | "it" | "facilities" | "finance" | "line_manager" | "employee";
+                            /** Format: date */
+                            due_date: string;
+                            blocks_exit: boolean;
+                            /** @enum {string} */
+                            status: "open" | "done" | "not_applicable";
+                            done_by_name: string | null;
+                            done_at: string | null;
+                            note: string | null;
+                            /** Format: uuid */
+                            employee_id?: string;
+                            employee_name?: string;
+                            /** @enum {string} */
+                            kind?: "onboarding" | "offboarding";
+                        }[];
+                        /** Format: date-time */
+                        created_at: string;
+                    }[];
+                };
+            };
+            /** @description Requires: checklist:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Lifecycle_start: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+                kind: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Starts a checklist by hand (onboarding starts by itself for new hires; offboarding when an exit is approved) */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                    };
+                };
+            };
+            /** @description Requires: checklist:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Lifecycle_myTasks: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Open tasks for your teams, your direct reports and yourself */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        checklist_id: string;
+                        seq: number;
+                        title: string;
+                        description: string | null;
+                        /** @enum {string} */
+                        assignee: "hr" | "it" | "facilities" | "finance" | "line_manager" | "employee";
+                        /** Format: date */
+                        due_date: string;
+                        blocks_exit: boolean;
+                        /** @enum {string} */
+                        status: "open" | "done" | "not_applicable";
+                        done_by_name: string | null;
+                        done_at: string | null;
+                        note: string | null;
+                        /** Format: uuid */
+                        employee_id?: string;
+                        employee_name?: string;
+                        /** @enum {string} */
+                        kind?: "onboarding" | "offboarding";
+                    }[];
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Lifecycle_updateTask: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @enum {string} */
+                    status: "open" | "done" | "not_applicable";
+                    note?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        checklist_id: string;
+                        seq: number;
+                        title: string;
+                        description: string | null;
+                        /** @enum {string} */
+                        assignee: "hr" | "it" | "facilities" | "finance" | "line_manager" | "employee";
+                        /** Format: date */
+                        due_date: string;
+                        blocks_exit: boolean;
+                        /** @enum {string} */
+                        status: "open" | "done" | "not_applicable";
+                        done_by_name: string | null;
+                        done_at: string | null;
+                        note: string | null;
+                        /** Format: uuid */
+                        employee_id?: string;
+                        employee_name?: string;
+                        /** @enum {string} */
+                        kind?: "onboarding" | "offboarding";
+                    };
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Lifecycle_clearances: {
+        parameters: {
+            query?: {
+                open?: "true" | "false";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        /** Format: date */
+                        exit_date: string;
+                        /** @enum {string} */
+                        exit_kind: "resignation" | "termination" | "contract_end" | "retirement" | "death" | "other";
+                        notice_days: number;
+                        notice_served_days: number;
+                        procurement: {
+                            reachable: boolean;
+                            error: string | null;
+                            cleared: boolean | null;
+                            blockers: string[];
+                            assets: {
+                                tagNo: string;
+                                description: string | null;
+                                serialNo?: string | null;
+                                location?: string | null;
+                                cost?: string | number | null;
+                            }[];
+                            outstanding_advances: {
+                                number: string;
+                                purpose?: string | null;
+                                amount: string | number;
+                                overdue?: boolean;
+                            }[];
+                            petty_cash_floats: {
+                                code: string;
+                                name?: string | null;
+                                balance?: string | number | null;
+                            }[];
+                            checked_at: string | null;
+                        };
+                        loans_outstanding: string;
+                        leave_days: number;
+                        leave_pay: string;
+                        notice_pay: string;
+                        checklist_open_blocking: number;
+                        ready: boolean;
+                        /** @enum {string} */
+                        final_dues_status: "draft" | "submitted" | "approved" | "posted";
+                        final_dues_request_id: string | null;
+                        completed_at: string | null;
+                        version: number;
+                    }[];
+                };
+            };
+            /** @description Requires: exit:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Lifecycle_clearance: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        /** Format: date */
+                        exit_date: string;
+                        /** @enum {string} */
+                        exit_kind: "resignation" | "termination" | "contract_end" | "retirement" | "death" | "other";
+                        notice_days: number;
+                        notice_served_days: number;
+                        procurement: {
+                            reachable: boolean;
+                            error: string | null;
+                            cleared: boolean | null;
+                            blockers: string[];
+                            assets: {
+                                tagNo: string;
+                                description: string | null;
+                                serialNo?: string | null;
+                                location?: string | null;
+                                cost?: string | number | null;
+                            }[];
+                            outstanding_advances: {
+                                number: string;
+                                purpose?: string | null;
+                                amount: string | number;
+                                overdue?: boolean;
+                            }[];
+                            petty_cash_floats: {
+                                code: string;
+                                name?: string | null;
+                                balance?: string | number | null;
+                            }[];
+                            checked_at: string | null;
+                        };
+                        loans_outstanding: string;
+                        leave_days: number;
+                        leave_pay: string;
+                        notice_pay: string;
+                        checklist_open_blocking: number;
+                        ready: boolean;
+                        /** @enum {string} */
+                        final_dues_status: "draft" | "submitted" | "approved" | "posted";
+                        final_dues_request_id: string | null;
+                        completed_at: string | null;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: exit:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Lifecycle_check: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Asks sil_procurement what the person still holds */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        /** Format: date */
+                        exit_date: string;
+                        /** @enum {string} */
+                        exit_kind: "resignation" | "termination" | "contract_end" | "retirement" | "death" | "other";
+                        notice_days: number;
+                        notice_served_days: number;
+                        procurement: {
+                            reachable: boolean;
+                            error: string | null;
+                            cleared: boolean | null;
+                            blockers: string[];
+                            assets: {
+                                tagNo: string;
+                                description: string | null;
+                                serialNo?: string | null;
+                                location?: string | null;
+                                cost?: string | number | null;
+                            }[];
+                            outstanding_advances: {
+                                number: string;
+                                purpose?: string | null;
+                                amount: string | number;
+                                overdue?: boolean;
+                            }[];
+                            petty_cash_floats: {
+                                code: string;
+                                name?: string | null;
+                                balance?: string | number | null;
+                            }[];
+                            checked_at: string | null;
+                        };
+                        loans_outstanding: string;
+                        leave_days: number;
+                        leave_pay: string;
+                        notice_pay: string;
+                        checklist_open_blocking: number;
+                        ready: boolean;
+                        /** @enum {string} */
+                        final_dues_status: "draft" | "submitted" | "approved" | "posted";
+                        final_dues_request_id: string | null;
+                        completed_at: string | null;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: exit:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Lifecycle_finalDues: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Freezes leave pay, notice pay and loan recovery and sends them for approval */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        /** Format: date */
+                        exit_date: string;
+                        /** @enum {string} */
+                        exit_kind: "resignation" | "termination" | "contract_end" | "retirement" | "death" | "other";
+                        notice_days: number;
+                        notice_served_days: number;
+                        procurement: {
+                            reachable: boolean;
+                            error: string | null;
+                            cleared: boolean | null;
+                            blockers: string[];
+                            assets: {
+                                tagNo: string;
+                                description: string | null;
+                                serialNo?: string | null;
+                                location?: string | null;
+                                cost?: string | number | null;
+                            }[];
+                            outstanding_advances: {
+                                number: string;
+                                purpose?: string | null;
+                                amount: string | number;
+                                overdue?: boolean;
+                            }[];
+                            petty_cash_floats: {
+                                code: string;
+                                name?: string | null;
+                                balance?: string | number | null;
+                            }[];
+                            checked_at: string | null;
+                        };
+                        loans_outstanding: string;
+                        leave_days: number;
+                        leave_pay: string;
+                        notice_pay: string;
+                        checklist_open_blocking: number;
+                        ready: boolean;
+                        /** @enum {string} */
+                        final_dues_status: "draft" | "submitted" | "approved" | "posted";
+                        final_dues_request_id: string | null;
+                        completed_at: string | null;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: exit:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Lifecycle_complete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    override_reason?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Ends employment on the exit date: access ends at once (SCIM, events) */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        /** Format: date */
+                        exit_date: string;
+                        /** @enum {string} */
+                        exit_kind: "resignation" | "termination" | "contract_end" | "retirement" | "death" | "other";
+                        notice_days: number;
+                        notice_served_days: number;
+                        procurement: {
+                            reachable: boolean;
+                            error: string | null;
+                            cleared: boolean | null;
+                            blockers: string[];
+                            assets: {
+                                tagNo: string;
+                                description: string | null;
+                                serialNo?: string | null;
+                                location?: string | null;
+                                cost?: string | number | null;
+                            }[];
+                            outstanding_advances: {
+                                number: string;
+                                purpose?: string | null;
+                                amount: string | number;
+                                overdue?: boolean;
+                            }[];
+                            petty_cash_floats: {
+                                code: string;
+                                name?: string | null;
+                                balance?: string | number | null;
+                            }[];
+                            checked_at: string | null;
+                        };
+                        loans_outstanding: string;
+                        leave_days: number;
+                        leave_pay: string;
+                        notice_pay: string;
+                        checklist_open_blocking: number;
+                        ready: boolean;
+                        /** @enum {string} */
+                        final_dues_status: "draft" | "submitted" | "approved" | "posted";
+                        final_dues_request_id: string | null;
+                        completed_at: string | null;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: exit:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Relations_list: {
+        parameters: {
+            query?: {
+                employee_id?: string;
+                kind?: string;
+                status?: "open" | "closed" | "withdrawn";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Cases you may see: in your relations:read scope, about you, raised by you, or naming you */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** @enum {string} */
+                        kind: "warning" | "improvement_plan" | "complaint" | "award" | "disciplinary";
+                        employee_id: string | null;
+                        employee_name: string | null;
+                        subject: string;
+                        details: string | null;
+                        severity: ("verbal" | "first" | "final") | null;
+                        /** Format: date */
+                        opened_on: string;
+                        review_date: string | null;
+                        expires_on: string | null;
+                        /** @enum {string} */
+                        status: "open" | "closed" | "withdrawn";
+                        outcome: string | null;
+                        restricted: boolean;
+                        complainant_name: string | null;
+                        acknowledged_at: string | null;
+                        document_ids: string[];
+                        objectives: {
+                            /** Format: uuid */
+                            id: string;
+                            objective: string;
+                            measure?: string | null;
+                            due_date?: string | null;
+                            /**
+                             * @default open
+                             * @enum {string}
+                             */
+                            status: "open" | "met" | "not_met";
+                            comment?: string | null;
+                        }[];
+                        notes: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: date-time */
+                            created_at: string;
+                            author_name: string | null;
+                            body: string;
+                            visible_to_employee: boolean;
+                        }[];
+                        access: {
+                            /** Format: uuid */
+                            user_id: string;
+                            name: string;
+                            /** @enum {string} */
+                            role: "owner" | "investigator";
+                        }[];
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    }[];
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Relations_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @enum {string} */
+                    kind: "warning" | "improvement_plan" | "complaint" | "award" | "disciplinary";
+                    employee_id?: string | null;
+                    subject: string;
+                    details?: string | null;
+                    severity?: ("verbal" | "first" | "final") | null;
+                    /** Format: date */
+                    opened_on?: string;
+                    review_date?: string | null;
+                    expires_on?: string | null;
+                    complainant_employee_id?: string | null;
+                    restricted?: boolean;
+                    /** @default [] */
+                    investigator_user_ids?: string[];
+                    /** @default [] */
+                    objectives?: {
+                        /** Format: uuid */
+                        id?: string;
+                        objective: string;
+                        measure?: string | null;
+                        due_date?: string | null;
+                        /**
+                         * @default open
+                         * @enum {string}
+                         */
+                        status?: "open" | "met" | "not_met";
+                        comment?: string | null;
+                    }[];
+                    /** @default [] */
+                    document_ids?: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description Complaints are always restricted to the people named on them */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** @enum {string} */
+                        kind: "warning" | "improvement_plan" | "complaint" | "award" | "disciplinary";
+                        employee_id: string | null;
+                        employee_name: string | null;
+                        subject: string;
+                        details: string | null;
+                        severity: ("verbal" | "first" | "final") | null;
+                        /** Format: date */
+                        opened_on: string;
+                        review_date: string | null;
+                        expires_on: string | null;
+                        /** @enum {string} */
+                        status: "open" | "closed" | "withdrawn";
+                        outcome: string | null;
+                        restricted: boolean;
+                        complainant_name: string | null;
+                        acknowledged_at: string | null;
+                        document_ids: string[];
+                        objectives: {
+                            /** Format: uuid */
+                            id: string;
+                            objective: string;
+                            measure?: string | null;
+                            due_date?: string | null;
+                            /**
+                             * @default open
+                             * @enum {string}
+                             */
+                            status: "open" | "met" | "not_met";
+                            comment?: string | null;
+                        }[];
+                        notes: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: date-time */
+                            created_at: string;
+                            author_name: string | null;
+                            body: string;
+                            visible_to_employee: boolean;
+                        }[];
+                        access: {
+                            /** Format: uuid */
+                            user_id: string;
+                            name: string;
+                            /** @enum {string} */
+                            role: "owner" | "investigator";
+                        }[];
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: relations:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Relations_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** @enum {string} */
+                        kind: "warning" | "improvement_plan" | "complaint" | "award" | "disciplinary";
+                        employee_id: string | null;
+                        employee_name: string | null;
+                        subject: string;
+                        details: string | null;
+                        severity: ("verbal" | "first" | "final") | null;
+                        /** Format: date */
+                        opened_on: string;
+                        review_date: string | null;
+                        expires_on: string | null;
+                        /** @enum {string} */
+                        status: "open" | "closed" | "withdrawn";
+                        outcome: string | null;
+                        restricted: boolean;
+                        complainant_name: string | null;
+                        acknowledged_at: string | null;
+                        document_ids: string[];
+                        objectives: {
+                            /** Format: uuid */
+                            id: string;
+                            objective: string;
+                            measure?: string | null;
+                            due_date?: string | null;
+                            /**
+                             * @default open
+                             * @enum {string}
+                             */
+                            status: "open" | "met" | "not_met";
+                            comment?: string | null;
+                        }[];
+                        notes: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: date-time */
+                            created_at: string;
+                            author_name: string | null;
+                            body: string;
+                            visible_to_employee: boolean;
+                        }[];
+                        access: {
+                            /** Format: uuid */
+                            user_id: string;
+                            name: string;
+                            /** @enum {string} */
+                            role: "owner" | "investigator";
+                        }[];
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Relations_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @enum {string} */
+                    status?: "open" | "closed" | "withdrawn";
+                    outcome?: string | null;
+                    review_date?: string | null;
+                    objectives?: {
+                        /** Format: uuid */
+                        id?: string;
+                        objective: string;
+                        measure?: string | null;
+                        due_date?: string | null;
+                        /**
+                         * @default open
+                         * @enum {string}
+                         */
+                        status?: "open" | "met" | "not_met";
+                        comment?: string | null;
+                    }[];
+                    investigator_user_ids?: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** @enum {string} */
+                        kind: "warning" | "improvement_plan" | "complaint" | "award" | "disciplinary";
+                        employee_id: string | null;
+                        employee_name: string | null;
+                        subject: string;
+                        details: string | null;
+                        severity: ("verbal" | "first" | "final") | null;
+                        /** Format: date */
+                        opened_on: string;
+                        review_date: string | null;
+                        expires_on: string | null;
+                        /** @enum {string} */
+                        status: "open" | "closed" | "withdrawn";
+                        outcome: string | null;
+                        restricted: boolean;
+                        complainant_name: string | null;
+                        acknowledged_at: string | null;
+                        document_ids: string[];
+                        objectives: {
+                            /** Format: uuid */
+                            id: string;
+                            objective: string;
+                            measure?: string | null;
+                            due_date?: string | null;
+                            /**
+                             * @default open
+                             * @enum {string}
+                             */
+                            status: "open" | "met" | "not_met";
+                            comment?: string | null;
+                        }[];
+                        notes: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: date-time */
+                            created_at: string;
+                            author_name: string | null;
+                            body: string;
+                            visible_to_employee: boolean;
+                        }[];
+                        access: {
+                            /** Format: uuid */
+                            user_id: string;
+                            name: string;
+                            /** @enum {string} */
+                            role: "owner" | "investigator";
+                        }[];
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Relations_note: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    body: string;
+                    /** @default false */
+                    visible_to_employee?: boolean;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** @enum {string} */
+                        kind: "warning" | "improvement_plan" | "complaint" | "award" | "disciplinary";
+                        employee_id: string | null;
+                        employee_name: string | null;
+                        subject: string;
+                        details: string | null;
+                        severity: ("verbal" | "first" | "final") | null;
+                        /** Format: date */
+                        opened_on: string;
+                        review_date: string | null;
+                        expires_on: string | null;
+                        /** @enum {string} */
+                        status: "open" | "closed" | "withdrawn";
+                        outcome: string | null;
+                        restricted: boolean;
+                        complainant_name: string | null;
+                        acknowledged_at: string | null;
+                        document_ids: string[];
+                        objectives: {
+                            /** Format: uuid */
+                            id: string;
+                            objective: string;
+                            measure?: string | null;
+                            due_date?: string | null;
+                            /**
+                             * @default open
+                             * @enum {string}
+                             */
+                            status: "open" | "met" | "not_met";
+                            comment?: string | null;
+                        }[];
+                        notes: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: date-time */
+                            created_at: string;
+                            author_name: string | null;
+                            body: string;
+                            visible_to_employee: boolean;
+                        }[];
+                        access: {
+                            /** Format: uuid */
+                            user_id: string;
+                            name: string;
+                            /** @enum {string} */
+                            role: "owner" | "investigator";
+                        }[];
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Relations_ack: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description The employee confirms receipt of a warning, plan or award */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** @enum {string} */
+                        kind: "warning" | "improvement_plan" | "complaint" | "award" | "disciplinary";
+                        employee_id: string | null;
+                        employee_name: string | null;
+                        subject: string;
+                        details: string | null;
+                        severity: ("verbal" | "first" | "final") | null;
+                        /** Format: date */
+                        opened_on: string;
+                        review_date: string | null;
+                        expires_on: string | null;
+                        /** @enum {string} */
+                        status: "open" | "closed" | "withdrawn";
+                        outcome: string | null;
+                        restricted: boolean;
+                        complainant_name: string | null;
+                        acknowledged_at: string | null;
+                        document_ids: string[];
+                        objectives: {
+                            /** Format: uuid */
+                            id: string;
+                            objective: string;
+                            measure?: string | null;
+                            due_date?: string | null;
+                            /**
+                             * @default open
+                             * @enum {string}
+                             */
+                            status: "open" | "met" | "not_met";
+                            comment?: string | null;
+                        }[];
+                        notes: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: date-time */
+                            created_at: string;
+                            author_name: string | null;
+                            body: string;
+                            visible_to_employee: boolean;
+                        }[];
+                        access: {
+                            /** Format: uuid */
+                            user_id: string;
+                            name: string;
+                            /** @enum {string} */
+                            role: "owner" | "investigator";
+                        }[];
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Relations_raise: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    subject: string;
+                    details: string;
+                    about_employee_id?: string | null;
+                    /** @default [] */
+                    document_ids?: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description Raise a grievance: only the HR managers (and people they add) see it */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** @enum {string} */
+                        kind: "warning" | "improvement_plan" | "complaint" | "award" | "disciplinary";
+                        employee_id: string | null;
+                        employee_name: string | null;
+                        subject: string;
+                        details: string | null;
+                        severity: ("verbal" | "first" | "final") | null;
+                        /** Format: date */
+                        opened_on: string;
+                        review_date: string | null;
+                        expires_on: string | null;
+                        /** @enum {string} */
+                        status: "open" | "closed" | "withdrawn";
+                        outcome: string | null;
+                        restricted: boolean;
+                        complainant_name: string | null;
+                        acknowledged_at: string | null;
+                        document_ids: string[];
+                        objectives: {
+                            /** Format: uuid */
+                            id: string;
+                            objective: string;
+                            measure?: string | null;
+                            due_date?: string | null;
+                            /**
+                             * @default open
+                             * @enum {string}
+                             */
+                            status: "open" | "met" | "not_met";
+                            comment?: string | null;
+                        }[];
+                        notes: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: date-time */
+                            created_at: string;
+                            author_name: string | null;
+                            body: string;
+                            visible_to_employee: boolean;
+                        }[];
+                        access: {
+                            /** Format: uuid */
+                            user_id: string;
+                            name: string;
+                            /** @enum {string} */
+                            role: "owner" | "investigator";
+                        }[];
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Letters_templates: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        code: string;
+                        name: string;
+                        body: string;
+                        /** @enum {string} */
+                        status: "active" | "inactive";
+                        fields: string[];
+                        version: number;
+                    }[];
+                };
+            };
+            /** @description Requires: letter:issue */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Letters_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    code: string;
+                    name: string;
+                    body: string;
+                    /**
+                     * @default active
+                     * @enum {string}
+                     */
+                    status?: "active" | "inactive";
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        code: string;
+                        name: string;
+                        body: string;
+                        /** @enum {string} */
+                        status: "active" | "inactive";
+                        fields: string[];
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: letter_template:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Letters_update: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description ETag of the version being changed */
+                "If-Match": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    code: string;
+                    name: string;
+                    body: string;
+                    /**
+                     * @default active
+                     * @enum {string}
+                     */
+                    status?: "active" | "inactive";
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        code: string;
+                        name: string;
+                        body: string;
+                        /** @enum {string} */
+                        status: "active" | "inactive";
+                        fields: string[];
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: letter_template:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Letters_issued: {
+        parameters: {
+            query?: {
+                employee_id?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** Format: uuid */
+                        template_id: string;
+                        template_name: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        /** @enum {string} */
+                        format: "pdf" | "docx";
+                        /** Format: uuid */
+                        document_id: string;
+                        /** Format: date-time */
+                        created_at: string;
+                    }[];
+                };
+            };
+            /** @description Requires: letter:issue */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Letters_issue: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    template_id: string;
+                    /** Format: uuid */
+                    employee_id: string;
+                    /**
+                     * @default pdf
+                     * @enum {string}
+                     */
+                    format?: "pdf" | "docx";
+                    /** @default {} */
+                    extra?: {
+                        [key: string]: string;
+                    };
+                };
+            };
+        };
+        responses: {
+            /** @description Requires: letter:issue */
             403: {
                 headers: {
                     [name: string]: unknown;

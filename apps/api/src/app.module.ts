@@ -13,6 +13,7 @@ import { EmployeesModule } from './modules/employees/employees.module';
 import { AttendanceModule } from './modules/attendance/attendance.module';
 import { PayrollModule } from './modules/payroll/payroll.module';
 import { MedicalModule } from './modules/medical/medical.module';
+import { LifecycleModule } from './modules/lifecycle/lifecycle.module';
 import { LeaveModule } from './modules/leave/leave.module';
 import { WorkflowModule } from './modules/workflow/workflow.module';
 import { EventsModule } from './modules/events/events.module';
@@ -45,6 +46,7 @@ import { WebhooksModule } from './modules/webhooks/webhooks.module';
     AttendanceModule,
     PayrollModule,
     MedicalModule,
+    LifecycleModule,
     HealthModule,
   ],
   providers: [
