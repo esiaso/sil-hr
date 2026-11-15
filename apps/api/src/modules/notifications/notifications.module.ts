@@ -143,6 +143,23 @@ export class NotificationsService {
     return users.length;
   }
 
+  /** Sends a templated message to the given users (inactive accounts are skipped). */
+  async notifyUsers(userIds: string[], templateCode: string, vars: Record<string, string | number | null>, link: string | null, manager: EntityManager = this.dataSource.manager): Promise<number> {
+    if (!userIds.length) return 0;
+    const tpl = await manager.getRepository(NotificationTemplate).findOneBy({ code: templateCode });
+    if (!tpl) {
+      this.logger.warn(`Missing notification template ${templateCode}`);
+      return 0;
+    }
+    const users: { id: string; email: string | null; phone: string | null }[] = await manager.query(
+      `SELECT id, email, phone FROM user_account WHERE id = ANY($1::uuid[]) AND status = 'active' AND deleted_at IS NULL`,
+      [[...new Set(userIds)]],
+    );
+    const msg = { title: render(tpl.subject, vars), body: render(tpl.body, vars), link };
+    for (const u of users) for (const c of tpl.channels) await this.channels.get(c)?.send(manager, { userId: u.id, email: u.email, phone: u.phone }, msg);
+    return users.length;
+  }
+
   mine(userId: string) {
     return this.dataSource.getRepository(Notification).find({ where: { userId }, order: { createdAt: 'DESC' }, take: 50 });
   }

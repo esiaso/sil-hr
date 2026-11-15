@@ -33,6 +33,8 @@ const SKIPPED_ENTITIES = new Set([
   'Notification',
   'EmailOutbox',
   'MfaRecoveryCode',
+  // Append-only ledger: it is its own trail.
+  'LeaveLedger',
 ]);
 
 function normalise(value: unknown): unknown {

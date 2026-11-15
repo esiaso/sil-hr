@@ -1,5 +1,155 @@
 [
   {
+    "type": "hr.leave.approved.v1",
+    "version": 1,
+    "description": "A leave request was finally approved. Attendance and payroll treat these days as leave; rosters should plan around them.",
+    "subject": "leave request id",
+    "data_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "number": {
+          "type": "string"
+        },
+        "employee_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "staff_number": {
+          "type": "string"
+        },
+        "leave_type_code": {
+          "type": "string"
+        },
+        "start_date": {
+          "type": "string"
+        },
+        "end_date": {
+          "type": "string"
+        },
+        "start_half_day": {
+          "type": "boolean"
+        },
+        "end_half_day": {
+          "type": "boolean"
+        },
+        "days": {
+          "type": "number"
+        },
+        "is_paid": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "number",
+        "employee_id",
+        "staff_number",
+        "leave_type_code",
+        "start_date",
+        "end_date",
+        "start_half_day",
+        "end_half_day",
+        "days",
+        "is_paid"
+      ],
+      "additionalProperties": false
+    },
+    "example": {
+      "id": "0199a6b0-0000-7000-8000-0000000000f1",
+      "number": "LV/2026/0042",
+      "employee_id": "0199a6b0-0000-7000-8000-0000000000e1",
+      "staff_number": "SIL00042",
+      "leave_type_code": "annual",
+      "start_date": "2026-12-21",
+      "end_date": "2026-12-31",
+      "start_half_day": false,
+      "end_half_day": false,
+      "days": 7,
+      "is_paid": true
+    }
+  },
+  {
+    "type": "hr.leave.cancelled.v1",
+    "version": 1,
+    "description": "Previously approved leave was cancelled; the days are back in the balance and the person is expected at work.",
+    "subject": "leave request id",
+    "data_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "number": {
+          "type": "string"
+        },
+        "employee_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "staff_number": {
+          "type": "string"
+        },
+        "leave_type_code": {
+          "type": "string"
+        },
+        "start_date": {
+          "type": "string"
+        },
+        "end_date": {
+          "type": "string"
+        },
+        "start_half_day": {
+          "type": "boolean"
+        },
+        "end_half_day": {
+          "type": "boolean"
+        },
+        "days": {
+          "type": "number"
+        },
+        "is_paid": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "number",
+        "employee_id",
+        "staff_number",
+        "leave_type_code",
+        "start_date",
+        "end_date",
+        "start_half_day",
+        "end_half_day",
+        "days",
+        "is_paid"
+      ],
+      "additionalProperties": false
+    },
+    "example": {
+      "id": "0199a6b0-0000-7000-8000-0000000000f1",
+      "number": "LV/2026/0042",
+      "employee_id": "0199a6b0-0000-7000-8000-0000000000e1",
+      "staff_number": "SIL00042",
+      "leave_type_code": "annual",
+      "start_date": "2026-12-21",
+      "end_date": "2026-12-31",
+      "start_half_day": false,
+      "end_half_day": false,
+      "days": 7,
+      "is_paid": true
+    }
+  },
+  {
     "type": "hr.employee.hired.v1",
     "version": 1,
     "description": "A person was hired: the employee record and its first position assignment exist.",

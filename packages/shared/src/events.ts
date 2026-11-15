@@ -97,7 +97,36 @@ const licenceData = z.object({
 });
 const licenceExample = { id: P1, employee_id: E1, staff_number: 'SIL00042', licensing_body: 'NCK', licence_number: 'NCK/12345', expiry_date: '2026-12-31', status: 'expiring' };
 
+const leaveData = z.object({
+  id,
+  number: z.string(),
+  employee_id: id,
+  staff_number: z.string(),
+  leave_type_code: z.string(),
+  start_date: z.string(),
+  end_date: z.string(),
+  start_half_day: z.boolean(),
+  end_half_day: z.boolean(),
+  days: z.number(),
+  is_paid: z.boolean(),
+});
+const leaveExample = { id: P1, number: 'LV/2026/0042', employee_id: E1, staff_number: 'SIL00042', leave_type_code: 'annual', start_date: '2026-12-21', end_date: '2026-12-31', start_half_day: false, end_half_day: false, days: 7, is_paid: true };
+
 export const EVENT_CATALOGUE = [
+  {
+    type: 'hr.leave.approved.v1',
+    description: 'A leave request was finally approved. Attendance and payroll treat these days as leave; rosters should plan around them.',
+    subject: 'leave request id',
+    schema: leaveData,
+    example: leaveExample,
+  },
+  {
+    type: 'hr.leave.cancelled.v1',
+    description: 'Previously approved leave was cancelled; the days are back in the balance and the person is expected at work.',
+    subject: 'leave request id',
+    schema: leaveData,
+    example: leaveExample,
+  },
   {
     type: 'hr.employee.hired.v1',
     description: 'A person was hired: the employee record and its first position assignment exist.',

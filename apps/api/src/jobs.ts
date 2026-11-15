@@ -7,6 +7,8 @@ import { RequestContext } from './common/request-context';
 import { BulkService } from './modules/employees/bulk';
 import { EmployeesService } from './modules/employees/employees.service';
 import { LicencesService } from './modules/employees/licences.service';
+import { LeaveService } from './modules/leave/leave.service';
+import { WorkflowService } from './modules/workflow/workflow.service';
 import { NotificationsService } from './modules/notifications/notifications.module';
 import { OutboxPublisher, WebhookDeliveryProcessor } from './modules/webhooks/publishing';
 
@@ -19,6 +21,9 @@ export const JOBS: { name: string; everyMs: number; run: (app: INestApplicationC
   { name: 'outbox-publish', everyMs: 1000, run: async (app) => { const n = await app.get(OutboxPublisher).drainOnce(200); eventsPublished.inc(n); return n; } },
   { name: 'webhook-deliveries', everyMs: 2000, run: (app) => app.get(WebhookDeliveryProcessor).processDue(50) },
   { name: 'bulk-jobs', everyMs: 3000, run: (app) => app.get(BulkService).processQueued() },
+  { name: 'workflow-escalations', everyMs: 300_000, run: (app) => app.get(WorkflowService).escalateDue() },
+  { name: 'leave-accrual', everyMs: 3_600_000, run: (app) => app.get(LeaveService).accrueAll() },
+  { name: 'leave-carry-forward', everyMs: 3_600_000, run: (app) => app.get(LeaveService).carryForwardAll() },
   { name: 'send-mail', everyMs: 10_000, run: (app) => app.get(NotificationsService).sendPendingMail(50) },
   // Daily work runs hourly: each is idempotent, so a missed hour or a restart costs nothing.
   { name: 'licence-sweep', everyMs: 3_600_000, run: async (app) => { const r = await app.get(LicencesService).sweep(); return r.expiring + r.expired; } },

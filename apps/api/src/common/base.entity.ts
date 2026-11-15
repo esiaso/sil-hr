@@ -43,3 +43,12 @@ export const moneyTransformer: ValueTransformer = {
 export const MONEY = { type: 'numeric', precision: 14, scale: 2, transformer: moneyTransformer } as const;
 
 export const iso = (d: Date | null | undefined): string | null => (d ? d.toISOString() : null);
+
+/**
+ * Small non-money numerics (days, thresholds) as JS numbers. Values are half-days at
+ * most, which binary floats represent exactly. Money never uses this: see MONEY.
+ */
+export const numericTransformer: ValueTransformer = {
+  to: (value: number | null | undefined) => value,
+  from: (value: string | null) => (value === null || value === undefined ? null : Number(value)),
+};

@@ -1,4 +1,4 @@
-import { Controller, Get, HttpCode, Injectable, Param, ParseUUIDPipe, Post, Query } from '@nestjs/common';
+import { Controller, Get, HttpCode, Injectable, OnModuleInit, Param, ParseUUIDPipe, Post, Query } from '@nestjs/common';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource, In } from 'typeorm';
@@ -18,6 +18,7 @@ import { OutboxService } from '../events/events.module';
 import { NotificationsService } from '../notifications/notifications.module';
 import { ScopeService } from '../organisation/scope.service';
 import { SettingsService } from '../settings/settings.module';
+import { WorkflowService } from '../workflow/workflow.service';
 import { ContactChangeRequest, Employee, ProfessionalLicence } from './employee.entities';
 import { employeeEventData, SENSITIVE_COLUMNS, toEmployeeDto } from './employee.mapper';
 
@@ -181,14 +182,31 @@ const FIELD_PROP: Record<(typeof CONTACT_FIELDS)[number], keyof Employee> = {
 };
 
 @Injectable()
-export class SelfServiceService {
+export class SelfServiceService implements OnModuleInit {
   constructor(
+    private readonly workflow: WorkflowService,
     @InjectDataSource() private readonly dataSource: DataSource,
     private readonly scope: ScopeService,
     private readonly outbox: OutboxService,
     private readonly settings: SettingsService,
     private readonly notifications: NotificationsService,
   ) {}
+
+  /** Contact changes are decided through the approval engine (workflow CONTACT-CHANGE by default). */
+  onModuleInit(): void {
+    this.workflow.registerHandler('contact_change', {
+      onApproved: async (m, i, actor) => {
+        const req = await m.getRepository(ContactChangeRequest).findOneByOrFail({ id: i.subjectId });
+        await this.apply(m, req, actor, null);
+      },
+      onRejected: (m, i, c) => this.close(m, i.subjectId, 'rejected', c),
+      onReturned: (m, i, c) => this.close(m, i.subjectId, 'rejected', c),
+    });
+  }
+
+  private async close(m: import('typeorm').EntityManager, id: string, status: 'rejected', note: string | null): Promise<void> {
+    await m.getRepository(ContactChangeRequest).update({ id }, { status, decidedAt: new Date(), decisionNote: note });
+  }
 
   private async me(access: AccessProfile, m = this.dataSource.manager): Promise<Employee> {
     if (!access.employeeId) throw new ProblemException(404, 'no_employee_record', 'Your account is not linked to an employee record; ask HR');
@@ -233,7 +251,7 @@ export class SelfServiceService {
       if (!(await this.settings.get('employees.contact_changes_need_approval', m))) {
         await this.apply(m, req, access.actorId, 'Applied automatically');
       } else {
-        await this.notifications.notifyPermissionHolders('contact_change:decide', 'contact_change_submitted', { employee: e.displayName, staff_number: e.staffNumber }, '/people/contact-changes', m);
+        await this.workflow.submit(m, { requestType: 'contact_change', subjectId: req.id, subjectEmployeeId: e.id, requesterUserId: access.actorId, value: null, summary: `Contact details change: ${e.displayName} (${e.staffNumber})` });
       }
       return changeDto(req);
     });
@@ -241,8 +259,11 @@ export class SelfServiceService {
 
   async cancel(access: AccessProfile, id: string) {
     const e = await this.me(access);
-    const res = await this.dataSource.getRepository(ContactChangeRequest).update({ id, employeeId: e.id, status: 'pending' }, { status: 'cancelled' });
-    if (!res.affected) throw notFound('Pending change');
+    await this.dataSource.transaction(async (m) => {
+      const res = await m.getRepository(ContactChangeRequest).update({ id, employeeId: e.id, status: 'pending' }, { status: 'cancelled' });
+      if (!res.affected) throw notFound('Pending change');
+      await this.workflow.cancel(m, 'contact_change', id);
+    });
   }
 
   async pending(access: AccessProfile) {
@@ -261,7 +282,14 @@ export class SelfServiceService {
     await this.outbox.record(m, 'hr.employee.updated.v1', e.id, { ...employeeEventData(saved, u?.id ?? null), changed_fields: Object.keys(req.changes) });
   }
 
+  /** Kept for HR screens and older clients: decides the open approval task of this change. */
   async decide(access: AccessProfile, id: string, dto: Q<typeof decideContactChange>) {
+    const inst = await this.workflow.instanceFor('contact_change', id);
+    const open = inst?.tasks.find((t) => t.status === 'open');
+    if (inst && open) {
+      await this.workflow.decide(access, open.id, dto.decision === 'approved' ? 'approve' : 'reject', dto.note ?? (dto.decision === 'rejected' ? 'Rejected' : null));
+      return changeDto(await this.dataSource.getRepository(ContactChangeRequest).findOneByOrFail({ id }));
+    }
     return this.dataSource.transaction(async (m) => {
       const req = await m.getRepository(ContactChangeRequest).findOne({ where: { id }, lock: { mode: 'pessimistic_write' } });
       if (!req || req.status !== 'pending') throw notFound('Pending change');

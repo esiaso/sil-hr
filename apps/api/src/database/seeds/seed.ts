@@ -12,6 +12,7 @@ import { Branch, CostCentre, Department, JobGrade, Organisation, Position } from
 import { OutboxService } from '../../modules/events/events.module';
 import { DocumentType } from '../../modules/employees/employee.entities';
 import { seedSampleEmployees } from './sample-employees';
+import { seedLeaveDefaults } from './leave-defaults';
 import { WebhookSubscription } from '../../modules/webhooks/webhook.entities';
 
 export interface SeedOptions {
@@ -72,6 +73,7 @@ async function seedReference(m: EntityManager): Promise<void> {
     { documentType: 'contract', name: 'Employment contract', prefix: 'CON', format: '{PREFIX}/{YYYY}/{SEQ}', padding: 4, reset: 'yearly' as const },
     { documentType: 'payslip', name: 'Payslip', prefix: 'PS', format: '{PREFIX}/{YYYY}{MM}/{SEQ}', padding: 5, reset: 'yearly' as const },
     { documentType: 'job_requisition', name: 'Job requisition', prefix: 'REQ', format: '{PREFIX}/{YYYY}/{SEQ}', padding: 4, reset: 'yearly' as const },
+    { documentType: 'leave_request', name: 'Leave request', prefix: 'LV', format: '{PREFIX}/{YYYY}/{SEQ}', padding: 5, reset: 'yearly' as const },
   ];
   for (const s of schemes) {
     if (!(await m.getRepository(NumberingScheme).existsBy({ documentType: s.documentType }))) await m.getRepository(NumberingScheme).save(m.getRepository(NumberingScheme).create(s));
@@ -102,6 +104,18 @@ async function seedReference(m: EntityManager): Promise<void> {
       body: '{{employee}} ({{staff_number}}) asked to change their contact details. Review it under People → Contact changes.',
       description: 'Sent to HR when an employee submits a self-service change',
     },
+    {
+      code: 'approval_task_assigned',
+      subject: 'Waiting for your approval: {{summary}}',
+      body: '{{summary}}\n\nStep: {{step}}. Open your approvals to approve, reject or return it.',
+      description: 'Sent to approvers when a request reaches them',
+    },
+    {
+      code: 'approval_decided',
+      subject: 'Your request was {{outcome}}',
+      body: '{{summary}} was {{outcome}}.\n\n{{comment}}',
+      description: 'Sent to the requester when their request is decided',
+    },
   ];
   const documentTypes = [
     { code: 'national_id', name: 'National ID or passport copy', requiredFor: ['permanent', 'contract', 'casual', 'locum', 'intern'], isSensitive: true },
@@ -112,6 +126,7 @@ async function seedReference(m: EntityManager): Promise<void> {
     { code: 'medical_fitness', name: 'Medical fitness certificate', requiredFor: ['permanent', 'contract'], isSensitive: true },
     { code: 'signed_contract', name: 'Signed contract', requiredFor: ['permanent', 'contract', 'locum', 'intern'] },
   ];
+  await seedLeaveDefaults(m);
   for (const d of documentTypes) {
     if (!(await m.getRepository(DocumentType).existsBy({ code: d.code }))) await m.getRepository(DocumentType).save(m.getRepository(DocumentType).create(d));
   }

@@ -54,6 +54,13 @@ export const PERMISSIONS = {
   'import_export:run': 'Import and export employee data in bulk',
   'contact_change:decide': 'Approve or reject self-service contact changes',
   'scim:provision': 'Use the SCIM 2.0 provisioning endpoints',
+  // workflow and leave (slice 3)
+  'workflow:manage': 'Define approval workflows and manage anyone\u2019s delegations',
+  'workflow:read': 'See any approval request and its history',
+  'leave:read': 'View leave requests, balances and the team calendar',
+  'leave:apply_for_others': 'Apply for leave on someone else\u2019s behalf',
+  'leave:adjust': 'Adjust leave balances and record encashment',
+  'leave_setup:manage': 'Manage leave types, entitlement policies and public holidays',
 } as const;
 
 export type PermissionCode = keyof typeof PERMISSIONS;
@@ -65,6 +72,7 @@ export const PERMISSION_GROUPS: { label: string; prefixes: string[] }[] = [
   { label: 'Identity & access', prefixes: ['user', 'role', 'login_history', 'ip_allow'] },
   { label: 'Platform', prefixes: ['audit', 'setting', 'numbering', 'document', 'external_ref'] },
   { label: 'People', prefixes: ['employee', 'employee.sensitive', 'licence', 'document_type', 'employee_document', 'directory', 'import_export', 'contact_change'] },
+  { label: 'Workflow & leave', prefixes: ['workflow', 'leave', 'leave_setup'] },
   { label: 'Integration', prefixes: ['api_client', 'webhook', 'event', 'system', 'scim'] },
 ];
 
@@ -82,7 +90,7 @@ export const CLIENT_SCOPES: Record<string, { description: string; permissions: P
   'employees:read': { description: 'Staff directory, approver lookups, employee records (sensitive fields masked) and licences', permissions: ['employee:read', 'directory:read', 'licence:read', 'department:read', 'position:read', 'cost_centre:read'] },
   'employees.sensitive:read': { description: 'Unmasked national ID, KRA PIN and bank details (every read audited)', permissions: ['employee.sensitive:read'] },
   scim: { description: 'SCIM 2.0 provisioning: read users (employees) and groups (departments)', permissions: ['scim:provision'] },
-  'leave:read': { description: 'Approved leave', permissions: [] },
+  'leave:read': { description: 'Leave requests, balances and the team calendar', permissions: ['leave:read'] },
   'attendance:write': { description: 'Post clock events', permissions: [] },
   'payroll.journal:read': { description: 'Payroll journals per run', permissions: [] },
   'events:read': { description: 'Event catalogue', permissions: ['event:read'] },
@@ -103,7 +111,7 @@ export const SYSTEM_ROLES: {
     code: 'hr_manager',
     name: 'HR Manager',
     description: 'Owns organisation structure and HR records',
-    permissions: ['employee:read', 'employee:hire', 'employee:update', 'employee:lifecycle', 'employee.sensitive:read', 'licence:read', 'licence:manage', 'licence:verify', 'document_type:manage', 'employee_document:verify', 'directory:read', 'import_export:run', 'contact_change:decide', 
+    permissions: ['workflow:manage', 'workflow:read', 'leave:read', 'leave:apply_for_others', 'leave:adjust', 'leave_setup:manage', 'employee:read', 'employee:hire', 'employee:update', 'employee:lifecycle', 'employee.sensitive:read', 'licence:read', 'licence:manage', 'licence:verify', 'document_type:manage', 'employee_document:verify', 'directory:read', 'import_export:run', 'contact_change:decide', 
       'organisation:read', 'organisation:update', 'branch:read', 'branch:manage', 'department:read', 'department:manage',
       'cost_centre:read', 'cost_centre:manage', 'job_grade:read', 'job_grade:manage', 'position:read', 'position:manage',
       'user:read', 'role:read', 'audit:read', 'setting:read', 'numbering:read', 'numbering:manage',
@@ -114,7 +122,7 @@ export const SYSTEM_ROLES: {
     code: 'hr_officer',
     name: 'HR Officer',
     description: 'Day-to-day HR administration within their scope',
-    permissions: ['employee:read', 'employee:hire', 'employee:update', 'employee:lifecycle', 'licence:read', 'licence:manage', 'licence:verify', 'employee_document:verify', 'directory:read', 'contact_change:decide', 
+    permissions: ['workflow:read', 'leave:read', 'leave:apply_for_others', 'leave:adjust', 'employee:read', 'employee:hire', 'employee:update', 'employee:lifecycle', 'licence:read', 'licence:manage', 'licence:verify', 'employee_document:verify', 'directory:read', 'contact_change:decide', 
       'organisation:read', 'branch:read', 'department:read', 'department:manage', 'cost_centre:read', 'job_grade:read',
       'position:read', 'position:manage', 'document:read', 'document:write', 'setting:read', 'numbering:read',
     ],
@@ -123,7 +131,7 @@ export const SYSTEM_ROLES: {
     code: 'payroll_officer',
     name: 'Payroll Officer',
     description: 'Prepares payroll runs',
-    permissions: ['employee:read', 'employee.sensitive:read', 'directory:read', 'organisation:read', 'branch:read', 'department:read', 'cost_centre:read', 'job_grade:read', 'position:read', 'setting:read'],
+    permissions: ['leave:read', 'employee:read', 'employee.sensitive:read', 'directory:read', 'organisation:read', 'branch:read', 'department:read', 'cost_centre:read', 'job_grade:read', 'position:read', 'setting:read'],
   },
   {
     code: 'finance_approver',
@@ -135,13 +143,13 @@ export const SYSTEM_ROLES: {
     code: 'department_head',
     name: 'Department Head',
     description: 'Heads a department; approves for it',
-    permissions: ['employee:read', 'licence:read', 'directory:read', 'organisation:read', 'branch:read', 'department:read', 'cost_centre:read', 'job_grade:read', 'position:read'],
+    permissions: ['leave:read', 'employee:read', 'licence:read', 'directory:read', 'organisation:read', 'branch:read', 'department:read', 'cost_centre:read', 'job_grade:read', 'position:read'],
   },
   {
     code: 'line_manager',
     name: 'Line Manager',
     description: 'Manages direct reports',
-    permissions: ['employee:read', 'licence:read', 'directory:read', 'organisation:read', 'branch:read', 'department:read', 'position:read'],
+    permissions: ['leave:read', 'employee:read', 'licence:read', 'directory:read', 'organisation:read', 'branch:read', 'department:read', 'position:read'],
   },
   {
     code: 'recruiter',
