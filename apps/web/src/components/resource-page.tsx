@@ -131,6 +131,8 @@ export function ResourcePage<T extends { id: string; status?: string }>({ config
           onSaved={() => {
             setEditing(null);
             void qc.invalidateQueries({ queryKey: [config.path] });
+            // Names shown in other columns (parent paths, branch, grade) come from the lookups.
+            void qc.invalidateQueries({ queryKey: ['lookup'] });
           }}
         />
       )}

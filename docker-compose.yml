@@ -1,7 +1,7 @@
 name: silhr
 
 # One command from a clean checkout:   docker compose up --build
-#   web   http://localhost:3300          (Next.js; proxies /api/v1 to the API)
+#   web   http://localhost:3320          (Next.js; proxies /api/v1 to the API)
 #   api   http://localhost:3310/api/v1   (OpenAPI UI at /api/v1/docs)
 #   mail  http://localhost:8026          (Mailpit: every email the system sends)
 # Tests:                                 docker compose --profile test run --build --rm test
@@ -16,7 +16,7 @@ x-api-env: &api-env
   DATA_ENCRYPTION_KEY: ${DATA_ENCRYPTION_KEY:-b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2b2}
   BLIND_INDEX_KEY: ${BLIND_INDEX_KEY:-c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3c3}
   TRUST_PROXY: ${TRUST_PROXY:-true}
-  CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3300}
+  CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3320}
   PUBLIC_BASE_URL: ${PUBLIC_BASE_URL:-http://localhost:3310}
   DB_MIGRATIONS_RUN: ${DB_MIGRATIONS_RUN:-true}
   SEED_ON_START: ${SEED_ON_START:-true}
@@ -126,7 +126,7 @@ services:
       PUBLIC_API_DOCS_URL: ${PUBLIC_BASE_URL:-http://localhost:3310}/api/v1/docs
       COOKIE_SECURE: ${COOKIE_SECURE:-false}
     ports:
-      - "${WEB_PORT:-3300}:3000"
+      - "${WEB_PORT:-3320}:3000"
     depends_on:
       api: { condition: service_healthy }
     restart: unless-stopped

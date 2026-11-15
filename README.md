@@ -34,7 +34,7 @@ docker compose up --build
 
 | What | URL |
 |---|---|
-| Web app | http://localhost:3300 |
+| Web app | http://localhost:3320 |
 | API | http://localhost:3310/api/v1 |
 | OpenAPI (Swagger UI) | http://localhost:3310/api/v1/docs (JSON at `/api/v1/openapi.json`) |
 | Event catalogue | http://localhost:3310/api/v1/events/catalogue, or Integrations → Event catalogue |
@@ -42,7 +42,7 @@ docker compose up --build
 | Webhook sink (verifies and shows sample webhook deliveries) | http://localhost:8099/hooks |
 | MinIO console | http://localhost:9011 |
 
-Host ports are chosen not to collide with `sil_procurement` (which uses 3000, 8080, 5432…)
+Host ports are chosen not to collide with `sil_procurement` (3000, 8080, 5432…) or other local projects
 and can be changed in `.env` (`WEB_PORT`, `API_PORT`, `POSTGRES_PORT`, `REDIS_PORT`,
 `MINIO_PORT`, `MAILPIT_UI_PORT`, `WEBHOOK_SINK_PORT`).
 
@@ -117,7 +117,7 @@ docker compose up -d postgres redis minio mailpit
 pnpm install
 pnpm build:shared
 pnpm dev:api          # http://localhost:3310/api/v1 (migrates and seeds on start)
-pnpm dev:web          # http://localhost:3300
+pnpm dev:web          # http://localhost:3320
 pnpm test             # api + web tests (needs postgres, redis and minio running)
 ```
 

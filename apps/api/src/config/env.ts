@@ -96,7 +96,7 @@ export function loadEnv(source: NodeJS.ProcessEnv = process.env, useCache = true
     dataEncryptionKey: hex64('DATA_ENCRYPTION_KEY', e.DATA_ENCRYPTION_KEY ?? DEV_DEK),
     blindIndexKey: hex64('BLIND_INDEX_KEY', e.BLIND_INDEX_KEY ?? DEV_BIDX),
     trustProxy: bool(e.TRUST_PROXY, false),
-    corsOrigins: (e.CORS_ORIGINS ?? 'http://localhost:3300').split(',').map((s) => s.trim()).filter(Boolean),
+    corsOrigins: (e.CORS_ORIGINS ?? 'http://localhost:3320').split(',').map((s) => s.trim()).filter(Boolean),
     apiDocs: bool(e.API_DOCS, true),
     publicBaseUrl: (e.PUBLIC_BASE_URL ?? 'http://localhost:3310').replace(/\/$/, ''),
     authRateLimitPerMinute: int(e.AUTH_RATE_LIMIT_PER_MINUTE, 30),
