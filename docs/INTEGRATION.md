@@ -385,3 +385,19 @@ Applications are taken only through `POST /api/v1/careers/jobs/{slug}/applicatio
 `/careers/{slug}` rather than collecting applications elsewhere, so consent and retention
 are recorded in one place. `hr.requisition.approved.v1` tells finance and other systems
 that a post is being filled.
+
+## 11. Training and CPD (clinical systems)
+
+The HMIS or a rostering tool can check that a clinician's mandatory training is in date,
+for example before putting them on a resuscitation team:
+
+* `hr.training.completed.v1`: someone attended and passed a programme; `valid_until`
+  is set for training that must be repeated (BLS every 24 months in the seed).
+* `hr.cpd.verified.v1`: CPD points credited, with the licensing body.
+* `GET /api/v1/training/compliance` (scope `training:read`): who is current, due within
+  60 days, overdue or has never done each mandatory programme.
+* `GET /api/v1/training/cpd-compliance?year=YYYY` (scope `training:read`): verified points
+  against each licensing body's requirement.
+
+`hr.performance.review_completed.v1` carries only the final rating and its band, never what
+was written about the person.

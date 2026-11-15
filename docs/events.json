@@ -2568,6 +2568,203 @@
     }
   },
   {
+    "type": "hr.performance.review_completed.v1",
+    "version": 1,
+    "description": "An appraisal was approved and acknowledged by the employee. Carries the final rating (1 to 5) and its band, nothing written about the person.",
+    "subject": "employee id",
+    "data_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "employee_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "staff_number": {
+          "type": "string"
+        },
+        "cycle_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "cycle_name": {
+          "type": "string"
+        },
+        "final_rating": {
+          "type": "string"
+        },
+        "band": {
+          "type": "string"
+        },
+        "employee_agrees": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "employee_id",
+        "staff_number",
+        "cycle_id",
+        "cycle_name",
+        "final_rating",
+        "band",
+        "employee_agrees"
+      ],
+      "additionalProperties": false
+    },
+    "example": {
+      "id": "0199a6b0-0000-7000-8000-0000000000b1",
+      "employee_id": "0199a6b0-0000-7000-8000-0000000000e1",
+      "staff_number": "SIL00042",
+      "cycle_id": "0199a6b0-0000-7000-8000-0000000000b0",
+      "cycle_name": "2026 annual appraisal",
+      "final_rating": "3.75",
+      "band": "Exceeds expectations",
+      "employee_agrees": true
+    }
+  },
+  {
+    "type": "hr.training.completed.v1",
+    "version": 1,
+    "description": "A member of staff attended a training session (and passed, when it has a pass mark). Clinical systems can use it to track BLS, ACLS and similar certifications; valid_until is set for training that must be repeated.",
+    "subject": "employee id",
+    "data_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "employee_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "staff_number": {
+          "type": "string"
+        },
+        "programme_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "programme_code": {
+          "type": "string"
+        },
+        "completed_on": {
+          "type": "string"
+        },
+        "passed": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "cpd_points": {
+          "type": "string"
+        },
+        "valid_until": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "employee_id",
+        "staff_number",
+        "programme_id",
+        "programme_code",
+        "completed_on",
+        "passed",
+        "cpd_points",
+        "valid_until"
+      ],
+      "additionalProperties": false
+    },
+    "example": {
+      "id": "0199a6b0-0000-7000-8000-0000000000b2",
+      "employee_id": "0199a6b0-0000-7000-8000-0000000000e1",
+      "staff_number": "SIL00042",
+      "programme_id": "0199a6b0-0000-7000-8000-0000000000b3",
+      "programme_code": "BLS",
+      "completed_on": "2026-11-20",
+      "passed": true,
+      "cpd_points": "5.0",
+      "valid_until": "2028-11-20"
+    }
+  },
+  {
+    "type": "hr.cpd.verified.v1",
+    "version": 1,
+    "description": "CPD points were credited to a member of staff (from a completed training session, or an outside activity HR verified).",
+    "subject": "employee id",
+    "data_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "employee_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "staff_number": {
+          "type": "string"
+        },
+        "points": {
+          "type": "string"
+        },
+        "licensing_body": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "activity_date": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string",
+          "enum": [
+            "training",
+            "external"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "employee_id",
+        "staff_number",
+        "points",
+        "licensing_body",
+        "activity_date",
+        "source"
+      ],
+      "additionalProperties": false
+    },
+    "example": {
+      "id": "0199a6b0-0000-7000-8000-0000000000b4",
+      "employee_id": "0199a6b0-0000-7000-8000-0000000000e1",
+      "staff_number": "SIL00042",
+      "points": "5.0",
+      "licensing_body": "NCK",
+      "activity_date": "2026-11-20",
+      "source": "training"
+    }
+  },
+  {
     "type": "hr.webhook.test.v1",
     "version": 1,
     "description": "Sent only to one subscription when an administrator presses \"Send test event\".",

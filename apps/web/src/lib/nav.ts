@@ -15,7 +15,7 @@ export interface NavGroup {
 }
 
 export const NAV: NavGroup[] = [
-  { label: 'Home', items: [{ label: 'Dashboard', href: '/' }, { label: 'My profile', href: '/me' }, { label: 'My leave', href: '/leave' }, { label: 'Clock in / my attendance', href: '/attendance/me' }, { label: 'My payslips', href: '/me/payslips' }, { label: 'My medical cover', href: '/medical' }, { label: 'My tasks', href: '/lifecycle/tasks' }, { label: 'My interviews', href: '/recruitment/interviews' }, { label: 'My HR file', href: '/lifecycle/relations' }, { label: 'Approvals', href: '/approvals' }, { label: 'Staff directory', href: '/directory', permission: 'directory:read' }] },
+  { label: 'Home', items: [{ label: 'Dashboard', href: '/' }, { label: 'My profile', href: '/me' }, { label: 'My leave', href: '/leave' }, { label: 'Clock in / my attendance', href: '/attendance/me' }, { label: 'My payslips', href: '/me/payslips' }, { label: 'My medical cover', href: '/medical' }, { label: 'My tasks', href: '/lifecycle/tasks' }, { label: 'My performance', href: '/me/performance' }, { label: 'My training and CPD', href: '/me/training' }, { label: 'My interviews', href: '/recruitment/interviews' }, { label: 'My HR file', href: '/lifecycle/relations' }, { label: 'Approvals', href: '/approvals' }, { label: 'Staff directory', href: '/directory', permission: 'directory:read' }] },
   {
     label: 'People',
     items: [
@@ -48,6 +48,16 @@ export const NAV: NavGroup[] = [
     items: [
       { label: 'Requisitions', href: '/recruitment', permission: 'requisition:request|requisition:read' },
       { label: 'Jobs and candidates', href: '/recruitment/jobs', permission: 'recruitment:manage' },
+    ],
+  },
+  {
+    label: 'Performance & training',
+    items: [
+      { label: 'Review cycles', href: '/performance', permission: 'performance:read' },
+      { label: 'Indicator library', href: '/performance/indicators', permission: 'performance:manage' },
+      { label: 'Training sessions', href: '/training', permission: 'training:read' },
+      { label: 'Mandatory training', href: '/training/compliance', permission: 'training:read' },
+      { label: 'CPD', href: '/training/cpd', permission: 'training:read|cpd:verify' },
     ],
   },
   {

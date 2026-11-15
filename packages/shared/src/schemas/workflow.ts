@@ -14,6 +14,8 @@ export const REQUEST_TYPES = {
   job_requisition: 'Job requisition (a new or replacement hire)',
   job_offer: 'Job offer',
   lifecycle_change: 'Promotion, transfer, confirmation, contract renewal, resignation, termination or final dues',
+  performance_review: 'Appraisal (manager assessment, calibration and approval)',
+  training_request: 'A place on a training session',
   medical_application: 'Medical scheme application (joining, dependants, top-ups, pre-authorisations, over-limit claims)',
 } as const;
 export type RequestType = keyof typeof REQUEST_TYPES;

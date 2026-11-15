@@ -4052,6 +4052,646 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/performance/indicators": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Performance_indicators"];
+        put?: never;
+        post: operations["Performance_createIndicator"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/performance/indicators/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["Performance_updateIndicator"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/performance/cycles": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Performance_cycles"];
+        put?: never;
+        post: operations["Performance_createCycle"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/performance/cycles/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Performance_cycle"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/performance/cycles/{id}/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Performance_cycleStatus"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/performance/cycles/{id}/reviews": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Performance_addReview"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/performance/cycles/{id}/report": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Performance_report"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/performance/reviews": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Performance_reviews"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/me/reviews": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Performance_mine"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/me/team-reviews": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Performance_team"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/performance/reviews/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Performance_review"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/performance/reviews/{id}/reviewer": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["Performance_reassign"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/performance/reviews/{id}/goals": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Performance_addGoal"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/performance/goals/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["Performance_updateGoal"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/performance/goals/{id}/drop": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Performance_dropGoal"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/performance/goals/{id}/progress": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Performance_progress"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/performance/reviews/{id}/agree-goals": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Performance_agree"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/performance/reviews/{id}/self": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["Performance_self"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/performance/reviews/{id}/manager": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["Performance_manager"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/performance/reviews/{id}/calibration": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["Performance_calibrate"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/performance/reviews/{id}/acknowledge": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Performance_acknowledge"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/training/programmes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Training_programmes"];
+        put?: never;
+        post: operations["Training_createProgramme"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/training/programmes/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["Training_updateProgramme"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/training/sessions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Training_sessions"];
+        put?: never;
+        post: operations["Training_createSession"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/training/sessions/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Training_session"];
+        put: operations["Training_updateSession"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/training/sessions/{id}/cancel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Training_cancel"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/training/sessions/{id}/enrol": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Training_enrol"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/training/sessions/{id}/attendance": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Training_attendance"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/training/sessions/{id}/complete": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Training_complete"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/training/compliance": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Training_compliance"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/me/training": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Training_mine"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/training/sessions/{id}/request": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Training_request"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/training/enrolments/{id}/withdraw": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Training_withdraw"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/training/enrolments/{id}/feedback": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["Training_feedback"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/me/cpd": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Training_myCpd"];
+        put?: never;
+        post: operations["Training_claim"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/training/cpd": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Training_cpd"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/training/cpd/{id}/decision": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Training_decide"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/training/cpd/{id}/evidence": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Training_evidence"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/training/cpd-compliance": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Training_cpdCompliance"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/training/cpd-requirements": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Training_requirements"];
+        put: operations["Training_setRequirements"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/health": {
         parameters: {
             query?: never;
@@ -9288,7 +9928,7 @@ export interface operations {
                 "application/json": {
                     name: string;
                     description?: string | null;
-                    scopes: ("org:read" | "employees:read" | "employees.sensitive:read" | "scim" | "leave:read" | "attendance:write" | "attendance:read" | "payroll.journal:read" | "medical:read" | "medical:write" | "events:read" | "external_refs:write" | "documents:read")[];
+                    scopes: ("org:read" | "employees:read" | "employees.sensitive:read" | "scim" | "leave:read" | "attendance:write" | "attendance:read" | "payroll.journal:read" | "medical:read" | "medical:write" | "training:read" | "events:read" | "external_refs:write" | "documents:read")[];
                     /** @default 600 */
                     rate_limit_per_minute?: number;
                 };
@@ -9454,7 +10094,7 @@ export interface operations {
                 "application/json": {
                     name?: string;
                     description?: string | null;
-                    scopes?: ("org:read" | "employees:read" | "employees.sensitive:read" | "scim" | "leave:read" | "attendance:write" | "attendance:read" | "payroll.journal:read" | "medical:read" | "medical:write" | "events:read" | "external_refs:write" | "documents:read")[];
+                    scopes?: ("org:read" | "employees:read" | "employees.sensitive:read" | "scim" | "leave:read" | "attendance:write" | "attendance:read" | "payroll.journal:read" | "medical:read" | "medical:write" | "training:read" | "events:read" | "external_refs:write" | "documents:read")[];
                     rate_limit_per_minute?: number;
                     is_active?: boolean;
                 };
@@ -14153,7 +14793,7 @@ export interface operations {
                     code: string;
                     name: string;
                     /** @enum {string} */
-                    request_type: "leave_request" | "contact_change" | "attendance_regularisation" | "payroll_run" | "job_requisition" | "job_offer" | "lifecycle_change" | "medical_application";
+                    request_type: "leave_request" | "contact_change" | "attendance_regularisation" | "payroll_run" | "job_requisition" | "job_offer" | "lifecycle_change" | "performance_review" | "training_request" | "medical_application";
                     description?: string | null;
                     /** @default {} */
                     conditions?: {
@@ -14276,7 +14916,7 @@ export interface operations {
                     code: string;
                     name: string;
                     /** @enum {string} */
-                    request_type: "leave_request" | "contact_change" | "attendance_regularisation" | "payroll_run" | "job_requisition" | "job_offer" | "lifecycle_change" | "medical_application";
+                    request_type: "leave_request" | "contact_change" | "attendance_regularisation" | "payroll_run" | "job_requisition" | "job_offer" | "lifecycle_change" | "performance_review" | "training_request" | "medical_application";
                     description?: string | null;
                     /** @default {} */
                     conditions?: {
@@ -28756,6 +29396,4353 @@ export interface operations {
                 };
             };
             /** @description Requires: offer:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Performance_indicators: {
+        parameters: {
+            query?: {
+                status?: "active" | "inactive";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description The indicator (KPI) library; anyone signed in can read it to pick goals */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        code: string;
+                        name: string;
+                        description: string | null;
+                        /** @enum {string} */
+                        category: "clinical" | "quality" | "patient_experience" | "operational" | "behaviour" | "learning";
+                        /** @enum {string} */
+                        measure: "rating" | "percent" | "number" | "yes_no";
+                        default_target: string | null;
+                        department_id: string | null;
+                        department_name: string | null;
+                        position_id: string | null;
+                        position_title: string | null;
+                        /** @enum {string} */
+                        status: "active" | "inactive";
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    }[];
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Performance_createIndicator: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    code: string;
+                    name: string;
+                    description?: string | null;
+                    /** @enum {string} */
+                    category: "clinical" | "quality" | "patient_experience" | "operational" | "behaviour" | "learning";
+                    /** @enum {string} */
+                    measure: "rating" | "percent" | "number" | "yes_no";
+                    default_target?: string | null;
+                    department_id?: string | null;
+                    position_id?: string | null;
+                    /**
+                     * @default active
+                     * @enum {string}
+                     */
+                    status?: "active" | "inactive";
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        code: string;
+                        name: string;
+                        description: string | null;
+                        /** @enum {string} */
+                        category: "clinical" | "quality" | "patient_experience" | "operational" | "behaviour" | "learning";
+                        /** @enum {string} */
+                        measure: "rating" | "percent" | "number" | "yes_no";
+                        default_target: string | null;
+                        department_id: string | null;
+                        department_name: string | null;
+                        position_id: string | null;
+                        position_title: string | null;
+                        /** @enum {string} */
+                        status: "active" | "inactive";
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: performance:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Performance_updateIndicator: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description ETag of the version being changed */
+                "If-Match": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    code: string;
+                    name: string;
+                    description?: string | null;
+                    /** @enum {string} */
+                    category: "clinical" | "quality" | "patient_experience" | "operational" | "behaviour" | "learning";
+                    /** @enum {string} */
+                    measure: "rating" | "percent" | "number" | "yes_no";
+                    default_target?: string | null;
+                    department_id?: string | null;
+                    position_id?: string | null;
+                    /**
+                     * @default active
+                     * @enum {string}
+                     */
+                    status?: "active" | "inactive";
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        code: string;
+                        name: string;
+                        description: string | null;
+                        /** @enum {string} */
+                        category: "clinical" | "quality" | "patient_experience" | "operational" | "behaviour" | "learning";
+                        /** @enum {string} */
+                        measure: "rating" | "percent" | "number" | "yes_no";
+                        default_target: string | null;
+                        department_id: string | null;
+                        department_name: string | null;
+                        position_id: string | null;
+                        position_title: string | null;
+                        /** @enum {string} */
+                        status: "active" | "inactive";
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: performance:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Performance_cycles: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        name: string;
+                        /** @enum {string} */
+                        kind: "annual" | "mid_year" | "quarterly" | "probation";
+                        /** Format: date */
+                        period_start: string;
+                        /** Format: date */
+                        period_end: string;
+                        /** Format: date */
+                        goals_due: string;
+                        /** Format: date */
+                        self_review_due: string;
+                        /** Format: date */
+                        manager_review_due: string;
+                        department_id: string | null;
+                        department_name: string | null;
+                        /** @enum {string} */
+                        status: "draft" | "goal_setting" | "reviewing" | "closed";
+                        launched_at: string | null;
+                        counts: {
+                            reviews: number;
+                            goals_agreed: number;
+                            self_done: number;
+                            manager_done: number;
+                            completed: number;
+                        };
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    }[];
+                };
+            };
+            /** @description Requires: performance:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Performance_createCycle: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    name: string;
+                    /** @enum {string} */
+                    kind: "annual" | "mid_year" | "quarterly" | "probation";
+                    /** Format: date */
+                    period_start: string;
+                    /** Format: date */
+                    period_end: string;
+                    /** Format: date */
+                    goals_due: string;
+                    /** Format: date */
+                    self_review_due: string;
+                    /** Format: date */
+                    manager_review_due: string;
+                    department_id?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Created as a draft; launch it to create the reviews */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        name: string;
+                        /** @enum {string} */
+                        kind: "annual" | "mid_year" | "quarterly" | "probation";
+                        /** Format: date */
+                        period_start: string;
+                        /** Format: date */
+                        period_end: string;
+                        /** Format: date */
+                        goals_due: string;
+                        /** Format: date */
+                        self_review_due: string;
+                        /** Format: date */
+                        manager_review_due: string;
+                        department_id: string | null;
+                        department_name: string | null;
+                        /** @enum {string} */
+                        status: "draft" | "goal_setting" | "reviewing" | "closed";
+                        launched_at: string | null;
+                        counts: {
+                            reviews: number;
+                            goals_agreed: number;
+                            self_done: number;
+                            manager_done: number;
+                            completed: number;
+                        };
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: performance:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Performance_cycle: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        name: string;
+                        /** @enum {string} */
+                        kind: "annual" | "mid_year" | "quarterly" | "probation";
+                        /** Format: date */
+                        period_start: string;
+                        /** Format: date */
+                        period_end: string;
+                        /** Format: date */
+                        goals_due: string;
+                        /** Format: date */
+                        self_review_due: string;
+                        /** Format: date */
+                        manager_review_due: string;
+                        department_id: string | null;
+                        department_name: string | null;
+                        /** @enum {string} */
+                        status: "draft" | "goal_setting" | "reviewing" | "closed";
+                        launched_at: string | null;
+                        counts: {
+                            reviews: number;
+                            goals_agreed: number;
+                            self_done: number;
+                            manager_done: number;
+                            completed: number;
+                        };
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: performance:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Performance_cycleStatus: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @enum {string} */
+                    status: "goal_setting" | "reviewing" | "closed";
+                };
+            };
+        };
+        responses: {
+            /** @description goal_setting launches the cycle (one review per active employee); reviewing opens self-reviews; closed stops new submissions */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        name: string;
+                        /** @enum {string} */
+                        kind: "annual" | "mid_year" | "quarterly" | "probation";
+                        /** Format: date */
+                        period_start: string;
+                        /** Format: date */
+                        period_end: string;
+                        /** Format: date */
+                        goals_due: string;
+                        /** Format: date */
+                        self_review_due: string;
+                        /** Format: date */
+                        manager_review_due: string;
+                        department_id: string | null;
+                        department_name: string | null;
+                        /** @enum {string} */
+                        status: "draft" | "goal_setting" | "reviewing" | "closed";
+                        launched_at: string | null;
+                        counts: {
+                            reviews: number;
+                            goals_agreed: number;
+                            self_done: number;
+                            manager_done: number;
+                            completed: number;
+                        };
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: performance:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Performance_addReview: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    employee_id: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Adds a review for someone who joined after the launch */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                    };
+                };
+            };
+            /** @description Requires: performance:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Performance_report: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Rating distribution (approved reviews) and completion by department */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        cycle_id: string;
+                        bands: {
+                            band: string;
+                            count: number;
+                        }[];
+                        departments: {
+                            department_name: string | null;
+                            reviews: number;
+                            completed: number;
+                            average: string | null;
+                        }[];
+                    };
+                };
+            };
+            /** @description Requires: performance:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Performance_reviews: {
+        parameters: {
+            query?: {
+                cycle_id?: string;
+                status?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Reviews of staff in your performance:read scope */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        cycle_id: string;
+                        cycle_name: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        position_title: string | null;
+                        department_name: string | null;
+                        reviewer_user_id: string | null;
+                        reviewer_name: string | null;
+                        /** @enum {string} */
+                        status: "goal_setting" | "self_review" | "manager_review" | "approval" | "acknowledgement" | "completed";
+                        self_rating: string | null;
+                        manager_rating: string | null;
+                        final_rating: string | null;
+                        band: string | null;
+                        goals: number;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    }[];
+                };
+            };
+            /** @description Requires: performance:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Performance_mine: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Your own appraisals */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        cycle_id: string;
+                        cycle_name: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        position_title: string | null;
+                        department_name: string | null;
+                        reviewer_user_id: string | null;
+                        reviewer_name: string | null;
+                        /** @enum {string} */
+                        status: "goal_setting" | "self_review" | "manager_review" | "approval" | "acknowledgement" | "completed";
+                        self_rating: string | null;
+                        manager_rating: string | null;
+                        final_rating: string | null;
+                        band: string | null;
+                        goals: number;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    }[];
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Performance_team: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Appraisals you write as the reviewer */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        cycle_id: string;
+                        cycle_name: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        position_title: string | null;
+                        department_name: string | null;
+                        reviewer_user_id: string | null;
+                        reviewer_name: string | null;
+                        /** @enum {string} */
+                        status: "goal_setting" | "self_review" | "manager_review" | "approval" | "acknowledgement" | "completed";
+                        self_rating: string | null;
+                        manager_rating: string | null;
+                        final_rating: string | null;
+                        band: string | null;
+                        goals: number;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    }[];
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Performance_review: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description The employee, their reviewer and performance:read holders in scope. The employee sees the manager’s assessment once approved. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        cycle_id: string;
+                        cycle_name: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        position_title: string | null;
+                        department_name: string | null;
+                        reviewer_user_id: string | null;
+                        reviewer_name: string | null;
+                        /** @enum {string} */
+                        status: "goal_setting" | "self_review" | "manager_review" | "approval" | "acknowledgement" | "completed";
+                        self_rating: string | null;
+                        manager_rating: string | null;
+                        final_rating: string | null;
+                        band: string | null;
+                        goals: number;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                        /** @enum {string} */
+                        cycle_status: "draft" | "goal_setting" | "reviewing" | "closed";
+                        /** Format: date */
+                        period_start: string;
+                        /** Format: date */
+                        period_end: string;
+                        /** Format: date */
+                        self_review_due: string;
+                        /** Format: date */
+                        manager_review_due: string;
+                        goal_list: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            review_id: string;
+                            indicator_id: string | null;
+                            indicator_name: string | null;
+                            title: string;
+                            description: string | null;
+                            /** @enum {string} */
+                            measure: "rating" | "percent" | "number" | "yes_no";
+                            target: string | null;
+                            weight: number;
+                            /** @enum {string} */
+                            status: "proposed" | "agreed" | "dropped";
+                            progress: number;
+                            progress_note: string | null;
+                            self_score: number | null;
+                            self_comment: string | null;
+                            manager_score: number | null;
+                            manager_comment: string | null;
+                            version: number;
+                        }[];
+                        self_comment: string | null;
+                        self_submitted_at: string | null;
+                        manager_comment: string | null;
+                        strengths: string | null;
+                        development_needs: string | null;
+                        manager_submitted_at: string | null;
+                        calibration_comment: string | null;
+                        employee_agrees: boolean | null;
+                        employee_comment: string | null;
+                        acknowledged_at: string | null;
+                        workflow_instance_id: string | null;
+                        can: {
+                            edit_goals: boolean;
+                            agree_goals: boolean;
+                            self_review: boolean;
+                            manager_review: boolean;
+                            calibrate: boolean;
+                            acknowledge: boolean;
+                            reassign: boolean;
+                        };
+                    };
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Performance_reassign: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    reviewer_user_id: string;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        cycle_id: string;
+                        cycle_name: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        position_title: string | null;
+                        department_name: string | null;
+                        reviewer_user_id: string | null;
+                        reviewer_name: string | null;
+                        /** @enum {string} */
+                        status: "goal_setting" | "self_review" | "manager_review" | "approval" | "acknowledgement" | "completed";
+                        self_rating: string | null;
+                        manager_rating: string | null;
+                        final_rating: string | null;
+                        band: string | null;
+                        goals: number;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                        /** @enum {string} */
+                        cycle_status: "draft" | "goal_setting" | "reviewing" | "closed";
+                        /** Format: date */
+                        period_start: string;
+                        /** Format: date */
+                        period_end: string;
+                        /** Format: date */
+                        self_review_due: string;
+                        /** Format: date */
+                        manager_review_due: string;
+                        goal_list: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            review_id: string;
+                            indicator_id: string | null;
+                            indicator_name: string | null;
+                            title: string;
+                            description: string | null;
+                            /** @enum {string} */
+                            measure: "rating" | "percent" | "number" | "yes_no";
+                            target: string | null;
+                            weight: number;
+                            /** @enum {string} */
+                            status: "proposed" | "agreed" | "dropped";
+                            progress: number;
+                            progress_note: string | null;
+                            self_score: number | null;
+                            self_comment: string | null;
+                            manager_score: number | null;
+                            manager_comment: string | null;
+                            version: number;
+                        }[];
+                        self_comment: string | null;
+                        self_submitted_at: string | null;
+                        manager_comment: string | null;
+                        strengths: string | null;
+                        development_needs: string | null;
+                        manager_submitted_at: string | null;
+                        calibration_comment: string | null;
+                        employee_agrees: boolean | null;
+                        employee_comment: string | null;
+                        acknowledged_at: string | null;
+                        workflow_instance_id: string | null;
+                        can: {
+                            edit_goals: boolean;
+                            agree_goals: boolean;
+                            self_review: boolean;
+                            manager_review: boolean;
+                            calibrate: boolean;
+                            acknowledge: boolean;
+                            reassign: boolean;
+                        };
+                    };
+                };
+            };
+            /** @description Requires: performance:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Performance_addGoal: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    indicator_id?: string | null;
+                    title: string;
+                    description?: string | null;
+                    /** @enum {string} */
+                    measure: "rating" | "percent" | "number" | "yes_no";
+                    target?: string | null;
+                    weight: number;
+                };
+            };
+        };
+        responses: {
+            /** @description The employee or the reviewer proposes a goal (goal setting only) */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        cycle_id: string;
+                        cycle_name: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        position_title: string | null;
+                        department_name: string | null;
+                        reviewer_user_id: string | null;
+                        reviewer_name: string | null;
+                        /** @enum {string} */
+                        status: "goal_setting" | "self_review" | "manager_review" | "approval" | "acknowledgement" | "completed";
+                        self_rating: string | null;
+                        manager_rating: string | null;
+                        final_rating: string | null;
+                        band: string | null;
+                        goals: number;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                        /** @enum {string} */
+                        cycle_status: "draft" | "goal_setting" | "reviewing" | "closed";
+                        /** Format: date */
+                        period_start: string;
+                        /** Format: date */
+                        period_end: string;
+                        /** Format: date */
+                        self_review_due: string;
+                        /** Format: date */
+                        manager_review_due: string;
+                        goal_list: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            review_id: string;
+                            indicator_id: string | null;
+                            indicator_name: string | null;
+                            title: string;
+                            description: string | null;
+                            /** @enum {string} */
+                            measure: "rating" | "percent" | "number" | "yes_no";
+                            target: string | null;
+                            weight: number;
+                            /** @enum {string} */
+                            status: "proposed" | "agreed" | "dropped";
+                            progress: number;
+                            progress_note: string | null;
+                            self_score: number | null;
+                            self_comment: string | null;
+                            manager_score: number | null;
+                            manager_comment: string | null;
+                            version: number;
+                        }[];
+                        self_comment: string | null;
+                        self_submitted_at: string | null;
+                        manager_comment: string | null;
+                        strengths: string | null;
+                        development_needs: string | null;
+                        manager_submitted_at: string | null;
+                        calibration_comment: string | null;
+                        employee_agrees: boolean | null;
+                        employee_comment: string | null;
+                        acknowledged_at: string | null;
+                        workflow_instance_id: string | null;
+                        can: {
+                            edit_goals: boolean;
+                            agree_goals: boolean;
+                            self_review: boolean;
+                            manager_review: boolean;
+                            calibrate: boolean;
+                            acknowledge: boolean;
+                            reassign: boolean;
+                        };
+                    };
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Performance_updateGoal: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description ETag of the version being changed */
+                "If-Match": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    indicator_id?: string | null;
+                    title: string;
+                    description?: string | null;
+                    /** @enum {string} */
+                    measure: "rating" | "percent" | "number" | "yes_no";
+                    target?: string | null;
+                    weight: number;
+                };
+            };
+        };
+        responses: {
+            /** @description A changed goal needs agreeing again */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        cycle_id: string;
+                        cycle_name: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        position_title: string | null;
+                        department_name: string | null;
+                        reviewer_user_id: string | null;
+                        reviewer_name: string | null;
+                        /** @enum {string} */
+                        status: "goal_setting" | "self_review" | "manager_review" | "approval" | "acknowledgement" | "completed";
+                        self_rating: string | null;
+                        manager_rating: string | null;
+                        final_rating: string | null;
+                        band: string | null;
+                        goals: number;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                        /** @enum {string} */
+                        cycle_status: "draft" | "goal_setting" | "reviewing" | "closed";
+                        /** Format: date */
+                        period_start: string;
+                        /** Format: date */
+                        period_end: string;
+                        /** Format: date */
+                        self_review_due: string;
+                        /** Format: date */
+                        manager_review_due: string;
+                        goal_list: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            review_id: string;
+                            indicator_id: string | null;
+                            indicator_name: string | null;
+                            title: string;
+                            description: string | null;
+                            /** @enum {string} */
+                            measure: "rating" | "percent" | "number" | "yes_no";
+                            target: string | null;
+                            weight: number;
+                            /** @enum {string} */
+                            status: "proposed" | "agreed" | "dropped";
+                            progress: number;
+                            progress_note: string | null;
+                            self_score: number | null;
+                            self_comment: string | null;
+                            manager_score: number | null;
+                            manager_comment: string | null;
+                            version: number;
+                        }[];
+                        self_comment: string | null;
+                        self_submitted_at: string | null;
+                        manager_comment: string | null;
+                        strengths: string | null;
+                        development_needs: string | null;
+                        manager_submitted_at: string | null;
+                        calibration_comment: string | null;
+                        employee_agrees: boolean | null;
+                        employee_comment: string | null;
+                        acknowledged_at: string | null;
+                        workflow_instance_id: string | null;
+                        can: {
+                            edit_goals: boolean;
+                            agree_goals: boolean;
+                            self_review: boolean;
+                            manager_review: boolean;
+                            calibrate: boolean;
+                            acknowledge: boolean;
+                            reassign: boolean;
+                        };
+                    };
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Performance_dropGoal: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        cycle_id: string;
+                        cycle_name: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        position_title: string | null;
+                        department_name: string | null;
+                        reviewer_user_id: string | null;
+                        reviewer_name: string | null;
+                        /** @enum {string} */
+                        status: "goal_setting" | "self_review" | "manager_review" | "approval" | "acknowledgement" | "completed";
+                        self_rating: string | null;
+                        manager_rating: string | null;
+                        final_rating: string | null;
+                        band: string | null;
+                        goals: number;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                        /** @enum {string} */
+                        cycle_status: "draft" | "goal_setting" | "reviewing" | "closed";
+                        /** Format: date */
+                        period_start: string;
+                        /** Format: date */
+                        period_end: string;
+                        /** Format: date */
+                        self_review_due: string;
+                        /** Format: date */
+                        manager_review_due: string;
+                        goal_list: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            review_id: string;
+                            indicator_id: string | null;
+                            indicator_name: string | null;
+                            title: string;
+                            description: string | null;
+                            /** @enum {string} */
+                            measure: "rating" | "percent" | "number" | "yes_no";
+                            target: string | null;
+                            weight: number;
+                            /** @enum {string} */
+                            status: "proposed" | "agreed" | "dropped";
+                            progress: number;
+                            progress_note: string | null;
+                            self_score: number | null;
+                            self_comment: string | null;
+                            manager_score: number | null;
+                            manager_comment: string | null;
+                            version: number;
+                        }[];
+                        self_comment: string | null;
+                        self_submitted_at: string | null;
+                        manager_comment: string | null;
+                        strengths: string | null;
+                        development_needs: string | null;
+                        manager_submitted_at: string | null;
+                        calibration_comment: string | null;
+                        employee_agrees: boolean | null;
+                        employee_comment: string | null;
+                        acknowledged_at: string | null;
+                        workflow_instance_id: string | null;
+                        can: {
+                            edit_goals: boolean;
+                            agree_goals: boolean;
+                            self_review: boolean;
+                            manager_review: boolean;
+                            calibrate: boolean;
+                            acknowledge: boolean;
+                            reassign: boolean;
+                        };
+                    };
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Performance_progress: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    progress: number;
+                    note?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        cycle_id: string;
+                        cycle_name: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        position_title: string | null;
+                        department_name: string | null;
+                        reviewer_user_id: string | null;
+                        reviewer_name: string | null;
+                        /** @enum {string} */
+                        status: "goal_setting" | "self_review" | "manager_review" | "approval" | "acknowledgement" | "completed";
+                        self_rating: string | null;
+                        manager_rating: string | null;
+                        final_rating: string | null;
+                        band: string | null;
+                        goals: number;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                        /** @enum {string} */
+                        cycle_status: "draft" | "goal_setting" | "reviewing" | "closed";
+                        /** Format: date */
+                        period_start: string;
+                        /** Format: date */
+                        period_end: string;
+                        /** Format: date */
+                        self_review_due: string;
+                        /** Format: date */
+                        manager_review_due: string;
+                        goal_list: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            review_id: string;
+                            indicator_id: string | null;
+                            indicator_name: string | null;
+                            title: string;
+                            description: string | null;
+                            /** @enum {string} */
+                            measure: "rating" | "percent" | "number" | "yes_no";
+                            target: string | null;
+                            weight: number;
+                            /** @enum {string} */
+                            status: "proposed" | "agreed" | "dropped";
+                            progress: number;
+                            progress_note: string | null;
+                            self_score: number | null;
+                            self_comment: string | null;
+                            manager_score: number | null;
+                            manager_comment: string | null;
+                            version: number;
+                        }[];
+                        self_comment: string | null;
+                        self_submitted_at: string | null;
+                        manager_comment: string | null;
+                        strengths: string | null;
+                        development_needs: string | null;
+                        manager_submitted_at: string | null;
+                        calibration_comment: string | null;
+                        employee_agrees: boolean | null;
+                        employee_comment: string | null;
+                        acknowledged_at: string | null;
+                        workflow_instance_id: string | null;
+                        can: {
+                            edit_goals: boolean;
+                            agree_goals: boolean;
+                            self_review: boolean;
+                            manager_review: boolean;
+                            calibrate: boolean;
+                            acknowledge: boolean;
+                            reassign: boolean;
+                        };
+                    };
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Performance_agree: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description The reviewer agrees the goals; their weights must add up to 100 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        cycle_id: string;
+                        cycle_name: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        position_title: string | null;
+                        department_name: string | null;
+                        reviewer_user_id: string | null;
+                        reviewer_name: string | null;
+                        /** @enum {string} */
+                        status: "goal_setting" | "self_review" | "manager_review" | "approval" | "acknowledgement" | "completed";
+                        self_rating: string | null;
+                        manager_rating: string | null;
+                        final_rating: string | null;
+                        band: string | null;
+                        goals: number;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                        /** @enum {string} */
+                        cycle_status: "draft" | "goal_setting" | "reviewing" | "closed";
+                        /** Format: date */
+                        period_start: string;
+                        /** Format: date */
+                        period_end: string;
+                        /** Format: date */
+                        self_review_due: string;
+                        /** Format: date */
+                        manager_review_due: string;
+                        goal_list: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            review_id: string;
+                            indicator_id: string | null;
+                            indicator_name: string | null;
+                            title: string;
+                            description: string | null;
+                            /** @enum {string} */
+                            measure: "rating" | "percent" | "number" | "yes_no";
+                            target: string | null;
+                            weight: number;
+                            /** @enum {string} */
+                            status: "proposed" | "agreed" | "dropped";
+                            progress: number;
+                            progress_note: string | null;
+                            self_score: number | null;
+                            self_comment: string | null;
+                            manager_score: number | null;
+                            manager_comment: string | null;
+                            version: number;
+                        }[];
+                        self_comment: string | null;
+                        self_submitted_at: string | null;
+                        manager_comment: string | null;
+                        strengths: string | null;
+                        development_needs: string | null;
+                        manager_submitted_at: string | null;
+                        calibration_comment: string | null;
+                        employee_agrees: boolean | null;
+                        employee_comment: string | null;
+                        acknowledged_at: string | null;
+                        workflow_instance_id: string | null;
+                        can: {
+                            edit_goals: boolean;
+                            agree_goals: boolean;
+                            self_review: boolean;
+                            manager_review: boolean;
+                            calibrate: boolean;
+                            acknowledge: boolean;
+                            reassign: boolean;
+                        };
+                    };
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Performance_self: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @default [] */
+                    scores?: {
+                        /** Format: uuid */
+                        goal_id: string;
+                        score?: number | null;
+                        comment?: string | null;
+                    }[];
+                    comment?: string | null;
+                    /** @default false */
+                    submit?: boolean;
+                };
+            };
+        };
+        responses: {
+            /** @description Saves the self-review; submit=true sends it to the reviewer */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        cycle_id: string;
+                        cycle_name: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        position_title: string | null;
+                        department_name: string | null;
+                        reviewer_user_id: string | null;
+                        reviewer_name: string | null;
+                        /** @enum {string} */
+                        status: "goal_setting" | "self_review" | "manager_review" | "approval" | "acknowledgement" | "completed";
+                        self_rating: string | null;
+                        manager_rating: string | null;
+                        final_rating: string | null;
+                        band: string | null;
+                        goals: number;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                        /** @enum {string} */
+                        cycle_status: "draft" | "goal_setting" | "reviewing" | "closed";
+                        /** Format: date */
+                        period_start: string;
+                        /** Format: date */
+                        period_end: string;
+                        /** Format: date */
+                        self_review_due: string;
+                        /** Format: date */
+                        manager_review_due: string;
+                        goal_list: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            review_id: string;
+                            indicator_id: string | null;
+                            indicator_name: string | null;
+                            title: string;
+                            description: string | null;
+                            /** @enum {string} */
+                            measure: "rating" | "percent" | "number" | "yes_no";
+                            target: string | null;
+                            weight: number;
+                            /** @enum {string} */
+                            status: "proposed" | "agreed" | "dropped";
+                            progress: number;
+                            progress_note: string | null;
+                            self_score: number | null;
+                            self_comment: string | null;
+                            manager_score: number | null;
+                            manager_comment: string | null;
+                            version: number;
+                        }[];
+                        self_comment: string | null;
+                        self_submitted_at: string | null;
+                        manager_comment: string | null;
+                        strengths: string | null;
+                        development_needs: string | null;
+                        manager_submitted_at: string | null;
+                        calibration_comment: string | null;
+                        employee_agrees: boolean | null;
+                        employee_comment: string | null;
+                        acknowledged_at: string | null;
+                        workflow_instance_id: string | null;
+                        can: {
+                            edit_goals: boolean;
+                            agree_goals: boolean;
+                            self_review: boolean;
+                            manager_review: boolean;
+                            calibrate: boolean;
+                            acknowledge: boolean;
+                            reassign: boolean;
+                        };
+                    };
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Performance_manager: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @default [] */
+                    scores?: {
+                        /** Format: uuid */
+                        goal_id: string;
+                        score?: number | null;
+                        comment?: string | null;
+                    }[];
+                    overall_rating?: number | null;
+                    comment?: string | null;
+                    strengths?: string | null;
+                    development_needs?: string | null;
+                    /** @default false */
+                    submit?: boolean;
+                };
+            };
+        };
+        responses: {
+            /** @description Saves the manager assessment; submit=true sends it to the PERFORMANCE approval workflow */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        cycle_id: string;
+                        cycle_name: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        position_title: string | null;
+                        department_name: string | null;
+                        reviewer_user_id: string | null;
+                        reviewer_name: string | null;
+                        /** @enum {string} */
+                        status: "goal_setting" | "self_review" | "manager_review" | "approval" | "acknowledgement" | "completed";
+                        self_rating: string | null;
+                        manager_rating: string | null;
+                        final_rating: string | null;
+                        band: string | null;
+                        goals: number;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                        /** @enum {string} */
+                        cycle_status: "draft" | "goal_setting" | "reviewing" | "closed";
+                        /** Format: date */
+                        period_start: string;
+                        /** Format: date */
+                        period_end: string;
+                        /** Format: date */
+                        self_review_due: string;
+                        /** Format: date */
+                        manager_review_due: string;
+                        goal_list: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            review_id: string;
+                            indicator_id: string | null;
+                            indicator_name: string | null;
+                            title: string;
+                            description: string | null;
+                            /** @enum {string} */
+                            measure: "rating" | "percent" | "number" | "yes_no";
+                            target: string | null;
+                            weight: number;
+                            /** @enum {string} */
+                            status: "proposed" | "agreed" | "dropped";
+                            progress: number;
+                            progress_note: string | null;
+                            self_score: number | null;
+                            self_comment: string | null;
+                            manager_score: number | null;
+                            manager_comment: string | null;
+                            version: number;
+                        }[];
+                        self_comment: string | null;
+                        self_submitted_at: string | null;
+                        manager_comment: string | null;
+                        strengths: string | null;
+                        development_needs: string | null;
+                        manager_submitted_at: string | null;
+                        calibration_comment: string | null;
+                        employee_agrees: boolean | null;
+                        employee_comment: string | null;
+                        acknowledged_at: string | null;
+                        workflow_instance_id: string | null;
+                        can: {
+                            edit_goals: boolean;
+                            agree_goals: boolean;
+                            self_review: boolean;
+                            manager_review: boolean;
+                            calibrate: boolean;
+                            acknowledge: boolean;
+                            reassign: boolean;
+                        };
+                    };
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Performance_calibrate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    final_rating: number;
+                    comment: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Sets the final rating while the review is with the approvers (audited) */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        cycle_id: string;
+                        cycle_name: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        position_title: string | null;
+                        department_name: string | null;
+                        reviewer_user_id: string | null;
+                        reviewer_name: string | null;
+                        /** @enum {string} */
+                        status: "goal_setting" | "self_review" | "manager_review" | "approval" | "acknowledgement" | "completed";
+                        self_rating: string | null;
+                        manager_rating: string | null;
+                        final_rating: string | null;
+                        band: string | null;
+                        goals: number;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                        /** @enum {string} */
+                        cycle_status: "draft" | "goal_setting" | "reviewing" | "closed";
+                        /** Format: date */
+                        period_start: string;
+                        /** Format: date */
+                        period_end: string;
+                        /** Format: date */
+                        self_review_due: string;
+                        /** Format: date */
+                        manager_review_due: string;
+                        goal_list: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            review_id: string;
+                            indicator_id: string | null;
+                            indicator_name: string | null;
+                            title: string;
+                            description: string | null;
+                            /** @enum {string} */
+                            measure: "rating" | "percent" | "number" | "yes_no";
+                            target: string | null;
+                            weight: number;
+                            /** @enum {string} */
+                            status: "proposed" | "agreed" | "dropped";
+                            progress: number;
+                            progress_note: string | null;
+                            self_score: number | null;
+                            self_comment: string | null;
+                            manager_score: number | null;
+                            manager_comment: string | null;
+                            version: number;
+                        }[];
+                        self_comment: string | null;
+                        self_submitted_at: string | null;
+                        manager_comment: string | null;
+                        strengths: string | null;
+                        development_needs: string | null;
+                        manager_submitted_at: string | null;
+                        calibration_comment: string | null;
+                        employee_agrees: boolean | null;
+                        employee_comment: string | null;
+                        acknowledged_at: string | null;
+                        workflow_instance_id: string | null;
+                        can: {
+                            edit_goals: boolean;
+                            agree_goals: boolean;
+                            self_review: boolean;
+                            manager_review: boolean;
+                            calibrate: boolean;
+                            acknowledge: boolean;
+                            reassign: boolean;
+                        };
+                    };
+                };
+            };
+            /** @description Requires: performance:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Performance_acknowledge: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    agree: boolean;
+                    comment?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description The employee has read the approved review, and agrees or says why not */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        cycle_id: string;
+                        cycle_name: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        position_title: string | null;
+                        department_name: string | null;
+                        reviewer_user_id: string | null;
+                        reviewer_name: string | null;
+                        /** @enum {string} */
+                        status: "goal_setting" | "self_review" | "manager_review" | "approval" | "acknowledgement" | "completed";
+                        self_rating: string | null;
+                        manager_rating: string | null;
+                        final_rating: string | null;
+                        band: string | null;
+                        goals: number;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                        /** @enum {string} */
+                        cycle_status: "draft" | "goal_setting" | "reviewing" | "closed";
+                        /** Format: date */
+                        period_start: string;
+                        /** Format: date */
+                        period_end: string;
+                        /** Format: date */
+                        self_review_due: string;
+                        /** Format: date */
+                        manager_review_due: string;
+                        goal_list: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            review_id: string;
+                            indicator_id: string | null;
+                            indicator_name: string | null;
+                            title: string;
+                            description: string | null;
+                            /** @enum {string} */
+                            measure: "rating" | "percent" | "number" | "yes_no";
+                            target: string | null;
+                            weight: number;
+                            /** @enum {string} */
+                            status: "proposed" | "agreed" | "dropped";
+                            progress: number;
+                            progress_note: string | null;
+                            self_score: number | null;
+                            self_comment: string | null;
+                            manager_score: number | null;
+                            manager_comment: string | null;
+                            version: number;
+                        }[];
+                        self_comment: string | null;
+                        self_submitted_at: string | null;
+                        manager_comment: string | null;
+                        strengths: string | null;
+                        development_needs: string | null;
+                        manager_submitted_at: string | null;
+                        calibration_comment: string | null;
+                        employee_agrees: boolean | null;
+                        employee_comment: string | null;
+                        acknowledged_at: string | null;
+                        workflow_instance_id: string | null;
+                        can: {
+                            edit_goals: boolean;
+                            agree_goals: boolean;
+                            self_review: boolean;
+                            manager_review: boolean;
+                            calibrate: boolean;
+                            acknowledge: boolean;
+                            reassign: boolean;
+                        };
+                    };
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Training_programmes: {
+        parameters: {
+            query?: {
+                status?: "active" | "inactive";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description The training catalogue (anyone signed in) */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        code: string;
+                        title: string;
+                        description: string | null;
+                        /** @enum {string} */
+                        category: "clinical" | "mandatory" | "compliance" | "induction" | "leadership" | "technical" | "soft_skills";
+                        /** @enum {string} */
+                        delivery: "classroom" | "online" | "on_the_job" | "external" | "conference";
+                        provider: string | null;
+                        duration_hours: string;
+                        cpd_points: string;
+                        cpd_bodies: string[];
+                        /** @enum {string} */
+                        mandatory_for: "none" | "all" | "clinical";
+                        refresh_months: number | null;
+                        pass_mark: number | null;
+                        /** @enum {string} */
+                        status: "active" | "inactive";
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    }[];
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Training_createProgramme: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    code: string;
+                    title: string;
+                    description?: string | null;
+                    /** @enum {string} */
+                    category: "clinical" | "mandatory" | "compliance" | "induction" | "leadership" | "technical" | "soft_skills";
+                    /** @enum {string} */
+                    delivery: "classroom" | "online" | "on_the_job" | "external" | "conference";
+                    provider?: string | null;
+                    /** @default 0 */
+                    duration_hours?: string;
+                    /** @default 0 */
+                    cpd_points?: string;
+                    /** @default [] */
+                    cpd_bodies?: string[];
+                    /**
+                     * @default none
+                     * @enum {string}
+                     */
+                    mandatory_for?: "none" | "all" | "clinical";
+                    refresh_months?: number | null;
+                    pass_mark?: number | null;
+                    /**
+                     * @default active
+                     * @enum {string}
+                     */
+                    status?: "active" | "inactive";
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        code: string;
+                        title: string;
+                        description: string | null;
+                        /** @enum {string} */
+                        category: "clinical" | "mandatory" | "compliance" | "induction" | "leadership" | "technical" | "soft_skills";
+                        /** @enum {string} */
+                        delivery: "classroom" | "online" | "on_the_job" | "external" | "conference";
+                        provider: string | null;
+                        duration_hours: string;
+                        cpd_points: string;
+                        cpd_bodies: string[];
+                        /** @enum {string} */
+                        mandatory_for: "none" | "all" | "clinical";
+                        refresh_months: number | null;
+                        pass_mark: number | null;
+                        /** @enum {string} */
+                        status: "active" | "inactive";
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: training:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Training_updateProgramme: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description ETag of the version being changed */
+                "If-Match": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    code: string;
+                    title: string;
+                    description?: string | null;
+                    /** @enum {string} */
+                    category: "clinical" | "mandatory" | "compliance" | "induction" | "leadership" | "technical" | "soft_skills";
+                    /** @enum {string} */
+                    delivery: "classroom" | "online" | "on_the_job" | "external" | "conference";
+                    provider?: string | null;
+                    /** @default 0 */
+                    duration_hours?: string;
+                    /** @default 0 */
+                    cpd_points?: string;
+                    /** @default [] */
+                    cpd_bodies?: string[];
+                    /**
+                     * @default none
+                     * @enum {string}
+                     */
+                    mandatory_for?: "none" | "all" | "clinical";
+                    refresh_months?: number | null;
+                    pass_mark?: number | null;
+                    /**
+                     * @default active
+                     * @enum {string}
+                     */
+                    status?: "active" | "inactive";
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        code: string;
+                        title: string;
+                        description: string | null;
+                        /** @enum {string} */
+                        category: "clinical" | "mandatory" | "compliance" | "induction" | "leadership" | "technical" | "soft_skills";
+                        /** @enum {string} */
+                        delivery: "classroom" | "online" | "on_the_job" | "external" | "conference";
+                        provider: string | null;
+                        duration_hours: string;
+                        cpd_points: string;
+                        cpd_bodies: string[];
+                        /** @enum {string} */
+                        mandatory_for: "none" | "all" | "clinical";
+                        refresh_months: number | null;
+                        pass_mark: number | null;
+                        /** @enum {string} */
+                        status: "active" | "inactive";
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: training:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Training_sessions: {
+        parameters: {
+            query?: {
+                programme_id?: string;
+                status?: "scheduled" | "completed" | "cancelled";
+                from?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** Format: uuid */
+                        programme_id: string;
+                        programme_code: string;
+                        programme_title: string;
+                        cpd_points: string;
+                        /** Format: date-time */
+                        starts_at: string;
+                        /** Format: date-time */
+                        ends_at: string;
+                        venue: string | null;
+                        trainer: string | null;
+                        capacity: number | null;
+                        cost_per_person: string | null;
+                        open_for_requests: boolean;
+                        /** @enum {string} */
+                        status: "scheduled" | "completed" | "cancelled";
+                        enrolled: number;
+                        attended: number;
+                        requested: number;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    }[];
+                };
+            };
+            /** @description Requires: training:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Training_createSession: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    programme_id: string;
+                    /** Format: date-time */
+                    starts_at: string;
+                    /** Format: date-time */
+                    ends_at: string;
+                    venue?: string | null;
+                    trainer?: string | null;
+                    capacity?: number | null;
+                    cost_per_person?: string | null;
+                    /** @default true */
+                    open_for_requests?: boolean;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** Format: uuid */
+                        programme_id: string;
+                        programme_code: string;
+                        programme_title: string;
+                        cpd_points: string;
+                        /** Format: date-time */
+                        starts_at: string;
+                        /** Format: date-time */
+                        ends_at: string;
+                        venue: string | null;
+                        trainer: string | null;
+                        capacity: number | null;
+                        cost_per_person: string | null;
+                        open_for_requests: boolean;
+                        /** @enum {string} */
+                        status: "scheduled" | "completed" | "cancelled";
+                        enrolled: number;
+                        attended: number;
+                        requested: number;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: training:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Training_session: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Attendees are limited to your training:read scope */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** Format: uuid */
+                        programme_id: string;
+                        programme_code: string;
+                        programme_title: string;
+                        cpd_points: string;
+                        /** Format: date-time */
+                        starts_at: string;
+                        /** Format: date-time */
+                        ends_at: string;
+                        venue: string | null;
+                        trainer: string | null;
+                        capacity: number | null;
+                        cost_per_person: string | null;
+                        open_for_requests: boolean;
+                        /** @enum {string} */
+                        status: "scheduled" | "completed" | "cancelled";
+                        enrolled: number;
+                        attended: number;
+                        requested: number;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                        attendees: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            session_id: string;
+                            session_number: string;
+                            programme_title: string;
+                            /** Format: date-time */
+                            starts_at: string;
+                            /** Format: date-time */
+                            ends_at: string;
+                            venue: string | null;
+                            /** Format: uuid */
+                            employee_id: string;
+                            employee_name: string;
+                            staff_number: string;
+                            department_name: string | null;
+                            /** @enum {string} */
+                            status: "requested" | "enrolled" | "attended" | "absent" | "withdrawn" | "declined";
+                            score: number | null;
+                            passed: boolean | null;
+                            cpd_points: string | null;
+                            completed_on: string | null;
+                            feedback_rating: number | null;
+                            feedback_comment: string | null;
+                            decision_comment: string | null;
+                            workflow_instance_id: string | null;
+                        }[];
+                        pass_mark: number | null;
+                    };
+                };
+            };
+            /** @description Requires: training:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Training_updateSession: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description ETag of the version being changed */
+                "If-Match": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    programme_id: string;
+                    /** Format: date-time */
+                    starts_at: string;
+                    /** Format: date-time */
+                    ends_at: string;
+                    venue?: string | null;
+                    trainer?: string | null;
+                    capacity?: number | null;
+                    cost_per_person?: string | null;
+                    /** @default true */
+                    open_for_requests?: boolean;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** Format: uuid */
+                        programme_id: string;
+                        programme_code: string;
+                        programme_title: string;
+                        cpd_points: string;
+                        /** Format: date-time */
+                        starts_at: string;
+                        /** Format: date-time */
+                        ends_at: string;
+                        venue: string | null;
+                        trainer: string | null;
+                        capacity: number | null;
+                        cost_per_person: string | null;
+                        open_for_requests: boolean;
+                        /** @enum {string} */
+                        status: "scheduled" | "completed" | "cancelled";
+                        enrolled: number;
+                        attended: number;
+                        requested: number;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: training:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Training_cancel: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Everyone enrolled is told */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** Format: uuid */
+                        programme_id: string;
+                        programme_code: string;
+                        programme_title: string;
+                        cpd_points: string;
+                        /** Format: date-time */
+                        starts_at: string;
+                        /** Format: date-time */
+                        ends_at: string;
+                        venue: string | null;
+                        trainer: string | null;
+                        capacity: number | null;
+                        cost_per_person: string | null;
+                        open_for_requests: boolean;
+                        /** @enum {string} */
+                        status: "scheduled" | "completed" | "cancelled";
+                        enrolled: number;
+                        attended: number;
+                        requested: number;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: training:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Training_enrol: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    employee_ids: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description Enrols staff directly (no approval); they are notified */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** Format: uuid */
+                        programme_id: string;
+                        programme_code: string;
+                        programme_title: string;
+                        cpd_points: string;
+                        /** Format: date-time */
+                        starts_at: string;
+                        /** Format: date-time */
+                        ends_at: string;
+                        venue: string | null;
+                        trainer: string | null;
+                        capacity: number | null;
+                        cost_per_person: string | null;
+                        open_for_requests: boolean;
+                        /** @enum {string} */
+                        status: "scheduled" | "completed" | "cancelled";
+                        enrolled: number;
+                        attended: number;
+                        requested: number;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                        attendees: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            session_id: string;
+                            session_number: string;
+                            programme_title: string;
+                            /** Format: date-time */
+                            starts_at: string;
+                            /** Format: date-time */
+                            ends_at: string;
+                            venue: string | null;
+                            /** Format: uuid */
+                            employee_id: string;
+                            employee_name: string;
+                            staff_number: string;
+                            department_name: string | null;
+                            /** @enum {string} */
+                            status: "requested" | "enrolled" | "attended" | "absent" | "withdrawn" | "declined";
+                            score: number | null;
+                            passed: boolean | null;
+                            cpd_points: string | null;
+                            completed_on: string | null;
+                            feedback_rating: number | null;
+                            feedback_comment: string | null;
+                            decision_comment: string | null;
+                            workflow_instance_id: string | null;
+                        }[];
+                        pass_mark: number | null;
+                    };
+                };
+            };
+            /** @description Requires: training:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Training_attendance: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    records: {
+                        /** Format: uuid */
+                        enrolment_id: string;
+                        attended: boolean;
+                        score?: number | null;
+                    }[];
+                };
+            };
+        };
+        responses: {
+            /** @description Attended (and passed, when there is a pass mark) completes the training and credits CPD points */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** Format: uuid */
+                        programme_id: string;
+                        programme_code: string;
+                        programme_title: string;
+                        cpd_points: string;
+                        /** Format: date-time */
+                        starts_at: string;
+                        /** Format: date-time */
+                        ends_at: string;
+                        venue: string | null;
+                        trainer: string | null;
+                        capacity: number | null;
+                        cost_per_person: string | null;
+                        open_for_requests: boolean;
+                        /** @enum {string} */
+                        status: "scheduled" | "completed" | "cancelled";
+                        enrolled: number;
+                        attended: number;
+                        requested: number;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                        attendees: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            session_id: string;
+                            session_number: string;
+                            programme_title: string;
+                            /** Format: date-time */
+                            starts_at: string;
+                            /** Format: date-time */
+                            ends_at: string;
+                            venue: string | null;
+                            /** Format: uuid */
+                            employee_id: string;
+                            employee_name: string;
+                            staff_number: string;
+                            department_name: string | null;
+                            /** @enum {string} */
+                            status: "requested" | "enrolled" | "attended" | "absent" | "withdrawn" | "declined";
+                            score: number | null;
+                            passed: boolean | null;
+                            cpd_points: string | null;
+                            completed_on: string | null;
+                            feedback_rating: number | null;
+                            feedback_comment: string | null;
+                            decision_comment: string | null;
+                            workflow_instance_id: string | null;
+                        }[];
+                        pass_mark: number | null;
+                    };
+                };
+            };
+            /** @description Requires: training:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Training_complete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Closes the session once everyone’s attendance is recorded */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** Format: uuid */
+                        programme_id: string;
+                        programme_code: string;
+                        programme_title: string;
+                        cpd_points: string;
+                        /** Format: date-time */
+                        starts_at: string;
+                        /** Format: date-time */
+                        ends_at: string;
+                        venue: string | null;
+                        trainer: string | null;
+                        capacity: number | null;
+                        cost_per_person: string | null;
+                        open_for_requests: boolean;
+                        /** @enum {string} */
+                        status: "scheduled" | "completed" | "cancelled";
+                        enrolled: number;
+                        attended: number;
+                        requested: number;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                        attendees: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            session_id: string;
+                            session_number: string;
+                            programme_title: string;
+                            /** Format: date-time */
+                            starts_at: string;
+                            /** Format: date-time */
+                            ends_at: string;
+                            venue: string | null;
+                            /** Format: uuid */
+                            employee_id: string;
+                            employee_name: string;
+                            staff_number: string;
+                            department_name: string | null;
+                            /** @enum {string} */
+                            status: "requested" | "enrolled" | "attended" | "absent" | "withdrawn" | "declined";
+                            score: number | null;
+                            passed: boolean | null;
+                            cpd_points: string | null;
+                            completed_on: string | null;
+                            feedback_rating: number | null;
+                            feedback_comment: string | null;
+                            decision_comment: string | null;
+                            workflow_instance_id: string | null;
+                        }[];
+                        pass_mark: number | null;
+                    };
+                };
+            };
+            /** @description Requires: training:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Training_compliance: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Mandatory training: who is current, due within 60 days, overdue or has never done it */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        programmes: {
+                            /** Format: uuid */
+                            programme_id: string;
+                            programme_title: string;
+                            staff: number;
+                            current: number;
+                            due_soon: number;
+                            overdue: number;
+                            never: number;
+                        }[];
+                        gaps: {
+                            /** Format: uuid */
+                            employee_id: string;
+                            employee_name: string;
+                            staff_number: string;
+                            department_name: string | null;
+                            /** Format: uuid */
+                            programme_id: string;
+                            programme_title: string;
+                            last_completed: string | null;
+                            due_on: string | null;
+                            /** @enum {string} */
+                            state: "current" | "due_soon" | "overdue" | "never";
+                        }[];
+                    };
+                };
+            };
+            /** @description Requires: training:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Training_mine: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Your sessions, your mandatory training and sessions you can ask to join */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        enrolments: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            session_id: string;
+                            session_number: string;
+                            programme_title: string;
+                            /** Format: date-time */
+                            starts_at: string;
+                            /** Format: date-time */
+                            ends_at: string;
+                            venue: string | null;
+                            /** Format: uuid */
+                            employee_id: string;
+                            employee_name: string;
+                            staff_number: string;
+                            department_name: string | null;
+                            /** @enum {string} */
+                            status: "requested" | "enrolled" | "attended" | "absent" | "withdrawn" | "declined";
+                            score: number | null;
+                            passed: boolean | null;
+                            cpd_points: string | null;
+                            completed_on: string | null;
+                            feedback_rating: number | null;
+                            feedback_comment: string | null;
+                            decision_comment: string | null;
+                            workflow_instance_id: string | null;
+                        }[];
+                        mandatory: {
+                            /** Format: uuid */
+                            employee_id: string;
+                            employee_name: string;
+                            staff_number: string;
+                            department_name: string | null;
+                            /** Format: uuid */
+                            programme_id: string;
+                            programme_title: string;
+                            last_completed: string | null;
+                            due_on: string | null;
+                            /** @enum {string} */
+                            state: "current" | "due_soon" | "overdue" | "never";
+                        }[];
+                        open_sessions: {
+                            /** Format: uuid */
+                            id: string;
+                            number: string;
+                            /** Format: uuid */
+                            programme_id: string;
+                            programme_code: string;
+                            programme_title: string;
+                            cpd_points: string;
+                            /** Format: date-time */
+                            starts_at: string;
+                            /** Format: date-time */
+                            ends_at: string;
+                            venue: string | null;
+                            trainer: string | null;
+                            capacity: number | null;
+                            cost_per_person: string | null;
+                            open_for_requests: boolean;
+                            /** @enum {string} */
+                            status: "scheduled" | "completed" | "cancelled";
+                            enrolled: number;
+                            attended: number;
+                            requested: number;
+                            /** Format: date-time */
+                            created_at: string;
+                            /** Format: date-time */
+                            updated_at: string;
+                            version: number;
+                        }[];
+                    };
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Training_request: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    reason?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Asks for a place; goes to the TRAINING approval workflow (funded sessions also need HR) */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        session_id: string;
+                        session_number: string;
+                        programme_title: string;
+                        /** Format: date-time */
+                        starts_at: string;
+                        /** Format: date-time */
+                        ends_at: string;
+                        venue: string | null;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        department_name: string | null;
+                        /** @enum {string} */
+                        status: "requested" | "enrolled" | "attended" | "absent" | "withdrawn" | "declined";
+                        score: number | null;
+                        passed: boolean | null;
+                        cpd_points: string | null;
+                        completed_on: string | null;
+                        feedback_rating: number | null;
+                        feedback_comment: string | null;
+                        decision_comment: string | null;
+                        workflow_instance_id: string | null;
+                    };
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Training_withdraw: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Your own place (or anyone’s, with training:manage) before the session */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        session_id: string;
+                        session_number: string;
+                        programme_title: string;
+                        /** Format: date-time */
+                        starts_at: string;
+                        /** Format: date-time */
+                        ends_at: string;
+                        venue: string | null;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        department_name: string | null;
+                        /** @enum {string} */
+                        status: "requested" | "enrolled" | "attended" | "absent" | "withdrawn" | "declined";
+                        score: number | null;
+                        passed: boolean | null;
+                        cpd_points: string | null;
+                        completed_on: string | null;
+                        feedback_rating: number | null;
+                        feedback_comment: string | null;
+                        decision_comment: string | null;
+                        workflow_instance_id: string | null;
+                    };
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Training_feedback: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    rating: number;
+                    comment?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Your rating of a session you attended */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        session_id: string;
+                        session_number: string;
+                        programme_title: string;
+                        /** Format: date-time */
+                        starts_at: string;
+                        /** Format: date-time */
+                        ends_at: string;
+                        venue: string | null;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        department_name: string | null;
+                        /** @enum {string} */
+                        status: "requested" | "enrolled" | "attended" | "absent" | "withdrawn" | "declined";
+                        score: number | null;
+                        passed: boolean | null;
+                        cpd_points: string | null;
+                        completed_on: string | null;
+                        feedback_rating: number | null;
+                        feedback_comment: string | null;
+                        decision_comment: string | null;
+                        workflow_instance_id: string | null;
+                    };
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Training_myCpd: {
+        parameters: {
+            query?: {
+                year?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Your CPD points for a calendar year (default: this year) */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        year: number;
+                        entries: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            employee_id: string;
+                            employee_name: string;
+                            staff_number: string;
+                            /** @enum {string} */
+                            source: "training" | "external";
+                            enrolment_id: string | null;
+                            title: string;
+                            provider: string | null;
+                            /** Format: date */
+                            activity_date: string;
+                            points: string;
+                            licensing_body: string | null;
+                            evidence_document_id: string | null;
+                            /** @enum {string} */
+                            status: "pending" | "verified" | "rejected";
+                            decision_comment: string | null;
+                            verified_at: string | null;
+                            /** Format: date-time */
+                            created_at: string;
+                        }[];
+                        summary: {
+                            /** Format: uuid */
+                            employee_id: string;
+                            employee_name: string;
+                            staff_number: string;
+                            department_name: string | null;
+                            licensing_body: string;
+                            licence_expiry: string | null;
+                            required: string;
+                            earned: string;
+                            pending: string;
+                            /** @enum {string} */
+                            status: "met" | "short" | "no_requirement";
+                        }[];
+                    };
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Training_claim: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": {
+                    title: string;
+                    provider?: string;
+                    /** Format: date */
+                    activity_date: string;
+                    points: string;
+                    licensing_body?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Claims points for an outside activity (conference, CME, online course); HR verifies it */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        /** @enum {string} */
+                        source: "training" | "external";
+                        enrolment_id: string | null;
+                        title: string;
+                        provider: string | null;
+                        /** Format: date */
+                        activity_date: string;
+                        points: string;
+                        licensing_body: string | null;
+                        evidence_document_id: string | null;
+                        /** @enum {string} */
+                        status: "pending" | "verified" | "rejected";
+                        decision_comment: string | null;
+                        verified_at: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                    };
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Training_cpd: {
+        parameters: {
+            query?: {
+                status?: "pending" | "verified" | "rejected";
+                employee_id?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        /** @enum {string} */
+                        source: "training" | "external";
+                        enrolment_id: string | null;
+                        title: string;
+                        provider: string | null;
+                        /** Format: date */
+                        activity_date: string;
+                        points: string;
+                        licensing_body: string | null;
+                        evidence_document_id: string | null;
+                        /** @enum {string} */
+                        status: "pending" | "verified" | "rejected";
+                        decision_comment: string | null;
+                        verified_at: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                    }[];
+                };
+            };
+            /** @description Requires: training:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Training_decide: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @enum {string} */
+                    decision: "verify" | "reject";
+                    comment?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        /** @enum {string} */
+                        source: "training" | "external";
+                        enrolment_id: string | null;
+                        title: string;
+                        provider: string | null;
+                        /** Format: date */
+                        activity_date: string;
+                        points: string;
+                        licensing_body: string | null;
+                        evidence_document_id: string | null;
+                        /** @enum {string} */
+                        status: "pending" | "verified" | "rejected";
+                        decision_comment: string | null;
+                        verified_at: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                    };
+                };
+            };
+            /** @description Requires: cpd:verify */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Training_evidence: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    Training_cpdCompliance: {
+        parameters: {
+            query?: {
+                year?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Licensed staff: verified points for the year against their licensing body’s requirement */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        department_name: string | null;
+                        licensing_body: string;
+                        licence_expiry: string | null;
+                        required: string;
+                        earned: string;
+                        pending: string;
+                        /** @enum {string} */
+                        status: "met" | "short" | "no_requirement";
+                    }[];
+                };
+            };
+            /** @description Requires: training:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Training_requirements: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        licensing_body: string;
+                        points_per_year: string;
+                        description: string | null;
+                    }[];
+                };
+            };
+            /** @description Requires: training:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Training_setRequirements: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    requirements: {
+                        licensing_body: string;
+                        points_per_year: string;
+                        description?: string | null;
+                    }[];
+                };
+            };
+        };
+        responses: {
+            /** @description Replaces the list (audited) */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        licensing_body: string;
+                        points_per_year: string;
+                        description: string | null;
+                    }[];
+                };
+            };
+            /** @description Requires: training:manage */
             403: {
                 headers: {
                     [name: string]: unknown;

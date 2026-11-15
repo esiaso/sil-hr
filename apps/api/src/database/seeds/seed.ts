@@ -17,6 +17,7 @@ import { seedPayrollDefaults, seedSamplePayroll } from './payroll-defaults';
 import { seedMedicalDefaults, seedSampleMedical } from './medical-defaults';
 import { seedLifecycleDefaults, seedSampleContracts } from './lifecycle-defaults';
 import { seedRecruitmentDefaults, seedSampleRecruitment } from './recruitment-defaults';
+import { seedSampleTalent, seedTalentDefaults } from './talent-defaults';
 import { ingestSamplePunches, seedSampleAttendance, seedShifts, type SamplePunches } from './sample-attendance';
 import { WebhookSubscription } from '../../modules/webhooks/webhook.entities';
 
@@ -80,6 +81,7 @@ async function seedReference(m: EntityManager): Promise<void> {
     { documentType: 'contract', name: 'Employment contract', prefix: 'CON', format: '{PREFIX}/{YYYY}/{SEQ}', padding: 4, reset: 'yearly' as const },
     { documentType: 'payslip', name: 'Payslip', prefix: 'PS', format: '{PREFIX}/{YYYY}{MM}/{SEQ}', padding: 5, reset: 'yearly' as const },
     { documentType: 'job_requisition', name: 'Job requisition', prefix: 'REQ', format: '{PREFIX}/{YYYY}/{SEQ}', padding: 4, reset: 'yearly' as const },
+    { documentType: 'training_session', name: 'Training session', prefix: 'TRN', format: '{PREFIX}/{YYYY}/{SEQ}', padding: 4, reset: 'yearly' as const },
     { documentType: 'leave_request', name: 'Leave request', prefix: 'LV', format: '{PREFIX}/{YYYY}/{SEQ}', padding: 5, reset: 'yearly' as const },
   ];
   for (const s of schemes) {
@@ -172,6 +174,66 @@ async function seedReference(m: EntityManager): Promise<void> {
       description: 'Sent to each member of staff when a payroll is approved',
     },
     {
+      code: 'review_cycle_launched',
+      subject: '{{cycle}} has started',
+      body: 'The {{cycle}} appraisal has started. Agree your goals with your reviewer by {{goals_due}}. Open My performance in SIL HR.',
+      description: 'Sent to staff and reviewers when a review cycle is launched',
+    },
+    {
+      code: 'self_review_open',
+      subject: 'Your self-review for {{cycle}} is open',
+      body: 'Score yourself against your goals and add your comments by {{due}}. Open My performance in SIL HR.',
+      description: 'Sent to staff when the review phase of a cycle opens',
+    },
+    {
+      code: 'self_review_submitted',
+      subject: '{{employee}} finished their self-review',
+      body: '{{employee}} submitted their self-review for {{cycle}}. Your assessment is due by {{due}}.',
+      description: 'Sent to the reviewer when the employee submits a self-review',
+    },
+    {
+      code: 'review_ready',
+      subject: 'Your {{cycle}} review is ready',
+      body: 'Your review for {{cycle}} has been approved. Read it, then acknowledge it (and say if you disagree).',
+      description: 'Sent to the employee when their appraisal is approved',
+    },
+    {
+      code: 'performance_review_flag',
+      subject: 'Appraisal needs attention: {{employee}}',
+      body: '{{employee}} ({{staff_number}}), {{cycle}}: {{reason}}.',
+      description: 'Sent to performance managers when a completed appraisal is rated low or the employee disagrees',
+    },
+    {
+      code: 'training_enrolled',
+      subject: 'You are booked on {{programme}}',
+      body: 'You have a place on {{programme}} ({{number}}) on {{starts}}, at {{venue}}. See My training in SIL HR.',
+      description: 'Sent to staff when they are enrolled on a training session',
+    },
+    {
+      code: 'training_cancelled',
+      subject: '{{programme}} on {{starts}} is cancelled',
+      body: 'Training session {{number}} ({{programme}}) on {{starts}} has been cancelled. Your place is released.',
+      description: 'Sent to everyone enrolled when a session is cancelled',
+    },
+    {
+      code: 'cpd_claim_submitted',
+      subject: 'CPD claim from {{employee}}',
+      body: '{{employee}} ({{staff_number}}) claimed {{points}} CPD points for "{{title}}". Verify it under Training → CPD.',
+      description: 'Sent to CPD verifiers when staff claim points for an outside activity',
+    },
+    {
+      code: 'cpd_claim_decided',
+      subject: 'Your CPD claim was {{outcome}}',
+      body: 'Your CPD claim "{{title}}" was {{outcome}}. {{comment}}',
+      description: 'Sent to staff when their CPD claim is verified or rejected',
+    },
+    {
+      code: 'cpd_shortfall',
+      subject: '{{name}}: {{body}} licence renewal needs CPD points',
+      body: '{{name}} ({{staff_number}}) has {{earned}} of the {{required}} {{body}} CPD points needed before the licence expires on {{expiry}}.',
+      description: 'Sent once per licence expiry, 60 days ahead, when the holder is short of CPD points',
+    },
+    {
       code: 'connector_failing',
       subject: 'Device connector "{{connector}}" is failing',
       body: 'The last sync failed: {{error}}\n\nPunches from those devices are not arriving. Check the connector under Integrations → Device connectors.',
@@ -193,6 +255,7 @@ async function seedReference(m: EntityManager): Promise<void> {
   await seedMedicalDefaults(m);
   await seedLifecycleDefaults(m);
   await seedRecruitmentDefaults(m);
+  await seedTalentDefaults(m);
   for (const d of documentTypes) {
     if (!(await m.getRepository(DocumentType).existsBy({ code: d.code }))) await m.getRepository(DocumentType).save(m.getRepository(DocumentType).create(d));
   }
@@ -355,6 +418,7 @@ async function seedSample(m: EntityManager, app: INestApplicationContext, passwo
   await seedSampleMedical(m);
   await seedSampleContracts(m);
   await seedSampleRecruitment(m);
+  await seedSampleTalent(m);
   const punches = await seedSampleAttendance(m);
 
   // A sample webhook pointed at the development sink that verifies signatures (compose: webhook-sink).

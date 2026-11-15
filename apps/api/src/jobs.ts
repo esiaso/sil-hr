@@ -14,6 +14,7 @@ import { WorkflowService } from './modules/workflow/workflow.service';
 import { MedicalService } from './modules/medical/medical.service';
 import { LifecycleService } from './modules/lifecycle/lifecycle.service';
 import { RecruitmentService } from './modules/recruitment/recruitment.service';
+import { TrainingService } from './modules/training/training.service';
 import { NotificationsService } from './modules/notifications/notifications.module';
 import { OutboxPublisher, WebhookDeliveryProcessor } from './modules/webhooks/publishing';
 
@@ -37,6 +38,7 @@ export const JOBS: { name: string; everyMs: number; run: (app: INestApplicationC
   { name: 'apply-due-assignments', everyMs: 3_600_000, run: (app) => app.get(EmployeesService).applyDueAssignments() },
   { name: 'recruitment-sweep', everyMs: 3_600_000, run: (app) => app.get(RecruitmentService).sweep() },
   { name: 'lifecycle-sweep', everyMs: 3_600_000, run: (app) => app.get(LifecycleService).sweep() },
+  { name: 'cpd-sweep', everyMs: 3_600_000, run: (app) => app.get(TrainingService).sweep() },
   { name: 'medical-sweep', everyMs: 3_600_000, run: (app) => app.get(MedicalService).sweep() },
 ];
 

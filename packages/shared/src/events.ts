@@ -335,6 +335,27 @@ export const EVENT_CATALOGUE = [
     example: { id: '0199a6b0-0000-7000-8000-0000000000d1', employee_id: E1, scheme_id: '0199a6b0-0000-7000-8000-0000000000d0', member_number: 'MED-SIL00042-00', cover_end: '2026-12-31', reason: 'Employee left' },
   },
   {
+    type: 'hr.performance.review_completed.v1',
+    description: 'An appraisal was approved and acknowledged by the employee. Carries the final rating (1 to 5) and its band, nothing written about the person.',
+    subject: 'employee id',
+    schema: z.object({ id, employee_id: id, staff_number: z.string(), cycle_id: id, cycle_name: z.string(), final_rating: z.string(), band: z.string(), employee_agrees: z.boolean() }),
+    example: { id: '0199a6b0-0000-7000-8000-0000000000b1', employee_id: E1, staff_number: 'SIL00042', cycle_id: '0199a6b0-0000-7000-8000-0000000000b0', cycle_name: '2026 annual appraisal', final_rating: '3.75', band: 'Exceeds expectations', employee_agrees: true },
+  },
+  {
+    type: 'hr.training.completed.v1',
+    description: 'A member of staff attended a training session (and passed, when it has a pass mark). Clinical systems can use it to track BLS, ACLS and similar certifications; valid_until is set for training that must be repeated.',
+    subject: 'employee id',
+    schema: z.object({ id, employee_id: id, staff_number: z.string(), programme_id: id, programme_code: z.string(), completed_on: z.string(), passed: z.boolean().nullable(), cpd_points: z.string(), valid_until: z.string().nullable() }),
+    example: { id: '0199a6b0-0000-7000-8000-0000000000b2', employee_id: E1, staff_number: 'SIL00042', programme_id: '0199a6b0-0000-7000-8000-0000000000b3', programme_code: 'BLS', completed_on: '2026-11-20', passed: true, cpd_points: '5.0', valid_until: '2028-11-20' },
+  },
+  {
+    type: 'hr.cpd.verified.v1',
+    description: 'CPD points were credited to a member of staff (from a completed training session, or an outside activity HR verified).',
+    subject: 'employee id',
+    schema: z.object({ id, employee_id: id, staff_number: z.string(), points: z.string(), licensing_body: z.string().nullable(), activity_date: z.string(), source: z.enum(['training', 'external']) }),
+    example: { id: '0199a6b0-0000-7000-8000-0000000000b4', employee_id: E1, staff_number: 'SIL00042', points: '5.0', licensing_body: 'NCK', activity_date: '2026-11-20', source: 'training' },
+  },
+  {
     type: 'hr.webhook.test.v1',
     description: 'Sent only to one subscription when an administrator presses "Send test event".',
     subject: 'subscription id',

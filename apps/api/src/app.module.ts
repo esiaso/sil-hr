@@ -15,6 +15,8 @@ import { PayrollModule } from './modules/payroll/payroll.module';
 import { MedicalModule } from './modules/medical/medical.module';
 import { LifecycleModule } from './modules/lifecycle/lifecycle.module';
 import { RecruitmentModule } from './modules/recruitment/recruitment.module';
+import { PerformanceModule } from './modules/performance/performance.module';
+import { TrainingModule } from './modules/training/training.module';
 import { LeaveModule } from './modules/leave/leave.module';
 import { WorkflowModule } from './modules/workflow/workflow.module';
 import { EventsModule } from './modules/events/events.module';
@@ -49,6 +51,8 @@ import { WebhooksModule } from './modules/webhooks/webhooks.module';
     MedicalModule,
     LifecycleModule,
     RecruitmentModule,
+    PerformanceModule,
+    TrainingModule,
     HealthModule,
   ],
   providers: [
