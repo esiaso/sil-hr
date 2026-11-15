@@ -1012,6 +1012,70 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/employees/import/template": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Bulk_template"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/employees/import": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Bulk_import"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/employees/export": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Bulk_export"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/bulk-jobs/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Bulk_job"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/employees": {
         parameters: {
             query?: never;
@@ -7586,6 +7650,250 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Bulk_template: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Requires: import_export:run */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    Bulk_import: {
+        parameters: {
+            query?: {
+                dry_run?: "true" | "false";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": {
+                    /** Format: binary */
+                    file: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Queued; poll GET /bulk-jobs/{id} */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        kind: string;
+                        /** @enum {string} */
+                        status: "queued" | "running" | "succeeded" | "failed";
+                        dry_run: boolean;
+                        total_rows: number | null;
+                        processed_rows: number;
+                        created_count: number;
+                        updated_count: number;
+                        error_count: number;
+                        errors: {
+                            row: number;
+                            column: string | null;
+                            message: string;
+                        }[];
+                        result_document_id: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                        finished_at: string | null;
+                    };
+                };
+            };
+            /** @description Requires: import_export:run, employee:hire, employee:update */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Bulk_export: {
+        parameters: {
+            query?: {
+                limit?: number;
+                cursor?: string;
+                sort?: string;
+                search?: string;
+                updated_since?: string;
+                status?: "onboarding" | "probation" | "active" | "on_notice" | "suspended" | "exited";
+                employment_type?: "permanent" | "contract" | "casual" | "locum" | "intern";
+                branch_id?: string;
+                department_id?: string;
+                include_sub_departments?: "true" | "false";
+                position_id?: string;
+                manager_id?: string;
+                licence_status?: "valid" | "expiring" | "expired" | "suspended" | "not_verified";
+                format?: "csv" | "xlsx";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Queued; poll GET /bulk-jobs/{id}, then download result_document_id */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        kind: string;
+                        /** @enum {string} */
+                        status: "queued" | "running" | "succeeded" | "failed";
+                        dry_run: boolean;
+                        total_rows: number | null;
+                        processed_rows: number;
+                        created_count: number;
+                        updated_count: number;
+                        error_count: number;
+                        errors: {
+                            row: number;
+                            column: string | null;
+                            message: string;
+                        }[];
+                        result_document_id: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                        finished_at: string | null;
+                    };
+                };
+            };
+            /** @description Requires: import_export:run, employee:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Bulk_job: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        kind: string;
+                        /** @enum {string} */
+                        status: "queued" | "running" | "succeeded" | "failed";
+                        dry_run: boolean;
+                        total_rows: number | null;
+                        processed_rows: number;
+                        created_count: number;
+                        updated_count: number;
+                        error_count: number;
+                        errors: {
+                            row: number;
+                            column: string | null;
+                            message: string;
+                        }[];
+                        result_document_id: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                        finished_at: string | null;
+                    };
+                };
             };
             /** @description Problem details (RFC 9457) */
             default: {

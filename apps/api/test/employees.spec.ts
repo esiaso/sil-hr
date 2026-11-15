@@ -305,3 +305,39 @@ describe('bulk import and export', () => {
     expect(link.status).toBe(201);
   });
 });
+
+describe('SCIM 2.0', () => {
+  it('lists employees as Users and departments as Groups, filters, and marks leavers inactive', async () => {
+    const app = await testApp();
+    const admin = await login(app, 'admin');
+    const c = (await api(app).post(`${B}/api-clients`).set(bearer(admin)).send({ name: `IdP ${uniq()}`, scopes: ['scim'] })).body;
+    const token = (await api(app).post(`${B}/oauth/token`).auth(c.client.client_id, c.client_secret).type('form').send({ grant_type: 'client_credentials' })).body.access_token;
+    const cfg = await api(app).get('/scim/v2/ServiceProviderConfig').set(bearer(token));
+    expect(cfg.status).toBe(200);
+    expect(cfg.headers['content-type']).toContain('application/scim+json');
+
+    const list = await api(app).get('/scim/v2/Users?count=5').set(bearer(token));
+    expect(list.body.schemas).toEqual(['urn:ietf:params:scim:api:messages:2.0:ListResponse']);
+    expect(list.body.Resources).toHaveLength(5);
+    const u = list.body.Resources[0];
+    expect(u['urn:ietf:params:scim:schemas:extension:enterprise:2.0:User'].employeeNumber).toBe(u.externalId);
+    expect(JSON.stringify(u)).not.toMatch(/national|kra/i);
+
+    const one = await api(app).get('/scim/v2/Users').query({ filter: `userName eq "${u.userName}"` }).set(bearer(token));
+    expect(one.body.totalResults).toBe(1);
+
+    // Offboarding propagates: the exited employee is active=false.
+    const hr = await login(app, 'hr.manager');
+    await api(app).post(`${B}/employees/${u.id}/status`).set(bearer(hr)).send({ status: 'exited', effective_date: new Date().toISOString().slice(0, 10), reason: 'Left' });
+    expect((await api(app).get(`/scim/v2/Users/${u.id}`).set(bearer(token))).body.active).toBe(false);
+    const inactive = await api(app).get('/scim/v2/Users').query({ filter: 'active eq false' }).set(bearer(token));
+    expect(inactive.body.Resources.map((r: { id: string }) => r.id)).toContain(u.id);
+
+    const groups = await api(app).get('/scim/v2/Groups').query({ filter: 'externalId eq "NURS"' }).set(bearer(token));
+    expect(groups.body.Resources[0].displayName).toBe('Nursing');
+
+    expect((await api(app).post('/scim/v2/Users').set(bearer(token)).send({ userName: 'x' })).status).toBe(405);
+    expect((await api(app).get('/scim/v2/Users?filter=title%20co%20%22x%22').set(bearer(token))).body.scimType).toBe('invalidFilter');
+    expect((await api(app).get('/scim/v2/Users').set(bearer(hr))).status).toBe(403);
+  });
+});
