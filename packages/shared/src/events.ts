@@ -114,6 +114,13 @@ const leaveExample = { id: P1, number: 'LV/2026/0042', employee_id: E1, staff_nu
 
 export const EVENT_CATALOGUE = [
   {
+    type: 'hr.roster.changed.v1',
+    description: 'Planned shifts changed for some people over a date range. Fetch GET /api/v1/rosters for the detail (clinical systems use it to know who is on duty).',
+    subject: 'department id, or employee id when no department applies',
+    schema: z.object({ department_id: id.nullable(), employee_ids: z.array(id), from: z.string(), to: z.string() }),
+    example: { department_id: D1, employee_ids: [E1], from: '2026-12-01', to: '2026-12-07' },
+  },
+  {
     type: 'hr.leave.approved.v1',
     description: 'A leave request was finally approved. Attendance and payroll treat these days as leave; rosters should plan around them.',
     subject: 'leave request id',

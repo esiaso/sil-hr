@@ -7,6 +7,8 @@ import { RequestContext } from './common/request-context';
 import { BulkService } from './modules/employees/bulk';
 import { EmployeesService } from './modules/employees/employees.service';
 import { LicencesService } from './modules/employees/licences.service';
+import { AttendanceService } from './modules/attendance/attendance.service';
+import { ConnectorsService } from './modules/attendance/connectors.service';
 import { LeaveService } from './modules/leave/leave.service';
 import { WorkflowService } from './modules/workflow/workflow.service';
 import { NotificationsService } from './modules/notifications/notifications.module';
@@ -24,6 +26,8 @@ export const JOBS: { name: string; everyMs: number; run: (app: INestApplicationC
   { name: 'workflow-escalations', everyMs: 300_000, run: (app) => app.get(WorkflowService).escalateDue() },
   { name: 'leave-accrual', everyMs: 3_600_000, run: (app) => app.get(LeaveService).accrueAll() },
   { name: 'leave-carry-forward', everyMs: 3_600_000, run: (app) => app.get(LeaveService).carryForwardAll() },
+  { name: 'connector-pulls', everyMs: 60_000, run: (app) => app.get(ConnectorsService).runDue() },
+  { name: 'attendance-recompute', everyMs: 6 * 3_600_000, run: (app) => app.get(AttendanceService).recomputeRecent() },
   { name: 'send-mail', everyMs: 10_000, run: (app) => app.get(NotificationsService).sendPendingMail(50) },
   // Daily work runs hourly: each is idempotent, so a missed hour or a restart costs nothing.
   { name: 'licence-sweep', everyMs: 3_600_000, run: async (app) => { const r = await app.get(LicencesService).sweep(); return r.expiring + r.expired; } },

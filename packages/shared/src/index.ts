@@ -9,3 +9,4 @@ export * from './format';
 export * from './schemas/employees';
 export * from './schemas/workflow';
 export * from './schemas/leave';
+export * from './schemas/attendance';

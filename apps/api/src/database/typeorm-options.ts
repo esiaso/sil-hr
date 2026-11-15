@@ -10,6 +10,7 @@ import { ExternalRef } from '../modules/external-refs/external-refs.module';
 import { ApiClient, ApiClientSecret } from '../modules/identity-access/api-client.entities';
 import { IDENTITY_ENTITIES } from '../modules/identity-access/identity.entities';
 import { EMPLOYEE_ENTITIES } from '../modules/employees/employee.entities';
+import { ATTENDANCE_ENTITIES } from '../modules/attendance/attendance.entities';
 import { LEAVE_ENTITIES } from '../modules/leave/leave.entities';
 import { WORKFLOW_ENTITIES } from '../modules/workflow/workflow.entities';
 import { EmailOutbox, Notification, NotificationTemplate } from '../modules/notifications/notifications.module';
@@ -40,6 +41,7 @@ export const ENTITIES = [
   ...EMPLOYEE_ENTITIES,
   ...WORKFLOW_ENTITIES,
   ...LEAVE_ENTITIES,
+  ...ATTENDANCE_ENTITIES,
 ];
 
 export function typeOrmOptions(overrides: Partial<DataSourceOptions> = {}): DataSourceOptions {

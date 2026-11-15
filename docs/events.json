@@ -1,5 +1,57 @@
 [
   {
+    "type": "hr.roster.changed.v1",
+    "version": 1,
+    "description": "Planned shifts changed for some people over a date range. Fetch GET /api/v1/rosters for the detail (clinical systems use it to know who is on duty).",
+    "subject": "department id, or employee id when no department applies",
+    "data_schema": {
+      "type": "object",
+      "properties": {
+        "department_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "employee_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          }
+        },
+        "from": {
+          "type": "string"
+        },
+        "to": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "department_id",
+        "employee_ids",
+        "from",
+        "to"
+      ],
+      "additionalProperties": false
+    },
+    "example": {
+      "department_id": "0199a6b0-0000-7000-8000-000000000001",
+      "employee_ids": [
+        "0199a6b0-0000-7000-8000-0000000000e1"
+      ],
+      "from": "2026-12-01",
+      "to": "2026-12-07"
+    }
+  },
+  {
     "type": "hr.leave.approved.v1",
     "version": 1,
     "description": "A leave request was finally approved. Attendance and payroll treat these days as leave; rosters should plan around them.",

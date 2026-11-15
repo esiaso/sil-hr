@@ -16,12 +16,15 @@ const AUTH_PATHS = ['auth/login', 'auth/mfa/verify', 'auth/refresh', 'auth/oidc'
 
 /** HTTP pipeline shared by main.ts, the OpenAPI export and the integration tests. */
 export function configureApp(app: NestExpressApplication, env: Env = loadEnv()): void {
-  app.setGlobalPrefix(API_PREFIX, { exclude: ['scim/v2/{*path}'] });
+  // SCIM and the ZKTeco device protocol use fixed paths outside /api/v1.
+  app.setGlobalPrefix(API_PREFIX, { exclude: ['scim/v2/{*path}', 'iclock/{*path}'] });
   app.set('trust proxy', env.trustProxy ? 1 : false);
   // ETags are ours (resource versions), not Express's body hashes.
   app.set('etag', false);
   app.useBodyParser('json', { type: ['application/json', 'application/scim+json', 'application/merge-patch+json'], limit: '2mb' });
   app.useBodyParser('urlencoded', { extended: false, limit: '100kb' });
+  // ZKTeco devices post attendance logs as plain text.
+  app.useBodyParser('text', { type: ['text/plain', 'text/*'], limit: '2mb' });
   // JSON API: CSP is the web app's job (and would block the Swagger UI).
   app.use(helmet({ contentSecurityPolicy: false }));
   app.enableCors({

@@ -35,6 +35,10 @@ const SKIPPED_ENTITIES = new Set([
   'MfaRecoveryCode',
   // Append-only ledger: it is its own trail.
   'LeaveLedger',
+  // Raw punches are immutable and carry their own provenance; days are derived; runs are a log.
+  'ClockEvent',
+  'AttendanceDay',
+  'ConnectorRun',
 ]);
 
 function normalise(value: unknown): unknown {

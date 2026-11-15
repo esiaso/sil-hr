@@ -2068,6 +2068,358 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/shifts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Attendance_shifts"];
+        put?: never;
+        post: operations["Attendance_createShift"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/shifts/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["Attendance_updateShift"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/departments/{id}/shifts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Attendance_departmentShifts"];
+        put: operations["Attendance_setDepartmentShifts"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/rosters": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Attendance_roster"];
+        put: operations["Attendance_changeRoster"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/rosters/pattern": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Attendance_pattern"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/clock-events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Attendance_postEvents"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/me/clock": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Attendance_clock"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/me/attendance": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Attendance_myDay"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/attendance/days": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Attendance_days"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/attendance/recompute": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Attendance_recompute"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/attendance/timesheets/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Attendance_timesheet"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/attendance/overtime-rules": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Attendance_overtimeRules"];
+        put?: never;
+        post: operations["Attendance_addOvertimeRule"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/attendance/overtime-rules/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["Attendance_updateOvertimeRule"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/attendance/regularisations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Attendance_regularisations"];
+        put?: never;
+        post: operations["Attendance_regularise"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/connectors": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Connectors_list"];
+        put?: never;
+        post: operations["Connectors_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/connectors/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["Connectors_update"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/connectors/{id}/test": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Connectors_test"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/connectors/{id}/run": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Connectors_run"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/connectors/{id}/runs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Connectors_runs"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/connectors/{id}/mappings": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Connectors_mappings"];
+        put: operations["Connectors_map"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/connectors/{id}/unmatched": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Connectors_unmatched"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/integrations/hikvision/{code}/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Connectors_hikvision"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/health": {
         parameters: {
             query?: never;
@@ -7304,7 +7656,7 @@ export interface operations {
                 "application/json": {
                     name: string;
                     description?: string | null;
-                    scopes: ("org:read" | "employees:read" | "employees.sensitive:read" | "scim" | "leave:read" | "attendance:write" | "payroll.journal:read" | "events:read" | "external_refs:write" | "documents:read")[];
+                    scopes: ("org:read" | "employees:read" | "employees.sensitive:read" | "scim" | "leave:read" | "attendance:write" | "attendance:read" | "payroll.journal:read" | "events:read" | "external_refs:write" | "documents:read")[];
                     /** @default 600 */
                     rate_limit_per_minute?: number;
                 };
@@ -7470,7 +7822,7 @@ export interface operations {
                 "application/json": {
                     name?: string;
                     description?: string | null;
-                    scopes?: ("org:read" | "employees:read" | "employees.sensitive:read" | "scim" | "leave:read" | "attendance:write" | "payroll.journal:read" | "events:read" | "external_refs:write" | "documents:read")[];
+                    scopes?: ("org:read" | "employees:read" | "employees.sensitive:read" | "scim" | "leave:read" | "attendance:write" | "attendance:read" | "payroll.journal:read" | "events:read" | "external_refs:write" | "documents:read")[];
                     rate_limit_per_minute?: number;
                     is_active?: boolean;
                 };
@@ -12169,7 +12521,7 @@ export interface operations {
                     code: string;
                     name: string;
                     /** @enum {string} */
-                    request_type: "leave_request" | "contact_change";
+                    request_type: "leave_request" | "contact_change" | "attendance_regularisation";
                     description?: string | null;
                     /** @default {} */
                     conditions?: {
@@ -12292,7 +12644,7 @@ export interface operations {
                     code: string;
                     name: string;
                     /** @enum {string} */
-                    request_type: "leave_request" | "contact_change";
+                    request_type: "leave_request" | "contact_change" | "attendance_regularisation";
                     description?: string | null;
                     /** @default {} */
                     conditions?: {
@@ -14400,6 +14752,1893 @@ export interface operations {
                         }[];
                     };
                 };
+            };
+        };
+    };
+    Attendance_shifts: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        code: string;
+                        name: string;
+                        start_time: string;
+                        end_time: string;
+                        crosses_midnight: boolean;
+                        paid_minutes: number;
+                        break_minutes: number;
+                        late_grace_minutes: number | null;
+                        early_leave_grace_minutes: number | null;
+                        colour: string | null;
+                        /** @enum {string} */
+                        status: "active" | "inactive";
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    }[];
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Attendance_createShift: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    code: string;
+                    name: string;
+                    start_time: string;
+                    end_time: string;
+                    /** @default 0 */
+                    break_minutes?: number;
+                    late_grace_minutes?: number | null;
+                    early_leave_grace_minutes?: number | null;
+                    colour?: string | null;
+                    /** @enum {string} */
+                    status?: "active" | "inactive";
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        code: string;
+                        name: string;
+                        start_time: string;
+                        end_time: string;
+                        crosses_midnight: boolean;
+                        paid_minutes: number;
+                        break_minutes: number;
+                        late_grace_minutes: number | null;
+                        early_leave_grace_minutes: number | null;
+                        colour: string | null;
+                        /** @enum {string} */
+                        status: "active" | "inactive";
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: shift:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Attendance_updateShift: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description ETag of the version being changed */
+                "If-Match": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    code: string;
+                    name: string;
+                    start_time: string;
+                    end_time: string;
+                    /** @default 0 */
+                    break_minutes?: number;
+                    late_grace_minutes?: number | null;
+                    early_leave_grace_minutes?: number | null;
+                    colour?: string | null;
+                    /** @enum {string} */
+                    status?: "active" | "inactive";
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        code: string;
+                        name: string;
+                        start_time: string;
+                        end_time: string;
+                        crosses_midnight: boolean;
+                        paid_minutes: number;
+                        break_minutes: number;
+                        late_grace_minutes: number | null;
+                        early_leave_grace_minutes: number | null;
+                        colour: string | null;
+                        /** @enum {string} */
+                        status: "active" | "inactive";
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: shift:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Attendance_departmentShifts: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        department_id: string;
+                        /** @enum {string} */
+                        mode: "standing" | "rostered";
+                        standing_shift_id: string | null;
+                        shift_ids: string[];
+                        inherited_from: string | null;
+                    };
+                };
+            };
+            /** @description Requires: department:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Attendance_setDepartmentShifts: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @enum {string} */
+                    mode: "standing" | "rostered";
+                    standing_shift_id?: string | null;
+                    shift_ids: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        department_id: string;
+                        /** @enum {string} */
+                        mode: "standing" | "rostered";
+                        standing_shift_id: string | null;
+                        shift_ids: string[];
+                        inherited_from: string | null;
+                    };
+                };
+            };
+            /** @description Requires: shift:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Attendance_roster: {
+        parameters: {
+            query: {
+                from: string;
+                to: string;
+                department_id?: string;
+                employee_id?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        /** Format: date */
+                        work_date: string;
+                        shift_id: string | null;
+                        /** @enum {string} */
+                        kind: "shift" | "off";
+                        note: string | null;
+                    }[];
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Attendance_changeRoster: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    entries: {
+                        /** Format: uuid */
+                        employee_id: string;
+                        /** Format: date */
+                        work_date: string;
+                        shift_ids: string[];
+                        /**
+                         * @default shift
+                         * @enum {string}
+                         */
+                        kind?: "shift" | "off";
+                        note?: string | null;
+                    }[];
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        changed: number;
+                    };
+                };
+            };
+            /** @description Requires: roster:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Attendance_pattern: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    employee_ids: string[];
+                    /** Format: date */
+                    from: string;
+                    /** Format: date */
+                    to: string;
+                    pattern: string[];
+                    /** @default false */
+                    stagger?: boolean;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        changed: number;
+                    };
+                };
+            };
+            /** @description Requires: roster:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Attendance_postEvents: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    events: {
+                        /** Format: uuid */
+                        employee_id?: string;
+                        staff_number?: string;
+                        device_user_id?: string;
+                        /** Format: date-time */
+                        occurred_at: string;
+                        /**
+                         * @default unknown
+                         * @enum {string}
+                         */
+                        direction?: "in" | "out" | "unknown";
+                        device_id?: string;
+                        external_id?: string;
+                    }[];
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        accepted: number;
+                        duplicates: number;
+                        unmatched: number;
+                        errors: {
+                            index: number;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+            /** @description Requires: clock_event:write */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Attendance_clock: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @enum {string} */
+                    direction: "in" | "out";
+                    latitude?: number;
+                    longitude?: number;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    Attendance_myDay: {
+        parameters: {
+            query?: {
+                date?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    Attendance_days: {
+        parameters: {
+            query: {
+                limit?: number;
+                cursor?: string;
+                sort?: string;
+                search?: string;
+                updated_since?: string;
+                from: string;
+                to: string;
+                department_id?: string;
+                employee_id?: string;
+                status?: "present" | "late" | "half_day" | "absent" | "on_leave" | "rest_day" | "holiday" | "incomplete" | "not_scheduled";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            employee_id: string;
+                            employee_name?: string;
+                            /** Format: date */
+                            work_date: string;
+                            shift_id: string | null;
+                            shift_code: string | null;
+                            scheduled_start: string | null;
+                            scheduled_end: string | null;
+                            first_in: string | null;
+                            last_out: string | null;
+                            worked_minutes: number;
+                            late_minutes: number;
+                            early_leave_minutes: number;
+                            overtime_minutes: number;
+                            /** @enum {string} */
+                            day_type: "normal" | "rest_day" | "public_holiday";
+                            /** @enum {string} */
+                            status: "present" | "late" | "half_day" | "absent" | "on_leave" | "rest_day" | "holiday" | "incomplete" | "not_scheduled";
+                            leave_request_id: string | null;
+                            regularised: boolean;
+                            /** Format: date-time */
+                            computed_at: string;
+                        }[];
+                        next_cursor: string | null;
+                    };
+                };
+            };
+            /** @description Requires: attendance:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Attendance_recompute: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: date */
+                    from: string;
+                    /** Format: date */
+                    to: string;
+                    /** Format: uuid */
+                    department_id?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        days: number;
+                    };
+                };
+            };
+            /** @description Requires: attendance:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Attendance_timesheet: {
+        parameters: {
+            query: {
+                from: string;
+                to: string;
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        /** Format: date */
+                        from: string;
+                        /** Format: date */
+                        to: string;
+                        scheduled_days: number;
+                        present_days: number;
+                        absent_days: number;
+                        late_days: number;
+                        leave_days: number;
+                        worked_minutes: number;
+                        late_minutes: number;
+                        overtime: {
+                            /** @enum {string} */
+                            day_type: "normal" | "rest_day" | "public_holiday";
+                            minutes: number;
+                            multiplier: number | null;
+                        }[];
+                    };
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Attendance_overtimeRules: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** @enum {string} */
+                        day_type: "normal" | "rest_day" | "public_holiday";
+                        multiplier: number | null;
+                        min_minutes: number;
+                        requires_approval: boolean;
+                        /** Format: date */
+                        effective_from: string;
+                        effective_to: string | null;
+                    }[];
+                };
+            };
+            /** @description Requires: attendance:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Attendance_addOvertimeRule: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @enum {string} */
+                    day_type: "normal" | "rest_day" | "public_holiday";
+                    multiplier?: number | null;
+                    /** @default 30 */
+                    min_minutes?: number;
+                    /** @default false */
+                    requires_approval?: boolean;
+                    /** Format: date */
+                    effective_from: string;
+                    effective_to?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** @enum {string} */
+                        day_type: "normal" | "rest_day" | "public_holiday";
+                        multiplier: number | null;
+                        min_minutes: number;
+                        requires_approval: boolean;
+                        /** Format: date */
+                        effective_from: string;
+                        effective_to: string | null;
+                    };
+                };
+            };
+            /** @description Requires: attendance:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Attendance_updateOvertimeRule: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @enum {string} */
+                    day_type: "normal" | "rest_day" | "public_holiday";
+                    multiplier?: number | null;
+                    /** @default 30 */
+                    min_minutes?: number;
+                    /** @default false */
+                    requires_approval?: boolean;
+                    /** Format: date */
+                    effective_from: string;
+                    effective_to?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** @enum {string} */
+                        day_type: "normal" | "rest_day" | "public_holiday";
+                        multiplier: number | null;
+                        min_minutes: number;
+                        requires_approval: boolean;
+                        /** Format: date */
+                        effective_from: string;
+                        effective_to: string | null;
+                    };
+                };
+            };
+            /** @description Requires: attendance:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Attendance_regularisations: {
+        parameters: {
+            query?: {
+                employee_id?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        /** Format: date */
+                        work_date: string;
+                        clock_in: string | null;
+                        clock_out: string | null;
+                        reason: string;
+                        /** @enum {string} */
+                        status: "pending" | "approved" | "rejected" | "returned" | "cancelled";
+                        decision_comment: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                    }[];
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Attendance_regularise: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    employee_id?: string;
+                    /** Format: date */
+                    work_date: string;
+                    clock_in?: string | null;
+                    clock_out?: string | null;
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        /** Format: date */
+                        work_date: string;
+                        clock_in: string | null;
+                        clock_out: string | null;
+                        reason: string;
+                        /** @enum {string} */
+                        status: "pending" | "approved" | "rejected" | "returned" | "cancelled";
+                        decision_comment: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                    };
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Connectors_list: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        code: string;
+                        name: string;
+                        /** @enum {string} */
+                        type: "zkteco_biotime" | "zkteco_push" | "hikvision_isapi" | "hikvision_push";
+                        config: {
+                            [key: string]: unknown;
+                        };
+                        has_credentials: boolean;
+                        /** @enum {string} */
+                        match_by: "staff_number" | "mapping";
+                        schedule_minutes: number | null;
+                        is_active: boolean;
+                        last_run_at: string | null;
+                        last_success_at: string | null;
+                        /** @enum {string} */
+                        health: "unknown" | "ok" | "degraded" | "failing";
+                        health_message: string | null;
+                        push_url: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    }[];
+                };
+            };
+            /** @description Requires: connector:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Connectors_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    code: string;
+                    name: string;
+                    /** @enum {string} */
+                    type: "zkteco_biotime" | "zkteco_push" | "hikvision_isapi" | "hikvision_push";
+                    /** @default {} */
+                    config?: {
+                        [key: string]: unknown;
+                    };
+                    credentials?: {
+                        [key: string]: string;
+                    };
+                    /**
+                     * @default staff_number
+                     * @enum {string}
+                     */
+                    match_by?: "staff_number" | "mapping";
+                    schedule_minutes?: number | null;
+                    /** @default true */
+                    is_active?: boolean;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        code: string;
+                        name: string;
+                        /** @enum {string} */
+                        type: "zkteco_biotime" | "zkteco_push" | "hikvision_isapi" | "hikvision_push";
+                        config: {
+                            [key: string]: unknown;
+                        };
+                        has_credentials: boolean;
+                        /** @enum {string} */
+                        match_by: "staff_number" | "mapping";
+                        schedule_minutes: number | null;
+                        is_active: boolean;
+                        last_run_at: string | null;
+                        last_success_at: string | null;
+                        /** @enum {string} */
+                        health: "unknown" | "ok" | "degraded" | "failing";
+                        health_message: string | null;
+                        push_url: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: connector:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Connectors_update: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description ETag of the version being changed */
+                "If-Match": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    code: string;
+                    name: string;
+                    /** @enum {string} */
+                    type: "zkteco_biotime" | "zkteco_push" | "hikvision_isapi" | "hikvision_push";
+                    /** @default {} */
+                    config?: {
+                        [key: string]: unknown;
+                    };
+                    credentials?: {
+                        [key: string]: string;
+                    };
+                    /**
+                     * @default staff_number
+                     * @enum {string}
+                     */
+                    match_by?: "staff_number" | "mapping";
+                    schedule_minutes?: number | null;
+                    /** @default true */
+                    is_active?: boolean;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        code: string;
+                        name: string;
+                        /** @enum {string} */
+                        type: "zkteco_biotime" | "zkteco_push" | "hikvision_isapi" | "hikvision_push";
+                        config: {
+                            [key: string]: unknown;
+                        };
+                        has_credentials: boolean;
+                        /** @enum {string} */
+                        match_by: "staff_number" | "mapping";
+                        schedule_minutes: number | null;
+                        is_active: boolean;
+                        last_run_at: string | null;
+                        last_success_at: string | null;
+                        /** @enum {string} */
+                        health: "unknown" | "ok" | "degraded" | "failing";
+                        health_message: string | null;
+                        push_url: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: connector:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Connectors_test: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        ok: boolean;
+                        message: string;
+                    };
+                };
+            };
+            /** @description Requires: connector:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Connectors_run: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        connector_id: string;
+                        /** @enum {string} */
+                        trigger: "schedule" | "manual" | "push" | "test";
+                        /** @enum {string} */
+                        status: "running" | "succeeded" | "partial" | "failed";
+                        /** Format: date-time */
+                        started_at: string;
+                        finished_at: string | null;
+                        window_from: string | null;
+                        window_to: string | null;
+                        received: number;
+                        accepted: number;
+                        duplicates: number;
+                        unmatched: number;
+                        error: string | null;
+                    };
+                };
+            };
+            /** @description Requires: connector:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Connectors_runs: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        connector_id: string;
+                        /** @enum {string} */
+                        trigger: "schedule" | "manual" | "push" | "test";
+                        /** @enum {string} */
+                        status: "running" | "succeeded" | "partial" | "failed";
+                        /** Format: date-time */
+                        started_at: string;
+                        finished_at: string | null;
+                        window_from: string | null;
+                        window_to: string | null;
+                        received: number;
+                        accepted: number;
+                        duplicates: number;
+                        unmatched: number;
+                        error: string | null;
+                    }[];
+                };
+            };
+            /** @description Requires: connector:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Connectors_mappings: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        connector_id: string;
+                        device_user_id: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string | null;
+                    }[];
+                };
+            };
+            /** @description Requires: connector:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Connectors_map: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    device_user_id: string;
+                    /** Format: uuid */
+                    employee_id: string;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        mappings: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            connector_id: string;
+                            device_user_id: string;
+                            /** Format: uuid */
+                            employee_id: string;
+                            employee_name: string | null;
+                        }[];
+                        rematched: number;
+                    };
+                };
+            };
+            /** @description Requires: connector:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Connectors_unmatched: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        device_user_id: string;
+                        punches: number;
+                        last_seen: string;
+                    }[];
+                };
+            };
+            /** @description Requires: connector:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Connectors_hikvision: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                code: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
         };
     };

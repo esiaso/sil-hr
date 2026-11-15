@@ -65,6 +65,10 @@ export const SETTINGS = {
   'webhooks.timeout_seconds': def({ schema: z.number().int().min(1).max(60), default: 10, type: 'number', description: 'Timeout for one delivery attempt' }),
   'licences.reminder_days': def({ schema: z.number().int().min(1).max(365), default: 60, type: 'number', description: 'Days before a professional licence expires that reminders start' }),
   'employees.contact_changes_need_approval': def({ schema: z.boolean(), default: true, type: 'boolean', description: 'Self-service contact changes wait for HR approval' }),
+  'attendance.late_grace_minutes': def({ schema: z.number().int().min(0).max(240), default: 30, type: 'number', description: 'Minutes after the shift start before someone counts as late (a shift may override it)' }),
+  'attendance.early_leave_grace_minutes': def({ schema: z.number().int().min(0).max(240), default: 0, type: 'number', description: 'Minutes before the shift end someone may leave without counting as early' }),
+  'attendance.half_day_min_hours': def({ schema: z.number().min(1).max(12), default: 4, type: 'number', description: 'Worked hours below which a day counts as a half day' }),
+  'attendance.self_clock_enabled': def({ schema: z.boolean(), default: true, type: 'boolean', description: 'Staff may clock in and out from the web app or a phone' }),
   'documents.download_url_ttl_seconds': def({ schema: z.number().int().min(30).max(3600), default: 300, type: 'number', description: 'Lifetime of signed download links' }),
   'documents.allowed_mime_types': def({
     schema: z.array(z.string()).min(1),

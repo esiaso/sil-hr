@@ -61,6 +61,14 @@ export const PERMISSIONS = {
   'leave:apply_for_others': 'Apply for leave on someone else\u2019s behalf',
   'leave:adjust': 'Adjust leave balances and record encashment',
   'leave_setup:manage': 'Manage leave types, entitlement policies and public holidays',
+  // time and attendance (slice 4)
+  'shift:manage': 'Define shifts and which shifts each department runs',
+  'roster:read': 'View rosters',
+  'roster:manage': 'Plan rosters',
+  'attendance:read': 'View daily attendance and timesheets',
+  'attendance:manage': 'Recompute attendance, set overtime rules and record clock events for others',
+  'clock_event:write': 'Post clock events from a time source (machine clients)',
+  'connector:manage': 'Configure device connectors and see their sync history',
 } as const;
 
 export type PermissionCode = keyof typeof PERMISSIONS;
@@ -73,6 +81,7 @@ export const PERMISSION_GROUPS: { label: string; prefixes: string[] }[] = [
   { label: 'Platform', prefixes: ['audit', 'setting', 'numbering', 'document', 'external_ref'] },
   { label: 'People', prefixes: ['employee', 'employee.sensitive', 'licence', 'document_type', 'employee_document', 'directory', 'import_export', 'contact_change'] },
   { label: 'Workflow & leave', prefixes: ['workflow', 'leave', 'leave_setup'] },
+  { label: 'Time & attendance', prefixes: ['shift', 'roster', 'attendance', 'clock_event', 'connector'] },
   { label: 'Integration', prefixes: ['api_client', 'webhook', 'event', 'system', 'scim'] },
 ];
 
@@ -91,7 +100,8 @@ export const CLIENT_SCOPES: Record<string, { description: string; permissions: P
   'employees.sensitive:read': { description: 'Unmasked national ID, KRA PIN and bank details (every read audited)', permissions: ['employee.sensitive:read'] },
   scim: { description: 'SCIM 2.0 provisioning: read users (employees) and groups (departments)', permissions: ['scim:provision'] },
   'leave:read': { description: 'Leave requests, balances and the team calendar', permissions: ['leave:read'] },
-  'attendance:write': { description: 'Post clock events', permissions: [] },
+  'attendance:write': { description: 'Post clock events (POST /clock-events)', permissions: ['clock_event:write'] },
+  'attendance:read': { description: 'Daily attendance, rosters and timesheets', permissions: ['attendance:read', 'roster:read'] },
   'payroll.journal:read': { description: 'Payroll journals per run', permissions: [] },
   'events:read': { description: 'Event catalogue', permissions: ['event:read'] },
   'external_refs:write': { description: 'Map this system’s identifiers onto HR records', permissions: ['external_ref:read', 'external_ref:manage'] },
@@ -111,7 +121,7 @@ export const SYSTEM_ROLES: {
     code: 'hr_manager',
     name: 'HR Manager',
     description: 'Owns organisation structure and HR records',
-    permissions: ['workflow:manage', 'workflow:read', 'leave:read', 'leave:apply_for_others', 'leave:adjust', 'leave_setup:manage', 'employee:read', 'employee:hire', 'employee:update', 'employee:lifecycle', 'employee.sensitive:read', 'licence:read', 'licence:manage', 'licence:verify', 'document_type:manage', 'employee_document:verify', 'directory:read', 'import_export:run', 'contact_change:decide', 
+    permissions: ['shift:manage', 'roster:read', 'roster:manage', 'attendance:read', 'attendance:manage', 'connector:manage', 'workflow:manage', 'workflow:read', 'leave:read', 'leave:apply_for_others', 'leave:adjust', 'leave_setup:manage', 'employee:read', 'employee:hire', 'employee:update', 'employee:lifecycle', 'employee.sensitive:read', 'licence:read', 'licence:manage', 'licence:verify', 'document_type:manage', 'employee_document:verify', 'directory:read', 'import_export:run', 'contact_change:decide', 
       'organisation:read', 'organisation:update', 'branch:read', 'branch:manage', 'department:read', 'department:manage',
       'cost_centre:read', 'cost_centre:manage', 'job_grade:read', 'job_grade:manage', 'position:read', 'position:manage',
       'user:read', 'role:read', 'audit:read', 'setting:read', 'numbering:read', 'numbering:manage',
@@ -122,7 +132,7 @@ export const SYSTEM_ROLES: {
     code: 'hr_officer',
     name: 'HR Officer',
     description: 'Day-to-day HR administration within their scope',
-    permissions: ['workflow:read', 'leave:read', 'leave:apply_for_others', 'leave:adjust', 'employee:read', 'employee:hire', 'employee:update', 'employee:lifecycle', 'licence:read', 'licence:manage', 'licence:verify', 'employee_document:verify', 'directory:read', 'contact_change:decide', 
+    permissions: ['roster:read', 'roster:manage', 'attendance:read', 'attendance:manage', 'workflow:read', 'leave:read', 'leave:apply_for_others', 'leave:adjust', 'employee:read', 'employee:hire', 'employee:update', 'employee:lifecycle', 'licence:read', 'licence:manage', 'licence:verify', 'employee_document:verify', 'directory:read', 'contact_change:decide', 
       'organisation:read', 'branch:read', 'department:read', 'department:manage', 'cost_centre:read', 'job_grade:read',
       'position:read', 'position:manage', 'document:read', 'document:write', 'setting:read', 'numbering:read',
     ],
@@ -131,7 +141,7 @@ export const SYSTEM_ROLES: {
     code: 'payroll_officer',
     name: 'Payroll Officer',
     description: 'Prepares payroll runs',
-    permissions: ['leave:read', 'employee:read', 'employee.sensitive:read', 'directory:read', 'organisation:read', 'branch:read', 'department:read', 'cost_centre:read', 'job_grade:read', 'position:read', 'setting:read'],
+    permissions: ['attendance:read', 'roster:read', 'leave:read', 'employee:read', 'employee.sensitive:read', 'directory:read', 'organisation:read', 'branch:read', 'department:read', 'cost_centre:read', 'job_grade:read', 'position:read', 'setting:read'],
   },
   {
     code: 'finance_approver',
@@ -143,13 +153,13 @@ export const SYSTEM_ROLES: {
     code: 'department_head',
     name: 'Department Head',
     description: 'Heads a department; approves for it',
-    permissions: ['leave:read', 'employee:read', 'licence:read', 'directory:read', 'organisation:read', 'branch:read', 'department:read', 'cost_centre:read', 'job_grade:read', 'position:read'],
+    permissions: ['roster:read', 'roster:manage', 'attendance:read', 'leave:read', 'employee:read', 'licence:read', 'directory:read', 'organisation:read', 'branch:read', 'department:read', 'cost_centre:read', 'job_grade:read', 'position:read'],
   },
   {
     code: 'line_manager',
     name: 'Line Manager',
     description: 'Manages direct reports',
-    permissions: ['leave:read', 'employee:read', 'licence:read', 'directory:read', 'organisation:read', 'branch:read', 'department:read', 'position:read'],
+    permissions: ['roster:read', 'roster:manage', 'attendance:read', 'leave:read', 'employee:read', 'licence:read', 'directory:read', 'organisation:read', 'branch:read', 'department:read', 'position:read'],
   },
   {
     code: 'recruiter',

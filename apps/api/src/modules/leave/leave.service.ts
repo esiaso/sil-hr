@@ -33,8 +33,17 @@ export const toLeaveTypeDto = (t: LeaveType): LeaveTypeDto => ({
 
 const LIVE = ['pending', 'approved'] as const;
 
+/** Per-employee planned working days from rosters (provided by time and attendance). */
+export type ScheduleProvider = (m: EntityManager, employeeId: string, from: string, to: string) => Promise<((date: string) => boolean | undefined) | undefined>;
+
 @Injectable()
 export class LeaveService implements OnModuleInit {
+  private schedule: ScheduleProvider = async () => undefined;
+
+  registerScheduleProvider(fn: ScheduleProvider): void {
+    this.schedule = fn;
+  }
+
   constructor(
     @InjectDataSource() private readonly dataSource: DataSource,
     private readonly workflow: WorkflowService,
@@ -236,7 +245,8 @@ export class LeaveService implements OnModuleInit {
       if (dto.start_date < eligible.toISOString().slice(0, 10)) throw unprocessable('min_service', `${type.name} is available after ${type.minServiceMonths} months of service`);
     }
     const workingDays = await this.settings.get('calendar.working_days', m);
-    const { days, excluded } = countLeaveDays({ start: dto.start_date, end: dto.end_date, startHalfDay: dto.start_half_day, endHalfDay: dto.end_half_day, counting: type.counting, workingDays, holidays: await this.holidaysFor(m, e.branchId, dto.start_date, dto.end_date) });
+    const rostered = await this.schedule(m, e.id, dto.start_date, dto.end_date);
+    const { days, excluded } = countLeaveDays({ start: dto.start_date, end: dto.end_date, startHalfDay: dto.start_half_day, endHalfDay: dto.end_half_day, counting: type.counting, workingDays, holidays: await this.holidaysFor(m, e.branchId, dto.start_date, dto.end_date), rostered });
     if (days <= 0) throw unprocessable('no_days', 'Those dates contain no working days', [{ path: 'start_date', message: 'Nothing to take' }]);
     if (type.maxConsecutiveDays !== null && days > type.maxConsecutiveDays) throw unprocessable('too_long', `${type.name} is at most ${type.maxConsecutiveDays} days at a time`);
     if (type.requiresDocumentOverDays !== null && days > type.requiresDocumentOverDays && !dto.document_id) {

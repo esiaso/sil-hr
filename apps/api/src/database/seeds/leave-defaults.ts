@@ -60,6 +60,11 @@ export async function seedLeaveDefaults(m: EntityManager): Promise<void> {
       ],
     },
     {
+      code: 'ATT-REG', name: 'Attendance correction', requestType: 'attendance_regularisation', priority: 100, conditions: {},
+      description: 'The line manager confirms a missed clock-in or clock-out; escalates to HR after 72 hours.',
+      steps: [{ name: 'Line manager', approverRule: 'line_manager', escalateAfterHours: 72, escalateTo: 'role', escalateRoleId: await role('hr_officer') }],
+    },
+    {
       code: 'CONTACT-CHANGE', name: 'Self-service contact change', requestType: 'contact_change', priority: 100, conditions: {},
       description: 'Any HR officer checks the change.',
       steps: [{ name: 'HR check', approverRule: 'role', roleId: await role('hr_officer') }],

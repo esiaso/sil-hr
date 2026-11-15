@@ -13,6 +13,7 @@ import { OutboxService } from '../../modules/events/events.module';
 import { DocumentType } from '../../modules/employees/employee.entities';
 import { seedSampleEmployees } from './sample-employees';
 import { seedLeaveDefaults } from './leave-defaults';
+import { ingestSamplePunches, seedSampleAttendance, seedShifts, type SamplePunches } from './sample-attendance';
 import { WebhookSubscription } from '../../modules/webhooks/webhook.entities';
 
 export interface SeedOptions {
@@ -29,6 +30,7 @@ export const SAMPLE_WEBHOOK_SECRET = 'whsec_c2lsLWhyLWRldmVsb3BtZW50LXdlYmhvb2st
  */
 export async function seedDatabase(app: INestApplicationContext, opts: SeedOptions): Promise<void> {
   const dataSource = app.get(DataSource);
+  let punches: SamplePunches = [];
   await RequestContext.run({ actorType: 'system', actorName: 'seed' }, async () => {
     await dataSource.transaction(async (m) => {
       // Several API replicas (or test workers) may boot at once: seed one at a time.
@@ -36,10 +38,11 @@ export async function seedDatabase(app: INestApplicationContext, opts: SeedOptio
       await seedReference(m);
       if (opts.sample) {
         if (!opts.defaultPassword) throw new Error('SEED_DEFAULT_PASSWORD is required to seed sample users');
-        await seedSample(m, app, opts.defaultPassword);
+        punches = await seedSample(m, app, opts.defaultPassword);
       }
     });
   });
+  if (punches.length) await RequestContext.run({ actorType: 'system', actorName: 'seed' }, () => ingestSamplePunches(app, punches));
   rootLogger.info({ sample: opts.sample }, 'Seed complete');
 }
 
@@ -116,6 +119,12 @@ async function seedReference(m: EntityManager): Promise<void> {
       body: '{{summary}} was {{outcome}}.\n\n{{comment}}',
       description: 'Sent to the requester when their request is decided',
     },
+    {
+      code: 'connector_failing',
+      subject: 'Device connector "{{connector}}" is failing',
+      body: 'The last sync failed: {{error}}\n\nPunches from those devices are not arriving. Check the connector under Integrations → Device connectors.',
+      description: 'Sent to connector administrators when a device connector starts failing',
+    },
   ];
   const documentTypes = [
     { code: 'national_id', name: 'National ID or passport copy', requiredFor: ['permanent', 'contract', 'casual', 'locum', 'intern'], isSensitive: true },
@@ -127,6 +136,7 @@ async function seedReference(m: EntityManager): Promise<void> {
     { code: 'signed_contract', name: 'Signed contract', requiredFor: ['permanent', 'contract', 'locum', 'intern'] },
   ];
   await seedLeaveDefaults(m);
+  await seedShifts(m);
   for (const d of documentTypes) {
     if (!(await m.getRepository(DocumentType).existsBy({ code: d.code }))) await m.getRepository(DocumentType).save(m.getRepository(DocumentType).create(d));
   }
@@ -204,7 +214,7 @@ const USERS: { username: string; name: string; role: string; scope: DataScope; b
   { username: 'auditor', name: 'Internal Auditor', role: 'auditor', scope: 'organisation' },
 ];
 
-async function seedSample(m: EntityManager, app: INestApplicationContext, password: string): Promise<void> {
+async function seedSample(m: EntityManager, app: INestApplicationContext, password: string): Promise<SamplePunches> {
   const outbox = app.get(OutboxService);
   const org = await m.getRepository(Organisation).findOneOrFail({ where: {}, order: { createdAt: 'ASC' } });
   if (org.code === 'ORG') {
@@ -282,6 +292,7 @@ async function seedSample(m: EntityManager, app: INestApplicationContext, passwo
   }
 
   await seedSampleEmployees(m, app);
+  const punches = await seedSampleAttendance(m);
 
   // A sample webhook pointed at the development sink that verifies signatures (compose: webhook-sink).
   const sinkUrl = process.env.SAMPLE_WEBHOOK_URL;
@@ -290,4 +301,5 @@ async function seedSample(m: EntityManager, app: INestApplicationContext, passwo
       m.getRepository(WebhookSubscription).create({ name: 'Development webhook sink', url: sinkUrl, eventTypes: ['*'], secretEnc: encrypt(SAMPLE_WEBHOOK_SECRET)!, secretPrefix: SAMPLE_WEBHOOK_SECRET.slice(0, 12) }),
     );
   }
+  return punches;
 }
