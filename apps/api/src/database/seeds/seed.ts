@@ -13,6 +13,7 @@ import { OutboxService } from '../../modules/events/events.module';
 import { DocumentType } from '../../modules/employees/employee.entities';
 import { seedSampleEmployees } from './sample-employees';
 import { seedLeaveDefaults } from './leave-defaults';
+import { seedPayrollDefaults, seedSamplePayroll } from './payroll-defaults';
 import { ingestSamplePunches, seedSampleAttendance, seedShifts, type SamplePunches } from './sample-attendance';
 import { WebhookSubscription } from '../../modules/webhooks/webhook.entities';
 
@@ -120,6 +121,12 @@ async function seedReference(m: EntityManager): Promise<void> {
       description: 'Sent to the requester when their request is decided',
     },
     {
+      code: 'payslip_ready',
+      subject: 'Your payslip for {{period}} is ready',
+      body: 'Your payslip for {{period}} (paid on {{pay_date}}) is ready. Open My payslips in SIL HR to view or download it.',
+      description: 'Sent to each member of staff when a payroll is approved',
+    },
+    {
       code: 'connector_failing',
       subject: 'Device connector "{{connector}}" is failing',
       body: 'The last sync failed: {{error}}\n\nPunches from those devices are not arriving. Check the connector under Integrations → Device connectors.',
@@ -137,6 +144,7 @@ async function seedReference(m: EntityManager): Promise<void> {
   ];
   await seedLeaveDefaults(m);
   await seedShifts(m);
+  await seedPayrollDefaults(m);
   for (const d of documentTypes) {
     if (!(await m.getRepository(DocumentType).existsBy({ code: d.code }))) await m.getRepository(DocumentType).save(m.getRepository(DocumentType).create(d));
   }
@@ -292,6 +300,7 @@ async function seedSample(m: EntityManager, app: INestApplicationContext, passwo
   }
 
   await seedSampleEmployees(m, app);
+  await seedSamplePayroll(m);
   const punches = await seedSampleAttendance(m);
 
   // A sample webhook pointed at the development sink that verifies signatures (compose: webhook-sink).

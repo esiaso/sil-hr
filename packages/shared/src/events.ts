@@ -265,6 +265,20 @@ export const EVENT_CATALOGUE = [
     example: { id: D1, code: 'RN', title: 'Registered Nurse', department_id: D1, job_grade_id: null, reports_to_position_id: null, headcount: 42, status: 'active', changed_fields: ['headcount'] },
   },
   {
+    type: 'hr.payroll.run.approved.v1',
+    description: 'A payroll run was finally approved; its payslips are locked. Finance fetches the journal (GET /api/v1/payroll/runs/{id}/journal, scope payroll.journal:read).',
+    subject: 'payroll run id',
+    schema: z.object({ id, number: z.string(), period: z.string(), pay_date: z.string(), employees: z.number().int(), gross: z.string(), net: z.string(), employer_cost: z.string() }),
+    example: { id: '0199a6b0-0000-7000-8000-0000000000a1', number: 'PR/2026/11', period: '2026-11', pay_date: '2026-11-27', employees: 412, gross: '41250000.00', net: '30112500.00', employer_cost: '42330000.00' },
+  },
+  {
+    type: 'hr.payroll.run.paid.v1',
+    description: 'The salaries of an approved payroll run were paid (recorded by finance).',
+    subject: 'payroll run id',
+    schema: z.object({ id, number: z.string(), period: z.string(), paid_at: z.string() }),
+    example: { id: '0199a6b0-0000-7000-8000-0000000000a1', number: 'PR/2026/11', period: '2026-11', paid_at: '2026-11-27T09:12:00Z' },
+  },
+  {
     type: 'hr.webhook.test.v1',
     description: 'Sent only to one subscription when an administrator presses "Send test event".',
     subject: 'subscription id',

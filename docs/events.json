@@ -2011,6 +2011,104 @@
     }
   },
   {
+    "type": "hr.payroll.run.approved.v1",
+    "version": 1,
+    "description": "A payroll run was finally approved; its payslips are locked. Finance fetches the journal (GET /api/v1/payroll/runs/{id}/journal, scope payroll.journal:read).",
+    "subject": "payroll run id",
+    "data_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "number": {
+          "type": "string"
+        },
+        "period": {
+          "type": "string"
+        },
+        "pay_date": {
+          "type": "string"
+        },
+        "employees": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "gross": {
+          "type": "string"
+        },
+        "net": {
+          "type": "string"
+        },
+        "employer_cost": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "number",
+        "period",
+        "pay_date",
+        "employees",
+        "gross",
+        "net",
+        "employer_cost"
+      ],
+      "additionalProperties": false
+    },
+    "example": {
+      "id": "0199a6b0-0000-7000-8000-0000000000a1",
+      "number": "PR/2026/11",
+      "period": "2026-11",
+      "pay_date": "2026-11-27",
+      "employees": 412,
+      "gross": "41250000.00",
+      "net": "30112500.00",
+      "employer_cost": "42330000.00"
+    }
+  },
+  {
+    "type": "hr.payroll.run.paid.v1",
+    "version": 1,
+    "description": "The salaries of an approved payroll run were paid (recorded by finance).",
+    "subject": "payroll run id",
+    "data_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "number": {
+          "type": "string"
+        },
+        "period": {
+          "type": "string"
+        },
+        "paid_at": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "number",
+        "period",
+        "paid_at"
+      ],
+      "additionalProperties": false
+    },
+    "example": {
+      "id": "0199a6b0-0000-7000-8000-0000000000a1",
+      "number": "PR/2026/11",
+      "period": "2026-11",
+      "paid_at": "2026-11-27T09:12:00Z"
+    }
+  },
+  {
     "type": "hr.webhook.test.v1",
     "version": 1,
     "description": "Sent only to one subscription when an administrator presses \"Send test event\".",

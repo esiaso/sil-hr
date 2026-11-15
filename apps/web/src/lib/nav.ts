@@ -14,7 +14,7 @@ export interface NavGroup {
 }
 
 export const NAV: NavGroup[] = [
-  { label: 'Home', items: [{ label: 'Dashboard', href: '/' }, { label: 'My profile', href: '/me' }, { label: 'My leave', href: '/leave' }, { label: 'Clock in / my attendance', href: '/attendance/me' }, { label: 'Approvals', href: '/approvals' }, { label: 'Staff directory', href: '/directory', permission: 'directory:read' }] },
+  { label: 'Home', items: [{ label: 'Dashboard', href: '/' }, { label: 'My profile', href: '/me' }, { label: 'My leave', href: '/leave' }, { label: 'Clock in / my attendance', href: '/attendance/me' }, { label: 'My payslips', href: '/me/payslips' }, { label: 'Approvals', href: '/approvals' }, { label: 'Staff directory', href: '/directory', permission: 'directory:read' }] },
   {
     label: 'People',
     items: [
@@ -40,6 +40,14 @@ export const NAV: NavGroup[] = [
       { label: 'Rosters', href: '/attendance/rosters', permission: 'roster:read' },
       { label: 'Shifts', href: '/attendance/shifts', permission: 'shift:manage' },
       { label: 'Overtime rules', href: '/attendance/overtime', permission: 'attendance:read' },
+    ],
+  },
+  {
+    label: 'Payroll',
+    items: [
+      { label: 'Payroll runs', href: '/payroll', permission: 'payroll:read' },
+      { label: 'Pay and loans', href: '/payroll/people', permission: 'salary:read' },
+      { label: 'Payroll setup', href: '/payroll/setup', permission: 'salary:read' },
     ],
   },
   {

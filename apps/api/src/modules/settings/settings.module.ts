@@ -69,6 +69,11 @@ export const SETTINGS = {
   'attendance.early_leave_grace_minutes': def({ schema: z.number().int().min(0).max(240), default: 0, type: 'number', description: 'Minutes before the shift end someone may leave without counting as early' }),
   'attendance.half_day_min_hours': def({ schema: z.number().min(1).max(12), default: 4, type: 'number', description: 'Worked hours below which a day counts as a half day' }),
   'attendance.self_clock_enabled': def({ schema: z.boolean(), default: true, type: 'boolean', description: 'Staff may clock in and out from the web app or a phone' }),
+  'payroll.proration_basis': def({ schema: z.enum(['working_days', 'calendar_days']), default: 'working_days', type: 'string', description: 'How joiners, leavers and unpaid leave are prorated: working days in the month (less public holidays) or calendar days' }),
+  'payroll.monthly_hours': def({ schema: z.number().min(100).max(300), default: 195, type: 'number', description: 'Hours in a month for the overtime hourly rate (basic ÷ hours); 195 = 45 hours a week' }),
+  'payroll.pay_day': def({ schema: z.number().int().min(0).max(31), default: 0, type: 'number', description: 'Day of the month salaries are paid; 0 = the last working day' }),
+  'payroll.variance_threshold_pct': def({ schema: z.number().min(0).max(100), default: 10, type: 'number', description: 'Net pay changes above this percentage are flagged in the variance report' }),
+  'payroll.notify_payslips': def({ schema: z.boolean(), default: true, type: 'boolean', description: 'Tell staff by email and in the app when their payslip is ready' }),
   'documents.download_url_ttl_seconds': def({ schema: z.number().int().min(30).max(3600), default: 300, type: 'number', description: 'Lifetime of signed download links' }),
   'documents.allowed_mime_types': def({
     schema: z.array(z.string()).min(1),

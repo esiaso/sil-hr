@@ -33,7 +33,7 @@ scopes your system needs, and gives you the client id and secret (the secret is 
 | `leave:read` | leave requests (`/api/v1/leave/requests`), balances and the team calendar |
 | `attendance:read` | daily attendance, rosters and timesheets (`/api/v1/attendance/days`, `/api/v1/rosters`) |
 | `attendance:write` | post clock events (`POST /api/v1/clock-events`, §7) |
-| `payroll.journal:read` | reserved: the endpoints arrive in slice 5 |
+| `payroll.journal:read` | payroll journals of approved runs (`GET /api/v1/payroll/runs/{id}/journal`, §8) |
 
 ## 2. Get a token
 
@@ -308,3 +308,23 @@ and **failing** when a pull fails (holders of `connector:manage` are notified on
 
 Every roster change publishes `hr.roster.changed.v1`; approved leave already publishes
 `hr.leave.approved.v1`.
+
+## 8. Payroll journal (finance)
+
+When a payroll is approved HR publishes `hr.payroll.run.approved.v1`, and
+`hr.payroll.run.paid.v1` when finance records the payment. A finance system with the
+`payroll.journal:read` scope then fetches the journal:
+
+```bash
+curl -s -H "Authorization: Bearer $TOKEN" http://localhost:3310/api/v1/payroll/runs/$RUN_ID/journal
+# {"period":"2026-10","lines":[{"account":"5100","cost_centre_code":"CC-NUR","description":"Salaries and wages","debit":"1820400.00","credit":"0.00"}, …],
+#  "total_debit":"7531465.96","total_credit":"7531465.96","unmapped":[]}
+```
+
+Earnings and employer contributions are debited to expense accounts per cost centre;
+PAYE, NSSF, SHIF, the Housing Levy, loans and other deductions, employer contribution
+liabilities and net salaries are credited. Debits always equal credits. Accounts come
+from HR's mapping table (Payroll setup → Accounts): a row per component code, with
+defaults for anything unmapped. Until the chart of accounts is confirmed the accounts are
+placeholders starting `TBD-`, and `unmapped` lists them; post nothing while it is
+not empty.

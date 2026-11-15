@@ -69,6 +69,14 @@ export const PERMISSIONS = {
   'attendance:manage': 'Recompute attendance, set overtime rules and record clock events for others',
   'clock_event:write': 'Post clock events from a time source (machine clients)',
   'connector:manage': 'Configure device connectors and see their sync history',
+  // payroll (slice 5)
+  'payroll:read': 'View payroll runs, payslips, variance and reports',
+  'payroll:prepare': 'Create, calculate and submit payroll runs; produce payment and statutory files',
+  'payroll:pay': 'Mark an approved payroll as paid and close it',
+  'payroll_setup:manage': 'Manage pay components, statutory rate tables, payment file formats and the account mapping',
+  'salary:read': 'View salaries, pay items and loans',
+  'salary:manage': 'Set salaries, pay items, loans and one-off items',
+  'payroll.journal:read': 'Read payroll journals (finance systems)',
 } as const;
 
 export type PermissionCode = keyof typeof PERMISSIONS;
@@ -82,6 +90,7 @@ export const PERMISSION_GROUPS: { label: string; prefixes: string[] }[] = [
   { label: 'People', prefixes: ['employee', 'employee.sensitive', 'licence', 'document_type', 'employee_document', 'directory', 'import_export', 'contact_change'] },
   { label: 'Workflow & leave', prefixes: ['workflow', 'leave', 'leave_setup'] },
   { label: 'Time & attendance', prefixes: ['shift', 'roster', 'attendance', 'clock_event', 'connector'] },
+  { label: 'Payroll', prefixes: ['payroll', 'payroll_setup', 'salary', 'payroll.journal'] },
   { label: 'Integration', prefixes: ['api_client', 'webhook', 'event', 'system', 'scim'] },
 ];
 
@@ -102,7 +111,7 @@ export const CLIENT_SCOPES: Record<string, { description: string; permissions: P
   'leave:read': { description: 'Leave requests, balances and the team calendar', permissions: ['leave:read'] },
   'attendance:write': { description: 'Post clock events (POST /clock-events)', permissions: ['clock_event:write'] },
   'attendance:read': { description: 'Daily attendance, rosters and timesheets', permissions: ['attendance:read', 'roster:read'] },
-  'payroll.journal:read': { description: 'Payroll journals per run', permissions: [] },
+  'payroll.journal:read': { description: 'Payroll journals per approved run (GET /payroll/runs/{id}/journal)', permissions: ['payroll.journal:read'] },
   'events:read': { description: 'Event catalogue', permissions: ['event:read'] },
   'external_refs:write': { description: 'Map this system’s identifiers onto HR records', permissions: ['external_ref:read', 'external_ref:manage'] },
   'documents:read': { description: 'Download documents', permissions: ['document:read'] },
@@ -121,7 +130,7 @@ export const SYSTEM_ROLES: {
     code: 'hr_manager',
     name: 'HR Manager',
     description: 'Owns organisation structure and HR records',
-    permissions: ['shift:manage', 'roster:read', 'roster:manage', 'attendance:read', 'attendance:manage', 'connector:manage', 'workflow:manage', 'workflow:read', 'leave:read', 'leave:apply_for_others', 'leave:adjust', 'leave_setup:manage', 'employee:read', 'employee:hire', 'employee:update', 'employee:lifecycle', 'employee.sensitive:read', 'licence:read', 'licence:manage', 'licence:verify', 'document_type:manage', 'employee_document:verify', 'directory:read', 'import_export:run', 'contact_change:decide', 
+    permissions: ['payroll:read', 'salary:read', 'shift:manage', 'roster:read', 'roster:manage', 'attendance:read', 'attendance:manage', 'connector:manage', 'workflow:manage', 'workflow:read', 'leave:read', 'leave:apply_for_others', 'leave:adjust', 'leave_setup:manage', 'employee:read', 'employee:hire', 'employee:update', 'employee:lifecycle', 'employee.sensitive:read', 'licence:read', 'licence:manage', 'licence:verify', 'document_type:manage', 'employee_document:verify', 'directory:read', 'import_export:run', 'contact_change:decide', 
       'organisation:read', 'organisation:update', 'branch:read', 'branch:manage', 'department:read', 'department:manage',
       'cost_centre:read', 'cost_centre:manage', 'job_grade:read', 'job_grade:manage', 'position:read', 'position:manage',
       'user:read', 'role:read', 'audit:read', 'setting:read', 'numbering:read', 'numbering:manage',
@@ -141,13 +150,13 @@ export const SYSTEM_ROLES: {
     code: 'payroll_officer',
     name: 'Payroll Officer',
     description: 'Prepares payroll runs',
-    permissions: ['attendance:read', 'roster:read', 'leave:read', 'employee:read', 'employee.sensitive:read', 'directory:read', 'organisation:read', 'branch:read', 'department:read', 'cost_centre:read', 'job_grade:read', 'position:read', 'setting:read'],
+    permissions: ['payroll:read', 'payroll:prepare', 'payroll_setup:manage', 'salary:read', 'salary:manage', 'payroll.journal:read', 'attendance:read', 'roster:read', 'leave:read', 'employee:read', 'employee.sensitive:read', 'directory:read', 'organisation:read', 'branch:read', 'department:read', 'cost_centre:read', 'job_grade:read', 'position:read', 'setting:read'],
   },
   {
     code: 'finance_approver',
     name: 'Finance Approver',
     description: 'Approves payroll and payments',
-    permissions: ['directory:read', 'organisation:read', 'branch:read', 'department:read', 'cost_centre:read', 'cost_centre:manage', 'setting:read'],
+    permissions: ['payroll:read', 'payroll:pay', 'payroll.journal:read', 'directory:read', 'organisation:read', 'branch:read', 'department:read', 'cost_centre:read', 'cost_centre:manage', 'setting:read'],
   },
   {
     code: 'department_head',

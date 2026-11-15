@@ -11,6 +11,7 @@ import { ApiClient, ApiClientSecret } from '../modules/identity-access/api-clien
 import { IDENTITY_ENTITIES } from '../modules/identity-access/identity.entities';
 import { EMPLOYEE_ENTITIES } from '../modules/employees/employee.entities';
 import { ATTENDANCE_ENTITIES } from '../modules/attendance/attendance.entities';
+import { PAYROLL_ENTITIES } from '../modules/payroll/payroll.entities';
 import { LEAVE_ENTITIES } from '../modules/leave/leave.entities';
 import { WORKFLOW_ENTITIES } from '../modules/workflow/workflow.entities';
 import { EmailOutbox, Notification, NotificationTemplate } from '../modules/notifications/notifications.module';
@@ -42,6 +43,7 @@ export const ENTITIES = [
   ...WORKFLOW_ENTITIES,
   ...LEAVE_ENTITIES,
   ...ATTENDANCE_ENTITIES,
+  ...PAYROLL_ENTITIES,
 ];
 
 export function typeOrmOptions(overrides: Partial<DataSourceOptions> = {}): DataSourceOptions {

@@ -11,6 +11,7 @@ import { AuditModule } from './modules/audit/audit.module';
 import { DocumentsModule } from './modules/documents/documents.module';
 import { EmployeesModule } from './modules/employees/employees.module';
 import { AttendanceModule } from './modules/attendance/attendance.module';
+import { PayrollModule } from './modules/payroll/payroll.module';
 import { LeaveModule } from './modules/leave/leave.module';
 import { WorkflowModule } from './modules/workflow/workflow.module';
 import { EventsModule } from './modules/events/events.module';
@@ -41,6 +42,7 @@ import { WebhooksModule } from './modules/webhooks/webhooks.module';
     WorkflowModule,
     LeaveModule,
     AttendanceModule,
+    PayrollModule,
     HealthModule,
   ],
   providers: [

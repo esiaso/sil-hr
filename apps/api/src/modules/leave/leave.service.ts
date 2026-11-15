@@ -222,6 +222,40 @@ export class LeaveService implements OnModuleInit {
     return e;
   }
 
+  /**
+   * For payroll: days of approved unpaid (or part-paid) leave between two dates, each
+   * weighted by the share that is not paid (unpaid = 1, half pay = 0.5). Requests that
+   * cross the range are counted only inside it, with the same day-counting rules.
+   */
+  async unpaidLeaveDays(m: EntityManager, employeeId: string, branchId: string | null, from: string, to: string): Promise<{ days: number; detail: { type: string; days: number }[] }> {
+    const rows: { start_date: string; end_date: string; start_half_day: boolean; end_half_day: boolean; days: string; name: string; is_paid: boolean; pay_rate: string; counting: 'working_days' | 'calendar_days' }[] = await m.query(
+      `SELECT to_char(r.start_date, 'YYYY-MM-DD') AS start_date, to_char(r.end_date, 'YYYY-MM-DD') AS end_date, r.start_half_day, r.end_half_day, r.days, t.name, t.is_paid, t.pay_rate, t.counting
+         FROM leave_request r JOIN leave_type t ON t.id = r.leave_type_id
+        WHERE r.employee_id = $1 AND r.status = 'approved' AND r.start_date <= $3 AND r.end_date >= $2 AND (NOT t.is_paid OR t.pay_rate < 1)`,
+      [employeeId, from, to],
+    );
+    if (!rows.length) return { days: 0, detail: [] };
+    const workingDays = await this.settings.get('calendar.working_days', m);
+    const detail: { type: string; days: number }[] = [];
+    for (const r of rows) {
+      const start = r.start_date < from ? from : r.start_date;
+      const end = r.end_date > to ? to : r.end_date;
+      const days = start === r.start_date && end === r.end_date
+        ? Number(r.days)
+        : countLeaveDays({ start, end, startHalfDay: start === r.start_date && r.start_half_day, endHalfDay: end === r.end_date && r.end_half_day, counting: r.counting, workingDays, holidays: await this.holidaysFor(m, branchId, start, end), rostered: await this.schedule(m, employeeId, start, end) }).days;
+      const weight = r.is_paid ? 1 - Number(r.pay_rate) : 1;
+      if (days * weight > 0) detail.push({ type: r.name, days: Math.round(days * weight * 100) / 100 });
+    }
+    return { days: Math.round(detail.reduce((a, d) => a + d.days, 0) * 100) / 100, detail };
+  }
+
+  /** For payroll proration: working days between two dates on the organisation's week, less public holidays. */
+  async workingDaysBetween(m: EntityManager, branchId: string | null, from: string, to: string): Promise<number> {
+    if (to < from) return 0;
+    const workingDays = await this.settings.get('calendar.working_days', m);
+    return countLeaveDays({ start: from, end: to, startHalfDay: false, endHalfDay: false, counting: 'working_days', workingDays, holidays: await this.holidaysFor(m, branchId, from, to) }).days;
+  }
+
   private async holidaysFor(m: EntityManager, branchId: string | null, from: string, to: string): Promise<Map<string, string>> {
     const rows = await m.query(`SELECT to_char(date, 'YYYY-MM-DD') AS d, name FROM public_holiday WHERE date BETWEEN $1 AND $2 AND (branch_id IS NULL OR branch_id = $3)`, [from, to, branchId]);
     return new Map(rows.map((r: { d: string; name: string }) => [r.d, r.name]));

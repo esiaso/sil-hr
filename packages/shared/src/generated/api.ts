@@ -2420,6 +2420,502 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/payroll/components": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["PayrollSetup_components"];
+        put?: never;
+        post: operations["PayrollSetup_createComponent"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payroll/components/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["PayrollSetup_updateComponent"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payroll/components/check-formula": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["PayrollSetup_checkFormula"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payroll/statutory-rates": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["PayrollSetup_rates"];
+        put?: never;
+        post: operations["PayrollSetup_createRate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payroll/statutory-rates/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["PayrollSetup_updateRate"];
+        post?: never;
+        delete: operations["PayrollSetup_deleteRate"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payroll/payment-formats": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["PayrollSetup_formats"];
+        put?: never;
+        post: operations["PayrollSetup_createFormat"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payroll/payment-formats/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["PayrollSetup_updateFormat"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payroll/account-map": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["PayrollSetup_accountMap"];
+        put: operations["PayrollSetup_saveAccountMap"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/employees/{id}/pay": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Pay_pay"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/employees/{id}/salary": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["Pay_setSalary"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/employees/{id}/pay-items": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Pay_addItem"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/employees/{id}/pay-items/{itemId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["Pay_updateItem"];
+        post?: never;
+        delete: operations["Pay_deleteItem"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payroll/loans": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Pay_loans"];
+        put?: never;
+        post: operations["Pay_createLoan"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payroll/loans/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["Pay_updateLoan"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payroll/one-offs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Pay_oneOffs"];
+        put?: never;
+        post: operations["Pay_createOneOff"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payroll/one-offs/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["Pay_deleteOneOff"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payroll/runs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["PayrollRun_runs"];
+        put?: never;
+        post: operations["PayrollRun_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payroll/runs/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["PayrollRun_get"];
+        put?: never;
+        post?: never;
+        delete: operations["PayrollRun_remove"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payroll/runs/{id}/calculate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["PayrollRun_calculate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payroll/runs/{id}/submit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["PayrollRun_submit"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payroll/runs/{id}/mark-paid": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["PayrollRun_markPaid"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payroll/runs/{id}/close": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["PayrollRun_close"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payroll/runs/{id}/payslips": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["PayrollRun_payslips"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payroll/runs/{id}/variance": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["PayrollRun_variance"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payroll/runs/{id}/journal": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["PayrollRun_journal"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payroll/runs/{id}/export": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["PayrollRun_export"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payroll/payslips/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["PayrollRun_payslip"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payroll/payslips/{id}/pdf": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["PayrollRun_payslipPdf"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payroll/p9": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["PayrollRun_p9"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/me/payslips": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["PayrollRun_mine"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/me/p9": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["PayrollRun_myP9"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/health": {
         parameters: {
             query?: never;
@@ -12521,7 +13017,7 @@ export interface operations {
                     code: string;
                     name: string;
                     /** @enum {string} */
-                    request_type: "leave_request" | "contact_change" | "attendance_regularisation";
+                    request_type: "leave_request" | "contact_change" | "attendance_regularisation" | "payroll_run";
                     description?: string | null;
                     /** @default {} */
                     conditions?: {
@@ -12644,7 +13140,7 @@ export interface operations {
                     code: string;
                     name: string;
                     /** @enum {string} */
-                    request_type: "leave_request" | "contact_change" | "attendance_regularisation";
+                    request_type: "leave_request" | "contact_change" | "attendance_regularisation" | "payroll_run";
                     description?: string | null;
                     /** @default {} */
                     conditions?: {
@@ -16630,6 +17126,3260 @@ export interface operations {
             path: {
                 code: string;
             };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    PayrollSetup_components: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        code: string;
+                        name: string;
+                        /** @enum {string} */
+                        kind: "earning" | "deduction" | "benefit" | "employer_contribution";
+                        /** @enum {string} */
+                        method: "fixed" | "percent_basic" | "percent_gross" | "formula";
+                        default_value: number | null;
+                        formula: string | null;
+                        taxable: boolean;
+                        pensionable: boolean;
+                        prorate: boolean;
+                        /** @enum {string} */
+                        tax_treatment: "none" | "pension" | "insurance" | "mortgage_interest" | "post_retirement_medical";
+                        is_system: boolean;
+                        sort_order: number;
+                        /** @enum {string} */
+                        status: "active" | "inactive";
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    }[];
+                };
+            };
+            /** @description Requires: salary:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    PayrollSetup_createComponent: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    code: string;
+                    name: string;
+                    /** @enum {string} */
+                    kind: "earning" | "deduction" | "benefit" | "employer_contribution";
+                    /**
+                     * @default fixed
+                     * @enum {string}
+                     */
+                    method?: "fixed" | "percent_basic" | "percent_gross" | "formula";
+                    default_value?: number | null;
+                    formula?: string | null;
+                    /** @default true */
+                    taxable?: boolean;
+                    /** @default false */
+                    pensionable?: boolean;
+                    /** @default true */
+                    prorate?: boolean;
+                    /**
+                     * @default none
+                     * @enum {string}
+                     */
+                    tax_treatment?: "none" | "pension" | "insurance" | "mortgage_interest" | "post_retirement_medical";
+                    /** @default 100 */
+                    sort_order?: number;
+                    /**
+                     * @default active
+                     * @enum {string}
+                     */
+                    status?: "active" | "inactive";
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        code: string;
+                        name: string;
+                        /** @enum {string} */
+                        kind: "earning" | "deduction" | "benefit" | "employer_contribution";
+                        /** @enum {string} */
+                        method: "fixed" | "percent_basic" | "percent_gross" | "formula";
+                        default_value: number | null;
+                        formula: string | null;
+                        taxable: boolean;
+                        pensionable: boolean;
+                        prorate: boolean;
+                        /** @enum {string} */
+                        tax_treatment: "none" | "pension" | "insurance" | "mortgage_interest" | "post_retirement_medical";
+                        is_system: boolean;
+                        sort_order: number;
+                        /** @enum {string} */
+                        status: "active" | "inactive";
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: payroll_setup:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    PayrollSetup_updateComponent: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description ETag of the version being changed */
+                "If-Match": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    code: string;
+                    name: string;
+                    /** @enum {string} */
+                    kind: "earning" | "deduction" | "benefit" | "employer_contribution";
+                    /**
+                     * @default fixed
+                     * @enum {string}
+                     */
+                    method?: "fixed" | "percent_basic" | "percent_gross" | "formula";
+                    default_value?: number | null;
+                    formula?: string | null;
+                    /** @default true */
+                    taxable?: boolean;
+                    /** @default false */
+                    pensionable?: boolean;
+                    /** @default true */
+                    prorate?: boolean;
+                    /**
+                     * @default none
+                     * @enum {string}
+                     */
+                    tax_treatment?: "none" | "pension" | "insurance" | "mortgage_interest" | "post_retirement_medical";
+                    /** @default 100 */
+                    sort_order?: number;
+                    /**
+                     * @default active
+                     * @enum {string}
+                     */
+                    status?: "active" | "inactive";
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        code: string;
+                        name: string;
+                        /** @enum {string} */
+                        kind: "earning" | "deduction" | "benefit" | "employer_contribution";
+                        /** @enum {string} */
+                        method: "fixed" | "percent_basic" | "percent_gross" | "formula";
+                        default_value: number | null;
+                        formula: string | null;
+                        taxable: boolean;
+                        pensionable: boolean;
+                        prorate: boolean;
+                        /** @enum {string} */
+                        tax_treatment: "none" | "pension" | "insurance" | "mortgage_interest" | "post_retirement_medical";
+                        is_system: boolean;
+                        sort_order: number;
+                        /** @enum {string} */
+                        status: "active" | "inactive";
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: payroll_setup:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    PayrollSetup_checkFormula: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    formula: string;
+                    /** @default 100000 */
+                    basic?: number;
+                    /** @default 120000 */
+                    gross?: number;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        ok: boolean;
+                        value: number | null;
+                        message: string | null;
+                    };
+                };
+            };
+            /** @description Requires: payroll_setup:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    PayrollSetup_rates: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** @enum {string} */
+                        code: "PAYE" | "NSSF" | "SHIF" | "HOUSING_LEVY" | "NITA" | "ALLOWABLE";
+                        /** Format: date */
+                        effective_from: string;
+                        effective_to: string | null;
+                        params: {
+                            [key: string]: unknown;
+                        };
+                        source: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    }[];
+                };
+            };
+            /** @description Requires: salary:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    PayrollSetup_createRate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @enum {string} */
+                    code: "PAYE" | "NSSF" | "SHIF" | "HOUSING_LEVY" | "NITA" | "ALLOWABLE";
+                    /** Format: date */
+                    effective_from: string;
+                    effective_to?: string | null;
+                    params: {
+                        [key: string]: unknown;
+                    };
+                    source?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Created. An open-ended table of the same kind is closed the day before this one starts. */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** @enum {string} */
+                        code: "PAYE" | "NSSF" | "SHIF" | "HOUSING_LEVY" | "NITA" | "ALLOWABLE";
+                        /** Format: date */
+                        effective_from: string;
+                        effective_to: string | null;
+                        params: {
+                            [key: string]: unknown;
+                        };
+                        source: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: payroll_setup:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    PayrollSetup_updateRate: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description ETag of the version being changed */
+                "If-Match": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @enum {string} */
+                    code: "PAYE" | "NSSF" | "SHIF" | "HOUSING_LEVY" | "NITA" | "ALLOWABLE";
+                    /** Format: date */
+                    effective_from: string;
+                    effective_to?: string | null;
+                    params: {
+                        [key: string]: unknown;
+                    };
+                    source?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** @enum {string} */
+                        code: "PAYE" | "NSSF" | "SHIF" | "HOUSING_LEVY" | "NITA" | "ALLOWABLE";
+                        /** Format: date */
+                        effective_from: string;
+                        effective_to: string | null;
+                        params: {
+                            [key: string]: unknown;
+                        };
+                        source: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: payroll_setup:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    PayrollSetup_deleteRate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Requires: payroll_setup:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    PayrollSetup_formats: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        code: string;
+                        name: string;
+                        /** @enum {string} */
+                        channel: "bank" | "mobile_money";
+                        /** @enum {string} */
+                        file_type: "xlsx" | "csv";
+                        columns: {
+                            header: string;
+                            /** @enum {string} */
+                            field: "employee_name" | "staff_number" | "national_id" | "account_name" | "account_number" | "bank_name" | "bank_code" | "branch_name" | "branch_code" | "amount" | "reference" | "pay_date" | "fixed";
+                            value?: string;
+                        }[];
+                        is_default: boolean;
+                        note: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    }[];
+                };
+            };
+            /** @description Requires: payroll:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    PayrollSetup_createFormat: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    code: string;
+                    name: string;
+                    /** @enum {string} */
+                    channel: "bank" | "mobile_money";
+                    /** @enum {string} */
+                    file_type: "xlsx" | "csv";
+                    columns: {
+                        header: string;
+                        /** @enum {string} */
+                        field: "employee_name" | "staff_number" | "national_id" | "account_name" | "account_number" | "bank_name" | "bank_code" | "branch_name" | "branch_code" | "amount" | "reference" | "pay_date" | "fixed";
+                        value?: string;
+                    }[];
+                    /** @default false */
+                    is_default?: boolean;
+                    note?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        code: string;
+                        name: string;
+                        /** @enum {string} */
+                        channel: "bank" | "mobile_money";
+                        /** @enum {string} */
+                        file_type: "xlsx" | "csv";
+                        columns: {
+                            header: string;
+                            /** @enum {string} */
+                            field: "employee_name" | "staff_number" | "national_id" | "account_name" | "account_number" | "bank_name" | "bank_code" | "branch_name" | "branch_code" | "amount" | "reference" | "pay_date" | "fixed";
+                            value?: string;
+                        }[];
+                        is_default: boolean;
+                        note: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: payroll_setup:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    PayrollSetup_updateFormat: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description ETag of the version being changed */
+                "If-Match": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    code: string;
+                    name: string;
+                    /** @enum {string} */
+                    channel: "bank" | "mobile_money";
+                    /** @enum {string} */
+                    file_type: "xlsx" | "csv";
+                    columns: {
+                        header: string;
+                        /** @enum {string} */
+                        field: "employee_name" | "staff_number" | "national_id" | "account_name" | "account_number" | "bank_name" | "bank_code" | "branch_name" | "branch_code" | "amount" | "reference" | "pay_date" | "fixed";
+                        value?: string;
+                    }[];
+                    /** @default false */
+                    is_default?: boolean;
+                    note?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        code: string;
+                        name: string;
+                        /** @enum {string} */
+                        channel: "bank" | "mobile_money";
+                        /** @enum {string} */
+                        file_type: "xlsx" | "csv";
+                        columns: {
+                            header: string;
+                            /** @enum {string} */
+                            field: "employee_name" | "staff_number" | "national_id" | "account_name" | "account_number" | "bank_name" | "bank_code" | "branch_name" | "branch_code" | "amount" | "reference" | "pay_date" | "fixed";
+                            value?: string;
+                        }[];
+                        is_default: boolean;
+                        note: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: payroll_setup:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    PayrollSetup_accountMap: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        key: string;
+                        description: string | null;
+                        debit_account: string | null;
+                        credit_account: string | null;
+                        version: number;
+                    }[];
+                };
+            };
+            /** @description Requires: payroll:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    PayrollSetup_saveAccountMap: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    rows: {
+                        key: string;
+                        description?: string | null;
+                        debit_account?: string | null;
+                        credit_account?: string | null;
+                    }[];
+                };
+            };
+        };
+        responses: {
+            /** @description Rows are matched by key; keys not sent are left as they are */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        key: string;
+                        description: string | null;
+                        debit_account: string | null;
+                        credit_account: string | null;
+                        version: number;
+                    }[];
+                };
+            };
+            /** @description Requires: payroll_setup:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Pay_pay: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        employee_id: string;
+                        salaries: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            employee_id: string;
+                            basic: string;
+                            /** Format: date */
+                            effective_from: string;
+                            effective_to: string | null;
+                            reason: string | null;
+                            /** Format: date-time */
+                            created_at: string;
+                        }[];
+                        items: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            employee_id: string;
+                            /** Format: uuid */
+                            component_id: string;
+                            component_code: string;
+                            component_name: string;
+                            /** @enum {string} */
+                            kind: "earning" | "deduction" | "benefit" | "employer_contribution";
+                            /** @enum {string} */
+                            method: "fixed" | "percent_basic" | "percent_gross" | "formula";
+                            value: number | null;
+                            formula: string | null;
+                            /** Format: date */
+                            effective_from: string;
+                            effective_to: string | null;
+                            note: string | null;
+                        }[];
+                        loans: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            employee_id: string;
+                            employee_name?: string;
+                            /** Format: uuid */
+                            component_id: string;
+                            component_name: string;
+                            reference: string | null;
+                            principal: string;
+                            installment: string;
+                            start_period: string;
+                            repaid: string;
+                            balance: string;
+                            /** @enum {string} */
+                            status: "active" | "settled" | "cancelled";
+                            note: string | null;
+                            /** Format: date-time */
+                            created_at: string;
+                            version: number;
+                        }[];
+                        one_offs: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            employee_id: string;
+                            employee_name?: string;
+                            /** Format: uuid */
+                            component_id: string;
+                            component_name: string;
+                            /** @enum {string} */
+                            kind: "earning" | "deduction" | "benefit" | "employer_contribution";
+                            period: string;
+                            amount: string;
+                            note: string | null;
+                            /** Format: date-time */
+                            created_at: string;
+                        }[];
+                    };
+                };
+            };
+            /** @description Requires: salary:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Pay_setSalary: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    basic: string;
+                    /** Format: date */
+                    effective_from: string;
+                    reason?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description A new basic salary from a date; the one in force is closed the day before */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        employee_id: string;
+                        salaries: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            employee_id: string;
+                            basic: string;
+                            /** Format: date */
+                            effective_from: string;
+                            effective_to: string | null;
+                            reason: string | null;
+                            /** Format: date-time */
+                            created_at: string;
+                        }[];
+                        items: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            employee_id: string;
+                            /** Format: uuid */
+                            component_id: string;
+                            component_code: string;
+                            component_name: string;
+                            /** @enum {string} */
+                            kind: "earning" | "deduction" | "benefit" | "employer_contribution";
+                            /** @enum {string} */
+                            method: "fixed" | "percent_basic" | "percent_gross" | "formula";
+                            value: number | null;
+                            formula: string | null;
+                            /** Format: date */
+                            effective_from: string;
+                            effective_to: string | null;
+                            note: string | null;
+                        }[];
+                        loans: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            employee_id: string;
+                            employee_name?: string;
+                            /** Format: uuid */
+                            component_id: string;
+                            component_name: string;
+                            reference: string | null;
+                            principal: string;
+                            installment: string;
+                            start_period: string;
+                            repaid: string;
+                            balance: string;
+                            /** @enum {string} */
+                            status: "active" | "settled" | "cancelled";
+                            note: string | null;
+                            /** Format: date-time */
+                            created_at: string;
+                            version: number;
+                        }[];
+                        one_offs: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            employee_id: string;
+                            employee_name?: string;
+                            /** Format: uuid */
+                            component_id: string;
+                            component_name: string;
+                            /** @enum {string} */
+                            kind: "earning" | "deduction" | "benefit" | "employer_contribution";
+                            period: string;
+                            amount: string;
+                            note: string | null;
+                            /** Format: date-time */
+                            created_at: string;
+                        }[];
+                    };
+                };
+            };
+            /** @description Requires: salary:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Pay_addItem: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    component_id: string;
+                    value?: number | null;
+                    formula?: string | null;
+                    /** Format: date */
+                    effective_from: string;
+                    effective_to?: string | null;
+                    note?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        employee_id: string;
+                        salaries: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            employee_id: string;
+                            basic: string;
+                            /** Format: date */
+                            effective_from: string;
+                            effective_to: string | null;
+                            reason: string | null;
+                            /** Format: date-time */
+                            created_at: string;
+                        }[];
+                        items: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            employee_id: string;
+                            /** Format: uuid */
+                            component_id: string;
+                            component_code: string;
+                            component_name: string;
+                            /** @enum {string} */
+                            kind: "earning" | "deduction" | "benefit" | "employer_contribution";
+                            /** @enum {string} */
+                            method: "fixed" | "percent_basic" | "percent_gross" | "formula";
+                            value: number | null;
+                            formula: string | null;
+                            /** Format: date */
+                            effective_from: string;
+                            effective_to: string | null;
+                            note: string | null;
+                        }[];
+                        loans: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            employee_id: string;
+                            employee_name?: string;
+                            /** Format: uuid */
+                            component_id: string;
+                            component_name: string;
+                            reference: string | null;
+                            principal: string;
+                            installment: string;
+                            start_period: string;
+                            repaid: string;
+                            balance: string;
+                            /** @enum {string} */
+                            status: "active" | "settled" | "cancelled";
+                            note: string | null;
+                            /** Format: date-time */
+                            created_at: string;
+                            version: number;
+                        }[];
+                        one_offs: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            employee_id: string;
+                            employee_name?: string;
+                            /** Format: uuid */
+                            component_id: string;
+                            component_name: string;
+                            /** @enum {string} */
+                            kind: "earning" | "deduction" | "benefit" | "employer_contribution";
+                            period: string;
+                            amount: string;
+                            note: string | null;
+                            /** Format: date-time */
+                            created_at: string;
+                        }[];
+                    };
+                };
+            };
+            /** @description Requires: salary:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Pay_updateItem: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+                itemId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    component_id: string;
+                    value?: number | null;
+                    formula?: string | null;
+                    /** Format: date */
+                    effective_from: string;
+                    effective_to?: string | null;
+                    note?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        employee_id: string;
+                        salaries: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            employee_id: string;
+                            basic: string;
+                            /** Format: date */
+                            effective_from: string;
+                            effective_to: string | null;
+                            reason: string | null;
+                            /** Format: date-time */
+                            created_at: string;
+                        }[];
+                        items: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            employee_id: string;
+                            /** Format: uuid */
+                            component_id: string;
+                            component_code: string;
+                            component_name: string;
+                            /** @enum {string} */
+                            kind: "earning" | "deduction" | "benefit" | "employer_contribution";
+                            /** @enum {string} */
+                            method: "fixed" | "percent_basic" | "percent_gross" | "formula";
+                            value: number | null;
+                            formula: string | null;
+                            /** Format: date */
+                            effective_from: string;
+                            effective_to: string | null;
+                            note: string | null;
+                        }[];
+                        loans: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            employee_id: string;
+                            employee_name?: string;
+                            /** Format: uuid */
+                            component_id: string;
+                            component_name: string;
+                            reference: string | null;
+                            principal: string;
+                            installment: string;
+                            start_period: string;
+                            repaid: string;
+                            balance: string;
+                            /** @enum {string} */
+                            status: "active" | "settled" | "cancelled";
+                            note: string | null;
+                            /** Format: date-time */
+                            created_at: string;
+                            version: number;
+                        }[];
+                        one_offs: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            employee_id: string;
+                            employee_name?: string;
+                            /** Format: uuid */
+                            component_id: string;
+                            component_name: string;
+                            /** @enum {string} */
+                            kind: "earning" | "deduction" | "benefit" | "employer_contribution";
+                            period: string;
+                            amount: string;
+                            note: string | null;
+                            /** Format: date-time */
+                            created_at: string;
+                        }[];
+                    };
+                };
+            };
+            /** @description Requires: salary:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Pay_deleteItem: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+                itemId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        employee_id: string;
+                        salaries: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            employee_id: string;
+                            basic: string;
+                            /** Format: date */
+                            effective_from: string;
+                            effective_to: string | null;
+                            reason: string | null;
+                            /** Format: date-time */
+                            created_at: string;
+                        }[];
+                        items: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            employee_id: string;
+                            /** Format: uuid */
+                            component_id: string;
+                            component_code: string;
+                            component_name: string;
+                            /** @enum {string} */
+                            kind: "earning" | "deduction" | "benefit" | "employer_contribution";
+                            /** @enum {string} */
+                            method: "fixed" | "percent_basic" | "percent_gross" | "formula";
+                            value: number | null;
+                            formula: string | null;
+                            /** Format: date */
+                            effective_from: string;
+                            effective_to: string | null;
+                            note: string | null;
+                        }[];
+                        loans: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            employee_id: string;
+                            employee_name?: string;
+                            /** Format: uuid */
+                            component_id: string;
+                            component_name: string;
+                            reference: string | null;
+                            principal: string;
+                            installment: string;
+                            start_period: string;
+                            repaid: string;
+                            balance: string;
+                            /** @enum {string} */
+                            status: "active" | "settled" | "cancelled";
+                            note: string | null;
+                            /** Format: date-time */
+                            created_at: string;
+                            version: number;
+                        }[];
+                        one_offs: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            employee_id: string;
+                            employee_name?: string;
+                            /** Format: uuid */
+                            component_id: string;
+                            component_name: string;
+                            /** @enum {string} */
+                            kind: "earning" | "deduction" | "benefit" | "employer_contribution";
+                            period: string;
+                            amount: string;
+                            note: string | null;
+                            /** Format: date-time */
+                            created_at: string;
+                        }[];
+                    };
+                };
+            };
+            /** @description Requires: salary:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Pay_loans: {
+        parameters: {
+            query?: {
+                employee_id?: string;
+                status?: "active" | "settled" | "cancelled";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name?: string;
+                        /** Format: uuid */
+                        component_id: string;
+                        component_name: string;
+                        reference: string | null;
+                        principal: string;
+                        installment: string;
+                        start_period: string;
+                        repaid: string;
+                        balance: string;
+                        /** @enum {string} */
+                        status: "active" | "settled" | "cancelled";
+                        note: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                        version: number;
+                    }[];
+                };
+            };
+            /** @description Requires: salary:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Pay_createLoan: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    employee_id: string;
+                    /** Format: uuid */
+                    component_id: string;
+                    reference?: string | null;
+                    principal: string;
+                    installment: string;
+                    start_period: string;
+                    /**
+                     * @default active
+                     * @enum {string}
+                     */
+                    status?: "active" | "settled" | "cancelled";
+                    note?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name?: string;
+                        /** Format: uuid */
+                        component_id: string;
+                        component_name: string;
+                        reference: string | null;
+                        principal: string;
+                        installment: string;
+                        start_period: string;
+                        repaid: string;
+                        balance: string;
+                        /** @enum {string} */
+                        status: "active" | "settled" | "cancelled";
+                        note: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: salary:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Pay_updateLoan: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description ETag of the version being changed */
+                "If-Match": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    employee_id: string;
+                    /** Format: uuid */
+                    component_id: string;
+                    reference?: string | null;
+                    principal: string;
+                    installment: string;
+                    start_period: string;
+                    /**
+                     * @default active
+                     * @enum {string}
+                     */
+                    status?: "active" | "settled" | "cancelled";
+                    note?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name?: string;
+                        /** Format: uuid */
+                        component_id: string;
+                        component_name: string;
+                        reference: string | null;
+                        principal: string;
+                        installment: string;
+                        start_period: string;
+                        repaid: string;
+                        balance: string;
+                        /** @enum {string} */
+                        status: "active" | "settled" | "cancelled";
+                        note: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: salary:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Pay_oneOffs: {
+        parameters: {
+            query?: {
+                employee_id?: string;
+                period?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name?: string;
+                        /** Format: uuid */
+                        component_id: string;
+                        component_name: string;
+                        /** @enum {string} */
+                        kind: "earning" | "deduction" | "benefit" | "employer_contribution";
+                        period: string;
+                        amount: string;
+                        note: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                    }[];
+                };
+            };
+            /** @description Requires: salary:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Pay_createOneOff: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    employee_id: string;
+                    /** Format: uuid */
+                    component_id: string;
+                    period: string;
+                    amount: string;
+                    note?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name?: string;
+                        /** Format: uuid */
+                        component_id: string;
+                        component_name: string;
+                        /** @enum {string} */
+                        kind: "earning" | "deduction" | "benefit" | "employer_contribution";
+                        period: string;
+                        amount: string;
+                        note: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                    };
+                };
+            };
+            /** @description Requires: salary:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Pay_deleteOneOff: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Requires: salary:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    PayrollRun_runs: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        period: string;
+                        /** Format: date */
+                        period_start: string;
+                        /** Format: date */
+                        period_end: string;
+                        /** Format: date */
+                        pay_date: string;
+                        /** @enum {string} */
+                        status: "draft" | "calculated" | "under_review" | "approved" | "paid" | "closed";
+                        employees: number;
+                        gross: string;
+                        total_deductions: string;
+                        net: string;
+                        paye: string;
+                        employer_cost: string;
+                        warnings: {
+                            employee_id: string | null;
+                            name: string | null;
+                            message: string;
+                        }[];
+                        calculated_at: string | null;
+                        submitted_at: string | null;
+                        approved_at: string | null;
+                        paid_at: string | null;
+                        closed_at: string | null;
+                        decision_comment: string | null;
+                        workflow_instance_id: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    }[];
+                };
+            };
+            /** @description Requires: payroll:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    PayrollRun_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    period: string;
+                    /** Format: date */
+                    pay_date?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description A draft run for the month. The pay date defaults to Settings → payroll.pay_day. */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        period: string;
+                        /** Format: date */
+                        period_start: string;
+                        /** Format: date */
+                        period_end: string;
+                        /** Format: date */
+                        pay_date: string;
+                        /** @enum {string} */
+                        status: "draft" | "calculated" | "under_review" | "approved" | "paid" | "closed";
+                        employees: number;
+                        gross: string;
+                        total_deductions: string;
+                        net: string;
+                        paye: string;
+                        employer_cost: string;
+                        warnings: {
+                            employee_id: string | null;
+                            name: string | null;
+                            message: string;
+                        }[];
+                        calculated_at: string | null;
+                        submitted_at: string | null;
+                        approved_at: string | null;
+                        paid_at: string | null;
+                        closed_at: string | null;
+                        decision_comment: string | null;
+                        workflow_instance_id: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: payroll:prepare */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    PayrollRun_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        period: string;
+                        /** Format: date */
+                        period_start: string;
+                        /** Format: date */
+                        period_end: string;
+                        /** Format: date */
+                        pay_date: string;
+                        /** @enum {string} */
+                        status: "draft" | "calculated" | "under_review" | "approved" | "paid" | "closed";
+                        employees: number;
+                        gross: string;
+                        total_deductions: string;
+                        net: string;
+                        paye: string;
+                        employer_cost: string;
+                        warnings: {
+                            employee_id: string | null;
+                            name: string | null;
+                            message: string;
+                        }[];
+                        calculated_at: string | null;
+                        submitted_at: string | null;
+                        approved_at: string | null;
+                        paid_at: string | null;
+                        closed_at: string | null;
+                        decision_comment: string | null;
+                        workflow_instance_id: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: payroll:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    PayrollRun_remove: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Requires: payroll:prepare */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    PayrollRun_calculate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Recalculates every payslip from the current inputs (draft or calculated runs only) */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        period: string;
+                        /** Format: date */
+                        period_start: string;
+                        /** Format: date */
+                        period_end: string;
+                        /** Format: date */
+                        pay_date: string;
+                        /** @enum {string} */
+                        status: "draft" | "calculated" | "under_review" | "approved" | "paid" | "closed";
+                        employees: number;
+                        gross: string;
+                        total_deductions: string;
+                        net: string;
+                        paye: string;
+                        employer_cost: string;
+                        warnings: {
+                            employee_id: string | null;
+                            name: string | null;
+                            message: string;
+                        }[];
+                        calculated_at: string | null;
+                        submitted_at: string | null;
+                        approved_at: string | null;
+                        paid_at: string | null;
+                        closed_at: string | null;
+                        decision_comment: string | null;
+                        workflow_instance_id: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: payroll:prepare */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    PayrollRun_submit: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    comment?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Sends the run to the PAYROLL approval workflow; approval locks it */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        period: string;
+                        /** Format: date */
+                        period_start: string;
+                        /** Format: date */
+                        period_end: string;
+                        /** Format: date */
+                        pay_date: string;
+                        /** @enum {string} */
+                        status: "draft" | "calculated" | "under_review" | "approved" | "paid" | "closed";
+                        employees: number;
+                        gross: string;
+                        total_deductions: string;
+                        net: string;
+                        paye: string;
+                        employer_cost: string;
+                        warnings: {
+                            employee_id: string | null;
+                            name: string | null;
+                            message: string;
+                        }[];
+                        calculated_at: string | null;
+                        submitted_at: string | null;
+                        approved_at: string | null;
+                        paid_at: string | null;
+                        closed_at: string | null;
+                        decision_comment: string | null;
+                        workflow_instance_id: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: payroll:prepare */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    PayrollRun_markPaid: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        period: string;
+                        /** Format: date */
+                        period_start: string;
+                        /** Format: date */
+                        period_end: string;
+                        /** Format: date */
+                        pay_date: string;
+                        /** @enum {string} */
+                        status: "draft" | "calculated" | "under_review" | "approved" | "paid" | "closed";
+                        employees: number;
+                        gross: string;
+                        total_deductions: string;
+                        net: string;
+                        paye: string;
+                        employer_cost: string;
+                        warnings: {
+                            employee_id: string | null;
+                            name: string | null;
+                            message: string;
+                        }[];
+                        calculated_at: string | null;
+                        submitted_at: string | null;
+                        approved_at: string | null;
+                        paid_at: string | null;
+                        closed_at: string | null;
+                        decision_comment: string | null;
+                        workflow_instance_id: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: payroll:pay */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    PayrollRun_close: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        period: string;
+                        /** Format: date */
+                        period_start: string;
+                        /** Format: date */
+                        period_end: string;
+                        /** Format: date */
+                        pay_date: string;
+                        /** @enum {string} */
+                        status: "draft" | "calculated" | "under_review" | "approved" | "paid" | "closed";
+                        employees: number;
+                        gross: string;
+                        total_deductions: string;
+                        net: string;
+                        paye: string;
+                        employer_cost: string;
+                        warnings: {
+                            employee_id: string | null;
+                            name: string | null;
+                            message: string;
+                        }[];
+                        calculated_at: string | null;
+                        submitted_at: string | null;
+                        approved_at: string | null;
+                        paid_at: string | null;
+                        closed_at: string | null;
+                        decision_comment: string | null;
+                        workflow_instance_id: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: payroll:pay */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    PayrollRun_payslips: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        run_id: string;
+                        period: string;
+                        /** Format: date */
+                        pay_date: string;
+                        /** @enum {string} */
+                        run_status: "draft" | "calculated" | "under_review" | "approved" | "paid" | "closed";
+                        number: string | null;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        department_name: string | null;
+                        cost_centre_code: string | null;
+                        basic: string;
+                        gross: string;
+                        taxable_pay: string;
+                        paye: string;
+                        nssf: string;
+                        shif: string;
+                        housing_levy: string;
+                        total_deductions: string;
+                        net: string;
+                        employer_cost: string;
+                        tax: {
+                            allowable: number;
+                            tax_before_relief: number;
+                            personal_relief: number;
+                            insurance_relief: number;
+                        };
+                        warnings: string[];
+                        payment_method: ("bank" | "mobile_money" | "cash") | null;
+                        lines?: {
+                            code: string;
+                            name: string;
+                            /** @enum {string} */
+                            kind: "earning" | "deduction" | "benefit" | "employer_contribution";
+                            amount: string;
+                            detail: string | null;
+                        }[];
+                    }[];
+                };
+            };
+            /** @description Requires: payroll:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    PayrollRun_variance: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        previous_run_id: string | null;
+                        previous_period: string | null;
+                        threshold_pct: number;
+                        rows: {
+                            /** Format: uuid */
+                            employee_id: string;
+                            employee_name: string;
+                            staff_number: string;
+                            previous_gross: string | null;
+                            current_gross: string | null;
+                            previous_net: string | null;
+                            current_net: string | null;
+                            change: string;
+                            change_pct: number | null;
+                            /** @enum {string} */
+                            flag: "new" | "left" | "changed" | "unchanged";
+                        }[];
+                    };
+                };
+            };
+            /** @description Requires: payroll:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    PayrollRun_journal: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Double entry by cost centre, from the account mapping */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        run_id: string;
+                        period: string;
+                        /** Format: date */
+                        pay_date: string;
+                        lines: {
+                            account: string;
+                            cost_centre_code: string | null;
+                            description: string;
+                            debit: string;
+                            credit: string;
+                        }[];
+                        total_debit: string;
+                        total_credit: string;
+                        unmapped: string[];
+                    };
+                };
+            };
+            /** @description Requires: payroll.journal:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    PayrollRun_export: {
+        parameters: {
+            query: {
+                file: "payments" | "p10" | "nssf" | "shif" | "housing_levy" | "journal" | "register";
+                format_code?: unknown;
+                channel?: "bank" | "mobile_money";
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Requires: payroll:prepare */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    PayrollRun_payslip: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Payroll staff: any payslip in scope. Anyone: their own, once approved. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        run_id: string;
+                        period: string;
+                        /** Format: date */
+                        pay_date: string;
+                        /** @enum {string} */
+                        run_status: "draft" | "calculated" | "under_review" | "approved" | "paid" | "closed";
+                        number: string | null;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        department_name: string | null;
+                        cost_centre_code: string | null;
+                        basic: string;
+                        gross: string;
+                        taxable_pay: string;
+                        paye: string;
+                        nssf: string;
+                        shif: string;
+                        housing_levy: string;
+                        total_deductions: string;
+                        net: string;
+                        employer_cost: string;
+                        tax: {
+                            allowable: number;
+                            tax_before_relief: number;
+                            personal_relief: number;
+                            insurance_relief: number;
+                        };
+                        warnings: string[];
+                        payment_method: ("bank" | "mobile_money" | "cash") | null;
+                        lines?: {
+                            code: string;
+                            name: string;
+                            /** @enum {string} */
+                            kind: "earning" | "deduction" | "benefit" | "employer_contribution";
+                            amount: string;
+                            detail: string | null;
+                        }[];
+                    };
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    PayrollRun_payslipPdf: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    PayrollRun_p9: {
+        parameters: {
+            query: {
+                employee_id: string;
+                year: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Requires: payroll:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    PayrollRun_mine: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Your approved payslips, newest first */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        run_id: string;
+                        period: string;
+                        /** Format: date */
+                        pay_date: string;
+                        /** @enum {string} */
+                        run_status: "draft" | "calculated" | "under_review" | "approved" | "paid" | "closed";
+                        number: string | null;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        department_name: string | null;
+                        cost_centre_code: string | null;
+                        basic: string;
+                        gross: string;
+                        taxable_pay: string;
+                        paye: string;
+                        nssf: string;
+                        shif: string;
+                        housing_levy: string;
+                        total_deductions: string;
+                        net: string;
+                        employer_cost: string;
+                        tax: {
+                            allowable: number;
+                            tax_before_relief: number;
+                            personal_relief: number;
+                            insurance_relief: number;
+                        };
+                        warnings: string[];
+                        payment_method: ("bank" | "mobile_money" | "cash") | null;
+                        lines?: {
+                            code: string;
+                            name: string;
+                            /** @enum {string} */
+                            kind: "earning" | "deduction" | "benefit" | "employer_contribution";
+                            amount: string;
+                            detail: string | null;
+                        }[];
+                    }[];
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    PayrollRun_myP9: {
+        parameters: {
+            query: {
+                year: number;
+            };
+            header?: never;
+            path?: never;
             cookie?: never;
         };
         requestBody?: never;

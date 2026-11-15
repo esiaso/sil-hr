@@ -10,6 +10,7 @@ export const REQUEST_TYPES = {
   leave_request: 'Leave request',
   contact_change: 'Self-service contact change',
   attendance_regularisation: 'Attendance correction (missed clock-in or clock-out)',
+  payroll_run: 'Payroll run approval',
 } as const;
 export type RequestType = keyof typeof REQUEST_TYPES;
 export const REQUEST_TYPE_CODES = Object.keys(REQUEST_TYPES) as RequestType[];
