@@ -19,7 +19,7 @@ export default async function EventsPage() {
       {!res.ok ? <p className="text-red-600">Could not load the catalogue.</p> : (
         <div className="space-y-3">
           {res.data.map((e) => (
-            <details key={e.type} className="surface rounded-lg p-4" id={e.type}>
+            <details key={e.type} className="surface rounded-xl p-4" id={e.type}>
               <summary className="cursor-pointer"><code className="font-semibold">{e.type}</code> <span className="muted text-sm">· {e.description}</span></summary>
               <div className="mt-3 grid gap-3 text-xs md:grid-cols-2">
                 <div><div className="muted mb-1 font-semibold">Subject: {e.subject}. Data schema</div><pre className="overflow-x-auto rounded bg-black/5 p-2 dark:bg-white/5">{JSON.stringify(e.data_schema, null, 2)}</pre></div>

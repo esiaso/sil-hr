@@ -29,7 +29,7 @@ export default function LeaveRequestsPage() {
         <Select aria-label="Department" value={dept} onChange={(e) => setDept(e.target.value)} className="max-w-64"><option value="">Any department</option>{l.departmentOptions.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}</Select>
       </div>
       <ProblemBanner error={q.error} />
-      <div className="surface overflow-x-auto rounded-lg">
+      <div className="surface overflow-x-auto rounded-xl">
         {q.isLoading ? <Loading /> : !rows.length ? <Empty>No requests.</Empty> : (
           <table className="data">
             <thead><tr><th>Number</th><th>Employee</th><th>Type</th><th>Dates</th><th>Days</th><th>Status</th></tr></thead>

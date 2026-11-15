@@ -253,6 +253,7 @@ verification), document_type (required per employment type)
 | D25 | **A mid-month salary change uses the new salary for the whole month** and warns; the payroll officer adds arrears or a recovery for the difference. | Splitting a month across two salaries is rare and policy-dependent; the warning keeps it visible. |
 | D26 | **Loan balances are derived** from repayments on approved payslips (principal − repaid), never stored; a loan settles itself on the approval that pays it off. | One source of truth, as with the leave ledger. |
 | D27 | **Payslip emails are notices, not attachments.** Staff are told their payslip is ready and download it after signing in. | A PDF with pay and PIN in an email is a privacy risk; password-protected attachments can be added if the hospital wants them. |
+| D28 | **The web app follows the NextAdmin dashboard style** (Inter, a zinc canvas with the content in a rounded panel, a sidebar with icons and collapsible groups, page search on ⌘K, light and dark themes) but none of its code is copied: the free template's repository carries no licence file. Everything is served from our own origin: Inter from `@fontsource-variable/inter` (OFL), icons from `lucide-react` (ISC), the logo drawn inline. No page requests another host. | The hospital asked for that look with every resource local. |
 
 ## 8. Open questions for the hospital (not needed for slice 1)
 

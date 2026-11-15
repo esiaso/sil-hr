@@ -25,7 +25,7 @@ export default function DocumentTypesPage() {
         <div className="mt-3"><Button busy={save.isPending} onClick={() => save.mutate()}>Add type</Button></div>
       </Card>
       {!q.data ? <Loading /> : (
-        <div className="surface overflow-x-auto rounded-lg"><table className="data"><thead><tr><th>Type</th><th>Required for</th><th>Expiry</th><th>Sensitive</th><th>Status</th></tr></thead><tbody>{q.data.map((t) => <tr key={t.id}><td>{t.name}<div className="muted font-mono text-xs">{t.code}</div></td><td className="text-xs">{t.required_for.join(', ')}</td><td>{t.has_expiry ? 'Yes' : ''}</td><td>{t.is_sensitive ? 'Yes' : ''}</td><td><Badge value={t.status} /></td></tr>)}</tbody></table></div>
+        <div className="surface overflow-x-auto rounded-xl"><table className="data"><thead><tr><th>Type</th><th>Required for</th><th>Expiry</th><th>Sensitive</th><th>Status</th></tr></thead><tbody>{q.data.map((t) => <tr key={t.id}><td>{t.name}<div className="muted font-mono text-xs">{t.code}</div></td><td className="text-xs">{t.required_for.join(', ')}</td><td>{t.has_expiry ? 'Yes' : ''}</td><td>{t.is_sensitive ? 'Yes' : ''}</td><td><Badge value={t.status} /></td></tr>)}</tbody></table></div>
       )}
     </div>
   );

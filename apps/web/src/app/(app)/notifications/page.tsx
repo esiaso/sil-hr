@@ -26,7 +26,7 @@ export default function NotificationsPage() {
       ) : (
         <ul className="space-y-2">
           {list.data.map((n) => (
-            <li key={n.id} className={`surface rounded-lg p-4 ${n.read_at ? 'opacity-70' : ''}`}>
+            <li key={n.id} className={`surface rounded-xl p-4 ${n.read_at ? 'opacity-70' : ''}`}>
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <div className="font-medium">{n.title}</div>

@@ -45,7 +45,7 @@ export default function SettingsPage() {
       <PageHeader title="Settings" description="Business configuration lives here, not in code: currency, timezone, date format, working week, leave year, password policy, webhook retries. Changes are audited." />
       <ProblemBanner error={q.error} />
       {!q.data ? <Loading /> : (
-        <div className="surface overflow-x-auto rounded-lg">
+        <div className="surface overflow-x-auto rounded-xl">
           <table className="data"><tbody>{q.data.map((s) => <SettingRow key={`${s.key}:${JSON.stringify(s.value)}`} s={s} canEdit={can('setting:manage')} />)}</tbody></table>
         </div>
       )}

@@ -28,17 +28,18 @@ function LoginForm() {
   const finish = (r: { must_change_password?: boolean }) => router.replace(r.must_change_password ? '/account?change=1' : next.startsWith('/') && !next.startsWith('//') ? next : '/');
 
   return (
-    <main className="flex min-h-screen items-center justify-center p-4">
-      <div className="surface w-full max-w-sm rounded-lg p-6 shadow-sm">
-        <h1 className="text-xl font-semibold">
-          <span className="text-brand-600">SIL</span> HR
+    <main className="flex min-h-screen items-center justify-center bg-[var(--canvas)] p-4">
+      <div className="surface w-full max-w-sm rounded-2xl p-8 shadow-[0_8px_30px_rgba(16,24,40,0.08)]">
+        <h1 className="mb-1 flex items-center gap-2 text-xl font-semibold">
+          <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden><rect x="2" y="7" width="15" height="15" rx="4" fill="#3758f9" /><rect x="11" y="2" width="15" height="15" rx="4" fill="#8b9cff" fillOpacity="0.85" /></svg>
+          <span>SIL <span className="font-normal">HR</span></span>
         </h1>
         <p className="muted mb-5 text-sm">{settings.data?.organisation_name ?? 'Sign in'}</p>
         <ProblemBanner error={error} />
         {ssoError && <ProblemBanner error={new Error(ssoError === 'no_account' ? 'You signed in at the identity provider, but there is no SIL HR account for you. Ask HR.' : 'Single sign-on did not complete. Try again or use your password.')} />}
         {sso.data?.enabled && !mfaToken && (
           <>
-            <a href="/auth/oidc/start" className="bg-brand-600 hover:bg-brand-700 mb-4 block rounded-md px-3 py-2 text-center text-sm font-medium text-white">{sso.data.label}</a>
+            <a href="/auth/oidc/start" className="bg-brand-500 hover:bg-brand-600 mb-4 block rounded-lg px-3 py-2.5 text-center text-sm font-medium text-white">{sso.data.label}</a>
             <div className="muted mb-4 text-center text-xs">or with a SIL HR password</div>
           </>
         )}

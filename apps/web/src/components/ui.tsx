@@ -9,15 +9,15 @@ export function cx(...c: (string | false | null | undefined)[]): string {
 
 type Variant = 'primary' | 'secondary' | 'danger' | 'ghost';
 const VARIANTS: Record<Variant, string> = {
-  primary: 'bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-60',
-  secondary: 'surface hover:brightness-95 disabled:opacity-60',
-  danger: 'bg-red-600 text-white hover:bg-red-700 disabled:opacity-60',
-  ghost: 'hover:bg-black/5 dark:hover:bg-white/10',
+  primary: 'bg-brand-500 text-white shadow-sm hover:bg-brand-600 disabled:opacity-60',
+  secondary: 'border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] shadow-sm hover:bg-[var(--hover)] disabled:opacity-60',
+  danger: 'bg-red-600 text-white shadow-sm hover:bg-red-700 disabled:opacity-60',
+  ghost: 'text-[var(--text)] hover:bg-[var(--hover)]',
 };
 
 export function Button({ variant = 'primary', busy, className, children, ...rest }: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: Variant; busy?: boolean }) {
   return (
-    <button {...rest} disabled={rest.disabled || busy} className={cx('inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition', VARIANTS[variant], className)}>
+    <button {...rest} disabled={rest.disabled || busy} className={cx('inline-flex items-center justify-center gap-2 rounded-lg px-3.5 py-2 text-sm font-medium whitespace-nowrap transition-colors', VARIANTS[variant], className)}>
       {busy && <span className="h-3 w-3 animate-spin rounded-full border-2 border-current border-t-transparent" aria-hidden />}
       {children}
     </button>
@@ -53,10 +53,10 @@ export function Textarea(props: TextareaHTMLAttributes<HTMLTextAreaElement>) {
 
 export function PageHeader({ title, description, actions }: { title: string; description?: string; actions?: ReactNode }) {
   return (
-    <div className="mb-5 flex flex-wrap items-start justify-between gap-3">
+    <div className="mb-6 flex flex-wrap items-start justify-between gap-3">
       <div>
-        <h1 className="text-xl font-semibold">{title}</h1>
-        {description && <p className="muted mt-1 max-w-3xl text-sm">{description}</p>}
+        <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
+        {description && <p className="muted mt-1.5 max-w-3xl text-sm">{description}</p>}
       </div>
       {actions && <div className="flex flex-wrap gap-2">{actions}</div>}
     </div>
@@ -64,7 +64,7 @@ export function PageHeader({ title, description, actions }: { title: string; des
 }
 
 export function Card({ children, className }: { children: ReactNode; className?: string }) {
-  return <div className={cx('surface rounded-lg p-4', className)}>{children}</div>;
+  return <div className={cx('surface rounded-xl p-5 shadow-[0_1px_2px_rgba(16,24,40,0.04)]', className)}>{children}</div>;
 }
 
 const BADGE: Record<string, string> = {
@@ -98,7 +98,7 @@ const BADGE: Record<string, string> = {
 };
 
 export function Badge({ value }: { value: string }) {
-  return <span className={cx('inline-block rounded px-2 py-0.5 text-xs font-medium', BADGE[value] ?? BADGE[value.split(' ').pop() ?? ''] ?? 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300')}>{value.replace(/_/g, ' ')}</span>;
+  return <span className={cx('inline-block rounded-full px-2.5 py-0.5 text-xs font-medium whitespace-nowrap', BADGE[value] ?? BADGE[value.split(' ').pop() ?? ''] ?? 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300')}>{value.replace(/_/g, ' ')}</span>;
 }
 
 export function ProblemBanner({ error }: { error: unknown }) {
@@ -106,7 +106,7 @@ export function ProblemBanner({ error }: { error: unknown }) {
   const msg = error instanceof ApiError ? error.message : error instanceof Error ? error.message : String(error);
   const id = error instanceof ApiError ? (error.problem.correlation_id as string | undefined) : undefined;
   return (
-    <div role="alert" className="mb-4 rounded-md border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-800 dark:border-red-900 dark:bg-red-950/50 dark:text-red-200">
+    <div role="alert" className="mb-4 rounded-lg border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-800 dark:border-red-900 dark:bg-red-950/50 dark:text-red-200">
       {msg}
       {id && <span className="ml-2 opacity-70">(ref {id.slice(0, 8)})</span>}
     </div>
@@ -135,13 +135,13 @@ export function Dialog({ open, title, onClose, children, wide }: { open: boolean
   }, [open, onClose]);
   if (!open) return null;
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/40 p-4 pt-16" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
-      <div ref={ref} role="dialog" aria-modal="true" aria-labelledby={titleId} className={cx('surface w-full rounded-lg p-5 shadow-xl', wide ? 'max-w-3xl' : 'max-w-lg')}>
+    <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/50 p-4 pt-16 backdrop-blur-[1px]" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
+      <div ref={ref} role="dialog" aria-modal="true" aria-labelledby={titleId} className={cx('surface w-full rounded-2xl p-6 shadow-2xl', wide ? 'max-w-3xl' : 'max-w-lg')}>
         <div className="mb-4 flex items-center justify-between">
           <h2 id={titleId} className="text-lg font-semibold">
             {title}
           </h2>
-          <button onClick={onClose} aria-label="Close" className="muted rounded px-2 text-xl leading-none hover:bg-black/5">
+          <button onClick={onClose} aria-label="Close" className="muted flex h-8 w-8 items-center justify-center rounded-lg text-xl leading-none hover:bg-[var(--hover)]">
             ×
           </button>
         </div>

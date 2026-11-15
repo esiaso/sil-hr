@@ -10,9 +10,11 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@fontsource-variable/inter": "5.2.8",
     "@hookform/resolvers": "^5.2.0",
     "@sil/hr-shared": "workspace:*",
     "@tanstack/react-query": "^5.80.0",
+    "lucide-react": "0.553.0",
     "next": "^16.0.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",

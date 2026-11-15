@@ -37,7 +37,7 @@ export default function NumberingPage() {
       <PageHeader title="Numbering" description="How human-readable numbers are made: staff numbers, contracts, payslips, requisitions. Numbers are allocated gap-free inside the transaction that uses them." />
       <ProblemBanner error={q.error} />
       {!q.data ? <Loading /> : (
-        <div className="surface overflow-x-auto rounded-lg">
+        <div className="surface overflow-x-auto rounded-xl">
           <table className="data">
             <thead><tr><th>Document</th><th>Format</th><th>Restart</th><th>Next</th><th /></tr></thead>
             <tbody>

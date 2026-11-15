@@ -56,7 +56,7 @@ export default function DocumentsPage() {
         </Card>
       )}
       <ProblemBanner error={q.error} />
-      <div className="surface overflow-x-auto rounded-lg">
+      <div className="surface overflow-x-auto rounded-xl">
         {q.isLoading ? <Loading /> : !rows.length ? <Empty>No documents.</Empty> : (
           <table className="data">
             <thead><tr><th>Title</th><th>Kind</th><th>Version</th><th>File</th><th>Uploaded</th><th /></tr></thead>

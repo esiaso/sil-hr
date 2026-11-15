@@ -23,7 +23,7 @@ export default async function DepartmentsPage() {
   return (
     <div className="space-y-6">
       <DepartmentsManager />
-      <details className="surface rounded-lg p-4" open>
+      <details className="surface rounded-xl p-4" open>
         <summary className="cursor-pointer font-medium">Organisation tree</summary>
         <div className="mt-3 text-sm">{tree.ok ? <Tree nodes={tree.data} /> : <p className="muted">Could not load the tree ({tree.problem.detail ?? tree.status}).</p>}</div>
       </details>

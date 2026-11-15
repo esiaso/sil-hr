@@ -67,7 +67,7 @@ export default function WebhookDetail() {
           {STATUSES.map((x) => <option key={x} value={x}>{x.replace('_', ' ')}</option>)}
         </Select>
       </div>
-      <div className="surface overflow-x-auto rounded-lg">
+      <div className="surface overflow-x-auto rounded-xl">
         {deliveries.isLoading ? <Loading /> : !rows.length ? <Empty>No deliveries yet.</Empty> : (
           <table className="data">
             <thead><tr><th>Created</th><th>Event</th><th>Status</th><th>Attempts</th><th>Last result</th><th>Next attempt</th><th /></tr></thead>

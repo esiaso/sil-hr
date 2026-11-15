@@ -103,7 +103,7 @@ export default function EmployeesPage() {
         <Select aria-label="Department" value={dept} onChange={(e) => setDept(e.target.value)} className="max-w-60"><option value="">Any department</option>{l.departmentOptions.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}</Select>
       </div>
       <ProblemBanner error={q.error} />
-      <div className="surface overflow-x-auto rounded-lg">
+      <div className="surface overflow-x-auto rounded-xl">
         {q.isLoading ? <Loading /> : !rows.length ? <Empty>No employees match.</Empty> : (
           <table className="data">
             <thead><tr><th>Staff no.</th><th>Name</th><th>Position</th><th>Department</th><th>Type</th><th>Status</th><th>Licence</th><th>Hired</th></tr></thead>

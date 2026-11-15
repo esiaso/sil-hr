@@ -55,7 +55,7 @@ export default function RostersPage() {
       </div>
       <ProblemBanner error={roster.error ?? people.error ?? save.error} />
       {!dept ? <Empty>Choose a department to see its roster.</Empty> : roster.isLoading || people.isLoading ? <Loading /> : !people.data?.data.length ? <Empty>No active staff in this department.</Empty> : (
-        <div className="surface overflow-x-auto rounded-lg">
+        <div className="surface overflow-x-auto rounded-xl">
           <table className="data text-xs">
             <thead><tr><th className="sticky left-0 bg-[var(--surface)]">Person</th>{dates.map((d) => { const dow = DOW[(new Date(`${d}T00:00:00Z`).getUTCDay() + 6) % 7]; return <th key={d} className={dow === 'Sat' || dow === 'Sun' ? 'bg-[var(--muted-bg,transparent)]' : ''}>{dow}<br />{d.slice(8)}</th>; })}</tr></thead>
             <tbody>{people.data.data.map((p) => (

@@ -58,7 +58,7 @@ export default function WebhooksPage() {
       <PageHeader title="Webhooks" description="HR pushes signed CloudEvents to these endpoints when something changes. Failed deliveries are retried with backoff for about a day, then dead-lettered; a subscription that keeps failing is paused and admins are told." actions={can('webhook:manage') && <Button onClick={() => setCreating(true)}>New subscription</Button>} />
       <ProblemBanner error={q.error} />
       {!q.data ? <Loading /> : (
-        <div className="surface overflow-x-auto rounded-lg">
+        <div className="surface overflow-x-auto rounded-xl">
           <table className="data">
             <thead><tr><th>Name</th><th>Endpoint</th><th>Events</th><th>Status</th><th>Last delivery</th><th /></tr></thead>
             <tbody>

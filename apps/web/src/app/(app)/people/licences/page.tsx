@@ -29,7 +29,7 @@ export default function LicencesPage() {
         <Input aria-label="Licensing body" placeholder="Licensing body" value={body} onChange={(e) => setBody(e.target.value)} className="max-w-40" />
       </div>
       <ProblemBanner error={q.error} />
-      <div className="surface overflow-x-auto rounded-lg">
+      <div className="surface overflow-x-auto rounded-xl">
         {q.isLoading ? <Loading /> : !rows.length ? <Empty>No licences match.</Empty> : (
           <table className="data">
             <thead><tr><th>Employee</th><th>Body</th><th>Number</th><th>Expires</th><th>Status</th></tr></thead>

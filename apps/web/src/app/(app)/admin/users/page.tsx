@@ -212,7 +212,7 @@ export default function UsersPage() {
         </Select>
       </div>
       <ProblemBanner error={q.error} />
-      <div className="surface overflow-x-auto rounded-lg">
+      <div className="surface overflow-x-auto rounded-xl">
         {q.isLoading ? (
           <Loading />
         ) : !rows.length ? (

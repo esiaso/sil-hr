@@ -34,7 +34,7 @@ export default function DirectoryPage() {
       {q.isLoading ? <Loading /> : !rows.length ? <Empty>No one matches.</Empty> : (
         <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {rows.map((p) => 'staff_number' in p && (
-            <li key={p.id} className="surface rounded-lg p-4 text-sm">
+            <li key={p.id} className="surface rounded-xl p-4 text-sm">
               <div className="font-medium">{p.display_name}</div>
               <div className="muted text-xs">{p.position_title} · {p.department_name}</div>
               <div className="mt-2 space-y-0.5">

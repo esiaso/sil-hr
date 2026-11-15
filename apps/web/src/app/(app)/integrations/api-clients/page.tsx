@@ -113,7 +113,7 @@ export default function ApiClientsPage() {
       <PageHeader title="API clients" description="Other systems (procurement, HMIS, lab, finance) call the HR API with OAuth 2.0 client credentials. Each gets only the scopes it needs, and every call it makes is audited against it." actions={<Button onClick={() => setOpen('new')}>New client</Button>} />
       <ProblemBanner error={q.error} />
       {!q.data ? <Loading /> : (
-        <div className="surface overflow-x-auto rounded-lg">
+        <div className="surface overflow-x-auto rounded-xl">
           <table className="data">
             <thead><tr><th>Client</th><th>Client id</th><th>Scopes</th><th>Status</th><th>Last used</th><th /></tr></thead>
             <tbody>

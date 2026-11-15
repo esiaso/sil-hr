@@ -37,7 +37,7 @@ export default function IpAllowListPage() {
         </div>
       </Card>
       {!rules.data ? <Loading /> : (
-        <div className="surface rounded-lg">
+        <div className="surface rounded-xl">
           <table className="data">
             <thead><tr><th>Network</th><th>Description</th><th>Applies to</th><th /></tr></thead>
             <tbody>

@@ -37,7 +37,7 @@ export default function AttendancePage() {
         <Select aria-label="Status" value={status} onChange={(e) => setStatus(e.target.value)} className="max-w-40"><option value="">Any status</option>{ATTENDANCE_STATUSES.map((s) => <option key={s}>{s}</option>)}</Select>
       </div>
       <ProblemBanner error={q.error ?? recompute.error} />
-      <div className="surface overflow-x-auto rounded-lg">
+      <div className="surface overflow-x-auto rounded-xl">
         {q.isLoading ? <Loading /> : !rows.length ? <Empty>No attendance for these days.</Empty> : (
           <table className="data">
             <thead><tr><th>Day</th><th>Person</th><th>Shift</th><th>In</th><th>Out</th><th>Worked</th><th>Late</th><th>Overtime</th><th>Status</th></tr></thead>

@@ -91,7 +91,7 @@ export default function RolesPage() {
       {!roles.data ? (
         <Loading />
       ) : (
-        <div className="surface overflow-x-auto rounded-lg">
+        <div className="surface overflow-x-auto rounded-xl">
           <table className="data">
             <thead>
               <tr>

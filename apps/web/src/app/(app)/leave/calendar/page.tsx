@@ -36,7 +36,7 @@ export default function TeamCalendarPage() {
       </div>
       <ProblemBanner error={q.error} />
       {q.isLoading ? <Loading /> : !people.length ? <Empty>No leave in these four weeks.</Empty> : (
-        <div className="surface overflow-x-auto rounded-lg">
+        <div className="surface overflow-x-auto rounded-xl">
           <table className="text-xs">
             <thead>
               <tr>

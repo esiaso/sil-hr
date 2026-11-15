@@ -26,7 +26,7 @@ export default function OutboxPage() {
         <option value="true">Unpublished only</option>
       </Select>
       <ProblemBanner error={q.error} />
-      <div className="surface overflow-x-auto rounded-lg">
+      <div className="surface overflow-x-auto rounded-xl">
         {q.isLoading ? <Loading /> : !rows.length ? <Empty>No events.</Empty> : (
           <table className="data">
             <thead><tr><th>#</th><th>When</th><th>Type</th><th>Subject</th><th>Published</th><th>Error</th></tr></thead>

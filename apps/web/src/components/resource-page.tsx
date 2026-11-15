@@ -81,7 +81,7 @@ export function ResourcePage<T extends { id: string; status?: string }>({ config
         {config.filters}
       </div>
       <ProblemBanner error={query.error} />
-      <div className="surface overflow-x-auto rounded-lg">
+      <div className="surface overflow-x-auto rounded-xl">
         {query.isLoading ? (
           <Loading />
         ) : rows.length === 0 ? (

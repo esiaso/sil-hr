@@ -31,7 +31,7 @@ export default function LoginHistoryPage() {
         </Select>
       </div>
       <ProblemBanner error={q.error} />
-      <div className="surface overflow-x-auto rounded-lg">
+      <div className="surface overflow-x-auto rounded-xl">
         {q.isLoading ? <Loading /> : !rows.length ? <Empty>No entries.</Empty> : (
           <table className="data">
             <thead><tr><th>When</th><th>User</th><th>Outcome</th><th>Method</th><th>IP</th><th>Browser</th></tr></thead>

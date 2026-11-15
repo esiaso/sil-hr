@@ -32,7 +32,7 @@ export default async function AuditPage({ searchParams }: { searchParams: Promis
       {!res.ok ? (
         <p className="text-red-600">{res.problem.detail ?? `Error ${res.status}`}</p>
       ) : (
-        <div className="surface overflow-x-auto rounded-lg">
+        <div className="surface overflow-x-auto rounded-xl">
           <table className="data">
             <thead>
               <tr>
