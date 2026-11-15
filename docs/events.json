@@ -1,5 +1,1236 @@
 [
   {
+    "type": "hr.employee.hired.v1",
+    "version": 1,
+    "description": "A person was hired: the employee record and its first position assignment exist.",
+    "subject": "employee id",
+    "data_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "staff_number": {
+          "type": "string"
+        },
+        "display_name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "onboarding",
+            "probation",
+            "active",
+            "on_notice",
+            "suspended",
+            "exited"
+          ]
+        },
+        "employment_type": {
+          "type": "string",
+          "enum": [
+            "permanent",
+            "contract",
+            "casual",
+            "locum",
+            "intern"
+          ]
+        },
+        "branch_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "department_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "position_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cost_centre_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "manager_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "work_email": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "user_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "hire_date": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "staff_number",
+        "display_name",
+        "status",
+        "employment_type",
+        "branch_id",
+        "department_id",
+        "position_id",
+        "cost_centre_id",
+        "manager_id",
+        "work_email",
+        "user_id",
+        "hire_date"
+      ],
+      "additionalProperties": false
+    },
+    "example": {
+      "id": "0199a6b0-0000-7000-8000-0000000000e1",
+      "staff_number": "SIL00042",
+      "display_name": "Jane Wambui",
+      "status": "probation",
+      "employment_type": "permanent",
+      "branch_id": "0199a6b0-0000-7000-8000-0000000000b1",
+      "department_id": "0199a6b0-0000-7000-8000-000000000001",
+      "position_id": "0199a6b0-0000-7000-8000-0000000000f1",
+      "cost_centre_id": "0199a6b0-0000-7000-8000-0000000000c1",
+      "manager_id": null,
+      "work_email": "jane.wambui@example.org",
+      "user_id": null,
+      "hire_date": "2026-11-01"
+    }
+  },
+  {
+    "type": "hr.employee.updated.v1",
+    "version": 1,
+    "description": "Non-sensitive employee fields changed (name, work contacts, employment type). `changed_fields` lists them; sensitive fields are reported only as changed, never with values.",
+    "subject": "employee id",
+    "data_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "staff_number": {
+          "type": "string"
+        },
+        "display_name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "onboarding",
+            "probation",
+            "active",
+            "on_notice",
+            "suspended",
+            "exited"
+          ]
+        },
+        "employment_type": {
+          "type": "string",
+          "enum": [
+            "permanent",
+            "contract",
+            "casual",
+            "locum",
+            "intern"
+          ]
+        },
+        "branch_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "department_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "position_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cost_centre_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "manager_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "work_email": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "user_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "changed_fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "staff_number",
+        "display_name",
+        "status",
+        "employment_type",
+        "branch_id",
+        "department_id",
+        "position_id",
+        "cost_centre_id",
+        "manager_id",
+        "work_email",
+        "user_id",
+        "changed_fields"
+      ],
+      "additionalProperties": false
+    },
+    "example": {
+      "id": "0199a6b0-0000-7000-8000-0000000000e1",
+      "staff_number": "SIL00042",
+      "display_name": "Jane Wambui",
+      "status": "active",
+      "employment_type": "permanent",
+      "branch_id": "0199a6b0-0000-7000-8000-0000000000b1",
+      "department_id": "0199a6b0-0000-7000-8000-000000000001",
+      "position_id": "0199a6b0-0000-7000-8000-0000000000f1",
+      "cost_centre_id": "0199a6b0-0000-7000-8000-0000000000c1",
+      "manager_id": null,
+      "work_email": "jane.wambui@example.org",
+      "user_id": null,
+      "changed_fields": [
+        "work_email"
+      ]
+    }
+  },
+  {
+    "type": "hr.employee.transferred.v1",
+    "version": 1,
+    "description": "The employee moved to another position (and possibly department, branch, cost centre or manager) from `effective_from`.",
+    "subject": "employee id",
+    "data_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "staff_number": {
+          "type": "string"
+        },
+        "display_name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "onboarding",
+            "probation",
+            "active",
+            "on_notice",
+            "suspended",
+            "exited"
+          ]
+        },
+        "employment_type": {
+          "type": "string",
+          "enum": [
+            "permanent",
+            "contract",
+            "casual",
+            "locum",
+            "intern"
+          ]
+        },
+        "branch_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "department_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "position_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cost_centre_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "manager_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "work_email": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "user_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "effective_from": {
+          "type": "string"
+        },
+        "previous": {
+          "type": "object",
+          "properties": {
+            "position_id": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "department_id": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "branch_id": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "cost_centre_id": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "manager_id": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "position_id",
+            "department_id",
+            "branch_id",
+            "cost_centre_id",
+            "manager_id"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "id",
+        "staff_number",
+        "display_name",
+        "status",
+        "employment_type",
+        "branch_id",
+        "department_id",
+        "position_id",
+        "cost_centre_id",
+        "manager_id",
+        "work_email",
+        "user_id",
+        "effective_from",
+        "previous"
+      ],
+      "additionalProperties": false
+    },
+    "example": {
+      "id": "0199a6b0-0000-7000-8000-0000000000e1",
+      "staff_number": "SIL00042",
+      "display_name": "Jane Wambui",
+      "status": "active",
+      "employment_type": "permanent",
+      "branch_id": "0199a6b0-0000-7000-8000-0000000000b1",
+      "department_id": "0199a6b0-0000-7000-8000-000000000001",
+      "position_id": "0199a6b0-0000-7000-8000-0000000000f1",
+      "cost_centre_id": "0199a6b0-0000-7000-8000-0000000000c1",
+      "manager_id": null,
+      "work_email": "jane.wambui@example.org",
+      "user_id": null,
+      "effective_from": "2026-12-01",
+      "previous": {
+        "position_id": null,
+        "department_id": null,
+        "branch_id": null,
+        "cost_centre_id": null,
+        "manager_id": null
+      }
+    }
+  },
+  {
+    "type": "hr.employee.status_changed.v1",
+    "version": 1,
+    "description": "Employment status changed (probation → active, suspended, on notice…). Exits also publish hr.employee.exited.v1.",
+    "subject": "employee id",
+    "data_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "staff_number": {
+          "type": "string"
+        },
+        "display_name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "onboarding",
+            "probation",
+            "active",
+            "on_notice",
+            "suspended",
+            "exited"
+          ]
+        },
+        "employment_type": {
+          "type": "string",
+          "enum": [
+            "permanent",
+            "contract",
+            "casual",
+            "locum",
+            "intern"
+          ]
+        },
+        "branch_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "department_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "position_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cost_centre_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "manager_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "work_email": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "user_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "previous_status": {
+          "type": "string",
+          "enum": [
+            "onboarding",
+            "probation",
+            "active",
+            "on_notice",
+            "suspended",
+            "exited"
+          ]
+        },
+        "effective_date": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "staff_number",
+        "display_name",
+        "status",
+        "employment_type",
+        "branch_id",
+        "department_id",
+        "position_id",
+        "cost_centre_id",
+        "manager_id",
+        "work_email",
+        "user_id",
+        "previous_status",
+        "effective_date"
+      ],
+      "additionalProperties": false
+    },
+    "example": {
+      "id": "0199a6b0-0000-7000-8000-0000000000e1",
+      "staff_number": "SIL00042",
+      "display_name": "Jane Wambui",
+      "status": "active",
+      "employment_type": "permanent",
+      "branch_id": "0199a6b0-0000-7000-8000-0000000000b1",
+      "department_id": "0199a6b0-0000-7000-8000-000000000001",
+      "position_id": "0199a6b0-0000-7000-8000-0000000000f1",
+      "cost_centre_id": "0199a6b0-0000-7000-8000-0000000000c1",
+      "manager_id": null,
+      "work_email": "jane.wambui@example.org",
+      "user_id": null,
+      "previous_status": "probation",
+      "effective_date": "2026-11-01"
+    }
+  },
+  {
+    "type": "hr.employee.exited.v1",
+    "version": 1,
+    "description": "The employee left. Deprovision their access: SCIM marks the user inactive at the same time.",
+    "subject": "employee id",
+    "data_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "staff_number": {
+          "type": "string"
+        },
+        "display_name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "onboarding",
+            "probation",
+            "active",
+            "on_notice",
+            "suspended",
+            "exited"
+          ]
+        },
+        "employment_type": {
+          "type": "string",
+          "enum": [
+            "permanent",
+            "contract",
+            "casual",
+            "locum",
+            "intern"
+          ]
+        },
+        "branch_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "department_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "position_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cost_centre_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "manager_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "work_email": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "user_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "exit_date": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "staff_number",
+        "display_name",
+        "status",
+        "employment_type",
+        "branch_id",
+        "department_id",
+        "position_id",
+        "cost_centre_id",
+        "manager_id",
+        "work_email",
+        "user_id",
+        "exit_date"
+      ],
+      "additionalProperties": false
+    },
+    "example": {
+      "id": "0199a6b0-0000-7000-8000-0000000000e1",
+      "staff_number": "SIL00042",
+      "display_name": "Jane Wambui",
+      "status": "exited",
+      "employment_type": "permanent",
+      "branch_id": "0199a6b0-0000-7000-8000-0000000000b1",
+      "department_id": "0199a6b0-0000-7000-8000-000000000001",
+      "position_id": "0199a6b0-0000-7000-8000-0000000000f1",
+      "cost_centre_id": "0199a6b0-0000-7000-8000-0000000000c1",
+      "manager_id": null,
+      "work_email": "jane.wambui@example.org",
+      "user_id": null,
+      "exit_date": "2026-11-30"
+    }
+  },
+  {
+    "type": "hr.employee.manager_changed.v1",
+    "version": 1,
+    "description": "The employee’s line manager changed. Approval routing for them changes with it.",
+    "subject": "employee id",
+    "data_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "staff_number": {
+          "type": "string"
+        },
+        "display_name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "onboarding",
+            "probation",
+            "active",
+            "on_notice",
+            "suspended",
+            "exited"
+          ]
+        },
+        "employment_type": {
+          "type": "string",
+          "enum": [
+            "permanent",
+            "contract",
+            "casual",
+            "locum",
+            "intern"
+          ]
+        },
+        "branch_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "department_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "position_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cost_centre_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "manager_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "work_email": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "user_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "previous_manager_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "staff_number",
+        "display_name",
+        "status",
+        "employment_type",
+        "branch_id",
+        "department_id",
+        "position_id",
+        "cost_centre_id",
+        "manager_id",
+        "work_email",
+        "user_id",
+        "previous_manager_id"
+      ],
+      "additionalProperties": false
+    },
+    "example": {
+      "id": "0199a6b0-0000-7000-8000-0000000000e1",
+      "staff_number": "SIL00042",
+      "display_name": "Jane Wambui",
+      "status": "active",
+      "employment_type": "permanent",
+      "branch_id": "0199a6b0-0000-7000-8000-0000000000b1",
+      "department_id": "0199a6b0-0000-7000-8000-000000000001",
+      "position_id": "0199a6b0-0000-7000-8000-0000000000f1",
+      "cost_centre_id": "0199a6b0-0000-7000-8000-0000000000c1",
+      "manager_id": null,
+      "work_email": "jane.wambui@example.org",
+      "user_id": null,
+      "previous_manager_id": null
+    }
+  },
+  {
+    "type": "hr.licence.updated.v1",
+    "version": 1,
+    "description": "A professional licence was recorded or changed (renewed, verified, suspended).",
+    "subject": "licence id",
+    "data_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "employee_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "staff_number": {
+          "type": "string"
+        },
+        "licensing_body": {
+          "type": "string"
+        },
+        "licence_number": {
+          "type": "string"
+        },
+        "expiry_date": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "valid",
+            "expiring",
+            "expired",
+            "suspended",
+            "not_verified"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "employee_id",
+        "staff_number",
+        "licensing_body",
+        "licence_number",
+        "expiry_date",
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "example": {
+      "id": "0199a6b0-0000-7000-8000-0000000000f1",
+      "employee_id": "0199a6b0-0000-7000-8000-0000000000e1",
+      "staff_number": "SIL00042",
+      "licensing_body": "NCK",
+      "licence_number": "NCK/12345",
+      "expiry_date": "2026-12-31",
+      "status": "valid"
+    }
+  },
+  {
+    "type": "hr.licence.expiring.v1",
+    "version": 1,
+    "description": "A licence entered its reminder window (default 60 days before expiry). Sent once per licence and expiry date.",
+    "subject": "licence id",
+    "data_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "employee_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "staff_number": {
+          "type": "string"
+        },
+        "licensing_body": {
+          "type": "string"
+        },
+        "licence_number": {
+          "type": "string"
+        },
+        "expiry_date": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "valid",
+            "expiring",
+            "expired",
+            "suspended",
+            "not_verified"
+          ]
+        },
+        "days_to_expiry": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "id",
+        "employee_id",
+        "staff_number",
+        "licensing_body",
+        "licence_number",
+        "expiry_date",
+        "status",
+        "days_to_expiry"
+      ],
+      "additionalProperties": false
+    },
+    "example": {
+      "id": "0199a6b0-0000-7000-8000-0000000000f1",
+      "employee_id": "0199a6b0-0000-7000-8000-0000000000e1",
+      "staff_number": "SIL00042",
+      "licensing_body": "NCK",
+      "licence_number": "NCK/12345",
+      "expiry_date": "2026-12-31",
+      "status": "expiring",
+      "days_to_expiry": 45
+    }
+  },
+  {
+    "type": "hr.licence.expired.v1",
+    "version": 1,
+    "description": "A licence lapsed. Clinical systems (HMIS) should stop treating the practitioner as licensed.",
+    "subject": "licence id",
+    "data_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "employee_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "staff_number": {
+          "type": "string"
+        },
+        "licensing_body": {
+          "type": "string"
+        },
+        "licence_number": {
+          "type": "string"
+        },
+        "expiry_date": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "valid",
+            "expiring",
+            "expired",
+            "suspended",
+            "not_verified"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "employee_id",
+        "staff_number",
+        "licensing_body",
+        "licence_number",
+        "expiry_date",
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "example": {
+      "id": "0199a6b0-0000-7000-8000-0000000000f1",
+      "employee_id": "0199a6b0-0000-7000-8000-0000000000e1",
+      "staff_number": "SIL00042",
+      "licensing_body": "NCK",
+      "licence_number": "NCK/12345",
+      "expiry_date": "2026-12-31",
+      "status": "expired"
+    }
+  },
+  {
     "type": "hr.organisation.branch.created.v1",
     "version": 1,
     "description": "A branch (site) was created.",

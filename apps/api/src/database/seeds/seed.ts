@@ -10,6 +10,8 @@ import { NotificationTemplate } from '../../modules/notifications/notifications.
 import { NumberingScheme } from '../../modules/numbering/numbering.module';
 import { Branch, CostCentre, Department, JobGrade, Organisation, Position } from '../../modules/organisation/organisation.entities';
 import { OutboxService } from '../../modules/events/events.module';
+import { DocumentType } from '../../modules/employees/employee.entities';
+import { seedSampleEmployees } from './sample-employees';
 import { WebhookSubscription } from '../../modules/webhooks/webhook.entities';
 
 export interface SeedOptions {
@@ -82,7 +84,37 @@ async function seedReference(m: EntityManager): Promise<void> {
       body: 'Deliveries to {{url}} kept failing, so the subscription was paused.\n\n{{reason}}\n\nFix the receiver, then resume the subscription and replay the dead-lettered deliveries from the delivery log.',
       description: 'Sent to webhook administrators when a subscription is paused automatically',
     },
+    {
+      code: 'licence_expiring',
+      subject: '{{body}} licence for {{employee}} expires in {{days}} days',
+      body: '{{employee}} ({{staff_number}}): {{body}} licence {{number}} expires on {{expiry}}. Record the renewal before then.',
+      description: 'Sent to licence managers when a professional licence enters the reminder window',
+    },
+    {
+      code: 'licence_expired',
+      subject: '{{body}} licence for {{employee}} has expired',
+      body: '{{employee}} ({{staff_number}}): {{body}} licence {{number}} expired on {{expiry}}. Clinical systems have been told.',
+      description: 'Sent to licence managers when a professional licence lapses',
+    },
+    {
+      code: 'contact_change_submitted',
+      subject: 'Contact details change from {{employee}}',
+      body: '{{employee}} ({{staff_number}}) asked to change their contact details. Review it under People → Contact changes.',
+      description: 'Sent to HR when an employee submits a self-service change',
+    },
   ];
+  const documentTypes = [
+    { code: 'national_id', name: 'National ID or passport copy', requiredFor: ['permanent', 'contract', 'casual', 'locum', 'intern'], isSensitive: true },
+    { code: 'kra_pin_cert', name: 'KRA PIN certificate', requiredFor: ['permanent', 'contract', 'locum'] },
+    { code: 'academic_cert', name: 'Academic certificates', requiredFor: ['permanent', 'contract', 'intern'] },
+    { code: 'good_conduct', name: 'Certificate of good conduct', requiredFor: ['permanent', 'contract'], hasExpiry: true },
+    { code: 'practising_licence', name: 'Practising licence (clinical staff)', requiredFor: [], hasExpiry: true },
+    { code: 'medical_fitness', name: 'Medical fitness certificate', requiredFor: ['permanent', 'contract'], isSensitive: true },
+    { code: 'signed_contract', name: 'Signed contract', requiredFor: ['permanent', 'contract', 'locum', 'intern'] },
+  ];
+  for (const d of documentTypes) {
+    if (!(await m.getRepository(DocumentType).existsBy({ code: d.code }))) await m.getRepository(DocumentType).save(m.getRepository(DocumentType).create(d));
+  }
   for (const t of templates) {
     if (!(await m.getRepository(NotificationTemplate).existsBy({ code: t.code }))) await m.getRepository(NotificationTemplate).save(m.getRepository(NotificationTemplate).create(t));
   }
@@ -233,6 +265,8 @@ async function seedSample(m: EntityManager, app: INestApplicationContext, passwo
       m.getRepository(RoleAssignment).create({ userId: user.id, roleId: role.id, scope: u.scope, branchId: u.branch ? branches.get(u.branch)!.id : null, departmentId: u.dept ? depts.get(u.dept)!.id : null }),
     );
   }
+
+  await seedSampleEmployees(m, app);
 
   // A sample webhook pointed at the development sink that verifies signatures (compose: webhook-sink).
   const sinkUrl = process.env.SAMPLE_WEBHOOK_URL;

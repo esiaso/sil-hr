@@ -4,6 +4,8 @@ import { loadEnv } from './config/env';
 import { eventsPublished, rootLogger } from './common/logger';
 import { createRedis } from './common/redis';
 import { RequestContext } from './common/request-context';
+import { EmployeesService } from './modules/employees/employees.service';
+import { LicencesService } from './modules/employees/licences.service';
 import { NotificationsService } from './modules/notifications/notifications.module';
 import { OutboxPublisher, WebhookDeliveryProcessor } from './modules/webhooks/publishing';
 
@@ -16,6 +18,9 @@ export const JOBS: { name: string; everyMs: number; run: (app: INestApplicationC
   { name: 'outbox-publish', everyMs: 1000, run: async (app) => { const n = await app.get(OutboxPublisher).drainOnce(200); eventsPublished.inc(n); return n; } },
   { name: 'webhook-deliveries', everyMs: 2000, run: (app) => app.get(WebhookDeliveryProcessor).processDue(50) },
   { name: 'send-mail', everyMs: 10_000, run: (app) => app.get(NotificationsService).sendPendingMail(50) },
+  // Daily work runs hourly: each is idempotent, so a missed hour or a restart costs nothing.
+  { name: 'licence-sweep', everyMs: 3_600_000, run: async (app) => { const r = await app.get(LicencesService).sweep(); return r.expiring + r.expired; } },
+  { name: 'apply-due-assignments', everyMs: 3_600_000, run: (app) => app.get(EmployeesService).applyDueAssignments() },
 ];
 
 const QUEUE = 'silhr-scheduled';

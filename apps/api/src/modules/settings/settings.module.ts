@@ -63,6 +63,8 @@ export const SETTINGS = {
   'webhooks.max_attempts': def({ schema: z.number().int().min(1).max(20), default: 8, type: 'number', description: 'Delivery attempts before a webhook delivery is dead-lettered' }),
   'webhooks.pause_after_dead_letters': def({ schema: z.number().int().min(1).max(100), default: 5, type: 'number', description: 'Consecutive dead-lettered deliveries before a subscription is paused' }),
   'webhooks.timeout_seconds': def({ schema: z.number().int().min(1).max(60), default: 10, type: 'number', description: 'Timeout for one delivery attempt' }),
+  'licences.reminder_days': def({ schema: z.number().int().min(1).max(365), default: 60, type: 'number', description: 'Days before a professional licence expires that reminders start' }),
+  'employees.contact_changes_need_approval': def({ schema: z.boolean(), default: true, type: 'boolean', description: 'Self-service contact changes wait for HR approval' }),
   'documents.download_url_ttl_seconds': def({ schema: z.number().int().min(30).max(3600), default: 300, type: 'number', description: 'Lifetime of signed download links' }),
   'documents.allowed_mime_types': def({
     schema: z.array(z.string()).min(1),

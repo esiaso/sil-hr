@@ -39,6 +39,21 @@ export const PERMISSIONS = {
   'webhook:manage': 'Manage webhook subscriptions and replay deliveries',
   'event:read': 'View the event catalogue',
   'system:metrics': 'Read operational metrics',
+  // people (slice 2)
+  'employee:read': 'View employee records (personal data masked)',
+  'employee:hire': 'Hire employees',
+  'employee:update': 'Edit employee records, contacts, dependants, qualifications and payment details',
+  'employee:lifecycle': 'Change employee status, transfer and set reporting lines',
+  'employee.sensitive:read': 'See national ID, passport, KRA PIN and bank details unmasked (each read is audited)',
+  'licence:read': 'View professional licences',
+  'licence:manage': 'Record and edit professional licences',
+  'licence:verify': 'Verify licences against the licensing body',
+  'document_type:manage': 'Define employee document types and the required checklist',
+  'employee_document:verify': 'Verify or reject employee documents',
+  'directory:read': 'Read the staff directory and approver lookups',
+  'import_export:run': 'Import and export employee data in bulk',
+  'contact_change:decide': 'Approve or reject self-service contact changes',
+  'scim:provision': 'Use the SCIM 2.0 provisioning endpoints',
 } as const;
 
 export type PermissionCode = keyof typeof PERMISSIONS;
@@ -49,7 +64,8 @@ export const PERMISSION_GROUPS: { label: string; prefixes: string[] }[] = [
   { label: 'Organisation', prefixes: ['organisation', 'branch', 'department', 'cost_centre', 'job_grade', 'position'] },
   { label: 'Identity & access', prefixes: ['user', 'role', 'login_history', 'ip_allow'] },
   { label: 'Platform', prefixes: ['audit', 'setting', 'numbering', 'document', 'external_ref'] },
-  { label: 'Integration', prefixes: ['api_client', 'webhook', 'event', 'system'] },
+  { label: 'People', prefixes: ['employee', 'employee.sensitive', 'licence', 'document_type', 'employee_document', 'directory', 'import_export', 'contact_change'] },
+  { label: 'Integration', prefixes: ['api_client', 'webhook', 'event', 'system', 'scim'] },
 ];
 
 /**
@@ -63,8 +79,9 @@ export const CLIENT_SCOPES: Record<string, { description: string; permissions: P
     description: 'Organisation structure: branches, departments, cost centres, grades, positions',
     permissions: ['organisation:read', 'branch:read', 'department:read', 'cost_centre:read', 'job_grade:read', 'position:read'],
   },
-  'employees:read': { description: 'Staff directory and non-sensitive employee fields', permissions: [] },
-  'employees.sensitive:read': { description: 'Unmasked national ID, KRA PIN and bank details', permissions: [] },
+  'employees:read': { description: 'Staff directory, approver lookups, employee records (sensitive fields masked) and licences', permissions: ['employee:read', 'directory:read', 'licence:read', 'department:read', 'position:read', 'cost_centre:read'] },
+  'employees.sensitive:read': { description: 'Unmasked national ID, KRA PIN and bank details (every read audited)', permissions: ['employee.sensitive:read'] },
+  scim: { description: 'SCIM 2.0 provisioning: read users (employees) and groups (departments)', permissions: ['scim:provision'] },
   'leave:read': { description: 'Approved leave', permissions: [] },
   'attendance:write': { description: 'Post clock events', permissions: [] },
   'payroll.journal:read': { description: 'Payroll journals per run', permissions: [] },
@@ -86,7 +103,7 @@ export const SYSTEM_ROLES: {
     code: 'hr_manager',
     name: 'HR Manager',
     description: 'Owns organisation structure and HR records',
-    permissions: [
+    permissions: ['employee:read', 'employee:hire', 'employee:update', 'employee:lifecycle', 'employee.sensitive:read', 'licence:read', 'licence:manage', 'licence:verify', 'document_type:manage', 'employee_document:verify', 'directory:read', 'import_export:run', 'contact_change:decide', 
       'organisation:read', 'organisation:update', 'branch:read', 'branch:manage', 'department:read', 'department:manage',
       'cost_centre:read', 'cost_centre:manage', 'job_grade:read', 'job_grade:manage', 'position:read', 'position:manage',
       'user:read', 'role:read', 'audit:read', 'setting:read', 'numbering:read', 'numbering:manage',
@@ -97,7 +114,7 @@ export const SYSTEM_ROLES: {
     code: 'hr_officer',
     name: 'HR Officer',
     description: 'Day-to-day HR administration within their scope',
-    permissions: [
+    permissions: ['employee:read', 'employee:hire', 'employee:update', 'employee:lifecycle', 'licence:read', 'licence:manage', 'licence:verify', 'employee_document:verify', 'directory:read', 'contact_change:decide', 
       'organisation:read', 'branch:read', 'department:read', 'department:manage', 'cost_centre:read', 'job_grade:read',
       'position:read', 'position:manage', 'document:read', 'document:write', 'setting:read', 'numbering:read',
     ],
@@ -106,42 +123,43 @@ export const SYSTEM_ROLES: {
     code: 'payroll_officer',
     name: 'Payroll Officer',
     description: 'Prepares payroll runs',
-    permissions: ['organisation:read', 'branch:read', 'department:read', 'cost_centre:read', 'job_grade:read', 'position:read', 'setting:read'],
+    permissions: ['employee:read', 'employee.sensitive:read', 'directory:read', 'organisation:read', 'branch:read', 'department:read', 'cost_centre:read', 'job_grade:read', 'position:read', 'setting:read'],
   },
   {
     code: 'finance_approver',
     name: 'Finance Approver',
     description: 'Approves payroll and payments',
-    permissions: ['organisation:read', 'branch:read', 'department:read', 'cost_centre:read', 'cost_centre:manage', 'setting:read'],
+    permissions: ['directory:read', 'organisation:read', 'branch:read', 'department:read', 'cost_centre:read', 'cost_centre:manage', 'setting:read'],
   },
   {
     code: 'department_head',
     name: 'Department Head',
     description: 'Heads a department; approves for it',
-    permissions: ['organisation:read', 'branch:read', 'department:read', 'cost_centre:read', 'job_grade:read', 'position:read'],
+    permissions: ['employee:read', 'licence:read', 'directory:read', 'organisation:read', 'branch:read', 'department:read', 'cost_centre:read', 'job_grade:read', 'position:read'],
   },
   {
     code: 'line_manager',
     name: 'Line Manager',
     description: 'Manages direct reports',
-    permissions: ['organisation:read', 'branch:read', 'department:read', 'position:read'],
+    permissions: ['employee:read', 'licence:read', 'directory:read', 'organisation:read', 'branch:read', 'department:read', 'position:read'],
   },
   {
     code: 'recruiter',
     name: 'Recruiter',
     description: 'Runs recruitment',
-    permissions: ['organisation:read', 'branch:read', 'department:read', 'job_grade:read', 'position:read', 'document:read', 'document:write'],
+    permissions: ['directory:read', 'organisation:read', 'branch:read', 'department:read', 'job_grade:read', 'position:read', 'document:read', 'document:write'],
   },
   {
     code: 'employee',
     name: 'Employee',
     description: 'Self-service',
-    permissions: ['organisation:read', 'branch:read', 'department:read'],
+    permissions: ['directory:read', 'organisation:read', 'branch:read', 'department:read'],
   },
   {
     code: 'auditor',
     name: 'Auditor',
     description: 'Read-only access to everything, including the audit trail',
-    permissions: PERMISSION_CODES.filter((c) => c.endsWith(':read')),
+    // Read-only, but not personal data in clear.
+    permissions: PERMISSION_CODES.filter((c) => c.endsWith(':read') && !c.includes('.sensitive')),
   },
 ];

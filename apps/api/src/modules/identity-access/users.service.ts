@@ -169,6 +169,37 @@ export class UsersService {
     return mapPage(page, (h) => ({ id: h.id, user_id: h.userId, username: h.username, outcome: h.outcome, method: h.method, ip: h.ip, user_agent: h.userAgent, occurred_at: h.occurredAt.toISOString() }));
   }
 
+  // ------------------------------------------------------------------ link to employees
+  /** Links a login to an employee (one-to-one), or unlinks it with null. */
+  async linkEmployee(userId: string, employeeId: string | null, m: EntityManager = this.dataSource.manager): Promise<void> {
+    const repo = m.getRepository(User);
+    const u = await repo.findOneBy({ id: userId });
+    if (!u) throw notFound('User');
+    if (employeeId) {
+      const other = await repo.findOneBy({ employeeId });
+      if (other && other.id !== userId) throw conflict('employee_already_linked', `That employee already has the account ${other.username}`);
+    }
+    u.employeeId = employeeId;
+    await repo.save(u);
+  }
+
+  async userIdForEmployee(employeeId: string, m: EntityManager = this.dataSource.manager): Promise<string | null> {
+    const u = await m.getRepository(User).findOne({ where: { employeeId }, select: { id: true } });
+    return u?.id ?? null;
+  }
+
+  /** Offboarding: the linked account is disabled and every session ends, in the caller's transaction. */
+  async deactivateForEmployee(employeeId: string, m: EntityManager): Promise<string | null> {
+    const u = await m.getRepository(User).findOneBy({ employeeId });
+    if (!u) return null;
+    if (u.status !== 'disabled') {
+      u.status = 'disabled';
+      await m.getRepository(User).save(u);
+    }
+    await this.auth.revokeAll(u.id, m);
+    return u.id;
+  }
+
   // ------------------------------------------------------------------ roles
   async listRoles(): Promise<RoleDto[]> {
     const rows = await this.dataSource.getRepository(Role).find({ relations: { rolePermissions: true }, order: { name: 'ASC' } });

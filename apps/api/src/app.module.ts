@@ -9,6 +9,7 @@ import { typeOrmOptions } from './database/typeorm-options';
 import { loadEnv } from './config/env';
 import { AuditModule } from './modules/audit/audit.module';
 import { DocumentsModule } from './modules/documents/documents.module';
+import { EmployeesModule } from './modules/employees/employees.module';
 import { EventsModule } from './modules/events/events.module';
 import { ExternalRefsModule } from './modules/external-refs/external-refs.module';
 import { HealthModule } from './modules/health/health.module';
@@ -33,6 +34,7 @@ import { WebhooksModule } from './modules/webhooks/webhooks.module';
     OrganisationModule,
     IdentityAccessModule,
     WebhooksModule,
+    EmployeesModule,
     HealthModule,
   ],
   providers: [

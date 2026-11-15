@@ -6,3 +6,4 @@ export * from './schemas/organisation';
 export * from './schemas/identity';
 export * from './schemas/platform';
 export * from './format';
+export * from './schemas/employees';

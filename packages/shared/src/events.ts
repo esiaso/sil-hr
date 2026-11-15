@@ -62,8 +62,108 @@ export interface EventDefinition {
 const D1 = '0199a6b0-0000-7000-8000-000000000001';
 const B1 = '0199a6b0-0000-7000-8000-0000000000b1';
 const C1 = '0199a6b0-0000-7000-8000-0000000000c1';
+const E1 = '0199a6b0-0000-7000-8000-0000000000e1';
+const P1 = '0199a6b0-0000-7000-8000-0000000000f1';
+
+const employmentType = z.enum(['permanent', 'contract', 'casual', 'locum', 'intern']);
+const employeeStatus = z.enum(['onboarding', 'probation', 'active', 'on_notice', 'suspended', 'exited']);
+/** People events carry no personal identifiers beyond the name and work contacts. */
+const employeeData = z.object({
+  id,
+  staff_number: z.string(),
+  display_name: z.string(),
+  status: employeeStatus,
+  employment_type: employmentType,
+  branch_id: id.nullable(),
+  department_id: id.nullable(),
+  position_id: id.nullable(),
+  cost_centre_id: id.nullable(),
+  manager_id: id.nullable(),
+  work_email: z.string().nullable(),
+  user_id: id.nullable(),
+});
+const employeeExample = {
+  id: E1, staff_number: 'SIL00042', display_name: 'Jane Wambui', status: 'active', employment_type: 'permanent',
+  branch_id: B1, department_id: D1, position_id: P1, cost_centre_id: C1, manager_id: null, work_email: 'jane.wambui@example.org', user_id: null,
+};
+const licenceData = z.object({
+  id,
+  employee_id: id,
+  staff_number: z.string(),
+  licensing_body: z.string(),
+  licence_number: z.string(),
+  expiry_date: z.string(),
+  status: z.enum(['valid', 'expiring', 'expired', 'suspended', 'not_verified']),
+});
+const licenceExample = { id: P1, employee_id: E1, staff_number: 'SIL00042', licensing_body: 'NCK', licence_number: 'NCK/12345', expiry_date: '2026-12-31', status: 'expiring' };
 
 export const EVENT_CATALOGUE = [
+  {
+    type: 'hr.employee.hired.v1',
+    description: 'A person was hired: the employee record and its first position assignment exist.',
+    subject: 'employee id',
+    schema: employeeData.extend({ hire_date: z.string() }),
+    example: { ...employeeExample, status: 'probation', hire_date: '2026-11-01' },
+  },
+  {
+    type: 'hr.employee.updated.v1',
+    description: 'Non-sensitive employee fields changed (name, work contacts, employment type). `changed_fields` lists them; sensitive fields are reported only as changed, never with values.',
+    subject: 'employee id',
+    schema: employeeData.extend({ changed_fields: z.array(z.string()) }),
+    example: { ...employeeExample, changed_fields: ['work_email'] },
+  },
+  {
+    type: 'hr.employee.transferred.v1',
+    description: 'The employee moved to another position (and possibly department, branch, cost centre or manager) from `effective_from`.',
+    subject: 'employee id',
+    schema: employeeData.extend({
+      effective_from: z.string(),
+      previous: z.object({ position_id: id.nullable(), department_id: id.nullable(), branch_id: id.nullable(), cost_centre_id: id.nullable(), manager_id: id.nullable() }),
+    }),
+    example: { ...employeeExample, effective_from: '2026-12-01', previous: { position_id: null, department_id: null, branch_id: null, cost_centre_id: null, manager_id: null } },
+  },
+  {
+    type: 'hr.employee.status_changed.v1',
+    description: 'Employment status changed (probation → active, suspended, on notice…). Exits also publish hr.employee.exited.v1.',
+    subject: 'employee id',
+    schema: employeeData.extend({ previous_status: employeeStatus, effective_date: z.string() }),
+    example: { ...employeeExample, previous_status: 'probation', effective_date: '2026-11-01' },
+  },
+  {
+    type: 'hr.employee.exited.v1',
+    description: 'The employee left. Deprovision their access: SCIM marks the user inactive at the same time.',
+    subject: 'employee id',
+    schema: employeeData.extend({ exit_date: z.string() }),
+    example: { ...employeeExample, status: 'exited', exit_date: '2026-11-30' },
+  },
+  {
+    type: 'hr.employee.manager_changed.v1',
+    description: 'The employee’s line manager changed. Approval routing for them changes with it.',
+    subject: 'employee id',
+    schema: employeeData.extend({ previous_manager_id: id.nullable() }),
+    example: { ...employeeExample, previous_manager_id: null },
+  },
+  {
+    type: 'hr.licence.updated.v1',
+    description: 'A professional licence was recorded or changed (renewed, verified, suspended).',
+    subject: 'licence id',
+    schema: licenceData,
+    example: { ...licenceExample, status: 'valid' },
+  },
+  {
+    type: 'hr.licence.expiring.v1',
+    description: 'A licence entered its reminder window (default 60 days before expiry). Sent once per licence and expiry date.',
+    subject: 'licence id',
+    schema: licenceData.extend({ days_to_expiry: z.number().int() }),
+    example: { ...licenceExample, days_to_expiry: 45 },
+  },
+  {
+    type: 'hr.licence.expired.v1',
+    description: 'A licence lapsed. Clinical systems (HMIS) should stop treating the practitioner as licensed.',
+    subject: 'licence id',
+    schema: licenceData,
+    example: { ...licenceExample, status: 'expired' },
+  },
   {
     type: 'hr.organisation.branch.created.v1',
     description: 'A branch (site) was created.',
