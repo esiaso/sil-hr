@@ -14,7 +14,7 @@ export interface NavGroup {
 }
 
 export const NAV: NavGroup[] = [
-  { label: 'Home', items: [{ label: 'Dashboard', href: '/' }, { label: 'My profile', href: '/me' }, { label: 'My leave', href: '/leave' }, { label: 'Approvals', href: '/approvals' }, { label: 'Staff directory', href: '/directory', permission: 'directory:read' }] },
+  { label: 'Home', items: [{ label: 'Dashboard', href: '/' }, { label: 'My profile', href: '/me' }, { label: 'My leave', href: '/leave' }, { label: 'Clock in / my attendance', href: '/attendance/me' }, { label: 'Approvals', href: '/approvals' }, { label: 'Staff directory', href: '/directory', permission: 'directory:read' }] },
   {
     label: 'People',
     items: [
@@ -31,6 +31,15 @@ export const NAV: NavGroup[] = [
       { label: 'Team calendar', href: '/leave/calendar' },
       { label: 'Leave requests', href: '/leave/requests', permission: 'leave:read' },
       { label: 'Leave setup', href: '/leave/setup', permission: 'leave_setup:manage' },
+    ],
+  },
+  {
+    label: 'Time & attendance',
+    items: [
+      { label: 'Daily attendance', href: '/attendance', permission: 'attendance:read' },
+      { label: 'Rosters', href: '/attendance/rosters', permission: 'roster:read' },
+      { label: 'Shifts', href: '/attendance/shifts', permission: 'shift:manage' },
+      { label: 'Overtime rules', href: '/attendance/overtime', permission: 'attendance:read' },
     ],
   },
   {
@@ -63,6 +72,7 @@ export const NAV: NavGroup[] = [
     items: [
       { label: 'API clients', href: '/integrations/api-clients', permission: 'api_client:manage' },
       { label: 'Webhooks', href: '/integrations/webhooks', permission: 'webhook:read' },
+      { label: 'Device connectors', href: '/integrations/connectors', permission: 'connector:manage' },
       { label: 'Event catalogue', href: '/integrations/events' },
       { label: 'Outbox', href: '/integrations/outbox', permission: 'webhook:read' },
     ],

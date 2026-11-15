@@ -212,6 +212,8 @@ describe('device connectors', () => {
       // Mapping the stranger to an employee re-matches the stored punch.
       const mapped = await api(app).put(`${B}/connectors/${c.body.id}/mappings`).set(bearer(admin)).send({ device_user_id: 'VISITOR-77', employee_id: p.id });
       expect(mapped.body.rematched).toBe(1);
+      // Nothing left unmatched, so the connector is healthy again.
+      expect((await api(app).get(`${B}/connectors`).set(bearer(admin))).body.find((x: { id: string }) => x.id === c.body.id).health).toBe('ok');
     } finally {
       await bio.close();
     }

@@ -89,11 +89,8 @@ export class ConnectorsService {
       const r = await this.attendance.ingest(punches);
       Object.assign(run, { status: r.errors.length ? 'partial' : 'succeeded', finishedAt: new Date(), received: punches.length, accepted: r.accepted, duplicates: r.duplicates, unmatched: r.unmatched, error: r.errors.length ? r.errors.slice(0, 5).map((e) => `#${e.index}: ${e.message}`).join('; ') : null });
       await runs.save(run);
-      // Health reflects everything still unmatched, not just this run.
-      const [{ n }] = await this.dataSource.query(`SELECT count(*)::int AS n FROM clock_event WHERE connector_id = $1 AND employee_id IS NULL`, [c.id]);
-      await this.dataSource.getRepository(Connector).update({ id: c.id }, {
-        lastRunAt: new Date(), lastSuccessAt: new Date(), health: n > 0 ? 'degraded' : 'ok', healthMessage: n > 0 ? `${n} punch(es) from device users not matched to anyone` : null, ...(to ? { cursorAt: to } : {}),
-      });
+      await this.dataSource.getRepository(Connector).update({ id: c.id }, { lastRunAt: new Date(), lastSuccessAt: new Date(), ...(to ? { cursorAt: to } : {}) });
+      await this.refreshHealth(c.id);
       return run;
     } catch (err) {
       const message = String((err as Error).message).slice(0, 2000);
@@ -105,6 +102,12 @@ export class ConnectorsService {
       this.logger.warn({ connector: c.code, err: message }, 'Connector run failed');
       return run;
     }
+  }
+
+  /** Health reflects every punch still unmatched, not just the latest run. */
+  private async refreshHealth(connectorId: string) {
+    const [{ n }] = await this.dataSource.query(`SELECT count(*)::int AS n FROM clock_event WHERE connector_id = $1 AND employee_id IS NULL`, [connectorId]);
+    await this.dataSource.getRepository(Connector).update({ id: connectorId }, { health: n > 0 ? 'degraded' : 'ok', healthMessage: n > 0 ? `${n} punch(es) from device users not matched to anyone` : null });
   }
 
   /** Pulls from the cursor (minus an overlap) to now. */
@@ -177,6 +180,7 @@ export class ConnectorsService {
     await repo.save(row);
     // Punches that arrived before the mapping now find their person.
     const rematched = await this.attendance.rematch(connectorId);
+    await this.refreshHealth(connectorId);
     return { mappings: await this.mappings(connectorId), rematched };
   }
 

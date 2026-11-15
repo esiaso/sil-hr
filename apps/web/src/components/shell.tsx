@@ -36,7 +36,7 @@ function Frame({ children }: { children: ReactNode }) {
   const unread = (notifications.data ?? []).filter((n) => !n.read_at).length;
 
   // '/' and '/organisation' are parents of other entries, so they match exactly.
-  const isActive = (href: string) => (href === '/' || href === '/organisation' || href === '/people' || href === '/leave' ? pathname === href || (href === '/people' && /^\/people\/[0-9a-f-]{36}/.test(pathname)) : pathname === href || pathname.startsWith(`${href}/`));
+  const isActive = (href: string) => (href === '/' || href === '/organisation' || href === '/people' || href === '/leave' || href === '/attendance' ? pathname === href || (href === '/people' && /^\/people\/[0-9a-f-]{36}/.test(pathname)) : pathname === href || pathname.startsWith(`${href}/`));
   const nav = (
     <nav aria-label="Main" className="space-y-5 p-3 text-sm">
       {groups.map((g) => (

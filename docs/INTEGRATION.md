@@ -31,7 +31,9 @@ scopes your system needs, and gives you the client id and secret (the secret is 
 | `external_refs:write` | read and write your system's identifiers in `external_ref` |
 | `documents:read` | download documents |
 | `leave:read` | leave requests (`/api/v1/leave/requests`), balances and the team calendar |
-| `attendance:write`, `payroll.journal:read` | reserved: the endpoints arrive in slices 4–5 |
+| `attendance:read` | daily attendance, rosters and timesheets (`/api/v1/attendance/days`, `/api/v1/rosters`) |
+| `attendance:write` | post clock events (`POST /api/v1/clock-events`, §7) |
+| `payroll.journal:read` | reserved: the endpoints arrive in slice 5 |
 
 ## 2. Get a token
 
@@ -266,5 +268,43 @@ tests, until the owning team confirms them.
 |---|---|---|
 | Procurement → HR: assets held by an employee (exit clearance) | `GET /api/v1/assets?custodianEmployeeId=` on procurement, with HR's employee id stored as the custodian. Today procurement stores the custodian as **its own user id plus free text**, and has no such query. | **Needs procurement change** (slice 6) |
 | HR → procurement: staff, departments, cost centres, approvers | Procurement consumes HR events / API and maps its `department.code` and `cost_centre_code` to HR's codes via `external_ref`. | To agree with the procurement team |
+| ZKTeco BioTime (pull) | `POST /jwt-api-token-auth/`, then `GET /iclock/api/transactions/?start_time=&end_time=&page=` (BioTime 8 personnel API). `punch_state` 0 = in, 1 = out. | **Needs a trial against the hospital's BioTime** |
+| ZKTeco devices (ADMS push) | Device server set to SIL HR; `POST /iclock/cdata?SN=…&table=ATTLOG` with tab-separated `PIN, time, state` lines. | **Needs a trial with the hospital's model and firmware** |
+| Hikvision terminals (ISAPI) | Digest auth; `POST /ISAPI/AccessControl/AcsEvent?format=json` (major 5, minor 75), paged by `searchResultPosition`; push as `AccessControllerEvent` JSON or multipart `event_log`. | **Needs a trial with the hospital's model and firmware** |
 | HMIS | FHIR R4 `Practitioner` / `PractitionerRole` with licence status. | Slice 9 |
 | Finance / GL | Payroll journal per run as an API resource and a file. | Slice 5 |
+
+## 7. Time and attendance sources
+
+Punches are stored once (a repeat of the same punch is ignored) and never edited. Every
+source ends up in the same place, and attendance is worked out from them.
+
+**Any system** (a canteen terminal, an access-control server, a spreadsheet import) posts
+batches with the `attendance:write` client scope. Name the person by `employee_id`,
+`staff_number` or `device_user_id`, and send your own `external_id` so a resend is ignored:
+
+```bash
+curl -s -X POST -H "Authorization: Bearer $TOKEN" -H 'content-type: application/json' \
+  -d '{"events":[{"staff_number":"SIL-0042","occurred_at":"2026-11-14T04:58:00Z","direction":"in","device_id":"GATE-1","external_id":"gate1:88123"}]}' \
+  http://localhost:3310/api/v1/clock-events
+# {"accepted":1,"duplicates":0,"unmatched":0,"errors":[]}
+```
+
+**ZKTeco and Hikvision terminals** are set up under **Integrations → Device connectors**.
+Both vendors work either way round:
+
+| Kind | Who connects | Set up |
+|---|---|---|
+| ZKTeco BioTime server | SIL HR pulls every N minutes | BioTime address and an API user; SIL HR re-reads 15 minutes before its last cursor so late uploads are not missed |
+| ZKTeco devices (ADMS / iclock push) | Devices push to SIL HR | Set the device's cloud server to SIL HR's host; list each serial number on the connector |
+| Hikvision terminal (ISAPI) | SIL HR pulls every N minutes | Terminal address and its admin user (digest auth) |
+| Hikvision terminals (HTTP listening) | Terminals push to SIL HR | Set the listening URL shown on the connector; list the terminals' IP addresses |
+
+Device user ids are matched to people by **staff number** (enrol staff on the device under
+their staff number) or by a **mapping table** kept on the connector. Punches from a user no
+one recognises are kept, shown on the connector as unmatched, and attached to the person
+as soon as they are mapped. A connector turns **degraded** while unmatched punches remain
+and **failing** when a pull fails (holders of `connector:manage` are notified once).
+
+Every roster change publishes `hr.roster.changed.v1`; approved leave already publishes
+`hr.leave.approved.v1`.
