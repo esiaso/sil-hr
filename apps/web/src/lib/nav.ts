@@ -14,7 +14,17 @@ export interface NavGroup {
 }
 
 export const NAV: NavGroup[] = [
-  { label: 'Home', items: [{ label: 'Dashboard', href: '/' }] },
+  { label: 'Home', items: [{ label: 'Dashboard', href: '/' }, { label: 'My profile', href: '/me' }, { label: 'Staff directory', href: '/directory', permission: 'directory:read' }] },
+  {
+    label: 'People',
+    items: [
+      { label: 'Employees', href: '/people', permission: 'employee:read' },
+      { label: 'Licences', href: '/people/licences', permission: 'licence:read' },
+      { label: 'Contact changes', href: '/people/contact-changes', permission: 'contact_change:decide' },
+      { label: 'Import & export', href: '/people/import', permission: 'import_export:run' },
+      { label: 'Document types', href: '/people/document-types', permission: 'document_type:manage' },
+    ],
+  },
   {
     label: 'Organisation',
     items: [

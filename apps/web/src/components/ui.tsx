@@ -68,6 +68,23 @@ export function Card({ children, className }: { children: ReactNode; className?:
 }
 
 const BADGE: Record<string, string> = {
+  valid: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300",
+  verified: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300",
+  approved: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300",
+  succeeded: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300",
+  probation: "bg-sky-100 text-sky-800 dark:bg-sky-900/40 dark:text-sky-300",
+  onboarding: "bg-sky-100 text-sky-800 dark:bg-sky-900/40 dark:text-sky-300",
+  queued: "bg-sky-100 text-sky-800 dark:bg-sky-900/40 dark:text-sky-300",
+  running: "bg-sky-100 text-sky-800 dark:bg-sky-900/40 dark:text-sky-300",
+  on_notice: "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300",
+  expiring: "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300",
+  not_verified: "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300",
+  missing: "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300",
+  suspended: "bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300",
+  expired: "bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300",
+  rejected: "bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300",
+  failed: "bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300",
+  exited: "bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-300",
   active: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300',
   delivered: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300',
   success: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300',
@@ -81,7 +98,7 @@ const BADGE: Record<string, string> = {
 };
 
 export function Badge({ value }: { value: string }) {
-  return <span className={cx('inline-block rounded px-2 py-0.5 text-xs font-medium', BADGE[value] ?? 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300')}>{value.replace(/_/g, ' ')}</span>;
+  return <span className={cx('inline-block rounded px-2 py-0.5 text-xs font-medium', BADGE[value] ?? BADGE[value.split(' ').pop() ?? ''] ?? 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300')}>{value.replace(/_/g, ' ')}</span>;
 }
 
 export function ProblemBanner({ error }: { error: unknown }) {
