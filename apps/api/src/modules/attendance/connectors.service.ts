@@ -159,7 +159,7 @@ export class ConnectorsService {
 
   async hikPush(code: string, ip: string | undefined, payload: unknown) {
     const c = await this.dataSource.getRepository(Connector).findOneBy({ code, type: 'hikvision_push', isActive: true });
-    if (!c || !this.ipAllowed(c, ip)) throw new ProblemException(403, 'unknown_device', 'This device is not registered to push to SIL HR');
+    if (!c || !this.ipAllowed(c, ip)) throw new ProblemException(403, 'unknown_device', 'This device is not registered to push to PeopleTrack');
     const run = await this.record(c, 'push', null, null, async () => parseHikvisionEvent(payload, c));
     return this.runDto(run);
   }

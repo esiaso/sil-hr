@@ -374,7 +374,7 @@ export const EVENT_CATALOGUE = [
     description: 'Sent only to one subscription when an administrator presses "Send test event".',
     subject: 'subscription id',
     schema: z.object({ message: z.string() }),
-    example: { message: 'Test event from SIL HR' },
+    example: { message: 'Test event from PeopleTrack' },
   },
 ] as const satisfies readonly EventDefinition[];
 

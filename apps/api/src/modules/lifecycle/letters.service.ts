@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
+import { brandFooter, brandPdf } from '../../common/pdf';
 import { Document as DocxDocument, Packer, Paragraph, TextRun, AlignmentType, HeadingLevel } from 'docx';
-import PDFDocument from 'pdfkit';
 import { DataSource } from 'typeorm';
 import { z } from 'zod';
 import { formatDate, issueLetter, LETTER_FIELDS, upsertLetterTemplate } from '@sil/hr-shared';
+import { BRAND } from '@sil/hr-shared';
 import { AccessProfile, scopeAllows } from '../../common/access';
 import { decrypt } from '../../common/crypto';
 import { assertVersion } from '../../common/etag';
@@ -88,7 +89,7 @@ export class LettersService {
 
   private pdf(title: string, text: string): Promise<Buffer> {
     return new Promise((resolve, reject) => {
-      const doc = new PDFDocument({ size: 'A4', margin: 60, info: { Title: title, Producer: 'SIL HR' } });
+      const doc = brandPdf({ size: 'A4', margin: 60, info: { Title: title } });
       const chunks: Buffer[] = [];
       doc.on('data', (c: Buffer) => chunks.push(c));
       doc.on('end', () => resolve(Buffer.concat(chunks)));
@@ -96,10 +97,11 @@ export class LettersService {
       for (const para of text.split(/\n\s*\n/)) {
         const t = para.trim();
         if (!t) continue;
-        if (t.startsWith('# ')) doc.font('Helvetica-Bold').fontSize(13).text(t.slice(2));
-        else doc.font('Helvetica').fontSize(11).text(t, { align: 'left', lineGap: 2 });
+        if (t.startsWith('# ')) doc.font('Display').fontSize(13).fillColor('#16345B').text(t.slice(2)).fillColor('#000');
+        else doc.font('Body').fontSize(11).text(t, { align: 'left', lineGap: 2 });
         doc.moveDown(0.8);
       }
+      brandFooter(doc);
       doc.end();
     });
   }
@@ -109,7 +111,7 @@ export class LettersService {
       t.startsWith('# ') ? new Paragraph({ text: t.slice(2), heading: HeadingLevel.HEADING_2, spacing: { after: 160 } })
         : new Paragraph({ alignment: AlignmentType.LEFT, spacing: { after: 200 }, children: t.split('\n').flatMap((line, i) => (i ? [new TextRun({ text: line, break: 1 })] : [new TextRun(line)])) }),
     );
-    return Packer.toBuffer(new DocxDocument({ title, creator: 'SIL HR', sections: [{ children }] }));
+    return Packer.toBuffer(new DocxDocument({ title, creator: BRAND.name, styles: { default: { document: { run: { font: 'Open Sans', size: 22 } }, heading2: { run: { font: 'Montserrat', bold: true, color: '16345B', size: 26 } } } }, sections: [{ children: [...children, new Paragraph({ spacing: { before: 400 }, children: [new TextRun({ text: `Generated with ${BRAND.name} · ${BRAND.endorsement}`, size: 15, color: '5B6B80' })] })] }] }));
   }
 
   async issue(access: AccessProfile, dto: Dto<typeof issueLetter>) {

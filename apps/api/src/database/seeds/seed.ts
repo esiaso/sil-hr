@@ -143,7 +143,7 @@ async function seedReference(m: EntityManager): Promise<void> {
     {
       code: 'checklist_tasks_assigned',
       subject: '{{kind}} tasks for {{name}}',
-      body: 'There are {{kind}} tasks for {{name}} for your team. Open My tasks in SIL HR.',
+      body: 'There are {{kind}} tasks for {{name}} for your team. Open My tasks in PeopleTrack.',
       description: 'Sent to each team with tasks when an onboarding or offboarding checklist starts',
     },
     {
@@ -155,7 +155,7 @@ async function seedReference(m: EntityManager): Promise<void> {
     {
       code: 'relations_case_opened',
       subject: 'A {{kind}} has been recorded: {{subject}}',
-      body: 'A {{kind}} has been recorded on your file: {{subject}}. Open it in SIL HR to read it and acknowledge it.',
+      body: 'A {{kind}} has been recorded on your file: {{subject}}. Open it in PeopleTrack to read it and acknowledge it.',
       description: 'Sent to an employee when a warning, improvement plan or award is recorded',
     },
     {
@@ -173,19 +173,19 @@ async function seedReference(m: EntityManager): Promise<void> {
     {
       code: 'payslip_ready',
       subject: 'Your payslip for {{period}} is ready',
-      body: 'Your payslip for {{period}} (paid on {{pay_date}}) is ready. Open My payslips in SIL HR to view or download it.',
+      body: 'Your payslip for {{period}} (paid on {{pay_date}}) is ready. Open My payslips in PeopleTrack to view or download it.',
       description: 'Sent to each member of staff when a payroll is approved',
     },
     {
       code: 'review_cycle_launched',
       subject: '{{cycle}} has started',
-      body: 'The {{cycle}} appraisal has started. Agree your goals with your reviewer by {{goals_due}}. Open My performance in SIL HR.',
+      body: 'The {{cycle}} appraisal has started. Agree your goals with your reviewer by {{goals_due}}. Open My performance in PeopleTrack.',
       description: 'Sent to staff and reviewers when a review cycle is launched',
     },
     {
       code: 'self_review_open',
       subject: 'Your self-review for {{cycle}} is open',
-      body: 'Score yourself against your goals and add your comments by {{due}}. Open My performance in SIL HR.',
+      body: 'Score yourself against your goals and add your comments by {{due}}. Open My performance in PeopleTrack.',
       description: 'Sent to staff when the review phase of a cycle opens',
     },
     {
@@ -209,7 +209,7 @@ async function seedReference(m: EntityManager): Promise<void> {
     {
       code: 'training_enrolled',
       subject: 'You are booked on {{programme}}',
-      body: 'You have a place on {{programme}} ({{number}}) on {{starts}}, at {{venue}}. See My training in SIL HR.',
+      body: 'You have a place on {{programme}} ({{number}}) on {{starts}}, at {{venue}}. See My training in PeopleTrack.',
       description: 'Sent to staff when they are enrolled on a training session',
     },
     {
@@ -239,7 +239,7 @@ async function seedReference(m: EntityManager): Promise<void> {
     {
       code: 'announcement_published',
       subject: 'Announcement: {{title}}',
-      body: 'A new announcement has been published: {{title}}. Read it on the SIL HR home page.',
+      body: 'A new announcement has been published: {{title}}. Read it on the PeopleTrack home page.',
       description: 'Sent to the audience when an announcement goes live',
     },
     {
@@ -299,6 +299,10 @@ async function seedReference(m: EntityManager): Promise<void> {
   for (const d of documentTypes) {
     if (!(await m.getRepository(DocumentType).existsBy({ code: d.code }))) await m.getRepository(DocumentType).save(m.getRepository(DocumentType).create(d));
   }
+  // Rebrand (SIL HR → PeopleTrack): fix wording seeded before the rename, once.
+  await m.query(`UPDATE notification_template SET subject = replace(subject, 'SIL HR', 'PeopleTrack'), body = replace(body, 'SIL HR', 'PeopleTrack') WHERE subject LIKE '%SIL HR%' OR body LIKE '%SIL HR%'`);
+  await m.query(`UPDATE setting SET value = '"PeopleTrack"' WHERE key = 'security.mfa_issuer' AND value = '"SIL HR"'`);
+  await m.query(`UPDATE announcement SET title = 'Welcome to PeopleTrack' WHERE title = 'Welcome to SIL HR'`);
   for (const t of templates) {
     if (!(await m.getRepository(NotificationTemplate).existsBy({ code: t.code }))) await m.getRepository(NotificationTemplate).save(m.getRepository(NotificationTemplate).create(t));
   }

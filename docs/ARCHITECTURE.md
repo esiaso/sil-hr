@@ -1,6 +1,6 @@
-# SIL HR: architecture
+# PeopleTrack: architecture
 
-SIL HR is the hospital's system of record for **people and organisation structure**.
+PeopleTrack is the hospital's system of record for **people and organisation structure**.
 Every other in-house system (procurement and inventory, the lab middleware, the HMIS,
 finance) reads from it, reacts to its events and, where agreed, feeds it. Integration
 is therefore a product module of its own, built first, not an add-on.
@@ -275,6 +275,7 @@ verification), document_type (required per employment type)
 | D47 | **The calendar feed's secret URL is the credential.** Only its SHA-256 is stored; rotating replaces it; it carries the user's own events only (no team leave), 30 days back and 180 ahead. | Calendar apps cannot sign in; limiting what a leaked URL shows limits the damage. |
 | D48 | **Reports are SQL over the live tables, limited by `report:read` scope**, rather than a separate warehouse; headcount uses the position assignment in force on the date asked. Exports are audited. | Small hospital volumes; one source of truth; a warehouse can be added later by consuming events. |
 | D49 | **The FHIR registry is a read-only projection**, built on request from HR tables, with licence status as an extension. No FHIR server, no write-back. | HR owns practitioner data (§6.5); the HMIS reads it. |
+| D50 | **Rebranded as PeopleTrack without renaming internals.** User-facing text, the web theme, PDFs, Word letters, emails, calendar feeds and the API title use the brand (`BRAND` in `@sil/hr-shared`); package names, `urn:sil:hr:` identifiers, event types and storage keys stay. Seeded notification wording is rewritten once on boot. | Integrations, stored events and webhooks keep working; the brand lives in one constant. |
 
 ## 8. Open questions for the hospital (not needed for slice 1)
 

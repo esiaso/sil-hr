@@ -52,7 +52,7 @@ export function configureApp(app: NestExpressApplication, env: Env = loadEnv()):
 
   if (env.apiDocs) {
     const document = buildOpenApi(app);
-    SwaggerModule.setup(`${API_PREFIX}/docs`, app, () => document, { jsonDocumentUrl: `${API_PREFIX}/openapi.json`, customSiteTitle: 'SIL HR API' });
+    SwaggerModule.setup(`${API_PREFIX}/docs`, app, () => document, { jsonDocumentUrl: `${API_PREFIX}/openapi.json`, customSiteTitle: 'PeopleTrack API' });
   }
 }
 
@@ -60,7 +60,7 @@ export function configureApp(app: NestExpressApplication, env: Env = loadEnv()):
 export function buildOpenApi(app: INestApplication): OpenAPIObject {
   const env = loadEnv();
   const config = new DocumentBuilder()
-    .setTitle('SIL HR API')
+    .setTitle('PeopleTrack API')
     .setDescription(
       [
         "The hospital's system of record for people and organisation structure.",

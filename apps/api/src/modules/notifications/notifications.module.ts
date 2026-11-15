@@ -1,5 +1,6 @@
 import { Controller, Get, Global, HttpCode, Injectable, Logger, Module, Param, ParseUUIDPipe, Patch, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { BRAND } from '@sil/hr-shared';
 import { InjectDataSource, TypeOrmModule } from '@nestjs/typeorm';
 import nodemailer, { type Transporter } from 'nodemailer';
 import { Column, CreateDateColumn, DataSource, Entity, EntityManager, Index, IsNull, PrimaryColumn } from 'typeorm';
@@ -110,7 +111,11 @@ class EmailChannel implements NotificationChannel {
   async send(m: EntityManager, to: { email: string | null }, msg: { title: string; body: string; link?: string | null }) {
     if (!to.email) return;
     const link = msg.link ? `\n\n${loadEnv().publicBaseUrl.replace(/:\d+$/, '')}${msg.link}` : '';
-    await m.getRepository(EmailOutbox).insert({ toAddress: to.email, subject: msg.title.slice(0, 300), body: msg.body + link });
+    const footer = `
+
+--
+${BRAND.name} · ${BRAND.endorsement}`;
+    await m.getRepository(EmailOutbox).insert({ toAddress: to.email, subject: msg.title.slice(0, 300), body: msg.body + link + footer });
   }
 }
 

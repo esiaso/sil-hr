@@ -447,7 +447,7 @@ export class WorkflowService {
     let toUser = input.to_user_id;
     if (!toUser && input.to_employee_id) {
       const [u] = await this.dataSource.query(`SELECT id FROM user_account WHERE employee_id = $1 AND status = 'active' AND deleted_at IS NULL`, [input.to_employee_id]);
-      if (!u) throw unprocessable('no_login', 'That person has no active SIL HR login', [{ path: 'to_employee_id', message: 'No login' }]);
+      if (!u) throw unprocessable('no_login', 'That person has no active PeopleTrack login', [{ path: 'to_employee_id', message: 'No login' }]);
       toUser = u.id;
     }
     const dto = { ...input, to_user_id: toUser! };

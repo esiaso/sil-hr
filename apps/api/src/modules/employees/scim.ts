@@ -205,6 +205,6 @@ export class ScimController {
   @All(['Users', 'Users/:id', 'Groups', 'Groups/:id', 'Bulk'])
   @RequirePermissions('scim:provision')
   readOnly(@Res() res: Response) {
-    res.status(405).type(SCIM_JSON).send(JSON.stringify({ schemas: [ERROR], status: '405', scimType: 'mutability', detail: 'HR is the system of record: change people in SIL HR, not through SCIM' }));
+    res.status(405).type(SCIM_JSON).send(JSON.stringify({ schemas: [ERROR], status: '405', scimType: 'mutability', detail: 'HR is the system of record: change people in PeopleTrack, not through SCIM' }));
   }
 }

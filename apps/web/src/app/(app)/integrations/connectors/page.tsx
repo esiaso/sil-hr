@@ -125,7 +125,7 @@ export default function ConnectorsPage() {
   const [open, setOpen] = useState<string | null>(null);
   return (
     <div className="space-y-4">
-      <PageHeader title="Device connectors" description="Clocking terminals. ZKTeco and Hikvision are both supported, either by SIL HR pulling from them on a schedule or by the devices pushing to SIL HR. Any other system can post punches to /api/v1/clock-events." actions={<Button onClick={() => setEditing('new')}>New connector</Button>} />
+      <PageHeader title="Device connectors" description="Clocking terminals. ZKTeco and Hikvision are both supported, either by PeopleTrack pulling from them on a schedule or by the devices pushing to PeopleTrack. Any other system can post punches to /api/v1/clock-events." actions={<Button onClick={() => setEditing('new')}>New connector</Button>} />
       <ProblemBanner error={q.error} />
       {!q.data ? <Loading /> : !q.data.length ? <Empty>No connectors yet.</Empty> : q.data.map((c) => (
         <Card key={c.id}>

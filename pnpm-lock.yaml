@@ -16,6 +16,12 @@ importers:
       '@aws-sdk/s3-request-presigner':
         specifier: ^3.1158.0
         version: 3.1169.0
+      '@fontsource/montserrat':
+        specifier: 5.2.8
+        version: 5.2.8
+      '@fontsource/open-sans':
+        specifier: 5.2.7
+        version: 5.2.7
       '@nestjs/common':
         specifier: ^11.1.0
         version: 11.2.10(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -155,6 +161,12 @@ importers:
       '@fontsource-variable/inter':
         specifier: 5.2.8
         version: 5.2.8
+      '@fontsource/montserrat':
+        specifier: 5.2.8
+        version: 5.2.8
+      '@fontsource/open-sans':
+        specifier: 5.2.7
+        version: 5.2.7
       '@hookform/resolvers':
         specifier: ^5.2.0
         version: 5.9.2(@sinclair/typebox@0.27.12)(react-hook-form@7.92.0(@types/react@19.3.0)(react@19.3.1))(zod@4.6.7)
@@ -716,6 +728,12 @@ packages:
 
   '@fontsource-variable/inter@5.2.8':
     resolution: {integrity: sha512-kOfP2D+ykbcX/P3IFnokOhVRNoTozo5/JxhAIVYLpea/UBmCQ/YWPBfWIDuBImXX/15KH+eKh4xpEUyS2sQQGQ==}
+
+  '@fontsource/montserrat@5.2.8':
+    resolution: {integrity: sha512-xTjLxSbSfCycDB0pwmNsfNvdfWPaDaRQ2LC6yt/ZI7SdvXG52zHnzNYC/09mzuAuWNJyShkteutfCoDgym56hQ==}
+
+  '@fontsource/open-sans@5.2.7':
+    resolution: {integrity: sha512-8yfgDYjE5O0vmTPdrcjV35y4yMnctsokmi9gN49Gcsr0sjzkMkR97AnKDe6OqZh2SFkYlR28fxOvi21bYEgMSw==}
 
   '@hookform/resolvers@5.9.2':
     resolution: {integrity: sha512-RtjTnZqsC38s4NKp2XO3fD8IA5uyN4tB7McQ5C6uiMPcV+WWO8F+wVa3e+BXUpH2ScgxghAlwFRMVqjT9WChAQ==}
@@ -5221,6 +5239,10 @@ snapshots:
       lodash.uniq: 4.5.0
 
   '@fontsource-variable/inter@5.2.8': {}
+
+  '@fontsource/montserrat@5.2.8': {}
+
+  '@fontsource/open-sans@5.2.7': {}
 
   '@hookform/resolvers@5.9.2(@sinclair/typebox@0.27.12)(react-hook-form@7.92.0(@types/react@19.3.0)(react@19.3.1))(zod@4.6.7)':
     dependencies:

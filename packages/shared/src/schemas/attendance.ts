@@ -221,9 +221,9 @@ export const requestRegularisation = z
 // ---------------------------------------------------------------- connectors
 export const CONNECTOR_TYPES = {
   zkteco_biotime: 'ZKTeco BioTime server (pull)',
-  zkteco_push: 'ZKTeco devices pushing to SIL HR (ADMS / iclock)',
+  zkteco_push: 'ZKTeco devices pushing to PeopleTrack (ADMS / iclock)',
   hikvision_isapi: 'Hikvision access-control terminal (ISAPI pull)',
-  hikvision_push: 'Hikvision terminals pushing events to SIL HR',
+  hikvision_push: 'Hikvision terminals pushing events to PeopleTrack',
 } as const;
 export type ConnectorType = keyof typeof CONNECTOR_TYPES;
 

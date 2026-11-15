@@ -4,7 +4,7 @@ import type { paths } from './generated/api';
 export type { paths, components } from './generated/api';
 
 /**
- * Typed client for the SIL HR REST API, generated from the checked-in OpenAPI document.
+ * Typed client for the PeopleTrack REST API, generated from the checked-in OpenAPI document.
  * Other systems can copy this package or generate their own client from /api/v1/openapi.json.
  */
 export function createHrClient(options: ClientOptions & { token?: () => string | null | undefined | Promise<string | null | undefined> }) {

@@ -1,6 +1,6 @@
-# Integrating with SIL HR
+# Integrating with PeopleTrack
 
-SIL HR is the hospital's system of record for **people and organisation structure**.
+PeopleTrack is the hospital's system of record for **people and organisation structure**.
 Procurement, the HMIS, the lab systems and finance read from it, react to its events and,
 where agreed, feed it. This guide is for developers of those systems.
 
@@ -271,7 +271,7 @@ tests, until the owning team confirms them.
 | Procurement → HR: what a leaver still holds (exit clearance) | `GET {PROCUREMENT_API_URL}/api/v1/integration/hr/staff/{staff_number}/exit-clearance` with `x-api-key` (scope `hr`): assets in custody, unretired advances, petty cash floats, `cleared` and `blockers`. Procurement matches HR's staff number to its users' `employeeNo`. | **Implemented** against procurement's main branch (slice 6); needs the key and employee numbers set in production |
 | HR → procurement: staff, departments, cost centres, approvers | Procurement consumes HR events / API and maps its `department.code` and `cost_centre_code` to HR's codes via `external_ref`. | To agree with the procurement team |
 | ZKTeco BioTime (pull) | `POST /jwt-api-token-auth/`, then `GET /iclock/api/transactions/?start_time=&end_time=&page=` (BioTime 8 personnel API). `punch_state` 0 = in, 1 = out. | **Needs a trial against the hospital's BioTime** |
-| ZKTeco devices (ADMS push) | Device server set to SIL HR; `POST /iclock/cdata?SN=…&table=ATTLOG` with tab-separated `PIN, time, state` lines. | **Needs a trial with the hospital's model and firmware** |
+| ZKTeco devices (ADMS push) | Device server set to PeopleTrack; `POST /iclock/cdata?SN=…&table=ATTLOG` with tab-separated `PIN, time, state` lines. | **Needs a trial with the hospital's model and firmware** |
 | Hikvision terminals (ISAPI) | Digest auth; `POST /ISAPI/AccessControl/AcsEvent?format=json` (major 5, minor 75), paged by `searchResultPosition`; push as `AccessControllerEvent` JSON or multipart `event_log`. | **Needs a trial with the hospital's model and firmware** |
 | HMIS | FHIR R4 `Practitioner` / `PractitionerRole` (JSON, read and search) with licence status; see §12. | **Implemented** (slice 9); to agree with the HMIS vendor which identifiers they search by |
 | SMS (Africa's Talking) | `POST {SMS_URL}` form `username, to, message, from` with header `apiKey`; success when `SMSMessageData.Recipients[0].status` is `Success`. | **Implemented** against the published API with a mock; needs the hospital's account, sender ID and a live trial |
@@ -298,10 +298,10 @@ Both vendors work either way round:
 
 | Kind | Who connects | Set up |
 |---|---|---|
-| ZKTeco BioTime server | SIL HR pulls every N minutes | BioTime address and an API user; SIL HR re-reads 15 minutes before its last cursor so late uploads are not missed |
-| ZKTeco devices (ADMS / iclock push) | Devices push to SIL HR | Set the device's cloud server to SIL HR's host; list each serial number on the connector |
-| Hikvision terminal (ISAPI) | SIL HR pulls every N minutes | Terminal address and its admin user (digest auth) |
-| Hikvision terminals (HTTP listening) | Terminals push to SIL HR | Set the listening URL shown on the connector; list the terminals' IP addresses |
+| ZKTeco BioTime server | PeopleTrack pulls every N minutes | BioTime address and an API user; PeopleTrack re-reads 15 minutes before its last cursor so late uploads are not missed |
+| ZKTeco devices (ADMS / iclock push) | Devices push to PeopleTrack | Set the device's cloud server to PeopleTrack's host; list each serial number on the connector |
+| Hikvision terminal (ISAPI) | PeopleTrack pulls every N minutes | Terminal address and its admin user (digest auth) |
+| Hikvision terminals (HTTP listening) | Terminals push to PeopleTrack | Set the listening URL shown on the connector; list the terminals' IP addresses |
 
 Device user ids are matched to people by **staff number** (enrol staff on the device under
 their staff number) or by a **mapping table** kept on the connector. Punches from a user no

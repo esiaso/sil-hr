@@ -105,7 +105,7 @@ export class WebhooksService {
     await this.dataSource.transaction(async (m) => {
       const s = await m.getRepository(WebhookSubscription).findOneBy({ id });
       if (!s) throw notFound('Webhook subscription');
-      await this.outbox.record(m, 'hr.webhook.test.v1', s.id, { message: `Test event from SIL HR for "${s.name}"` }, { onlySubscriptionId: s.id });
+      await this.outbox.record(m, 'hr.webhook.test.v1', s.id, { message: `Test event from PeopleTrack for "${s.name}"` }, { onlySubscriptionId: s.id });
     });
   }
 

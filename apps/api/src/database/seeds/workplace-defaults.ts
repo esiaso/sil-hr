@@ -37,7 +37,7 @@ export async function seedSampleWorkplace(m: EntityManager): Promise<void> {
   }
   if (!(await m.getRepository(Announcement).exist())) {
     await m.getRepository(Announcement).insert({
-      title: 'Welcome to SIL HR',
+      title: 'Welcome to PeopleTrack',
       body: 'You can now see your payslips, apply for leave, book training and claim expenses here, on your phone or a computer.\n\nIf something looks wrong in your record, use My profile to ask HR to correct it.',
       publishAt: new Date(), pinned: true, status: 'published', notifiedAt: new Date(),
     });

@@ -121,7 +121,7 @@ export function loadEnv(source: NodeJS.ProcessEnv = process.env, useCache = true
     procurementUrl: e.PROCUREMENT_API_URL ? e.PROCUREMENT_API_URL.replace(/\/$/, '') : null,
     procurementApiKey: e.PROCUREMENT_API_KEY || null,
     smtpUrl: e.SMTP_URL || null,
-    mailFrom: e.MAIL_FROM ?? 'SIL HR <hr@localhost>',
+    mailFrom: e.MAIL_FROM ?? 'PeopleTrack <hr@localhost>',
     sms: { url: e.SMS_URL || 'https://api.africastalking.com/version1/messaging', username: e.SMS_USERNAME || null, apiKey: e.SMS_API_KEY || null, senderId: e.SMS_SENDER_ID || null },
     eventStream: e.EVENT_STREAM ?? 'silhr:events',
     eventSource: e.EVENT_SOURCE ?? 'urn:sil:hr',

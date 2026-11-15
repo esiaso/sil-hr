@@ -19,3 +19,4 @@ export * from './schemas/training';
 export * from './schemas/workplace';
 export * from './schemas/expenses';
 export * from './schemas/reports';
+export * from './brand';

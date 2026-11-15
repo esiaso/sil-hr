@@ -1,34 +1,49 @@
 @import 'tailwindcss';
-/* Inter, self-hosted from the npm package (SIL Open Font License): no external font requests. */
+/*
+ * PeopleTrack type (SynergyOne brand): Inter for the interface, Montserrat for brand
+ * headlines, Open Sans for long-form text. All self-hosted from npm packages (SIL Open Font
+ * Licence): no external font requests.
+ */
 @import '@fontsource-variable/inter';
+@import '@fontsource/montserrat/600.css';
+@import '@fontsource/montserrat/700.css';
+@import '@fontsource/open-sans/400.css';
+@import '@fontsource/open-sans/600.css';
 
 /* Dark mode follows the toggle (data-theme on <html>), which defaults to the system setting. */
 @custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
 
 @theme {
-  /* Accent blue, as in the NextAdmin dashboard style. */
-  --color-brand-50: #eef2ff;
-  --color-brand-100: #dae2ff;
-  --color-brand-200: #bccbff;
-  --color-brand-500: #3758f9;
-  --color-brand-600: #2237ee;
-  --color-brand-700: #1a25db;
+  /* SynergyOne Suite Blue for actions and links; PeopleTrack amber is kept for highlights. */
+  --color-brand-50: #e8f1fb;
+  --color-brand-100: #cfe2f6;
+  --color-brand-200: #a6c9ee;
+  --color-brand-500: #0b65b9;
+  --color-brand-600: #09559c;
+  --color-brand-700: #07447d;
+  --color-navy-500: #16345b;
+  --color-navy-600: #102844;
+  --color-amber-brand: #d97706;
   --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Montserrat', 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-reading: 'Open Sans', 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
   color-scheme: light;
-  --canvas: #f4f4f5; /* behind the sidebar and the content panel */
+  --canvas: #f7f9fc; /* SynergyOne neutral background */
   --bg: #ffffff; /* the content panel */
   --surface: #ffffff;
-  --surface-2: #f9fafb;
-  --hover: #f3f4f6;
-  --active: #e9eaee;
-  --border: #e5e7eb;
-  --text: #1f2937;
-  --title: #111827;
-  --muted: #6b7280;
-  --accent: #3758f9;
+  --surface-2: #f3f6fa;
+  --hover: #eef2f7;
+  --active: #e3ebf5;
+  --border: #e2e8f0;
+  --text: #1e293b;
+  --title: #16345b; /* Corporate Navy */
+  --muted: #5b6b80;
+  --accent: #0b65b9; /* Suite Blue (4.9:1 on white) */
+  --highlight: #d97706; /* PeopleTrack amber: marks and highlights only */
+  --highlight-text: #b45309; /* amber dark enough for text on white */
 }
 
 [data-theme='dark'] {
@@ -43,7 +58,9 @@
   --text: #e5e7eb;
   --title: #f9fafb;
   --muted: #9ca3af;
-  --accent: #6d84ff;
+  --accent: #5aa5ec;
+  --highlight: #f59e0b;
+  --highlight-text: #fbbf24;
 }
 
 html,
@@ -57,6 +74,19 @@ h1,
 h2,
 h3 {
   color: var(--title);
+}
+
+/* Brand headlines (page titles, the wordmark) are Montserrat; everything else is Inter. */
+h1,
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+/* Long-form reading: announcements, policies, letters. */
+.reading {
+  font-family: var(--font-reading);
+  line-height: 1.65;
 }
 
 .surface {

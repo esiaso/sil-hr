@@ -22,7 +22,7 @@ const splitName = (full: string) => { const parts = full.trim().split(/\s+/); re
 
 async function workbook(sheet: string, header: string[], rows: (string | number | null)[][], money: number[] = []): Promise<Buffer> {
   const wb = new ExcelJS.Workbook();
-  wb.creator = 'SIL HR';
+  wb.creator = 'PeopleTrack';
   const ws = wb.addWorksheet(sheet.slice(0, 31));
   ws.addRow(header).font = { bold: true };
   for (const r of rows) ws.addRow(r);
@@ -216,7 +216,7 @@ export class PayrollOutputs {
     }
     const pin = decrypt(e?.kraPinEnc);
     const body = await payslipPdf({
-      organisation: org?.legal_name ?? org?.name ?? 'SIL HR', number: s.number, periodLabel: periodLabel(run.period), payDate: run.payDate,
+      organisation: org?.legal_name ?? org?.name ?? 'PeopleTrack', number: s.number, periodLabel: periodLabel(run.period), payDate: run.payDate,
       employee: { name: s.employeeName, staffNumber: s.staffNumber, department: s.departmentName, position: (s.inputs.position as string | null) ?? e?.position?.title ?? null, kraPin: pin ? `${pin.slice(0, 1)}•••••••${pin.slice(-3)}` : null, nssfNumber: e?.nssfNumber ?? null, shaNumber: e?.shaNumber ?? null },
       lines: lines.map((l) => ({ name: l.name, kind: l.kind, amount: l.amount, detail: l.detail })), gross: s.gross, totalDeductions: s.totalDeductions, net: s.net, taxablePay: s.taxablePay, tax: s.tax,
       payment, draft: !['approved', 'paid', 'closed'].includes(run.status),
@@ -242,7 +242,7 @@ export class PayrollOutputs {
       };
     });
     const org = await this.payroll.organisation();
-    const body = await p9Pdf({ organisation: org?.legal_name ?? org?.name ?? 'SIL HR', employerPin: org?.kra_pin ?? null, year, employee: { name: e.displayName, staffNumber: e.staffNumber, kraPin: decrypt(e.kraPinEnc) }, rows });
+    const body = await p9Pdf({ organisation: org?.legal_name ?? org?.name ?? 'PeopleTrack', employerPin: org?.kra_pin ?? null, year, employee: { name: e.displayName, staffNumber: e.staffNumber, kraPin: decrypt(e.kraPinEnc) }, rows });
     if (access.employeeId !== employeeId) await writeAudit(this.dataSource.manager, { action: AuditAction.SENSITIVE_READ, entityType: 'Employee', entityId: e.id, after: { p9: year } });
     return { fileName: `p9-${year}-${e.staffNumber}.pdf`, mimeType: 'application/pdf', body };
   }

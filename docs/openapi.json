@@ -108726,7 +108726,7 @@
     }
   },
   "info": {
-    "title": "SIL HR API",
+    "title": "PeopleTrack API",
     "description": "The hospital's system of record for people and organisation structure.\n\n**Authentication.** Machine clients: `POST /api/v1/oauth/token` with `grant_type=client_credentials` (HTTP Basic client id and secret) and send the returned token as `Authorization: Bearer …`. Users: `POST /api/v1/auth/login`.\n\n**Conventions.** Cursor pagination (`limit`, `cursor` → `next_cursor`), `sort=field` or `-field`, `updated_since` for incremental sync (soft-deleted rows come back as `{id, deleted: true}` tombstones), `ETag` + `If-Match` on updates, `Idempotency-Key` on creating POSTs, RFC 9457 problem details, `X-Correlation-Id` echoed and carried into events.",
     "version": "1.0.0",
     "contact": {}

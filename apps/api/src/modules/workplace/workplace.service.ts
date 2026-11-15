@@ -532,6 +532,6 @@ export class WorkplaceService {
     const shift = (d: number) => { const x = new Date(`${today}T00:00:00Z`); x.setUTCDate(x.getUTCDate() + d); return x.toISOString().slice(0, 10); };
     const items = await this.calendar(row.id, row.employee_id, shift(-30), shift(180));
     const events: IcsEvent[] = items.map((i) => ({ uid: `${i.id}@sil-hr`, title: i.title, allDay: i.all_day, start: i.start, end: i.end, location: i.location ?? null, url: null }));
-    return toIcs(`SIL HR: ${row.display_name}`, events);
+    return toIcs(`PeopleTrack: ${row.display_name}`, events);
   }
 }

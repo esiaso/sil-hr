@@ -1,4 +1,4 @@
-# Deploying SIL HR
+# Deploying PeopleTrack
 
 This covers a production deployment of slice 1. It will grow with each slice (OIDC and the
 identity provider in slice 2, connectors from slice 4).

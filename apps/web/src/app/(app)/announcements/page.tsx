@@ -31,7 +31,7 @@ export default function AnnouncementsPage() {
             </div>
             {manage && <div className="flex items-center gap-2">{all && <Badge value={a.status} />}<button type="button" className="link text-sm" onClick={() => setEdit(a)}>Edit</button></div>}
           </div>
-          <p className="mt-3 whitespace-pre-wrap text-sm">{a.body}</p>
+          <p className="reading mt-3 whitespace-pre-wrap text-sm">{a.body}</p>
         </Card>
       ))}
       {edit && <AnnouncementDialog a={edit === 'new' ? null : edit} onClose={() => setEdit(null)} />}

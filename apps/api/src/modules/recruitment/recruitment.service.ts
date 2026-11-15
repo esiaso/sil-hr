@@ -1,8 +1,8 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
+import { brandFooter, brandPdf } from '../../common/pdf';
 import Decimal from 'decimal.js';
 import type Redis from 'ioredis';
-import PDFDocument from 'pdfkit';
 import { DataSource, EntityManager, In } from 'typeorm';
 import { z } from 'zod';
 import {
@@ -479,7 +479,7 @@ export class RecruitmentService implements OnModuleInit {
       notice_days: String(o.noticeDays), conditions: o.conditions ?? ' ',
     });
     const body = await new Promise<Buffer>((resolve, reject) => {
-      const doc = new PDFDocument({ size: 'A4', margin: 60, info: { Title: `Offer ${o.number}`, Producer: 'SIL HR' } });
+      const doc = brandPdf({ size: 'A4', margin: 60, info: { Title: `Offer ${o.number}` } });
       const chunks: Buffer[] = [];
       doc.on('data', (x: Buffer) => chunks.push(x));
       doc.on('end', () => resolve(Buffer.concat(chunks)));
@@ -487,10 +487,11 @@ export class RecruitmentService implements OnModuleInit {
       for (const para of text.split(/\n\s*\n/)) {
         const t = para.trim();
         if (!t) continue;
-        if (t.startsWith('# ')) doc.font('Helvetica-Bold').fontSize(13).text(t.slice(2));
-        else doc.font('Helvetica').fontSize(11).text(t, { lineGap: 2 });
+        if (t.startsWith('# ')) doc.font('Display').fontSize(13).fillColor('#16345B').text(t.slice(2)).fillColor('#000');
+        else doc.font('Body').fontSize(11).text(t, { lineGap: 2 });
         doc.moveDown(0.8);
       }
+      brandFooter(doc);
       doc.end();
     });
     const d = await this.docs.createFromBuffer({ ownerType: 'candidate', ownerId: c.id, title: `Offer letter ${o.number}`, isSensitive: true, fileName: `offer-${o.number.replace(/\//g, '-')}.pdf`, mimeType: 'application/pdf' }, body);

@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { Providers } from '@/lib/session';
 import './globals.css';
 
-export const metadata: Metadata = { title: { default: 'SIL HR', template: '%s · SIL HR' }, description: 'Human resources and payroll' };
+export const metadata: Metadata = { title: { default: 'PeopleTrack', template: '%s · PeopleTrack' }, description: 'SynergyOne PeopleTrack — Human Resource Management System. Empowering People. Driving Performance.', applicationName: 'PeopleTrack' };
 export const viewport: Viewport = { width: 'device-width', initialScale: 1 };
 
 /** Sets the theme before the first paint: the saved choice, else the system setting. */

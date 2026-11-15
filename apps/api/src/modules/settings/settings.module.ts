@@ -58,7 +58,7 @@ export const SETTINGS = {
   'security.password_require_symbol': def({ schema: z.boolean(), default: false, type: 'boolean', description: 'Passwords need a symbol' }),
   'security.lockout_threshold': def({ schema: z.number().int().min(3).max(50), default: 5, type: 'number', description: 'Failed logins before the account locks' }),
   'security.lockout_minutes': def({ schema: z.number().int().min(1).max(1440), default: 15, type: 'number', description: 'How long a locked account stays locked' }),
-  'security.mfa_issuer': def({ schema: z.string().min(1).max(60), default: 'SIL HR', type: 'string', description: 'Name shown in authenticator apps' }),
+  'security.mfa_issuer': def({ schema: z.string().min(1).max(60), default: 'PeopleTrack', type: 'string', description: 'Name shown in authenticator apps' }),
   'security.ip_allow_list_enabled': def({ schema: z.boolean(), default: false, type: 'boolean', description: 'Enforce the IP allow-list at login' }),
   'webhooks.max_attempts': def({ schema: z.number().int().min(1).max(20), default: 8, type: 'number', description: 'Delivery attempts before a webhook delivery is dead-lettered' }),
   'webhooks.pause_after_dead_letters': def({ schema: z.number().int().min(1).max(100), default: 5, type: 'number', description: 'Consecutive dead-lettered deliveries before a subscription is paused' }),
@@ -137,7 +137,7 @@ export class SettingsService {
   async publicSettings(): Promise<PublicSettings> {
     const [org] = await this.dataSource.query(`SELECT name FROM organisation ORDER BY created_at LIMIT 1`);
     return {
-      organisation_name: org?.name ?? 'SIL HR',
+      organisation_name: org?.name ?? 'PeopleTrack',
       currency: await this.get('organisation.currency'),
       timezone: await this.get('locale.timezone'),
       date_format: await this.get('locale.date_format'),

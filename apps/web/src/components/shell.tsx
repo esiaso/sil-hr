@@ -12,6 +12,7 @@ import { authPost, hr, unwrap } from '@/lib/api';
 import { visibleNav, type NavGroup } from '@/lib/nav';
 import { SessionProvider, useSession } from '@/lib/session';
 import { cx } from './ui';
+import { Wordmark } from './brand';
 
 const GROUP_ICONS: Record<string, LucideIcon> = {
   People: Users, Leave: CalendarDays, 'Time & attendance': Clock, Payroll: Wallet, 'Medical scheme': Stethoscope, Lifecycle: Repeat, Recruitment: UserPlus, 'Performance & training': Target, 'Workplace & reports': BarChart3, Organisation: Building2, Administration: ShieldCheck, Integrations: Plug,
@@ -28,17 +29,8 @@ export function Shell({ children }: { children: ReactNode }) {
   );
 }
 
-/** The SIL HR mark: two overlapping rounded squares, drawn here so nothing is fetched. */
 function Logo({ compact }: { compact?: boolean }) {
-  return (
-    <span className="flex items-center gap-2">
-      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden>
-        <rect x="2" y="7" width="15" height="15" rx="4" fill="#3758f9" />
-        <rect x="11" y="2" width="15" height="15" rx="4" fill="#8b9cff" fillOpacity="0.85" />
-      </svg>
-      {!compact && <span className="text-lg font-semibold tracking-tight" style={{ color: 'var(--title)' }}>SIL <span className="font-normal">HR</span></span>}
-    </span>
-  );
+  return <Wordmark compact={compact} />;
 }
 
 function useTheme(): ['light' | 'dark', () => void] {
@@ -72,7 +64,7 @@ function Sidebar({ groups, isActive, collapsed }: { groups: NavGroup[]; isActive
     try { localStorage.setItem('silhr-nav', JSON.stringify(next)); } catch { /* ignore */ }
   };
   const [home, ...rest] = groups;
-  const row = (active: boolean) => cx('flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors', active ? 'bg-[var(--active)] font-medium text-[var(--title)]' : 'text-[var(--text)] hover:bg-[var(--hover)]');
+  const row = (active: boolean) => cx('flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors', active ? 'bg-[var(--active)] font-medium text-[var(--title)] shadow-[inset_3px_0_0_var(--highlight)]' : 'text-[var(--text)] hover:bg-[var(--hover)]');
   return (
     <nav aria-label="Main" className="space-y-1 px-3 pb-4 text-sm">
       {!collapsed && <div className="muted px-3 pt-2 pb-1 text-xs font-medium tracking-wide uppercase">Main menu</div>}
@@ -225,7 +217,7 @@ function Frame({ children }: { children: ReactNode }) {
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:rounded focus:bg-white focus:p-2">Skip to content</a>
       <aside className={cx('hidden shrink-0 flex-col transition-[width] lg:flex', collapsed ? 'w-20' : 'w-64')}>
         <div className={cx('flex items-center px-6 py-5', collapsed ? 'justify-center px-0' : 'justify-between')}>
-          <Link href="/" aria-label="SIL HR home"><Logo compact={collapsed} /></Link>
+          <Link href="/" aria-label="PeopleTrack home"><Logo compact={collapsed} /></Link>
           {!collapsed && <button type="button" aria-label="Collapse the menu" title="Collapse the menu" onClick={() => setCollapse(true)} className="muted rounded-md p-1 hover:bg-[var(--hover)]"><PanelLeftClose size={18} /></button>}
         </div>
         {collapsed && <button type="button" aria-label="Expand the menu" title="Expand the menu" onClick={() => setCollapse(false)} className="muted mx-auto mb-2 rounded-md p-1 hover:bg-[var(--hover)]"><PanelLeftOpen size={18} /></button>}

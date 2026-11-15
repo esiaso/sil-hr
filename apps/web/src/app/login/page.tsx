@@ -1,12 +1,13 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Endorsement, Wordmark } from '@/components/brand';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { loginRequest } from '@sil/hr-shared';
+import { BRAND, loginRequest } from '@sil/hr-shared';
 import { Button, Field, Input, ProblemBanner } from '@/components/ui';
 import { authPost } from '@/lib/api';
 import { usePublicSettings } from '@/lib/session';
@@ -28,19 +29,17 @@ function LoginForm() {
   const finish = (r: { must_change_password?: boolean }) => router.replace(r.must_change_password ? '/account?change=1' : next.startsWith('/') && !next.startsWith('//') ? next : '/');
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[var(--canvas)] p-4">
+    <main className="flex min-h-screen flex-col items-center justify-center bg-[var(--canvas)] p-4">
       <div className="surface w-full max-w-sm rounded-2xl p-8 shadow-[0_8px_30px_rgba(16,24,40,0.08)]">
-        <h1 className="mb-1 flex items-center gap-2 text-xl font-semibold">
-          <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden><rect x="2" y="7" width="15" height="15" rx="4" fill="#3758f9" /><rect x="11" y="2" width="15" height="15" rx="4" fill="#8b9cff" fillOpacity="0.85" /></svg>
-          <span>SIL <span className="font-normal">HR</span></span>
-        </h1>
+        <h1 className="mb-1"><Wordmark size="lg" /></h1>
+        <p className="muted mb-4 text-xs">{BRAND.tagline}</p>
         <p className="muted mb-5 text-sm">{settings.data?.organisation_name ?? 'Sign in'}</p>
         <ProblemBanner error={error} />
-        {ssoError && <ProblemBanner error={new Error(ssoError === 'no_account' ? 'You signed in at the identity provider, but there is no SIL HR account for you. Ask HR.' : 'Single sign-on did not complete. Try again or use your password.')} />}
+        {ssoError && <ProblemBanner error={new Error(ssoError === 'no_account' ? 'You signed in at the identity provider, but there is no PeopleTrack account for you. Ask HR.' : 'Single sign-on did not complete. Try again or use your password.')} />}
         {sso.data?.enabled && !mfaToken && (
           <>
             <a href="/auth/oidc/start" className="bg-brand-500 hover:bg-brand-600 mb-4 block rounded-lg px-3 py-2.5 text-center text-sm font-medium text-white">{sso.data.label}</a>
-            <div className="muted mb-4 text-center text-xs">or with a SIL HR password</div>
+            <div className="muted mb-4 text-center text-xs">or with a PeopleTrack password</div>
           </>
         )}
         {!mfaToken ? (
@@ -94,6 +93,7 @@ function LoginForm() {
           </form>
         )}
       </div>
+      <footer className="mt-6 text-center"><Endorsement /><div className="muted mt-1 text-[11px]">© {BRAND.company}</div></footer>
     </main>
   );
 }

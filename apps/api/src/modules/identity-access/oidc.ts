@@ -118,7 +118,7 @@ export class OidcService {
     const who = claims.email ?? claims.preferred_username ?? claims.sub;
     if (!user) {
       await this.dataSource.getRepository(LoginHistory).insert({ userId: null, username: who.slice(0, 200), outcome: LoginOutcome.BAD_CREDENTIALS, method: 'oidc', ...clientInfo() });
-      throw new ProblemException(403, 'no_account', 'You signed in at the identity provider, but there is no SIL HR account for you. Ask HR.');
+      throw new ProblemException(403, 'no_account', 'You signed in at the identity provider, but there is no PeopleTrack account for you. Ask HR.');
     }
     if (user.status !== 'active') throw new ProblemException(403, 'account_disabled', 'This account is disabled');
     return this.auth.completeExternal(user, 'oidc', clientInfo());
