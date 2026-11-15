@@ -32,7 +32,7 @@
       "emailVerified": true,
       "enabled": true,
       "firstName": "admin",
-      "lastName": "(sample)",
+      "lastName": "Sample",
       "credentials": [
         {
           "type": "password",
@@ -47,7 +47,7 @@
       "emailVerified": true,
       "enabled": true,
       "firstName": "hr",
-      "lastName": "(sample)",
+      "lastName": "Sample",
       "credentials": [
         {
           "type": "password",
@@ -62,7 +62,7 @@
       "emailVerified": true,
       "enabled": true,
       "firstName": "hr",
-      "lastName": "(sample)",
+      "lastName": "Sample",
       "credentials": [
         {
           "type": "password",
@@ -77,7 +77,7 @@
       "emailVerified": true,
       "enabled": true,
       "firstName": "payroll",
-      "lastName": "(sample)",
+      "lastName": "Sample",
       "credentials": [
         {
           "type": "password",
@@ -92,7 +92,7 @@
       "emailVerified": true,
       "enabled": true,
       "firstName": "finance",
-      "lastName": "(sample)",
+      "lastName": "Sample",
       "credentials": [
         {
           "type": "password",
@@ -107,7 +107,7 @@
       "emailVerified": true,
       "enabled": true,
       "firstName": "head",
-      "lastName": "(sample)",
+      "lastName": "Sample",
       "credentials": [
         {
           "type": "password",
@@ -122,7 +122,7 @@
       "emailVerified": true,
       "enabled": true,
       "firstName": "line",
-      "lastName": "(sample)",
+      "lastName": "Sample",
       "credentials": [
         {
           "type": "password",
@@ -137,7 +137,7 @@
       "emailVerified": true,
       "enabled": true,
       "firstName": "recruiter",
-      "lastName": "(sample)",
+      "lastName": "Sample",
       "credentials": [
         {
           "type": "password",
@@ -152,7 +152,7 @@
       "emailVerified": true,
       "enabled": true,
       "firstName": "employee",
-      "lastName": "(sample)",
+      "lastName": "Sample",
       "credentials": [
         {
           "type": "password",
@@ -167,7 +167,7 @@
       "emailVerified": true,
       "enabled": true,
       "firstName": "auditor",
-      "lastName": "(sample)",
+      "lastName": "Sample",
       "credentials": [
         {
           "type": "password",

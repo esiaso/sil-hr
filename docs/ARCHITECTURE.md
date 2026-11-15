@@ -233,6 +233,11 @@ verification), document_type (required per employment type)
 | D8 | **Data scopes `own` and `direct_reports`** are modelled and resolved in slice 1 but only become meaningful when employees and reporting lines exist (slice 2). Slice 1 tests scope enforcement with branch/department scopes over organisation data. | Employees are slice 2. |
 | D9 | **Procurement contract.** Procurement today stores departments with its own `code` and `cost_centre_code`, and asset custodians as a procurement `user_id` + free-text name; it has no HR integration yet. HR will publish departments/cost centres with codes and expose staff so procurement can map custodians to `employee_id`. The asset-assignment read HR needs for exit clearance does not exist in procurement's API yet; it will be built against a documented assumed contract with a mock until procurement adds it. | Brief §6.4: do not invent certainty. Listed in the README as needing confirmation. |
 
+| D10 | **SCIM is read-only.** `/scim/v2/Users` and `/Groups` serve employees and departments; POST/PUT/PATCH/DELETE answer 405. | HR is the system of record: the identity provider pulls people from HR (and sees `active: false` on exit or suspension) instead of writing into HR. |
+| D11 | **The staff directory is organisation-wide** for anyone with `directory:read`, whatever their data scope. It carries names, positions, departments and work contacts only. | Every system and every member of staff needs to find colleagues; personal data stays behind `employee:read` and its scope. |
+| D12 | **Refresh-token reuse has a 30-second grace window.** A token presented again within 30 s of its first use gets another token in the same family; later reuse still revokes the whole family. | Browsers send several requests at once when the access token expires; without the window each simultaneous refresh signed the user out. |
+| D13 | **SSO never creates accounts.** The first OIDC sign-in links an existing user by verified email; later ones match the IdP subject. | Accounts follow HR records (and SCIM), not the IdP. |
+
 ## 8. Open questions for the hospital (not needed for slice 1)
 
 Pay-cycle dates and payment day; leave entitlements per type/grade; the salary bank and
