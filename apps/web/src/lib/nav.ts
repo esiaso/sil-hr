@@ -14,7 +14,7 @@ export interface NavGroup {
 }
 
 export const NAV: NavGroup[] = [
-  { label: 'Home', items: [{ label: 'Dashboard', href: '/' }, { label: 'My profile', href: '/me' }, { label: 'Staff directory', href: '/directory', permission: 'directory:read' }] },
+  { label: 'Home', items: [{ label: 'Dashboard', href: '/' }, { label: 'My profile', href: '/me' }, { label: 'My leave', href: '/leave' }, { label: 'Approvals', href: '/approvals' }, { label: 'Staff directory', href: '/directory', permission: 'directory:read' }] },
   {
     label: 'People',
     items: [
@@ -23,6 +23,14 @@ export const NAV: NavGroup[] = [
       { label: 'Contact changes', href: '/people/contact-changes', permission: 'contact_change:decide' },
       { label: 'Import & export', href: '/people/import', permission: 'import_export:run' },
       { label: 'Document types', href: '/people/document-types', permission: 'document_type:manage' },
+    ],
+  },
+  {
+    label: 'Leave',
+    items: [
+      { label: 'Team calendar', href: '/leave/calendar' },
+      { label: 'Leave requests', href: '/leave/requests', permission: 'leave:read' },
+      { label: 'Leave setup', href: '/leave/setup', permission: 'leave_setup:manage' },
     ],
   },
   {
@@ -41,6 +49,7 @@ export const NAV: NavGroup[] = [
     items: [
       { label: 'Users', href: '/admin/users', permission: 'user:read' },
       { label: 'Roles & permissions', href: '/admin/roles', permission: 'role:read' },
+      { label: 'Approval workflows', href: '/admin/workflows', permission: 'workflow:read' },
       { label: 'Login history', href: '/admin/login-history', permission: 'login_history:read' },
       { label: 'IP allow-list', href: '/admin/ip-allow-list', permission: 'ip_allow:manage' },
       { label: 'Audit trail', href: '/admin/audit', permission: 'audit:read' },

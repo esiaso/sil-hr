@@ -443,7 +443,14 @@ export class WorkflowService {
     return rows.map((d) => ({ id: d.id, from_user_id: d.fromUserId, from_name: names.get(d.fromUserId) ?? null, to_user_id: d.toUserId, to_name: names.get(d.toUserId) ?? null, starts_on: d.startsOn, ends_on: d.endsOn, request_types: d.requestTypes, reason: d.reason, created_at: d.createdAt.toISOString() }));
   }
 
-  async createDelegation(access: AccessProfile, dto: { from_user_id?: string; to_user_id: string; starts_on: string; ends_on: string; request_types: string[]; reason?: string | null }) {
+  async createDelegation(access: AccessProfile, input: { from_user_id?: string; to_user_id?: string; to_employee_id?: string; starts_on: string; ends_on: string; request_types: string[]; reason?: string | null }) {
+    let toUser = input.to_user_id;
+    if (!toUser && input.to_employee_id) {
+      const [u] = await this.dataSource.query(`SELECT id FROM user_account WHERE employee_id = $1 AND status = 'active' AND deleted_at IS NULL`, [input.to_employee_id]);
+      if (!u) throw unprocessable('no_login', 'That person has no active SIL HR login', [{ path: 'to_employee_id', message: 'No login' }]);
+      toUser = u.id;
+    }
+    const dto = { ...input, to_user_id: toUser! };
     const from = dto.from_user_id ?? access.actorId;
     if (from !== access.actorId && !access.has('workflow:manage')) throw forbidden('You can only delegate your own approvals');
     if (from === dto.to_user_id) throw unprocessable('self_delegation', 'Choose someone else', [{ path: 'to_user_id', message: 'Same person' }]);

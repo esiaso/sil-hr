@@ -12708,7 +12708,9 @@ export interface operations {
                     /** Format: uuid */
                     from_user_id?: string;
                     /** Format: uuid */
-                    to_user_id: string;
+                    to_user_id?: string;
+                    /** Format: uuid */
+                    to_employee_id?: string;
                     /** Format: date */
                     starts_on: string;
                     /** Format: date */

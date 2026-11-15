@@ -167,11 +167,14 @@ export const createDelegation = z
   .object({
     /** Defaults to yourself; delegating for someone else needs workflow:manage. */
     from_user_id: uuid.optional(),
-    to_user_id: uuid,
+    to_user_id: uuid.optional(),
+    /** Alternative to to_user_id: the delegate's employee record (their linked login is used). */
+    to_employee_id: uuid.optional(),
     starts_on: isoDate,
     ends_on: isoDate,
     /** Empty = every kind of request. */
     request_types: z.array(z.string()).default([]),
     reason: optionalText(300),
   })
-  .refine((v) => v.ends_on >= v.starts_on, { path: ['ends_on'], message: 'Ends before it starts' });
+  .refine((v) => v.ends_on >= v.starts_on, { path: ['ends_on'], message: 'Ends before it starts' })
+  .refine((v) => !!v.to_user_id !== !!v.to_employee_id, { path: ['to_user_id'], message: 'Give to_user_id or to_employee_id' });
