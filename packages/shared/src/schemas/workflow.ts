@@ -16,6 +16,8 @@ export const REQUEST_TYPES = {
   lifecycle_change: 'Promotion, transfer, confirmation, contract renewal, resignation, termination or final dues',
   performance_review: 'Appraisal (manager assessment, calibration and approval)',
   training_request: 'A place on a training session',
+  travel_request: 'Travel request (with any advance)',
+  expense_claim: 'Expense claim (reimbursed through payroll)',
   medical_application: 'Medical scheme application (joining, dependants, top-ups, pre-authorisations, over-limit claims)',
 } as const;
 export type RequestType = keyof typeof REQUEST_TYPES;

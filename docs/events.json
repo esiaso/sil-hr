@@ -2765,6 +2765,141 @@
     }
   },
   {
+    "type": "hr.announcement.published.v1",
+    "version": 1,
+    "description": "An announcement went live (for intranet screens or digital signage). Audience lists are empty for everyone.",
+    "subject": "announcement id",
+    "data_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "title": {
+          "type": "string"
+        },
+        "branch_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          }
+        },
+        "department_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          }
+        },
+        "publish_at": {
+          "type": "string"
+        },
+        "expires_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "branch_ids",
+        "department_ids",
+        "publish_at",
+        "expires_at"
+      ],
+      "additionalProperties": false
+    },
+    "example": {
+      "id": "0199a6b0-0000-7000-8000-0000000000a1",
+      "title": "Fire drill on Friday",
+      "branch_ids": [],
+      "department_ids": [],
+      "publish_at": "2026-11-20T06:00:00.000Z",
+      "expires_at": null
+    }
+  },
+  {
+    "type": "hr.expense_claim.approved.v1",
+    "version": 1,
+    "description": "An expense claim was approved: payroll reimburses (or, after an advance, recovers) net in paid_period. Finance can post the cost.",
+    "subject": "employee id",
+    "data_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "number": {
+          "type": "string"
+        },
+        "employee_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "staff_number": {
+          "type": "string"
+        },
+        "total": {
+          "type": "string"
+        },
+        "advance_offset": {
+          "type": "string"
+        },
+        "net": {
+          "type": "string"
+        },
+        "paid_period": {
+          "type": "string"
+        },
+        "cost_centre_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "number",
+        "employee_id",
+        "staff_number",
+        "total",
+        "advance_offset",
+        "net",
+        "paid_period",
+        "cost_centre_id"
+      ],
+      "additionalProperties": false
+    },
+    "example": {
+      "id": "0199a6b0-0000-7000-8000-0000000000a2",
+      "number": "EXP/2026/0007",
+      "employee_id": "0199a6b0-0000-7000-8000-0000000000e1",
+      "staff_number": "SIL00042",
+      "total": "14500.00",
+      "advance_offset": "10000.00",
+      "net": "4500.00",
+      "paid_period": "2026-12",
+      "cost_centre_id": null
+    }
+  },
+  {
     "type": "hr.webhook.test.v1",
     "version": 1,
     "description": "Sent only to one subscription when an administrator presses \"Send test event\".",

@@ -273,8 +273,9 @@ tests, until the owning team confirms them.
 | ZKTeco BioTime (pull) | `POST /jwt-api-token-auth/`, then `GET /iclock/api/transactions/?start_time=&end_time=&page=` (BioTime 8 personnel API). `punch_state` 0 = in, 1 = out. | **Needs a trial against the hospital's BioTime** |
 | ZKTeco devices (ADMS push) | Device server set to SIL HR; `POST /iclock/cdata?SN=…&table=ATTLOG` with tab-separated `PIN, time, state` lines. | **Needs a trial with the hospital's model and firmware** |
 | Hikvision terminals (ISAPI) | Digest auth; `POST /ISAPI/AccessControl/AcsEvent?format=json` (major 5, minor 75), paged by `searchResultPosition`; push as `AccessControllerEvent` JSON or multipart `event_log`. | **Needs a trial with the hospital's model and firmware** |
-| HMIS | FHIR R4 `Practitioner` / `PractitionerRole` with licence status. | Slice 9 |
-| Finance / GL | Payroll journal per run as an API resource and a file. | Slice 5 |
+| HMIS | FHIR R4 `Practitioner` / `PractitionerRole` (JSON, read and search) with licence status; see §12. | **Implemented** (slice 9); to agree with the HMIS vendor which identifiers they search by |
+| SMS (Africa's Talking) | `POST {SMS_URL}` form `username, to, message, from` with header `apiKey`; success when `SMSMessageData.Recipients[0].status` is `Success`. | **Implemented** against the published API with a mock; needs the hospital's account, sender ID and a live trial |
+| Finance / GL | Payroll journal per run as an API resource and a file; `hr.expense_claim.approved.v1` for expense postings. | Implemented (slice 5); the chart of accounts is still placeholders |
 
 ## 7. Time and attendance sources
 
@@ -401,3 +402,43 @@ for example before putting them on a resuscitation team:
 
 `hr.performance.review_completed.v1` carries only the final rating and its band, never what
 was written about the person.
+
+## 12. HMIS practitioner registry (FHIR R4)
+
+Read-only, JSON (`application/fhir+json`), for an API client with the `fhir:read` scope.
+Clinical staff and anyone holding a professional licence are listed; the resource id is the
+HR employee id.
+
+```bash
+curl -s -H "Authorization: Bearer $TOKEN" "http://localhost:3310/api/v1/fhir/Practitioner?identifier=urn:sil:hr:staff-number|SIL00042"
+curl -s -H "Authorization: Bearer $TOKEN" "http://localhost:3310/api/v1/fhir/Practitioner?identifier=urn:sil:hr:licence:nck|NCK/S10042"
+curl -s -H "Authorization: Bearer $TOKEN" "http://localhost:3310/api/v1/fhir/PractitionerRole?practitioner=Practitioner/{id}"
+```
+
+* `Practitioner.identifier`: the staff number (`urn:sil:hr:staff-number`, official) and each
+  licence (`urn:sil:hr:licence:{body}`). `active` is false once the person has left.
+* `Practitioner.qualification`: one per licence with its period and issuer, and the
+  extension `urn:sil:hr:fhir:licence-status` (`valid`, `expired`, `not_verified`,
+  `suspended`). The HMIS should refuse clinical orders when it is not `valid`.
+* `PractitionerRole`: position (`urn:sil:hr:position`) and department
+  (`urn:sil:hr:department`); `active` is false when the person has left or their licence
+  has expired or is suspended.
+* Search parameters: `identifier`, `active`, `name`, `_count` (max 500), `_offset`;
+  `GET /api/v1/fhir/metadata` returns the CapabilityStatement. React to
+  `hr.employee.licence_*` events rather than polling where possible.
+
+Errors are RFC 9457 problem documents, not FHIR `OperationOutcome`.
+
+## 13. Calendars, SMS and reports
+
+* **ICS feeds**: each user can create a secret calendar address (My calendar → Subscribe)
+  that Outlook, Google or Apple calendars poll: leave, shifts, meetings, training,
+  interviews and public holidays, 30 days back and 180 ahead. A new address replaces the
+  old one. Each meeting also has an `.ics` download.
+* **SMS**: notification templates whose channels include `sms` are sent through
+  Africa's Talking when `SMS_USERNAME`/`SMS_API_KEY` are set and the `sms.enabled`
+  setting is on. Numbers are normalised to +254…; failures retry five times.
+* **Reports**: `GET /api/v1/reports/{headcount|turnover|leave-liability|overtime-cost|payroll-cost|licence-expiry|contract-expiry}`
+  with `format=json|csv|xlsx`, limited to the caller's `report:read` scope. Exports are
+  audited.
+* **Announcements**: `hr.announcement.published.v1` for intranet screens or signage.

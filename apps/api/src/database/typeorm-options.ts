@@ -17,6 +17,8 @@ import { LIFECYCLE_ENTITIES } from '../modules/lifecycle/lifecycle.entities';
 import { RECRUITMENT_ENTITIES } from '../modules/recruitment/recruitment.entities';
 import { PERFORMANCE_ENTITIES } from '../modules/performance/performance.entities';
 import { TRAINING_ENTITIES } from '../modules/training/training.entities';
+import { WORKPLACE_ENTITIES } from '../modules/workplace/workplace.entities';
+import { EXPENSE_ENTITIES } from '../modules/expenses/expenses.entities';
 import { LEAVE_ENTITIES } from '../modules/leave/leave.entities';
 import { WORKFLOW_ENTITIES } from '../modules/workflow/workflow.entities';
 import { EmailOutbox, Notification, NotificationTemplate } from '../modules/notifications/notifications.module';
@@ -54,6 +56,8 @@ export const ENTITIES = [
   ...RECRUITMENT_ENTITIES,
   ...PERFORMANCE_ENTITIES,
   ...TRAINING_ENTITIES,
+  ...WORKPLACE_ENTITIES,
+  ...EXPENSE_ENTITIES,
 ];
 
 export function typeOrmOptions(overrides: Partial<DataSourceOptions> = {}): DataSourceOptions {

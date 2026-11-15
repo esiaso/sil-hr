@@ -16,3 +16,6 @@ export * from './schemas/lifecycle';
 export * from './schemas/recruitment';
 export * from './schemas/performance';
 export * from './schemas/training';
+export * from './schemas/workplace';
+export * from './schemas/expenses';
+export * from './schemas/reports';

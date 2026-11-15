@@ -42,6 +42,10 @@ const COMPONENTS: Partial<PayComponent>[] = [
   { code: 'RECOVERY', name: 'Overpayment recovery', kind: 'deduction', method: 'fixed', taxable: false, prorate: false, sortOrder: 67 },
   // Staff contributions to the hospital medical scheme, added by the medical module when contributions are on.
   { code: 'MEDICAL', name: 'Medical scheme contribution', kind: 'deduction', method: 'fixed', taxable: false, prorate: false, isSystem: true, sortOrder: 68 },
+  // Travel and expenses (slice 9): reimbursements and advances are not pay, so not taxed.
+  { code: 'EXPENSE_REIMB', name: 'Expense reimbursement', kind: 'earning', method: 'fixed', taxable: false, prorate: false, isSystem: true, sortOrder: 24 },
+  { code: 'TRAVEL_ADV', name: 'Travel advance', kind: 'earning', method: 'fixed', taxable: false, prorate: false, isSystem: true, sortOrder: 25 },
+  { code: 'ADV_RECOVERY', name: 'Unspent travel advance', kind: 'deduction', method: 'fixed', taxable: false, prorate: false, isSystem: true, sortOrder: 69 },
   { code: 'MEDICAL_BENEFIT', name: 'Medical cover (taxable benefit)', kind: 'benefit', method: 'fixed', taxable: true, prorate: false, sortOrder: 30 },
 ];
 

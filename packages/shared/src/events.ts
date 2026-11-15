@@ -356,6 +356,20 @@ export const EVENT_CATALOGUE = [
     example: { id: '0199a6b0-0000-7000-8000-0000000000b4', employee_id: E1, staff_number: 'SIL00042', points: '5.0', licensing_body: 'NCK', activity_date: '2026-11-20', source: 'training' },
   },
   {
+    type: 'hr.announcement.published.v1',
+    description: 'An announcement went live (for intranet screens or digital signage). Audience lists are empty for everyone.',
+    subject: 'announcement id',
+    schema: z.object({ id, title: z.string(), branch_ids: z.array(id), department_ids: z.array(id), publish_at: z.string(), expires_at: z.string().nullable() }),
+    example: { id: '0199a6b0-0000-7000-8000-0000000000a1', title: 'Fire drill on Friday', branch_ids: [], department_ids: [], publish_at: '2026-11-20T06:00:00.000Z', expires_at: null },
+  },
+  {
+    type: 'hr.expense_claim.approved.v1',
+    description: 'An expense claim was approved: payroll reimburses (or, after an advance, recovers) net in paid_period. Finance can post the cost.',
+    subject: 'employee id',
+    schema: z.object({ id, number: z.string(), employee_id: id, staff_number: z.string(), total: z.string(), advance_offset: z.string(), net: z.string(), paid_period: z.string(), cost_centre_id: id.nullable() }),
+    example: { id: '0199a6b0-0000-7000-8000-0000000000a2', number: 'EXP/2026/0007', employee_id: E1, staff_number: 'SIL00042', total: '14500.00', advance_offset: '10000.00', net: '4500.00', paid_period: '2026-12', cost_centre_id: null },
+  },
+  {
     type: 'hr.webhook.test.v1',
     description: 'Sent only to one subscription when an administrator presses "Send test event".',
     subject: 'subscription id',

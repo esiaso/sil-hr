@@ -47,6 +47,8 @@ export interface Env {
   procurementApiKey: string | null;
   smtpUrl: string | null;
   mailFrom: string;
+  /** SMS gateway (Africa's Talking messaging API); empty username disables SMS. */
+  sms: { url: string; username: string | null; apiKey: string | null; senderId: string | null };
   eventStream: string;
   eventSource: string;
   jobsMode: 'queue' | 'inline' | 'off';
@@ -120,6 +122,7 @@ export function loadEnv(source: NodeJS.ProcessEnv = process.env, useCache = true
     procurementApiKey: e.PROCUREMENT_API_KEY || null,
     smtpUrl: e.SMTP_URL || null,
     mailFrom: e.MAIL_FROM ?? 'SIL HR <hr@localhost>',
+    sms: { url: e.SMS_URL || 'https://api.africastalking.com/version1/messaging', username: e.SMS_USERNAME || null, apiKey: e.SMS_API_KEY || null, senderId: e.SMS_SENDER_ID || null },
     eventStream: e.EVENT_STREAM ?? 'silhr:events',
     eventSource: e.EVENT_SOURCE ?? 'urn:sil:hr',
     jobsMode: (e.JOBS_MODE as Env['jobsMode']) ?? 'inline',

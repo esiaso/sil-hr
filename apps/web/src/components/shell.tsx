@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import {
   Bell, BriefcaseBusiness, Building2, CalendarDays, CheckSquare, ChevronDown, Clock, Contact, FileText, LayoutDashboard, LogOut, Menu, Moon, PanelLeftClose, PanelLeftOpen,
-  HeartPulse, ListChecks, UserPlus, Target, GraduationCap, MessagesSquare, FolderOpen, Repeat, Plug, Search, Settings, ShieldCheck, Stethoscope, Sun, UserRound, Users, Wallet, X, type LucideIcon,
+  HeartPulse, ListChecks, UserPlus, Target, GraduationCap, Megaphone, CalendarRange, Presentation, FileSignature, Receipt, BarChart3, MessagesSquare, FolderOpen, Repeat, Plug, Search, Settings, ShieldCheck, Stethoscope, Sun, UserRound, Users, Wallet, X, type LucideIcon,
 } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { authPost, hr, unwrap } from '@/lib/api';
@@ -14,10 +14,10 @@ import { SessionProvider, useSession } from '@/lib/session';
 import { cx } from './ui';
 
 const GROUP_ICONS: Record<string, LucideIcon> = {
-  People: Users, Leave: CalendarDays, 'Time & attendance': Clock, Payroll: Wallet, 'Medical scheme': Stethoscope, Lifecycle: Repeat, Recruitment: UserPlus, 'Performance & training': Target, Organisation: Building2, Administration: ShieldCheck, Integrations: Plug,
+  People: Users, Leave: CalendarDays, 'Time & attendance': Clock, Payroll: Wallet, 'Medical scheme': Stethoscope, Lifecycle: Repeat, Recruitment: UserPlus, 'Performance & training': Target, 'Workplace & reports': BarChart3, Organisation: Building2, Administration: ShieldCheck, Integrations: Plug,
 };
 const HOME_ICONS: Record<string, LucideIcon> = {
-  '/': LayoutDashboard, '/me': UserRound, '/leave': CalendarDays, '/attendance/me': Clock, '/me/payslips': FileText, '/medical': HeartPulse, '/lifecycle/tasks': ListChecks, '/me/performance': Target, '/me/training': GraduationCap, '/recruitment/interviews': MessagesSquare, '/lifecycle/relations': FolderOpen, '/approvals': CheckSquare, '/directory': Contact,
+  '/': LayoutDashboard, '/announcements': Megaphone, '/calendar': CalendarRange, '/meetings': Presentation, '/policies': FileSignature, '/expenses': Receipt, '/me': UserRound, '/leave': CalendarDays, '/attendance/me': Clock, '/me/payslips': FileText, '/medical': HeartPulse, '/lifecycle/tasks': ListChecks, '/me/performance': Target, '/me/training': GraduationCap, '/recruitment/interviews': MessagesSquare, '/lifecycle/relations': FolderOpen, '/approvals': CheckSquare, '/directory': Contact,
 };
 
 export function Shell({ children }: { children: ReactNode }) {

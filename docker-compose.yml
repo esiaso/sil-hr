@@ -25,6 +25,10 @@ x-api-env: &api-env
   SAMPLE_WEBHOOK_URL: ${SAMPLE_WEBHOOK_URL:-http://webhook-sink:8099/hooks}
   PROCUREMENT_API_URL: ${PROCUREMENT_API_URL:-}
   PROCUREMENT_API_KEY: ${PROCUREMENT_API_KEY:-}
+  SMS_URL: ${SMS_URL:-https://api.africastalking.com/version1/messaging}
+  SMS_USERNAME: ${SMS_USERNAME:-}
+  SMS_API_KEY: ${SMS_API_KEY:-}
+  SMS_SENDER_ID: ${SMS_SENDER_ID:-}
   S3_ENDPOINT: http://minio:9000
   S3_PUBLIC_ENDPOINT: ${S3_PUBLIC_ENDPOINT:-http://localhost:9010}
   S3_BUCKET: ${S3_BUCKET:-silhr-documents}

@@ -114,10 +114,33 @@ class EmailChannel implements NotificationChannel {
   }
 }
 
+/** Kenyan numbers in E.164 (+2547…); anything else is passed through without spaces. */
+export function normalisePhone(raw: string): string | null {
+  const d = raw.replace(/[\s()-]/g, '');
+  if (/^\+\d{8,15}$/.test(d)) return d;
+  if (/^0[17]\d{8}$/.test(d)) return `+254${d.slice(1)}`;
+  if (/^254\d{9}$/.test(d)) return `+${d}`;
+  return null;
+}
+
+/** Queues an SMS (sent by the worker); a no-op when the gateway is not configured or SMS is off. */
+class SmsChannel implements NotificationChannel {
+  readonly name = 'sms';
+  async send(m: EntityManager, to: { userId: string; phone: string | null }, msg: { title: string; body: string }) {
+    if (!loadEnv().sms.username || !to.phone) return;
+    const [s] = await m.query(`SELECT value FROM setting WHERE key = 'sms.enabled'`);
+    if (!s || s.value !== true) return;
+    const phone = normalisePhone(to.phone);
+    if (!phone) return;
+    const text = `${msg.title}: ${msg.body}`.replace(/\s+/g, ' ');
+    await m.query(`INSERT INTO sms_outbox (user_id, phone, body) VALUES ($1, $2, $3)`, [to.userId, phone, text.length > 640 ? `${text.slice(0, 637)}...` : text]);
+  }
+}
+
 @Injectable()
 export class NotificationsService {
   private readonly logger = new Logger('Notifications');
-  private readonly channels = new Map<string, NotificationChannel>([['in_app', new InAppChannel()], ['email', new EmailChannel()]]);
+  private readonly channels = new Map<string, NotificationChannel>([['in_app', new InAppChannel()], ['email', new EmailChannel()], ['sms', new SmsChannel()]]);
   private transporter: Transporter | null = null;
 
   constructor(@InjectDataSource() private readonly dataSource: DataSource) {}
@@ -184,6 +207,36 @@ export class NotificationsService {
           sent++;
         } catch (e) {
           await m.getRepository(EmailOutbox).update({ id: r.id }, { attempts: r.attempts + 1, lastError: String((e as Error).message).slice(0, 1000), status: r.attempts + 1 >= 5 ? 'failed' : 'pending' });
+        }
+      }
+    });
+    return sent;
+  }
+
+  /**
+   * Worker: sends queued SMS through Africa's Talking (form POST with the apiKey header).
+   * Failures retry with backoff (1, 4, 9… minutes) and give up after five attempts.
+   */
+  async sendPendingSms(limit = 50): Promise<number> {
+    const env = loadEnv();
+    if (!env.sms.username || !env.sms.apiKey) return 0;
+    let sent = 0;
+    await this.dataSource.transaction(async (m) => {
+      const rows: { id: string; phone: string; body: string; attempts: number }[] = await m.query(
+        `SELECT id, phone, body, attempts FROM sms_outbox WHERE status = 'pending' AND next_attempt_at <= now() ORDER BY id LIMIT $1 FOR UPDATE SKIP LOCKED`, [limit],
+      );
+      for (const r of rows) {
+        try {
+          const form = new URLSearchParams({ username: env.sms.username!, to: r.phone, message: r.body, ...(env.sms.senderId ? { from: env.sms.senderId } : {}) });
+          const res = await fetch(env.sms.url, { method: 'POST', headers: { apiKey: env.sms.apiKey!, accept: 'application/json', 'content-type': 'application/x-www-form-urlencoded' }, body: form, signal: AbortSignal.timeout(15_000) });
+          const json = (await res.json().catch(() => ({}))) as { SMSMessageData?: { Recipients?: { status?: string; statusCode?: number; messageId?: string }[]; Message?: string } };
+          const rec = json.SMSMessageData?.Recipients?.[0];
+          if (!res.ok || !rec || !['Success', 'Sent'].includes(rec.status ?? '')) throw new Error(`${res.status} ${rec?.status ?? json.SMSMessageData?.Message ?? 'no recipient in response'}`);
+          await m.query(`UPDATE sms_outbox SET status = 'sent', sent_at = now(), attempts = attempts + 1, provider_message_id = $2 WHERE id = $1`, [r.id, rec.messageId ?? null]);
+          sent++;
+        } catch (e) {
+          const n = r.attempts + 1;
+          await m.query(`UPDATE sms_outbox SET attempts = $2, last_error = $3, status = $4, next_attempt_at = now() + make_interval(mins => $5) WHERE id = $1`, [r.id, n, String((e as Error).message).slice(0, 500), n >= 5 ? 'failed' : 'pending', n * n]);
         }
       }
     });

@@ -18,6 +18,7 @@ import { seedMedicalDefaults, seedSampleMedical } from './medical-defaults';
 import { seedLifecycleDefaults, seedSampleContracts } from './lifecycle-defaults';
 import { seedRecruitmentDefaults, seedSampleRecruitment } from './recruitment-defaults';
 import { seedSampleTalent, seedTalentDefaults } from './talent-defaults';
+import { seedSampleWorkplace, seedWorkplaceDefaults } from './workplace-defaults';
 import { ingestSamplePunches, seedSampleAttendance, seedShifts, type SamplePunches } from './sample-attendance';
 import { WebhookSubscription } from '../../modules/webhooks/webhook.entities';
 
@@ -82,6 +83,8 @@ async function seedReference(m: EntityManager): Promise<void> {
     { documentType: 'payslip', name: 'Payslip', prefix: 'PS', format: '{PREFIX}/{YYYY}{MM}/{SEQ}', padding: 5, reset: 'yearly' as const },
     { documentType: 'job_requisition', name: 'Job requisition', prefix: 'REQ', format: '{PREFIX}/{YYYY}/{SEQ}', padding: 4, reset: 'yearly' as const },
     { documentType: 'training_session', name: 'Training session', prefix: 'TRN', format: '{PREFIX}/{YYYY}/{SEQ}', padding: 4, reset: 'yearly' as const },
+    { documentType: 'travel_request', name: 'Travel request', prefix: 'TRV', format: '{PREFIX}/{YYYY}/{SEQ}', padding: 4, reset: 'yearly' as const },
+    { documentType: 'expense_claim', name: 'Expense claim', prefix: 'EXP', format: '{PREFIX}/{YYYY}/{SEQ}', padding: 4, reset: 'yearly' as const },
     { documentType: 'leave_request', name: 'Leave request', prefix: 'LV', format: '{PREFIX}/{YYYY}/{SEQ}', padding: 5, reset: 'yearly' as const },
   ];
   for (const s of schemes) {
@@ -234,6 +237,42 @@ async function seedReference(m: EntityManager): Promise<void> {
       description: 'Sent once per licence expiry, 60 days ahead, when the holder is short of CPD points',
     },
     {
+      code: 'announcement_published',
+      subject: 'Announcement: {{title}}',
+      body: 'A new announcement has been published: {{title}}. Read it on the SIL HR home page.',
+      description: 'Sent to the audience when an announcement goes live',
+    },
+    {
+      code: 'policy_published',
+      subject: 'Please read: {{title}}',
+      body: 'Version {{version}} of {{title}} applies to you. Read it under My policies and confirm you have read it.',
+      description: 'Sent to staff when a policy (or a new version) needs their acknowledgement',
+    },
+    {
+      code: 'meeting_invite',
+      subject: 'Meeting: {{title}}, {{when}}',
+      body: '{{organiser}} invited you to {{title}} on {{when}}. Accept or decline it under Meetings; you can add it to your calendar from there.',
+      description: 'Sent to attendees when they are invited to a meeting',
+    },
+    {
+      code: 'meeting_cancelled',
+      subject: 'Cancelled: {{title}}, {{when}}',
+      body: '{{title}} on {{when}} has been cancelled.',
+      description: 'Sent to attendees when a meeting is cancelled',
+    },
+    {
+      code: 'meeting_minutes',
+      subject: 'Minutes: {{title}}',
+      body: 'The minutes of {{title}} are available under Meetings.',
+      description: 'Sent to attendees when the minutes are first recorded',
+    },
+    {
+      code: 'meeting_action_assigned',
+      subject: 'Action for you from {{title}}',
+      body: '{{action}} (due {{due}}). See My actions under Meetings.',
+      description: 'Sent to the owner of a meeting action',
+    },
+    {
       code: 'connector_failing',
       subject: 'Device connector "{{connector}}" is failing',
       body: 'The last sync failed: {{error}}\n\nPunches from those devices are not arriving. Check the connector under Integrations → Device connectors.',
@@ -256,6 +295,7 @@ async function seedReference(m: EntityManager): Promise<void> {
   await seedLifecycleDefaults(m);
   await seedRecruitmentDefaults(m);
   await seedTalentDefaults(m);
+  await seedWorkplaceDefaults(m);
   for (const d of documentTypes) {
     if (!(await m.getRepository(DocumentType).existsBy({ code: d.code }))) await m.getRepository(DocumentType).save(m.getRepository(DocumentType).create(d));
   }
@@ -419,6 +459,7 @@ async function seedSample(m: EntityManager, app: INestApplicationContext, passwo
   await seedSampleContracts(m);
   await seedSampleRecruitment(m);
   await seedSampleTalent(m);
+  await seedSampleWorkplace(m);
   const punches = await seedSampleAttendance(m);
 
   // A sample webhook pointed at the development sink that verifies signatures (compose: webhook-sink).

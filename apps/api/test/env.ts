@@ -19,3 +19,8 @@ process.env.JOBS_MODE = 'queue';
 // Exit clearance asks a mock sil_procurement (started by lifecycle.spec.ts).
 process.env.PROCUREMENT_API_URL = 'http://127.0.0.1:39125';
 process.env.PROCUREMENT_API_KEY = 'test-hr-key';
+// SMS goes to a mock Africa's Talking gateway (started by workplace.spec.ts).
+process.env.SMS_URL = 'http://127.0.0.1:39126/version1/messaging';
+process.env.SMS_USERNAME = 'sandbox';
+process.env.SMS_API_KEY = 'test-sms-key';
+process.env.SMS_SENDER_ID = '';

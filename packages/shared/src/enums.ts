@@ -37,6 +37,7 @@ export const AuditAction = {
   REJECT: 'reject',
   REPLAY: 'replay',
   SECRET_ROTATED: 'secret_rotated',
+  ACKNOWLEDGE: 'acknowledge',
 } as const;
 export type AuditAction = (typeof AuditAction)[keyof typeof AuditAction];
 

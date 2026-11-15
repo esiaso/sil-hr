@@ -15,7 +15,7 @@ export interface NavGroup {
 }
 
 export const NAV: NavGroup[] = [
-  { label: 'Home', items: [{ label: 'Dashboard', href: '/' }, { label: 'My profile', href: '/me' }, { label: 'My leave', href: '/leave' }, { label: 'Clock in / my attendance', href: '/attendance/me' }, { label: 'My payslips', href: '/me/payslips' }, { label: 'My medical cover', href: '/medical' }, { label: 'My tasks', href: '/lifecycle/tasks' }, { label: 'My performance', href: '/me/performance' }, { label: 'My training and CPD', href: '/me/training' }, { label: 'My interviews', href: '/recruitment/interviews' }, { label: 'My HR file', href: '/lifecycle/relations' }, { label: 'Approvals', href: '/approvals' }, { label: 'Staff directory', href: '/directory', permission: 'directory:read' }] },
+  { label: 'Home', items: [{ label: 'Dashboard', href: '/' }, { label: 'Announcements', href: '/announcements' }, { label: 'My calendar', href: '/calendar' }, { label: 'Meetings', href: '/meetings' }, { label: 'Policies', href: '/policies' }, { label: 'Travel and expenses', href: '/expenses' }, { label: 'My profile', href: '/me' }, { label: 'My leave', href: '/leave' }, { label: 'Clock in / my attendance', href: '/attendance/me' }, { label: 'My payslips', href: '/me/payslips' }, { label: 'My medical cover', href: '/medical' }, { label: 'My tasks', href: '/lifecycle/tasks' }, { label: 'My performance', href: '/me/performance' }, { label: 'My training and CPD', href: '/me/training' }, { label: 'My interviews', href: '/recruitment/interviews' }, { label: 'My HR file', href: '/lifecycle/relations' }, { label: 'Approvals', href: '/approvals' }, { label: 'Staff directory', href: '/directory', permission: 'directory:read' }] },
   {
     label: 'People',
     items: [
@@ -58,6 +58,14 @@ export const NAV: NavGroup[] = [
       { label: 'Training sessions', href: '/training', permission: 'training:read' },
       { label: 'Mandatory training', href: '/training/compliance', permission: 'training:read' },
       { label: 'CPD', href: '/training/cpd', permission: 'training:read|cpd:verify' },
+    ],
+  },
+  {
+    label: 'Workplace & reports',
+    items: [
+      { label: 'Reports', href: '/reports', permission: 'report:read' },
+      { label: 'Expense claims', href: '/expenses/all', permission: 'expense:read' },
+      { label: 'Meeting rooms', href: '/meetings/rooms', permission: 'meeting_room:manage' },
     ],
   },
   {

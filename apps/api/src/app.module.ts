@@ -17,6 +17,10 @@ import { LifecycleModule } from './modules/lifecycle/lifecycle.module';
 import { RecruitmentModule } from './modules/recruitment/recruitment.module';
 import { PerformanceModule } from './modules/performance/performance.module';
 import { TrainingModule } from './modules/training/training.module';
+import { WorkplaceModule } from './modules/workplace/workplace.module';
+import { ExpensesModule } from './modules/expenses/expenses.module';
+import { ReportsModule } from './modules/reports/reports.module';
+import { FhirModule } from './modules/fhir/fhir.module';
 import { LeaveModule } from './modules/leave/leave.module';
 import { WorkflowModule } from './modules/workflow/workflow.module';
 import { EventsModule } from './modules/events/events.module';
@@ -53,6 +57,10 @@ import { WebhooksModule } from './modules/webhooks/webhooks.module';
     RecruitmentModule,
     PerformanceModule,
     TrainingModule,
+    WorkplaceModule,
+    ExpensesModule,
+    ReportsModule,
+    FhirModule,
     HealthModule,
   ],
   providers: [

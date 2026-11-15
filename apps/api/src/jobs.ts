@@ -15,6 +15,7 @@ import { MedicalService } from './modules/medical/medical.service';
 import { LifecycleService } from './modules/lifecycle/lifecycle.service';
 import { RecruitmentService } from './modules/recruitment/recruitment.service';
 import { TrainingService } from './modules/training/training.service';
+import { WorkplaceService } from './modules/workplace/workplace.service';
 import { NotificationsService } from './modules/notifications/notifications.module';
 import { OutboxPublisher, WebhookDeliveryProcessor } from './modules/webhooks/publishing';
 
@@ -33,6 +34,8 @@ export const JOBS: { name: string; everyMs: number; run: (app: INestApplicationC
   { name: 'connector-pulls', everyMs: 60_000, run: (app) => app.get(ConnectorsService).runDue() },
   { name: 'attendance-recompute', everyMs: 6 * 3_600_000, run: (app) => app.get(AttendanceService).recomputeRecent() },
   { name: 'send-mail', everyMs: 10_000, run: (app) => app.get(NotificationsService).sendPendingMail(50) },
+  { name: 'send-sms', everyMs: 15_000, run: (app) => app.get(NotificationsService).sendPendingSms(50) },
+  { name: 'announcements', everyMs: 60_000, run: (app) => app.get(WorkplaceService).publishDue() },
   // Daily work runs hourly: each is idempotent, so a missed hour or a restart costs nothing.
   { name: 'licence-sweep', everyMs: 3_600_000, run: async (app) => { const r = await app.get(LicencesService).sweep(); return r.expiring + r.expired; } },
   { name: 'apply-due-assignments', everyMs: 3_600_000, run: (app) => app.get(EmployeesService).applyDueAssignments() },

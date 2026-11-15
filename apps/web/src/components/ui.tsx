@@ -15,6 +15,9 @@ const VARIANTS: Record<Variant, string> = {
   ghost: 'text-[var(--text)] hover:bg-[var(--hover)]',
 };
 
+/** Button styling for links that look like buttons (downloads, external pages). */
+export const buttonClass = (variant: Variant = 'primary') => cx('inline-flex items-center justify-center gap-2 rounded-lg px-3.5 py-2 text-sm font-medium whitespace-nowrap transition-colors', VARIANTS[variant]);
+
 export function Button({ variant = 'primary', busy, className, children, ...rest }: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: Variant; busy?: boolean }) {
   return (
     <button {...rest} disabled={rest.disabled || busy} className={cx('inline-flex items-center justify-center gap-2 rounded-lg px-3.5 py-2 text-sm font-medium whitespace-nowrap transition-colors', VARIANTS[variant], className)}>
