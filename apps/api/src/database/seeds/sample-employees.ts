@@ -10,6 +10,8 @@ import { Department, Position } from '../../modules/organisation/organisation.en
 
 /** Made-up names; any resemblance to real people is accidental. */
 const FIRST = ['Achieng', 'Wanjiru', 'Kiprono', 'Njeri', 'Otieno', 'Mwangi', 'Chebet', 'Kamau', 'Atieno', 'Mutua', 'Wambui', 'Kipkemboi', 'Nyambura', 'Odhiambo', 'Jeptoo', 'Kariuki', 'Akinyi', 'Ndungu', 'Moraa', 'Ouma', 'Wairimu', 'Kiplagat', 'Nekesa', 'Muriuki', 'Awino', 'Gitau', 'Cherono', 'Omondi', 'Wangari', 'Kibet'];
+/** Names used as men's names in the sample; the rest are women's. */
+const MALE = new Set(['Kiprono', 'Otieno', 'Mwangi', 'Kamau', 'Mutua', 'Kipkemboi', 'Odhiambo', 'Kariuki', 'Ndungu', 'Ouma', 'Kiplagat', 'Muriuki', 'Gitau', 'Omondi', 'Kibet']);
 const LAST = ['Amollo', 'Barasa', 'Cheruiyot', 'Gachanja', 'Kahindi', 'Langat', 'Macharia', 'Nduta', 'Ochieng', 'Rotich', 'Simiyu', 'Wekesa', 'Kirui', 'Muthoni', 'Okoth', 'Njoroge', 'Kosgei', 'Waweru', 'Onyango', 'Mbugua'];
 
 /** How many of each position's headcount the sample fills. */
@@ -63,7 +65,7 @@ export async function seedSampleEmployees(m: EntityManager, app: INestApplicatio
           staffNumber: await numbering.next('staff_number', { manager: m, date: hireDate }),
           firstName: first,
           lastName: last,
-          gender: n % 3 === 0 ? 'male' : 'female',
+          gender: MALE.has(first) ? 'male' : 'female',
           dateOfBirth: addDays('1975-01-01', (n * 211) % 9000),
           nationality: 'Kenyan',
           nationalIdEnc: encrypt(nationalId),

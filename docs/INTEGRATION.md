@@ -30,7 +30,8 @@ scopes your system needs, and gives you the client id and secret (the secret is 
 | `events:read` | event catalogue |
 | `external_refs:write` | read and write your system's identifiers in `external_ref` |
 | `documents:read` | download documents |
-| `leave:read`, `attendance:write`, `payroll.journal:read` | reserved: the endpoints arrive in slices 3–5 |
+| `leave:read` | leave requests (`/api/v1/leave/requests`), balances and the team calendar |
+| `attendance:write`, `payroll.journal:read` | reserved: the endpoints arrive in slices 4–5 |
 
 ## 2. Get a token
 
@@ -144,6 +145,8 @@ alongside the old type for a transition period, and a published type is never re
 without notice (a contract test enforces this).
 
 People events (slice 2): `hr.employee.hired.v1`, `hr.employee.updated.v1` (sensitive fields are named in `changed_fields` but never carry values), `hr.employee.transferred.v1` (with `effective_from` and `previous` placement), `hr.employee.status_changed.v1`, `hr.employee.exited.v1`, `hr.employee.manager_changed.v1`, `hr.licence.updated.v1`, `hr.licence.expiring.v1` (once per licence and expiry date), `hr.licence.expired.v1` (the HMIS should stop treating the practitioner as licensed).
+
+Leave events (slice 3): `hr.leave.approved.v1` (dates, half days, days counted, paid or not: attendance should mark those days as leave and payroll prorate unpaid leave) and `hr.leave.cancelled.v1` (approved leave withdrawn; the person is expected at work).
 
 Structure events (slice 1): `hr.organisation.branch.created|updated.v1`,
 `hr.organisation.department.created|updated|deleted.v1`,

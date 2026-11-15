@@ -238,6 +238,10 @@ verification), document_type (required per employment type)
 | D12 | **Refresh-token reuse has a 30-second grace window.** A token presented again within 30 s of its first use gets another token in the same family; later reuse still revokes the whole family. | Browsers send several requests at once when the access token expires; without the window each simultaneous refresh signed the user out. |
 | D13 | **SSO never creates accounts.** The first OIDC sign-in links an existing user by verified email; later ones match the IdP subject. | Accounts follow HR records (and SCIM), not the IdP. |
 
+| D14 | **Leave crossing a leave-year boundary** is refused for accruing types (annual) and must be split; allowance types (maternity, paternity, study) may cross and are charged to the year they start. | Each year's accrued balance pays for its own days; a 90-day maternity leave cannot reasonably be split. |
+| D15 | **Workflow steps never repeat a signer.** If the natural approver already approved an earlier step (e.g. the ward manager is also the head of the ward), the step climbs to their manager. Workflow administrators may act on any shared-queue task. | Two-step chains exist for a second pair of eyes; the brief's "rejection with reason, return for correction, delegation, escalation" are all implemented in the one engine. |
+| D16 | **Roster-aware day counting** is wired as a hook (`rostered(date)`) that the time-and-attendance slice fills in; until then 24/7 staff are counted on the configured working week. | Rosters arrive in slice 4. |
+
 ## 8. Open questions for the hospital (not needed for slice 1)
 
 Pay-cycle dates and payment day; leave entitlements per type/grade; the salary bank and
