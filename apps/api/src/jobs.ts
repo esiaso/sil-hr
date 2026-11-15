@@ -13,6 +13,7 @@ import { LeaveService } from './modules/leave/leave.service';
 import { WorkflowService } from './modules/workflow/workflow.service';
 import { MedicalService } from './modules/medical/medical.service';
 import { LifecycleService } from './modules/lifecycle/lifecycle.service';
+import { RecruitmentService } from './modules/recruitment/recruitment.service';
 import { NotificationsService } from './modules/notifications/notifications.module';
 import { OutboxPublisher, WebhookDeliveryProcessor } from './modules/webhooks/publishing';
 
@@ -34,6 +35,7 @@ export const JOBS: { name: string; everyMs: number; run: (app: INestApplicationC
   // Daily work runs hourly: each is idempotent, so a missed hour or a restart costs nothing.
   { name: 'licence-sweep', everyMs: 3_600_000, run: async (app) => { const r = await app.get(LicencesService).sweep(); return r.expiring + r.expired; } },
   { name: 'apply-due-assignments', everyMs: 3_600_000, run: (app) => app.get(EmployeesService).applyDueAssignments() },
+  { name: 'recruitment-sweep', everyMs: 3_600_000, run: (app) => app.get(RecruitmentService).sweep() },
   { name: 'lifecycle-sweep', everyMs: 3_600_000, run: (app) => app.get(LifecycleService).sweep() },
   { name: 'medical-sweep', everyMs: 3_600_000, run: (app) => app.get(MedicalService).sweep() },
 ];

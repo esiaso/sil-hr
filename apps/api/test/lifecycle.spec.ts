@@ -106,8 +106,9 @@ describe('promotion and confirmation', () => {
     const app = await testApp();
     const hro = await login(app, 'hr.officer');
     const p = await staff('RN-MED', { basic: '60000.00' });
-    const wm = await idOf(app, 'position', 'code', 'WM-MED');
-    const r = await api(app).post(`${B}/lifecycle-requests`).set(bearer(hro)).send({ kind: 'promotion', employee_id: p.id, effective_date: today(), position_id: wm, new_basic: '85000.00', reason: 'Ward manager vacancy' });
+    // Into a post that heads nothing, so other tests' approval routes stay as they are.
+    const wm = await idOf(app, 'position', 'code', 'RN-ICU');
+    const r = await api(app).post(`${B}/lifecycle-requests`).set(bearer(hro)).send({ kind: 'promotion', employee_id: p.id, effective_date: today(), position_id: wm, new_basic: '85000.00', reason: 'Critical care post after ICU training' });
     expect(r.status).toBe(201);
     expect((await api(app).post(`${B}/lifecycle-requests`).set(bearer(hro)).send({ kind: 'promotion', employee_id: p.id, effective_date: today(), position_id: wm, reason: 'Again' })).status).toBe(409);
     await decide(r.body.id, ['line.manager|head.nursing', 'hr.manager']);

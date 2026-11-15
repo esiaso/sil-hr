@@ -11,6 +11,8 @@ export const REQUEST_TYPES = {
   contact_change: 'Self-service contact change',
   attendance_regularisation: 'Attendance correction (missed clock-in or clock-out)',
   payroll_run: 'Payroll run approval',
+  job_requisition: 'Job requisition (a new or replacement hire)',
+  job_offer: 'Job offer',
   lifecycle_change: 'Promotion, transfer, confirmation, contract renewal, resignation, termination or final dues',
   medical_application: 'Medical scheme application (joining, dependants, top-ups, pre-authorisations, over-limit claims)',
 } as const;

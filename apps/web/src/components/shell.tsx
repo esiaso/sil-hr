@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import {
   Bell, BriefcaseBusiness, Building2, CalendarDays, CheckSquare, ChevronDown, Clock, Contact, FileText, LayoutDashboard, LogOut, Menu, Moon, PanelLeftClose, PanelLeftOpen,
-  HeartPulse, ListChecks, FolderOpen, Repeat, Plug, Search, Settings, ShieldCheck, Stethoscope, Sun, UserRound, Users, Wallet, X, type LucideIcon,
+  HeartPulse, ListChecks, UserPlus, MessagesSquare, FolderOpen, Repeat, Plug, Search, Settings, ShieldCheck, Stethoscope, Sun, UserRound, Users, Wallet, X, type LucideIcon,
 } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { authPost, hr, unwrap } from '@/lib/api';
@@ -14,10 +14,10 @@ import { SessionProvider, useSession } from '@/lib/session';
 import { cx } from './ui';
 
 const GROUP_ICONS: Record<string, LucideIcon> = {
-  People: Users, Leave: CalendarDays, 'Time & attendance': Clock, Payroll: Wallet, 'Medical scheme': Stethoscope, Lifecycle: Repeat, Organisation: Building2, Administration: ShieldCheck, Integrations: Plug,
+  People: Users, Leave: CalendarDays, 'Time & attendance': Clock, Payroll: Wallet, 'Medical scheme': Stethoscope, Lifecycle: Repeat, Recruitment: UserPlus, Organisation: Building2, Administration: ShieldCheck, Integrations: Plug,
 };
 const HOME_ICONS: Record<string, LucideIcon> = {
-  '/': LayoutDashboard, '/me': UserRound, '/leave': CalendarDays, '/attendance/me': Clock, '/me/payslips': FileText, '/medical': HeartPulse, '/lifecycle/tasks': ListChecks, '/lifecycle/relations': FolderOpen, '/approvals': CheckSquare, '/directory': Contact,
+  '/': LayoutDashboard, '/me': UserRound, '/leave': CalendarDays, '/attendance/me': Clock, '/me/payslips': FileText, '/medical': HeartPulse, '/lifecycle/tasks': ListChecks, '/recruitment/interviews': MessagesSquare, '/lifecycle/relations': FolderOpen, '/approvals': CheckSquare, '/directory': Contact,
 };
 
 export function Shell({ children }: { children: ReactNode }) {
@@ -56,7 +56,7 @@ function useTheme(): ['light' | 'dark', () => void] {
 function isActiveFor(pathname: string) {
   // Parents of other entries match exactly (plus their detail pages).
   return (href: string) =>
-    ['/', '/organisation', '/people', '/leave', '/attendance', '/me', '/payroll', '/medical'].includes(href)
+    ['/', '/organisation', '/people', '/leave', '/attendance', '/me', '/payroll', '/medical', '/recruitment'].includes(href)
       ? pathname === href || (href === '/people' && /^\/people\/[0-9a-f-]{36}/.test(pathname)) || (href === '/payroll' && pathname.startsWith('/payroll/runs/'))
       : pathname === href || pathname.startsWith(`${href}/`);
 }

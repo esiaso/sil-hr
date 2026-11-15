@@ -2177,6 +2177,67 @@
     }
   },
   {
+    "type": "hr.requisition.approved.v1",
+    "version": 1,
+    "description": "A job requisition was approved: recruitment may start (and finance can expect the cost).",
+    "subject": "requisition id",
+    "data_schema": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "number": {
+          "type": "string"
+        },
+        "position_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+        },
+        "department_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "headcount": {
+          "type": "integer",
+          "minimum": -9007199254740991,
+          "maximum": 9007199254740991
+        },
+        "employment_type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "number",
+        "position_id",
+        "department_id",
+        "headcount",
+        "employment_type"
+      ],
+      "additionalProperties": false
+    },
+    "example": {
+      "id": "0199a6b0-0000-7000-8000-0000000000a7",
+      "number": "REQ/2026/0012",
+      "position_id": "0199a6b0-0000-7000-8000-0000000000f1",
+      "department_id": "0199a6b0-0000-7000-8000-000000000001",
+      "headcount": 2,
+      "employment_type": "permanent"
+    }
+  },
+  {
     "type": "hr.contract.expiring.v1",
     "version": 1,
     "description": "A fixed-term contract ends within the reminder window (Settings, contracts.reminder_days). Sent once per contract.",

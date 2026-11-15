@@ -16,6 +16,7 @@ import { seedLeaveDefaults } from './leave-defaults';
 import { seedPayrollDefaults, seedSamplePayroll } from './payroll-defaults';
 import { seedMedicalDefaults, seedSampleMedical } from './medical-defaults';
 import { seedLifecycleDefaults, seedSampleContracts } from './lifecycle-defaults';
+import { seedRecruitmentDefaults, seedSampleRecruitment } from './recruitment-defaults';
 import { ingestSamplePunches, seedSampleAttendance, seedShifts, type SamplePunches } from './sample-attendance';
 import { WebhookSubscription } from '../../modules/webhooks/webhook.entities';
 
@@ -123,6 +124,18 @@ async function seedReference(m: EntityManager): Promise<void> {
       description: 'Sent to the requester when their request is decided',
     },
     {
+      code: 'requisition_approved',
+      subject: 'Requisition {{number}} approved',
+      body: 'Requisition {{number}} was approved. You can advertise the post under Recruitment.',
+      description: 'Sent to recruiters when a job requisition is approved',
+    },
+    {
+      code: 'interview_scheduled',
+      subject: 'Interview: {{candidate}} for {{job}}',
+      body: 'You are on the panel to interview {{candidate}} for {{job}} at {{at}}. The CV and the feedback form are under My interviews.',
+      description: 'Sent to each panel member when an interview is scheduled',
+    },
+    {
       code: 'checklist_tasks_assigned',
       subject: '{{kind}} tasks for {{name}}',
       body: 'There are {{kind}} tasks for {{name}} for your team. Open My tasks in SIL HR.',
@@ -179,6 +192,7 @@ async function seedReference(m: EntityManager): Promise<void> {
   await seedPayrollDefaults(m);
   await seedMedicalDefaults(m);
   await seedLifecycleDefaults(m);
+  await seedRecruitmentDefaults(m);
   for (const d of documentTypes) {
     if (!(await m.getRepository(DocumentType).existsBy({ code: d.code }))) await m.getRepository(DocumentType).save(m.getRepository(DocumentType).create(d));
   }
@@ -340,6 +354,7 @@ async function seedSample(m: EntityManager, app: INestApplicationContext, passwo
   await seedSamplePayroll(m);
   await seedSampleMedical(m);
   await seedSampleContracts(m);
+  await seedSampleRecruitment(m);
   const punches = await seedSampleAttendance(m);
 
   // A sample webhook pointed at the development sink that verifies signatures (compose: webhook-sink).

@@ -6,6 +6,7 @@
 export interface NavItem {
   label: string;
   href: string;
+  /** One permission, or several separated by | (any of them). */
   permission?: string;
 }
 export interface NavGroup {
@@ -14,7 +15,7 @@ export interface NavGroup {
 }
 
 export const NAV: NavGroup[] = [
-  { label: 'Home', items: [{ label: 'Dashboard', href: '/' }, { label: 'My profile', href: '/me' }, { label: 'My leave', href: '/leave' }, { label: 'Clock in / my attendance', href: '/attendance/me' }, { label: 'My payslips', href: '/me/payslips' }, { label: 'My medical cover', href: '/medical' }, { label: 'My tasks', href: '/lifecycle/tasks' }, { label: 'My HR file', href: '/lifecycle/relations' }, { label: 'Approvals', href: '/approvals' }, { label: 'Staff directory', href: '/directory', permission: 'directory:read' }] },
+  { label: 'Home', items: [{ label: 'Dashboard', href: '/' }, { label: 'My profile', href: '/me' }, { label: 'My leave', href: '/leave' }, { label: 'Clock in / my attendance', href: '/attendance/me' }, { label: 'My payslips', href: '/me/payslips' }, { label: 'My medical cover', href: '/medical' }, { label: 'My tasks', href: '/lifecycle/tasks' }, { label: 'My interviews', href: '/recruitment/interviews' }, { label: 'My HR file', href: '/lifecycle/relations' }, { label: 'Approvals', href: '/approvals' }, { label: 'Staff directory', href: '/directory', permission: 'directory:read' }] },
   {
     label: 'People',
     items: [
@@ -40,6 +41,13 @@ export const NAV: NavGroup[] = [
       { label: 'Rosters', href: '/attendance/rosters', permission: 'roster:read' },
       { label: 'Shifts', href: '/attendance/shifts', permission: 'shift:manage' },
       { label: 'Overtime rules', href: '/attendance/overtime', permission: 'attendance:read' },
+    ],
+  },
+  {
+    label: 'Recruitment',
+    items: [
+      { label: 'Requisitions', href: '/recruitment', permission: 'requisition:request|requisition:read' },
+      { label: 'Jobs and candidates', href: '/recruitment/jobs', permission: 'recruitment:manage' },
     ],
   },
   {
@@ -108,5 +116,5 @@ export const NAV: NavGroup[] = [
 
 export function visibleNav(permissions: ReadonlySet<string> | string[]): NavGroup[] {
   const held = permissions instanceof Set ? permissions : new Set(permissions);
-  return NAV.map((g) => ({ ...g, items: g.items.filter((i) => !i.permission || held.has(i.permission)) })).filter((g) => g.items.length > 0);
+  return NAV.map((g) => ({ ...g, items: g.items.filter((i) => !i.permission || i.permission.split('|').some((p) => held.has(p))) })).filter((g) => g.items.length > 0);
 }

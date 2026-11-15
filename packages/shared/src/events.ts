@@ -286,6 +286,13 @@ export const EVENT_CATALOGUE = [
     example: { id: E1, staff_number: 'SIL00042', position_id: P1, previous_position_id: null, job_grade_id: null, effective_from: '2027-01-01' },
   },
   {
+    type: 'hr.requisition.approved.v1',
+    description: 'A job requisition was approved: recruitment may start (and finance can expect the cost).',
+    subject: 'requisition id',
+    schema: z.object({ id, number: z.string(), position_id: id, department_id: id.nullable(), headcount: z.number().int(), employment_type: z.string() }),
+    example: { id: '0199a6b0-0000-7000-8000-0000000000a7', number: 'REQ/2026/0012', position_id: P1, department_id: D1, headcount: 2, employment_type: 'permanent' },
+  },
+  {
     type: 'hr.contract.expiring.v1',
     description: 'A fixed-term contract ends within the reminder window (Settings, contracts.reminder_days). Sent once per contract.',
     subject: 'employee id',

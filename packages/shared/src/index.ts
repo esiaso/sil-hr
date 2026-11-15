@@ -13,3 +13,4 @@ export * from './schemas/attendance';
 export * from './schemas/payroll';
 export * from './schemas/medical';
 export * from './schemas/lifecycle';
+export * from './schemas/recruitment';

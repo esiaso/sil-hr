@@ -3716,6 +3716,342 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/careers/jobs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Careers_jobs"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/careers/jobs/{slug}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Careers_job"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/careers/jobs/{slug}/applications": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Careers_apply"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/requisitions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Recruitment_requisitions"];
+        put?: never;
+        post: operations["Recruitment_createRequisition"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/requisitions/{id}/cancel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Recruitment_cancel"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/job-postings": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Recruitment_postings"];
+        put?: never;
+        post: operations["Recruitment_createPosting"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/job-postings/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["Recruitment_updatePosting"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/job-applications": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Recruitment_applications"];
+        put?: never;
+        post: operations["Recruitment_add"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/job-applications/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Recruitment_application"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/job-applications/{id}/cv": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Recruitment_cv"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/job-applications/{id}/stage": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Recruitment_move"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/job-applications/{id}/interviews": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Recruitment_schedule"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/recruitment/panel-members": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Recruitment_panelMembers"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/interviews/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["Recruitment_updateInterview"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/job-applications/{id}/assessments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Recruitment_assessment"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/me/interviews": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Recruitment_myInterviews"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/interviews/{id}/feedback": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["Recruitment_feedback"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/interviews/{id}/cv": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Recruitment_panelCv"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/job-applications/{id}/offers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Recruitment_createOffer"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/job-offers/{id}/letter": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Recruitment_letter"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/job-offers/{id}/response": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Recruitment_respond"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/health": {
         parameters: {
             query?: never;
@@ -13817,7 +14153,7 @@ export interface operations {
                     code: string;
                     name: string;
                     /** @enum {string} */
-                    request_type: "leave_request" | "contact_change" | "attendance_regularisation" | "payroll_run" | "lifecycle_change" | "medical_application";
+                    request_type: "leave_request" | "contact_change" | "attendance_regularisation" | "payroll_run" | "job_requisition" | "job_offer" | "lifecycle_change" | "medical_application";
                     description?: string | null;
                     /** @default {} */
                     conditions?: {
@@ -13940,7 +14276,7 @@ export interface operations {
                     code: string;
                     name: string;
                     /** @enum {string} */
-                    request_type: "leave_request" | "contact_change" | "attendance_regularisation" | "payroll_run" | "lifecycle_change" | "medical_application";
+                    request_type: "leave_request" | "contact_change" | "attendance_regularisation" | "payroll_run" | "job_requisition" | "job_offer" | "lifecycle_change" | "medical_application";
                     description?: string | null;
                     /** @default {} */
                     conditions?: {
@@ -26456,6 +26792,1996 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+        };
+    };
+    Careers_jobs: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Open jobs (published, not internal, closing date not passed) */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        slug: string;
+                        title: string;
+                        summary: string | null;
+                        description: string;
+                        requirements: string | null;
+                        location: string | null;
+                        /** @enum {string} */
+                        employment_type: "permanent" | "contract" | "casual" | "locum" | "intern";
+                        salary: string | null;
+                        /** Format: date */
+                        closing_date: string;
+                        questions: {
+                            key: string;
+                            label: string;
+                            /** @enum {string} */
+                            type: "text" | "yes_no" | "number";
+                            /** @default true */
+                            required: boolean;
+                        }[];
+                        organisation: string;
+                    }[];
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Careers_job: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        slug: string;
+                        title: string;
+                        summary: string | null;
+                        description: string;
+                        requirements: string | null;
+                        location: string | null;
+                        /** @enum {string} */
+                        employment_type: "permanent" | "contract" | "casual" | "locum" | "intern";
+                        salary: string | null;
+                        /** Format: date */
+                        closing_date: string;
+                        questions: {
+                            key: string;
+                            label: string;
+                            /** @enum {string} */
+                            type: "text" | "yes_no" | "number";
+                            /** @default true */
+                            required: boolean;
+                        }[];
+                        organisation: string;
+                    };
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Careers_apply: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": {
+                    first_name: string;
+                    last_name: string;
+                    /** Format: email */
+                    email: string;
+                    phone: string;
+                    location?: string | null;
+                    cover_note?: string | null;
+                    answers?: string;
+                    /** @enum {string} */
+                    consent: "true";
+                    website?: string;
+                };
+            };
+        };
+        responses: {
+            /** @description At most five applications an hour from one address */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        reference: string;
+                        message: string;
+                    };
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Recruitment_requisitions: {
+        parameters: {
+            query?: {
+                status?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Yours and those in your scope (requisition:read or requisition:request) */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** Format: uuid */
+                        position_id: string;
+                        position_title: string;
+                        department_name: string | null;
+                        headcount: number;
+                        hired: number;
+                        /** @enum {string} */
+                        employment_type: "permanent" | "contract" | "casual" | "locum" | "intern";
+                        /** @enum {string} */
+                        reason: "new" | "replacement" | "temporary";
+                        replaces_employee_id: string | null;
+                        replaces_employee_name: string | null;
+                        salary_min: string | null;
+                        salary_max: string | null;
+                        needed_by: string | null;
+                        justification: string;
+                        /** @enum {string} */
+                        status: "pending" | "approved" | "rejected" | "returned" | "filled" | "cancelled";
+                        requested_by_name: string | null;
+                        decision_comment: string | null;
+                        workflow_instance_id: string | null;
+                        vacancies: number;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    }[];
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Recruitment_createRequisition: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    position_id: string;
+                    /** @default 1 */
+                    headcount?: number;
+                    /** @enum {string} */
+                    employment_type: "permanent" | "contract" | "casual" | "locum" | "intern";
+                    /** @enum {string} */
+                    reason: "new" | "replacement" | "temporary";
+                    replaces_employee_id?: string | null;
+                    salary_min?: string | null;
+                    salary_max?: string | null;
+                    needed_by?: string | null;
+                    justification: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Goes to the REQUISITION approval workflow */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** Format: uuid */
+                        position_id: string;
+                        position_title: string;
+                        department_name: string | null;
+                        headcount: number;
+                        hired: number;
+                        /** @enum {string} */
+                        employment_type: "permanent" | "contract" | "casual" | "locum" | "intern";
+                        /** @enum {string} */
+                        reason: "new" | "replacement" | "temporary";
+                        replaces_employee_id: string | null;
+                        replaces_employee_name: string | null;
+                        salary_min: string | null;
+                        salary_max: string | null;
+                        needed_by: string | null;
+                        justification: string;
+                        /** @enum {string} */
+                        status: "pending" | "approved" | "rejected" | "returned" | "filled" | "cancelled";
+                        requested_by_name: string | null;
+                        decision_comment: string | null;
+                        workflow_instance_id: string | null;
+                        vacancies: number;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: requisition:request */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Recruitment_cancel: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** Format: uuid */
+                        position_id: string;
+                        position_title: string;
+                        department_name: string | null;
+                        headcount: number;
+                        hired: number;
+                        /** @enum {string} */
+                        employment_type: "permanent" | "contract" | "casual" | "locum" | "intern";
+                        /** @enum {string} */
+                        reason: "new" | "replacement" | "temporary";
+                        replaces_employee_id: string | null;
+                        replaces_employee_name: string | null;
+                        salary_min: string | null;
+                        salary_max: string | null;
+                        needed_by: string | null;
+                        justification: string;
+                        /** @enum {string} */
+                        status: "pending" | "approved" | "rejected" | "returned" | "filled" | "cancelled";
+                        requested_by_name: string | null;
+                        decision_comment: string | null;
+                        workflow_instance_id: string | null;
+                        vacancies: number;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: recruitment:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Recruitment_postings: {
+        parameters: {
+            query?: {
+                status?: "draft" | "published" | "closed";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        requisition_id: string;
+                        requisition_number: string;
+                        slug: string;
+                        title: string;
+                        summary: string | null;
+                        description: string;
+                        requirements: string | null;
+                        location: string | null;
+                        /** @enum {string} */
+                        employment_type: "permanent" | "contract" | "casual" | "locum" | "intern";
+                        show_salary: boolean;
+                        salary_min: string | null;
+                        salary_max: string | null;
+                        /** Format: date */
+                        closing_date: string;
+                        internal_only: boolean;
+                        questions: {
+                            key: string;
+                            label: string;
+                            /** @enum {string} */
+                            type: "text" | "yes_no" | "number";
+                            /** @default true */
+                            required: boolean;
+                        }[];
+                        /** @enum {string} */
+                        status: "draft" | "published" | "closed";
+                        published_at: string | null;
+                        applications: number;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    }[];
+                };
+            };
+            /** @description Requires: recruitment:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Recruitment_createPosting: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    requisition_id: string;
+                    title: string;
+                    summary?: string | null;
+                    description: string;
+                    requirements?: string | null;
+                    location?: string | null;
+                    /** @default false */
+                    show_salary?: boolean;
+                    /** Format: date */
+                    closing_date: string;
+                    /** @default false */
+                    internal_only?: boolean;
+                    /** @default [] */
+                    questions?: {
+                        key: string;
+                        label: string;
+                        /** @enum {string} */
+                        type: "text" | "yes_no" | "number";
+                        /** @default true */
+                        required?: boolean;
+                    }[];
+                    /**
+                     * @default draft
+                     * @enum {string}
+                     */
+                    status?: "draft" | "published" | "closed";
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        requisition_id: string;
+                        requisition_number: string;
+                        slug: string;
+                        title: string;
+                        summary: string | null;
+                        description: string;
+                        requirements: string | null;
+                        location: string | null;
+                        /** @enum {string} */
+                        employment_type: "permanent" | "contract" | "casual" | "locum" | "intern";
+                        show_salary: boolean;
+                        salary_min: string | null;
+                        salary_max: string | null;
+                        /** Format: date */
+                        closing_date: string;
+                        internal_only: boolean;
+                        questions: {
+                            key: string;
+                            label: string;
+                            /** @enum {string} */
+                            type: "text" | "yes_no" | "number";
+                            /** @default true */
+                            required: boolean;
+                        }[];
+                        /** @enum {string} */
+                        status: "draft" | "published" | "closed";
+                        published_at: string | null;
+                        applications: number;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: recruitment:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Recruitment_updatePosting: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description ETag of the version being changed */
+                "If-Match": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    requisition_id: string;
+                    title: string;
+                    summary?: string | null;
+                    description: string;
+                    requirements?: string | null;
+                    location?: string | null;
+                    /** @default false */
+                    show_salary?: boolean;
+                    /** Format: date */
+                    closing_date: string;
+                    /** @default false */
+                    internal_only?: boolean;
+                    /** @default [] */
+                    questions?: {
+                        key: string;
+                        label: string;
+                        /** @enum {string} */
+                        type: "text" | "yes_no" | "number";
+                        /** @default true */
+                        required?: boolean;
+                    }[];
+                    /**
+                     * @default draft
+                     * @enum {string}
+                     */
+                    status?: "draft" | "published" | "closed";
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        requisition_id: string;
+                        requisition_number: string;
+                        slug: string;
+                        title: string;
+                        summary: string | null;
+                        description: string;
+                        requirements: string | null;
+                        location: string | null;
+                        /** @enum {string} */
+                        employment_type: "permanent" | "contract" | "casual" | "locum" | "intern";
+                        show_salary: boolean;
+                        salary_min: string | null;
+                        salary_max: string | null;
+                        /** Format: date */
+                        closing_date: string;
+                        internal_only: boolean;
+                        questions: {
+                            key: string;
+                            label: string;
+                            /** @enum {string} */
+                            type: "text" | "yes_no" | "number";
+                            /** @default true */
+                            required: boolean;
+                        }[];
+                        /** @enum {string} */
+                        status: "draft" | "published" | "closed";
+                        published_at: string | null;
+                        applications: number;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: recruitment:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Recruitment_applications: {
+        parameters: {
+            query?: {
+                posting_id?: string;
+                stage?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** Format: uuid */
+                        posting_id: string;
+                        posting_title: string;
+                        /** Format: uuid */
+                        candidate_id: string;
+                        candidate_name: string;
+                        email: string;
+                        phone: string | null;
+                        location: string | null;
+                        /** @enum {string} */
+                        source: "careers" | "internal" | "referral" | "agency" | "other";
+                        /** @enum {string} */
+                        stage: "applied" | "screening" | "shortlisted" | "interview" | "assessment" | "offer" | "hired" | "rejected" | "withdrawn";
+                        cv_document_id: string | null;
+                        cover_note: string | null;
+                        answers: {
+                            [key: string]: string;
+                        };
+                        rating: number | null;
+                        rejection_reason: string | null;
+                        hired_employee_id: string | null;
+                        interviews: number;
+                        panel_score: number | null;
+                        /** Format: date-time */
+                        created_at: string;
+                    }[];
+                };
+            };
+            /** @description Requires: recruitment:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Recruitment_add: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    posting_id: string;
+                    first_name: string;
+                    last_name: string;
+                    /** Format: email */
+                    email: string;
+                    phone?: string | null;
+                    /** @enum {string} */
+                    source: "internal" | "referral" | "agency" | "other";
+                    employee_id?: string | null;
+                    cv_document_id?: string | null;
+                    cover_note?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Adds an internal, referred or agency candidate */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** Format: uuid */
+                        posting_id: string;
+                        posting_title: string;
+                        /** Format: uuid */
+                        candidate_id: string;
+                        candidate_name: string;
+                        email: string;
+                        phone: string | null;
+                        location: string | null;
+                        /** @enum {string} */
+                        source: "careers" | "internal" | "referral" | "agency" | "other";
+                        /** @enum {string} */
+                        stage: "applied" | "screening" | "shortlisted" | "interview" | "assessment" | "offer" | "hired" | "rejected" | "withdrawn";
+                        cv_document_id: string | null;
+                        cover_note: string | null;
+                        answers: {
+                            [key: string]: string;
+                        };
+                        rating: number | null;
+                        rejection_reason: string | null;
+                        hired_employee_id: string | null;
+                        interviews: number;
+                        panel_score: number | null;
+                        /** Format: date-time */
+                        created_at: string;
+                    };
+                };
+            };
+            /** @description Requires: recruitment:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Recruitment_application: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** Format: uuid */
+                        posting_id: string;
+                        posting_title: string;
+                        /** Format: uuid */
+                        candidate_id: string;
+                        candidate_name: string;
+                        email: string;
+                        phone: string | null;
+                        location: string | null;
+                        /** @enum {string} */
+                        source: "careers" | "internal" | "referral" | "agency" | "other";
+                        /** @enum {string} */
+                        stage: "applied" | "screening" | "shortlisted" | "interview" | "assessment" | "offer" | "hired" | "rejected" | "withdrawn";
+                        cv_document_id: string | null;
+                        cover_note: string | null;
+                        answers: {
+                            [key: string]: string;
+                        };
+                        rating: number | null;
+                        rejection_reason: string | null;
+                        hired_employee_id: string | null;
+                        interviews: number;
+                        panel_score: number | null;
+                        /** Format: date-time */
+                        created_at: string;
+                        events: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: date-time */
+                            created_at: string;
+                            actor_name: string | null;
+                            from_stage: string | null;
+                            to_stage: string | null;
+                            note: string | null;
+                        }[];
+                        interviews_detail: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: date-time */
+                            scheduled_at: string;
+                            duration_minutes: number;
+                            location: string | null;
+                            /** @enum {string} */
+                            kind: "phone" | "panel" | "practical" | "online";
+                            /** @enum {string} */
+                            status: "scheduled" | "completed" | "cancelled" | "no_show";
+                            panel: {
+                                /** Format: uuid */
+                                user_id: string;
+                                name: string;
+                            }[];
+                            feedback: {
+                                /** Format: uuid */
+                                user_id: string;
+                                name: string;
+                                /** @enum {string} */
+                                recommendation: "strong_yes" | "yes" | "no" | "strong_no";
+                                scores: {
+                                    [key: string]: number;
+                                };
+                                comment: string | null;
+                                /** Format: date-time */
+                                created_at: string;
+                            }[];
+                        }[];
+                        assessments: {
+                            /** Format: uuid */
+                            id: string;
+                            name: string;
+                            score: number;
+                            max_score: number;
+                            /** Format: date */
+                            taken_on: string;
+                            notes: string | null;
+                        }[];
+                        offers: {
+                            /** Format: uuid */
+                            id: string;
+                            number: string;
+                            /** Format: uuid */
+                            application_id: string;
+                            candidate_name: string;
+                            /** Format: uuid */
+                            position_id: string;
+                            position_title: string;
+                            contract_type: string;
+                            /** Format: date */
+                            start_date: string;
+                            end_date: string | null;
+                            basic: string;
+                            probation_months: number | null;
+                            notice_days: number;
+                            conditions: string | null;
+                            /** @enum {string} */
+                            status: "pending" | "approved" | "rejected" | "returned" | "accepted" | "declined" | "withdrawn";
+                            decision_comment: string | null;
+                            workflow_instance_id: string | null;
+                            letter_document_id: string | null;
+                            responded_at: string | null;
+                            employee_id: string | null;
+                            /** Format: date-time */
+                            created_at: string;
+                        }[];
+                    };
+                };
+            };
+            /** @description Requires: recruitment:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Recruitment_cv: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Requires: recruitment:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    Recruitment_move: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @enum {string} */
+                    stage: "applied" | "screening" | "shortlisted" | "interview" | "assessment" | "offer" | "hired" | "rejected" | "withdrawn";
+                    note?: string | null;
+                    rejection_reason?: string | null;
+                    rating?: number | null;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** Format: uuid */
+                        posting_id: string;
+                        posting_title: string;
+                        /** Format: uuid */
+                        candidate_id: string;
+                        candidate_name: string;
+                        email: string;
+                        phone: string | null;
+                        location: string | null;
+                        /** @enum {string} */
+                        source: "careers" | "internal" | "referral" | "agency" | "other";
+                        /** @enum {string} */
+                        stage: "applied" | "screening" | "shortlisted" | "interview" | "assessment" | "offer" | "hired" | "rejected" | "withdrawn";
+                        cv_document_id: string | null;
+                        cover_note: string | null;
+                        answers: {
+                            [key: string]: string;
+                        };
+                        rating: number | null;
+                        rejection_reason: string | null;
+                        hired_employee_id: string | null;
+                        interviews: number;
+                        panel_score: number | null;
+                        /** Format: date-time */
+                        created_at: string;
+                    };
+                };
+            };
+            /** @description Requires: recruitment:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Recruitment_schedule: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: date-time */
+                    scheduled_at: string;
+                    /** @default 45 */
+                    duration_minutes?: number;
+                    location?: string | null;
+                    /**
+                     * @default panel
+                     * @enum {string}
+                     */
+                    kind?: "phone" | "panel" | "practical" | "online";
+                    panel_user_ids: string[];
+                };
+            };
+        };
+        responses: {
+            /** @description The panel is notified */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                    };
+                };
+            };
+            /** @description Requires: recruitment:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Recruitment_panelMembers: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Active users who can sit on an interview panel */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        display_name: string;
+                    }[];
+                };
+            };
+            /** @description Requires: recruitment:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Recruitment_updateInterview: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @enum {string} */
+                    status: "scheduled" | "completed" | "cancelled" | "no_show";
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** Format: uuid */
+                        posting_id: string;
+                        posting_title: string;
+                        /** Format: uuid */
+                        candidate_id: string;
+                        candidate_name: string;
+                        email: string;
+                        phone: string | null;
+                        location: string | null;
+                        /** @enum {string} */
+                        source: "careers" | "internal" | "referral" | "agency" | "other";
+                        /** @enum {string} */
+                        stage: "applied" | "screening" | "shortlisted" | "interview" | "assessment" | "offer" | "hired" | "rejected" | "withdrawn";
+                        cv_document_id: string | null;
+                        cover_note: string | null;
+                        answers: {
+                            [key: string]: string;
+                        };
+                        rating: number | null;
+                        rejection_reason: string | null;
+                        hired_employee_id: string | null;
+                        interviews: number;
+                        panel_score: number | null;
+                        /** Format: date-time */
+                        created_at: string;
+                        events: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: date-time */
+                            created_at: string;
+                            actor_name: string | null;
+                            from_stage: string | null;
+                            to_stage: string | null;
+                            note: string | null;
+                        }[];
+                        interviews_detail: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: date-time */
+                            scheduled_at: string;
+                            duration_minutes: number;
+                            location: string | null;
+                            /** @enum {string} */
+                            kind: "phone" | "panel" | "practical" | "online";
+                            /** @enum {string} */
+                            status: "scheduled" | "completed" | "cancelled" | "no_show";
+                            panel: {
+                                /** Format: uuid */
+                                user_id: string;
+                                name: string;
+                            }[];
+                            feedback: {
+                                /** Format: uuid */
+                                user_id: string;
+                                name: string;
+                                /** @enum {string} */
+                                recommendation: "strong_yes" | "yes" | "no" | "strong_no";
+                                scores: {
+                                    [key: string]: number;
+                                };
+                                comment: string | null;
+                                /** Format: date-time */
+                                created_at: string;
+                            }[];
+                        }[];
+                        assessments: {
+                            /** Format: uuid */
+                            id: string;
+                            name: string;
+                            score: number;
+                            max_score: number;
+                            /** Format: date */
+                            taken_on: string;
+                            notes: string | null;
+                        }[];
+                        offers: {
+                            /** Format: uuid */
+                            id: string;
+                            number: string;
+                            /** Format: uuid */
+                            application_id: string;
+                            candidate_name: string;
+                            /** Format: uuid */
+                            position_id: string;
+                            position_title: string;
+                            contract_type: string;
+                            /** Format: date */
+                            start_date: string;
+                            end_date: string | null;
+                            basic: string;
+                            probation_months: number | null;
+                            notice_days: number;
+                            conditions: string | null;
+                            /** @enum {string} */
+                            status: "pending" | "approved" | "rejected" | "returned" | "accepted" | "declined" | "withdrawn";
+                            decision_comment: string | null;
+                            workflow_instance_id: string | null;
+                            letter_document_id: string | null;
+                            responded_at: string | null;
+                            employee_id: string | null;
+                            /** Format: date-time */
+                            created_at: string;
+                        }[];
+                    };
+                };
+            };
+            /** @description Requires: recruitment:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Recruitment_assessment: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    name: string;
+                    score: number;
+                    max_score: number;
+                    /** Format: date */
+                    taken_on: string;
+                    notes?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** Format: uuid */
+                        posting_id: string;
+                        posting_title: string;
+                        /** Format: uuid */
+                        candidate_id: string;
+                        candidate_name: string;
+                        email: string;
+                        phone: string | null;
+                        location: string | null;
+                        /** @enum {string} */
+                        source: "careers" | "internal" | "referral" | "agency" | "other";
+                        /** @enum {string} */
+                        stage: "applied" | "screening" | "shortlisted" | "interview" | "assessment" | "offer" | "hired" | "rejected" | "withdrawn";
+                        cv_document_id: string | null;
+                        cover_note: string | null;
+                        answers: {
+                            [key: string]: string;
+                        };
+                        rating: number | null;
+                        rejection_reason: string | null;
+                        hired_employee_id: string | null;
+                        interviews: number;
+                        panel_score: number | null;
+                        /** Format: date-time */
+                        created_at: string;
+                        events: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: date-time */
+                            created_at: string;
+                            actor_name: string | null;
+                            from_stage: string | null;
+                            to_stage: string | null;
+                            note: string | null;
+                        }[];
+                        interviews_detail: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: date-time */
+                            scheduled_at: string;
+                            duration_minutes: number;
+                            location: string | null;
+                            /** @enum {string} */
+                            kind: "phone" | "panel" | "practical" | "online";
+                            /** @enum {string} */
+                            status: "scheduled" | "completed" | "cancelled" | "no_show";
+                            panel: {
+                                /** Format: uuid */
+                                user_id: string;
+                                name: string;
+                            }[];
+                            feedback: {
+                                /** Format: uuid */
+                                user_id: string;
+                                name: string;
+                                /** @enum {string} */
+                                recommendation: "strong_yes" | "yes" | "no" | "strong_no";
+                                scores: {
+                                    [key: string]: number;
+                                };
+                                comment: string | null;
+                                /** Format: date-time */
+                                created_at: string;
+                            }[];
+                        }[];
+                        assessments: {
+                            /** Format: uuid */
+                            id: string;
+                            name: string;
+                            score: number;
+                            max_score: number;
+                            /** Format: date */
+                            taken_on: string;
+                            notes: string | null;
+                        }[];
+                        offers: {
+                            /** Format: uuid */
+                            id: string;
+                            number: string;
+                            /** Format: uuid */
+                            application_id: string;
+                            candidate_name: string;
+                            /** Format: uuid */
+                            position_id: string;
+                            position_title: string;
+                            contract_type: string;
+                            /** Format: date */
+                            start_date: string;
+                            end_date: string | null;
+                            basic: string;
+                            probation_months: number | null;
+                            notice_days: number;
+                            conditions: string | null;
+                            /** @enum {string} */
+                            status: "pending" | "approved" | "rejected" | "returned" | "accepted" | "declined" | "withdrawn";
+                            decision_comment: string | null;
+                            workflow_instance_id: string | null;
+                            letter_document_id: string | null;
+                            responded_at: string | null;
+                            employee_id: string | null;
+                            /** Format: date-time */
+                            created_at: string;
+                        }[];
+                    };
+                };
+            };
+            /** @description Requires: recruitment:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Recruitment_myInterviews: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Interviews you sit on (last 30 days and upcoming) */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        /** Format: uuid */
+                        application_id: string;
+                        candidate_name: string;
+                        posting_title: string;
+                        /** Format: date-time */
+                        scheduled_at: string;
+                        duration_minutes: number;
+                        location: string | null;
+                        kind: string;
+                        status: string;
+                        cv_document_id: string | null;
+                        my_feedback: boolean;
+                    }[];
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Recruitment_feedback: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @enum {string} */
+                    recommendation: "strong_yes" | "yes" | "no" | "strong_no";
+                    /** @default {} */
+                    scores?: {
+                        [key: string]: number;
+                    };
+                    comment?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Panel members only */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        ok: boolean;
+                    };
+                };
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Recruitment_panelCv: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    Recruitment_createOffer: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    position_id?: string;
+                    /** @enum {string} */
+                    contract_type: "permanent" | "fixed_term" | "probation" | "locum" | "internship" | "casual";
+                    /** Format: date */
+                    start_date: string;
+                    end_date?: string | null;
+                    basic: string;
+                    probation_months?: number | null;
+                    /** @default 30 */
+                    notice_days?: number;
+                    conditions?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Goes to the OFFER approval workflow; approval produces the offer letter */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** Format: uuid */
+                        application_id: string;
+                        candidate_name: string;
+                        /** Format: uuid */
+                        position_id: string;
+                        position_title: string;
+                        contract_type: string;
+                        /** Format: date */
+                        start_date: string;
+                        end_date: string | null;
+                        basic: string;
+                        probation_months: number | null;
+                        notice_days: number;
+                        conditions: string | null;
+                        /** @enum {string} */
+                        status: "pending" | "approved" | "rejected" | "returned" | "accepted" | "declined" | "withdrawn";
+                        decision_comment: string | null;
+                        workflow_instance_id: string | null;
+                        letter_document_id: string | null;
+                        responded_at: string | null;
+                        employee_id: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                    };
+                };
+            };
+            /** @description Requires: offer:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Recruitment_letter: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Requires: offer:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    Recruitment_respond: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @enum {string} */
+                    response: "accepted" | "declined" | "withdrawn";
+                    note?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description Accepted: the candidate becomes an employee from the start date (record, contract, salary, onboarding) */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** Format: uuid */
+                        application_id: string;
+                        candidate_name: string;
+                        /** Format: uuid */
+                        position_id: string;
+                        position_title: string;
+                        contract_type: string;
+                        /** Format: date */
+                        start_date: string;
+                        end_date: string | null;
+                        basic: string;
+                        probation_months: number | null;
+                        notice_days: number;
+                        conditions: string | null;
+                        /** @enum {string} */
+                        status: "pending" | "approved" | "rejected" | "returned" | "accepted" | "declined" | "withdrawn";
+                        decision_comment: string | null;
+                        workflow_instance_id: string | null;
+                        letter_document_id: string | null;
+                        responded_at: string | null;
+                        employee_id: string | null;
+                        /** Format: date-time */
+                        created_at: string;
+                    };
+                };
+            };
+            /** @description Requires: offer:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
             };
         };
     };

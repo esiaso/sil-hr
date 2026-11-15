@@ -370,3 +370,18 @@ curl -s -X POST -H "Authorization: Bearer $TOKEN" -H 'content-type: application/
   `hr.medical.claim_posted.v1`, `hr.medical.limit_threshold.v1` (80% and 100%) and
   `hr.medical.cover_ended.v1` (stop accepting the number after `cover_end`). No event or
   endpoint carries a diagnosis.
+
+## 10. Job adverts (public)
+
+Other job boards or the hospital website can read open adverts without credentials:
+
+```bash
+curl -s http://localhost:3310/api/v1/careers/jobs            # open adverts
+curl -s http://localhost:3310/api/v1/careers/jobs/{slug}     # one advert, with its screening questions
+```
+
+Applications are taken only through `POST /api/v1/careers/jobs/{slug}/applications`
+(multipart: details, `consent=true`, answers as JSON, the CV file); link applicants to
+`/careers/{slug}` rather than collecting applications elsewhere, so consent and retention
+are recorded in one place. `hr.requisition.approved.v1` tells finance and other systems
+that a post is being filled.
