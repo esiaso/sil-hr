@@ -14,3 +14,5 @@ process.env.USER_RATE_LIMIT_PER_MINUTE = '100000';
 process.env.API_DOCS = 'true';
 process.env.PUBLIC_BASE_URL = 'http://localhost:3310';
 delete process.env.SAMPLE_WEBHOOK_URL;
+// Background work is driven explicitly by the tests (as the worker does), never on timers.
+process.env.JOBS_MODE = 'queue';

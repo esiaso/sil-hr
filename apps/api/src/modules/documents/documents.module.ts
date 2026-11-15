@@ -176,6 +176,28 @@ export class DocumentsService {
     });
   }
 
+  /** Stores a file the system produced (exports, generated letters) as a new document. */
+  async createFromBuffer(fields: { ownerType: string; ownerId?: string | null; title: string; isSensitive?: boolean; fileName: string; mimeType: string }, body: Buffer): Promise<DocumentRecord> {
+    return this.dataSource.transaction(async (m) => {
+      const d = await m.getRepository(DocumentEntity).save(m.getRepository(DocumentEntity).create({ ownerType: fields.ownerType, ownerId: fields.ownerId ?? null, title: fields.title, isSensitive: !!fields.isSensitive }));
+      const objectKey = `documents/${d.id}/v1-${sha256(body).slice(0, 16)}`;
+      await this.storage.put(objectKey, body, fields.mimeType);
+      const v = await m.getRepository(DocumentVersion).save(m.getRepository(DocumentVersion).create({ documentId: d.id, versionNo: 1, objectKey, fileName: fields.fileName, mimeType: fields.mimeType, sizeBytes: String(body.length), sha256: sha256(body), scanStatus: 'not_scanned', uploadedBy: RequestContext.get()?.actorId ?? null }));
+      d.currentVersionId = v.id;
+      await m.getRepository(DocumentEntity).save(d);
+      d.versions = [v];
+      return toDto(d, true);
+    });
+  }
+
+  /** The current version's bytes (for background jobs that read uploaded files). */
+  async read(id: string): Promise<{ body: Buffer; fileName: string; mimeType: string }> {
+    const d = await this.dataSource.getRepository(DocumentEntity).findOneBy({ id });
+    const v = d?.currentVersionId ? await this.dataSource.getRepository(DocumentVersion).findOneBy({ id: d.currentVersionId }) : null;
+    if (!v) throw notFound('Document');
+    return { body: await this.storage.get(v.objectKey), fileName: v.fileName, mimeType: v.mimeType };
+  }
+
   /** A short-lived signed link. Downloads of sensitive documents are audited. */
   async downloadUrl(id: string, versionId?: string): Promise<{ url: string; expires_at: string }> {
     const d = await this.dataSource.getRepository(DocumentEntity).findOneBy({ id });

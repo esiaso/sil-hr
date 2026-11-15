@@ -247,3 +247,61 @@ describe('directory and self-service', () => {
     expect((await api(app).get(`${B}/me/employee`).set(bearer(me))).body.personal_phone).toBe('+254 722 000 111');
   });
 });
+
+describe('bulk import and export', () => {
+  const run = async () => {
+    const app = await testApp();
+    const { BulkService } = await import('../src/modules/employees/bulk');
+    await app.get(BulkService).processQueued();
+  };
+  const csv = (rows: string[][]) => Buffer.from(['staff_number,first_name,last_name,national_id,employment_type,hire_date,position_code,manager_staff_number', ...rows.map((r) => r.join(','))].join('\n'));
+
+  it('validates a dry run, then imports all rows in one transaction with managers resolved by staff number', async () => {
+    const app = await testApp();
+    const hr = await login(app, 'hr.manager');
+    const sn = `IMP${uniq()}`;
+    const nid = () => String(40_000_000 + Math.floor(Math.random() * 9_000_000));
+    const good = [[`${sn}A`, 'Ann', 'Lead', nid(), 'permanent', '01/12/2026', 'ICTO', ''], [`${sn}B`, 'Ben', 'Member', nid(), 'contract', '2026-12-01', 'icto', `${sn}A`]];
+    const dry = await api(app).post(`${B}/employees/import?dry_run=true`).set(bearer(hr)).attach('file', csv(good), 'staff.csv');
+    expect(dry.status).toBe(202);
+    await run();
+    const dryJob = (await api(app).get(`${B}/bulk-jobs/${dry.body.id}`).set(bearer(hr))).body;
+    expect(dryJob).toMatchObject({ status: 'succeeded', dry_run: true, total_rows: 2, error_count: 0 });
+    expect((await db(app).query(`SELECT count(*)::int AS n FROM employee WHERE staff_number LIKE $1`, [`${sn}%`]))[0].n).toBe(0);
+
+    const real = await api(app).post(`${B}/employees/import`).set(bearer(hr)).attach('file', csv(good), 'staff.csv');
+    await run();
+    const job = (await api(app).get(`${B}/bulk-jobs/${real.body.id}`).set(bearer(hr))).body;
+    expect(job).toMatchObject({ status: 'succeeded', created_count: 2 });
+    const [b] = await db(app).query(`SELECT e.manager_id, m.staff_number AS mgr FROM employee e JOIN employee m ON m.id = e.manager_id WHERE e.staff_number = $1`, [`${sn}B`]);
+    expect(b.mgr).toBe(`${sn}A`);
+  });
+
+  it('reports row-level errors and saves nothing when any row fails', async () => {
+    const app = await testApp();
+    const hr = await login(app, 'hr.manager');
+    const sn = `BAD${uniq()}`;
+    const res = await api(app).post(`${B}/employees/import`).set(bearer(hr)).attach('file', csv([[`${sn}A`, 'Ok', 'Row', '41234567', 'permanent', '2026-12-01', 'ICTO', ''], [`${sn}B`, '', 'NoFirst', 'abc', 'boss', '31/02/2026', 'NOPE', '']]), 'bad.csv');
+    await run();
+    const job = (await api(app).get(`${B}/bulk-jobs/${res.body.id}`).set(bearer(hr))).body;
+    expect(job.status).toBe('failed');
+    const cols = job.errors.filter((e: { row: number }) => e.row === 3).map((e: { column: string }) => e.column);
+    expect(cols).toEqual(expect.arrayContaining(['first_name', 'national_id', 'employment_type', 'hire_date']));
+    expect((await db(app).query(`SELECT count(*)::int AS n FROM employee WHERE staff_number LIKE $1`, [`${sn}%`]))[0].n).toBe(0);
+  });
+
+  it('exports what the caller may see, as a downloadable file, and audits the export', async () => {
+    const app = await testApp();
+    const head = await login(app, 'head.nursing');
+    expect((await api(app).post(`${B}/employees/export`).set(bearer(head))).status).toBe(403);
+    const hr = await login(app, 'hr.manager');
+    const res = await api(app).post(`${B}/employees/export?format=xlsx&status=active`).set(bearer(hr));
+    expect(res.status).toBe(202);
+    await run();
+    const job = (await api(app).get(`${B}/bulk-jobs/${res.body.id}`).set(bearer(hr))).body;
+    expect(job.status).toBe('succeeded');
+    expect(job.total_rows).toBeGreaterThan(10);
+    const link = await api(app).post(`${B}/documents/${job.result_document_id}/download-url`).set(bearer(hr));
+    expect(link.status).toBe(201);
+  });
+});

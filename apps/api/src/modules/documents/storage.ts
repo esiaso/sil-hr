@@ -5,6 +5,7 @@ import { loadEnv } from '../../config/env';
 /** Object storage port. The database keeps object keys and metadata, never public paths. */
 export interface ObjectStorage {
   put(key: string, body: Buffer, contentType: string): Promise<void>;
+  get(key: string): Promise<Buffer>;
   signedGetUrl(key: string, ttlSeconds: number, fileName: string): Promise<string>;
   ready(): Promise<boolean>;
 }
@@ -39,6 +40,11 @@ export class S3Storage implements ObjectStorage {
   async put(key: string, body: Buffer, contentType: string): Promise<void> {
     await this.ensureBucket();
     await this.client.send(new PutObjectCommand({ Bucket: this.bucket, Key: key, Body: body, ContentType: contentType, ServerSideEncryption: undefined }));
+  }
+
+  async get(key: string): Promise<Buffer> {
+    const res = await this.client.send(new GetObjectCommand({ Bucket: this.bucket, Key: key }));
+    return Buffer.from(await res.Body!.transformToByteArray());
   }
 
   signedGetUrl(key: string, ttlSeconds: number, fileName: string): Promise<string> {

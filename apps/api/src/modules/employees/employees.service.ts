@@ -182,9 +182,14 @@ export class EmployeesService implements OnModuleInit {
     throw err;
   }
 
-  async hire(access: AccessProfile, dto: HireEmployee): Promise<EmployeeDto> {
+  /** Runs in the caller's transaction when given one (bulk import is all-or-nothing). */
+  private tx<T>(outer: EntityManager | undefined, fn: (m: EntityManager) => Promise<T>): Promise<T> {
+    return outer ? fn(outer) : this.dataSource.transaction(fn);
+  }
+
+  async hire(access: AccessProfile, dto: HireEmployee, outer?: EntityManager): Promise<EmployeeDto> {
     try {
-      return await this.dataSource.transaction(async (m) => {
+      return await this.tx(outer, async (m) => {
         const place = await this.placement(m, dto.position_id);
         await this.scope.assertAllows(access, 'employee:hire', { branchId: place.branchId, departmentId: place.departmentId });
         await this.assertManager(m, dto.manager_id);
@@ -219,9 +224,9 @@ export class EmployeesService implements OnModuleInit {
   }
 
   // ------------------------------------------------------------------ editing
-  async update(access: AccessProfile, id: string, dto: UpdateEmployee, version: number): Promise<EmployeeDto> {
+  async update(access: AccessProfile, id: string, dto: UpdateEmployee, version: number, outer?: EntityManager): Promise<EmployeeDto> {
     try {
-      return await this.dataSource.transaction(async (m) => {
+      return await this.tx(outer, async (m) => {
         const e = await this.load(access, id, 'employee:update', m, true);
         assertVersion(e.version, version);
         if (e.status === 'exited') throw conflict('employee_exited', 'This person has left; their record is read-only');
