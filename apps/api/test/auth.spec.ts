@@ -68,7 +68,11 @@ describe('login and tokens', () => {
     expect(second.status).toBe(200);
     expect(second.body.refresh_token).not.toBe(r1);
 
-    // Replaying the used token is treated as theft: the family is revoked.
+    // Concurrent refreshes (several browser requests at once) are tolerated for a few seconds.
+    const concurrent = await Promise.all([1, 2, 3].map(() => api(app).post("/api/v1/auth/refresh").send({ refresh_token: second.body.refresh_token })));
+    expect(concurrent.map((r) => r.status)).toEqual([200, 200, 200]);
+    // Outside the grace window, replaying a used token is treated as theft: the family is revoked.
+    await db(app).query("UPDATE refresh_token SET used_at = now() - interval '1 minute' WHERE used_at IS NOT NULL");
     const replay = await api(app).post('/api/v1/auth/refresh').send({ refresh_token: r1 });
     expect(replay.body.code).toBe('refresh_token_reused');
     expect((await api(app).post('/api/v1/auth/refresh').send({ refresh_token: second.body.refresh_token })).status).toBe(401);

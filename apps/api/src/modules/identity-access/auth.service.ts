@@ -17,6 +17,8 @@ import { TokenService } from './token.service';
 authenticator.options = { window: 1 };
 
 const MFA_TOKEN_TTL = 300;
+/** Concurrent refreshes with one token inside this window are a race, not a replay. */
+export const REFRESH_REUSE_GRACE_MS = 30_000;
 const ADMIN_ROLE = 'system_admin';
 
 interface ClientInfo {
@@ -145,6 +147,14 @@ export class AuthService {
       const repo = m.getRepository(RefreshToken);
       const row = await repo.findOne({ where: { tokenHash: sha256(refreshToken) }, lock: { mode: 'pessimistic_write' } });
       if (!row) throw unauthorised('Sign in again', 'invalid_refresh_token');
+      // A browser fires several requests at once when its access token expires, and each
+      // tries to refresh with the same token. Within a short grace window that is a race,
+      // not theft: issue another token in the same family instead of revoking it.
+      if (row.usedAt && !row.revokedAt && Date.now() - row.usedAt.getTime() < REFRESH_REUSE_GRACE_MS) {
+        const user = await m.getRepository(User).findOneBy({ id: row.userId });
+        if (!user || user.status !== 'active') throw unauthorised('This account cannot sign in', 'account_disabled');
+        return this.issue(row.userId, row.familyId, client, m);
+      }
       if (row.usedAt || row.revokedAt) {
         // Commit the revocation, then refuse (throwing here would roll it back).
         await repo.update({ familyId: row.familyId, revokedAt: IsNull() }, { revokedAt: new Date() });
