@@ -49,6 +49,8 @@ export interface Env {
   jobsMode: 'queue' | 'inline' | 'off';
   logLevel: string;
   metricsToken: string | null;
+  /** OpenID Connect single sign-on; disabled unless issuer and client id are set. */
+  oidc: { issuer: string | null; clientId: string | null; clientSecret: string | null; label: string; redirectUris: string[] };
 }
 
 const DEV_JWT = 'a1'.repeat(32);
@@ -118,6 +120,13 @@ export function loadEnv(source: NodeJS.ProcessEnv = process.env, useCache = true
     jobsMode: (e.JOBS_MODE as Env['jobsMode']) ?? 'inline',
     logLevel: e.LOG_LEVEL ?? (nodeEnv === 'test' ? 'silent' : 'info'),
     metricsToken: e.METRICS_TOKEN || null,
+    oidc: {
+      issuer: e.OIDC_ISSUER || null,
+      clientId: e.OIDC_CLIENT_ID || null,
+      clientSecret: e.OIDC_CLIENT_SECRET || null,
+      label: e.OIDC_LABEL ?? 'Sign in with your organisation account',
+      redirectUris: (e.OIDC_REDIRECT_URIS ?? 'http://localhost:3320/auth/oidc/callback').split(',').map((s) => s.trim()).filter(Boolean),
+    },
   };
   if (isProduction) {
     const unsafe: string[] = [];

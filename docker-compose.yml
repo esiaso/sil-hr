@@ -31,6 +31,11 @@ x-api-env: &api-env
   SMTP_URL: ${SMTP_URL:-smtp://mailpit:1025}
   JOBS_MODE: ${JOBS_MODE:-queue}
   LOG_LEVEL: ${LOG_LEVEL:-info}
+  # Single sign-on. Empty = off. With `--profile sso` use the Keycloak values in .env.example.
+  OIDC_ISSUER: ${OIDC_ISSUER:-}
+  OIDC_CLIENT_ID: ${OIDC_CLIENT_ID:-}
+  OIDC_CLIENT_SECRET: ${OIDC_CLIENT_SECRET:-}
+  OIDC_REDIRECT_URIS: ${OIDC_REDIRECT_URIS:-http://localhost:3320/auth/oidc/callback}
 
 services:
   postgres:
@@ -125,11 +130,29 @@ services:
       HR_API_INTERNAL_URL: http://api:3000
       PUBLIC_API_DOCS_URL: ${PUBLIC_BASE_URL:-http://localhost:3310}/api/v1/docs
       COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      WEB_PUBLIC_URL: ${WEB_PUBLIC_URL:-http://localhost:3320}
     ports:
       - "${WEB_PORT:-3320}:3000"
     depends_on:
       api: { condition: service_healthy }
     restart: unless-stopped
+
+  # Development identity provider for single sign-on: docker compose --profile sso up
+  # Sample accounts mirror the sample logins (same password). Admin console: http://localhost:8180 (admin / admin)
+  keycloak:
+    profiles: ["sso"]
+    image: quay.io/keycloak/keycloak:26.0
+    command: ["start-dev", "--import-realm"]
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      # Browsers use localhost:8180; the API talks to keycloak:8080 (backchannel).
+      KC_HOSTNAME: http://localhost:8180
+      KC_HOSTNAME_BACKCHANNEL_DYNAMIC: "true"
+    ports:
+      - "${KEYCLOAK_PORT:-8180}:8080"
+    volumes:
+      - ./docker/keycloak:/opt/keycloak/data/import:ro
 
   # Development-only receiver for the sample webhook subscription: verifies every
   # signature and keeps the last 200 deliveries. Browse http://localhost:8099/hooks

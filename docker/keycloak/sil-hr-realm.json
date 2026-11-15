@@ -1,0 +1,180 @@
+{
+  "realm": "sil-hr",
+  "enabled": true,
+  "displayName": "SIL Hospital (development identity provider)",
+  "sslRequired": "none",
+  "clients": [
+    {
+      "clientId": "sil-hr",
+      "name": "SIL HR",
+      "enabled": true,
+      "publicClient": false,
+      "secret": "sil-hr-dev-client-secret",
+      "protocol": "openid-connect",
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "redirectUris": [
+        "http://localhost:3320/auth/oidc/callback"
+      ],
+      "webOrigins": [
+        "http://localhost:3320"
+      ],
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "http://localhost:3320/login"
+      }
+    }
+  ],
+  "users": [
+    {
+      "username": "admin",
+      "email": "admin@example.org",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "admin",
+      "lastName": "(sample)",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Hospital#Dev2026",
+          "temporary": false
+        }
+      ]
+    },
+    {
+      "username": "hr.manager",
+      "email": "hr.manager@example.org",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "hr",
+      "lastName": "(sample)",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Hospital#Dev2026",
+          "temporary": false
+        }
+      ]
+    },
+    {
+      "username": "hr.officer",
+      "email": "hr.officer@example.org",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "hr",
+      "lastName": "(sample)",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Hospital#Dev2026",
+          "temporary": false
+        }
+      ]
+    },
+    {
+      "username": "payroll",
+      "email": "payroll@example.org",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "payroll",
+      "lastName": "(sample)",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Hospital#Dev2026",
+          "temporary": false
+        }
+      ]
+    },
+    {
+      "username": "finance",
+      "email": "finance@example.org",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "finance",
+      "lastName": "(sample)",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Hospital#Dev2026",
+          "temporary": false
+        }
+      ]
+    },
+    {
+      "username": "head.nursing",
+      "email": "head.nursing@example.org",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "head",
+      "lastName": "(sample)",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Hospital#Dev2026",
+          "temporary": false
+        }
+      ]
+    },
+    {
+      "username": "line.manager",
+      "email": "line.manager@example.org",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "line",
+      "lastName": "(sample)",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Hospital#Dev2026",
+          "temporary": false
+        }
+      ]
+    },
+    {
+      "username": "recruiter",
+      "email": "recruiter@example.org",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "recruiter",
+      "lastName": "(sample)",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Hospital#Dev2026",
+          "temporary": false
+        }
+      ]
+    },
+    {
+      "username": "employee",
+      "email": "employee@example.org",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "employee",
+      "lastName": "(sample)",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Hospital#Dev2026",
+          "temporary": false
+        }
+      ]
+    },
+    {
+      "username": "auditor",
+      "email": "auditor@example.org",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "auditor",
+      "lastName": "(sample)",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Hospital#Dev2026",
+          "temporary": false
+        }
+      ]
+    }
+  ]
+}

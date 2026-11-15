@@ -116,6 +116,11 @@ export class AuthService {
     return this.complete(user, 'mfa', client);
   }
 
+  /** Sign-in finished elsewhere (OIDC): same bookkeeping and tokens as a local login. */
+  completeExternal(user: User, method: string, client: ClientInfo): Promise<LoginResponse> {
+    return this.complete(user, method, client);
+  }
+
   private async complete(user: User, method: string, client: ClientInfo): Promise<LoginResponse> {
     await this.dataSource.query(`UPDATE user_account SET last_login_at = now() WHERE id = $1`, [user.id]);
     await this.history(user.id, user.username, LoginOutcome.SUCCESS, method, client);

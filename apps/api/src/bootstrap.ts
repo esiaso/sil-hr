@@ -12,7 +12,7 @@ import { toProblem, PROBLEM_CONTENT_TYPE } from './common/problem';
 export const API_PREFIX = 'api/v1';
 
 /** Paths limited per IP (credential guessing). */
-const AUTH_PATHS = ['auth/login', 'auth/mfa/verify', 'auth/refresh', 'oauth/token'];
+const AUTH_PATHS = ['auth/login', 'auth/mfa/verify', 'auth/refresh', 'auth/oidc', 'oauth/token'];
 
 /** HTTP pipeline shared by main.ts, the OpenAPI export and the integration tests. */
 export function configureApp(app: NestExpressApplication, env: Env = loadEnv()): void {

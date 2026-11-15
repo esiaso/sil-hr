@@ -3,6 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { loginRequest } from '@sil/hr-shared';
@@ -14,7 +15,10 @@ const mfaForm = z.object({ code: z.string().trim().min(6, 'Enter the 6-digit cod
 
 function LoginForm() {
   const router = useRouter();
-  const next = useSearchParams().get('next') ?? '/';
+  const params = useSearchParams();
+  const next = params.get('next') ?? '/';
+  const ssoError = params.get('sso_error');
+  const sso = useQuery({ queryKey: ['oidc-config'], queryFn: async () => (await fetch('/api/v1/auth/oidc/config')).json() as Promise<{ enabled: boolean; label: string }> });
   const settings = usePublicSettings();
   const [mfaToken, setMfaToken] = useState<string | null>(null);
   const [error, setError] = useState<unknown>(null);
@@ -31,6 +35,13 @@ function LoginForm() {
         </h1>
         <p className="muted mb-5 text-sm">{settings.data?.organisation_name ?? 'Sign in'}</p>
         <ProblemBanner error={error} />
+        {ssoError && <ProblemBanner error={new Error(ssoError === 'no_account' ? 'You signed in at the identity provider, but there is no SIL HR account for you. Ask HR.' : 'Single sign-on did not complete. Try again or use your password.')} />}
+        {sso.data?.enabled && !mfaToken && (
+          <>
+            <a href="/auth/oidc/start" className="bg-brand-600 hover:bg-brand-700 mb-4 block rounded-md px-3 py-2 text-center text-sm font-medium text-white">{sso.data.label}</a>
+            <div className="muted mb-4 text-center text-xs">or with a SIL HR password</div>
+          </>
+        )}
         {!mfaToken ? (
           <form
             noValidate

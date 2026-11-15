@@ -9,14 +9,15 @@ import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { ApiClientsController, AuthController, OAuthController, UsersController } from './identity.controllers';
 import { IDENTITY_ENTITIES } from './identity.entities';
+import { OidcController, OidcService } from './oidc';
 import { PasswordService } from './password.service';
 import { TokenService } from './token.service';
 import { UsersService } from './users.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([...IDENTITY_ENTITIES, ApiClient, ApiClientSecret]), OrganisationModule],
-  providers: [TokenService, AccessService, PasswordService, AuthService, UsersService, ApiClientsService, { provide: APP_GUARD, useClass: AuthGuard }],
-  controllers: [AuthController, OAuthController, UsersController, ApiClientsController],
+  providers: [OidcService, TokenService, AccessService, PasswordService, AuthService, UsersService, ApiClientsService, { provide: APP_GUARD, useClass: AuthGuard }],
+  controllers: [OidcController, AuthController, OAuthController, UsersController, ApiClientsController],
   exports: [TokenService, AccessService, PasswordService, AuthService, UsersService, ApiClientsService],
 })
 export class IdentityAccessModule {}
