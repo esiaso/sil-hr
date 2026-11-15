@@ -11,7 +11,9 @@ It replaces an evaluated off-the-shelf Laravel HRM. The brief is in
 departs from the brief, is in [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md). The repository
 follows the conventions of `sil_procurement`.
 
-**Slice 1 (this release): foundations.** Authentication (local accounts, TOTP, rotating
+**Slice 2 (this release): employees and self-service.** Employee master with encrypted national ID, passport, KRA PIN and bank details (masked unless the caller holds `employee.sensitive:read`; every such read audited), effective-dated position history, status lifecycle (offboarding disables the login at once), transfers, reporting lines, contacts, dependants, qualifications, document checklist with verification, professional licences with derived status and expiry reminders, a lean staff directory and approver lookup for other systems, bulk CSV/XLSX import and export as jobs, read-only SCIM 2.0, OpenID Connect single sign-on, and self-service (my profile, my team, contact-change requests approved by HR).
+
+**Slice 1: foundations.** Authentication (local accounts, TOTP, rotating
 refresh tokens), RBAC with data scopes, organisation structure (branches, department tree,
 cost centres, job grades, positions with headcount), audit trail, numbering, settings,
 documents in object storage, the API conventions (cursor pagination, incremental sync with
@@ -70,6 +72,16 @@ Every sample user's password is `SEED_DEFAULT_PASSWORD` (development value:
 | `recruiter` | Recruiter | organisation |
 | `employee` | Employee | own record (meaningful from slice 2) |
 | `auditor` | Auditor (read-only) | organisation |
+
+The sample hospital has 42 staff across the departments, with practising licences in every state (valid, expiring, expired, not verified). Six sample logins are linked to employee records (`hr.manager`, `hr.officer`, `payroll`, `head.nursing`, `line.manager`, and `employee`, who reports to `line.manager`).
+
+### Single sign-on (optional)
+
+```bash
+OIDC_ISSUER=http://keycloak:8080/realms/sil-hr OIDC_CLIENT_ID=sil-hr OIDC_CLIENT_SECRET=sil-hr-dev-client-secret docker compose --profile sso up --build
+```
+
+The login page then shows **Sign in with your organisation account**, which goes to the development Keycloak at http://localhost:8180 (admin console: admin / admin). Its accounts mirror the sample logins with the same password; the first SSO sign-in links to the SIL HR account with the same email.
 
 ### Running the tests
 

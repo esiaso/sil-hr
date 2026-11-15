@@ -24,10 +24,13 @@ scopes your system needs, and gives you the client id and secret (the secret is 
 | Scope | Grants |
 |---|---|
 | `org:read` | organisation, branches, departments (+ tree), cost centres, job grades, positions |
+| `employees:read` | staff directory, approver lookup, employee records (ID numbers and bank details masked), licences |
+| `employees.sensitive:read` | unmasked national ID, passport, KRA PIN and bank details (`?include_sensitive=true`); every read is audited against your client |
+| `scim` | the SCIM 2.0 endpoints under `/scim/v2` |
 | `events:read` | event catalogue |
 | `external_refs:write` | read and write your system's identifiers in `external_ref` |
 | `documents:read` | download documents |
-| `employees:read`, `employees.sensitive:read`, `leave:read`, `attendance:write`, `payroll.journal:read` | reserved: the endpoints arrive in slices 2–5 |
+| `leave:read`, `attendance:write`, `payroll.journal:read` | reserved: the endpoints arrive in slices 3–5 |
 
 ## 2. Get a token
 
@@ -92,6 +95,24 @@ const { data, error } = await hr.GET('/api/v1/departments', { params: { query: {
 
 Other languages: generate a client from `/api/v1/openapi.json`.
 
+### Directory endpoints (what most systems need)
+
+| Endpoint | Returns |
+|---|---|
+| `GET /api/v1/directory/staff` | lean staff list: id, staff number, names, status, employment type, branch, department (id, code, name), position (id, title), cost centre, manager id, work email and phone, clinical flag, licence status and earliest licence expiry. Filters: `department_id` (+ `include_sub_departments=true`), `branch_id`, `cost_centre_id`, `status`, `is_clinical`, `staff_number`, `work_email`, `search`, `updated_since`. Leavers are left out unless you ask for `status=exited` or sync with `updated_since`. |
+| `GET /api/v1/directory/staff/{id}` | one entry |
+| `GET /api/v1/directory/approvers?employee_id=…` or `?department_id=…` | the line manager, the department head (holder of the department's top position, searching up the tree if vacant) and the full management chain |
+| `GET /api/v1/departments/tree`, `GET /api/v1/cost-centres` | structure |
+
+```bash
+curl -s -H "Authorization: Bearer $TOKEN" "http://localhost:3310/api/v1/directory/staff?department_id=$NURSING&include_sub_departments=true&is_clinical=true"
+curl -s -H "Authorization: Bearer $TOKEN" "http://localhost:3310/api/v1/directory/approvers?employee_id=$EMPLOYEE"
+```
+
+### SCIM 2.0 (identity providers)
+
+`/scim/v2/Users` (employees) and `/scim/v2/Groups` (departments), with `ServiceProviderConfig` and `ResourceTypes`. Read-only: HR is the system of record, so writes answer 405. A user is `active: false` once the employee exits or is suspended, which is how offboarding reaches the IdP. Filters: `userName eq`, `externalId eq` (staff number), `active eq`, `meta.lastModified gt` for incremental pulls; Groups: `displayName eq`, `externalId eq` (department code). The enterprise extension carries `employeeNumber`, `department`, `costCenter` and `manager`. ID numbers are never exposed through SCIM.
+
 ## 4. Events
 
 Every change another system could care about is written to a transactional outbox in the
@@ -122,7 +143,9 @@ own scopes. Event types are versioned: a breaking change is published as a new `
 alongside the old type for a transition period, and a published type is never removed
 without notice (a contract test enforces this).
 
-Slice 1 publishes: `hr.organisation.branch.created|updated.v1`,
+People events (slice 2): `hr.employee.hired.v1`, `hr.employee.updated.v1` (sensitive fields are named in `changed_fields` but never carry values), `hr.employee.transferred.v1` (with `effective_from` and `previous` placement), `hr.employee.status_changed.v1`, `hr.employee.exited.v1`, `hr.employee.manager_changed.v1`, `hr.licence.updated.v1`, `hr.licence.expiring.v1` (once per licence and expiry date), `hr.licence.expired.v1` (the HMIS should stop treating the practitioner as licensed).
+
+Structure events (slice 1): `hr.organisation.branch.created|updated.v1`,
 `hr.organisation.department.created|updated|deleted.v1`,
 `hr.organisation.cost_centre.created|updated.v1`, `hr.organisation.position.created|updated.v1`.
 Moving a department publishes `updated` for it and for every department beneath it.
