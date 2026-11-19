@@ -341,3 +341,26 @@ describe('device connectors', () => {
     expect(day.status).toBe('present');
   });
 });
+
+describe('changing how a connector matches people', () => {
+  it('switching Match by from mapping to staff number places the punches that arrived unmatched', async () => {
+    const app = await testApp();
+    const p = await newStaff('ICTO');
+    const admin = await login(app, 'admin');
+    const code = `hikm_${uniq().toLowerCase()}`;
+    const c = (await api(app).post(`${B}/connectors`).set(bearer(admin)).send({ code, name: 'Mapped gate', type: 'hikvision_push', config: { allowed_ips: ['*'] }, match_by: 'mapping' })).body;
+    const d = pastWeekday(9);
+    const ev = (t: string, s: string, n: number) => ({ ipAddress: '10.0.0.31', dateTime: zonedToUtc(d, t, TZ).toISOString(), eventType: 'AccessControllerEvent', AccessControllerEvent: { employeeNoString: p.staff, serialNo: n, attendanceStatus: s } });
+    await api(app).post(`${B}/integrations/hikvision/${code}/events`).send(ev('08:00', 'checkIn', 1));
+    await api(app).post(`${B}/integrations/hikvision/${code}/events`).send(ev('17:00', 'checkOut', 2));
+    const [before] = await db(app).query(`SELECT count(*)::int AS n FROM clock_event WHERE connector_id = $1 AND employee_id IS NULL`, [c.id]);
+    expect(before.n).toBe(2);
+    const fresh = (await api(app).get(`${B}/connectors`).set(bearer(admin))).body.find((x: { id: string }) => x.id === c.id);
+    const u = await api(app).put(`${B}/connectors/${c.id}`).set(bearer(admin)).set('If-Match', `"${fresh.version}"`).send({ code, name: 'Mapped gate', type: 'hikvision_push', config: { allowed_ips: ['*'] }, match_by: 'staff_number', is_active: true });
+    expect(u.status).toBe(200);
+    const [after] = await db(app).query(`SELECT count(*)::int AS n FROM clock_event WHERE connector_id = $1 AND employee_id = $2`, [c.id, p.id]);
+    expect(after.n).toBe(2);
+    const day = (await api(app).get(`${B}/attendance/days`).query({ from: d, to: d, employee_id: p.id }).set(bearer(await login(app, 'hr.manager')))).body.data[0];
+    expect(day.status).toBe('present');
+  });
+});

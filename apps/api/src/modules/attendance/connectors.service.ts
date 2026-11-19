@@ -61,9 +61,12 @@ export class ConnectorsService {
     const hasCreds = dto.credentials ? Object.keys(dto.credentials).length > 0 : !!c.credentialsEnc;
     const problems = adapter.validate(dto.config, hasCreds);
     if (problems.length) throw unprocessable('invalid_connector', problems.join('; '), problems.map((p) => ({ path: p.startsWith('credentials') ? 'credentials' : `config.${p.split(':')[0]}`, message: p })));
+    const matchBefore = id ? c.matchBy : null;
     Object.assign(c, { code: dto.code, name: dto.name, type: dto.type, config: dto.config, matchBy: dto.match_by, scheduleMinutes: dto.schedule_minutes ?? null, isActive: dto.is_active });
     if (dto.credentials) c.credentialsEnc = encrypt(JSON.stringify(dto.credentials));
     const saved = await repo.save(c);
+    // A new way of matching may place punches that arrived unmatched.
+    if (matchBefore !== null && matchBefore !== dto.match_by) await this.attendance.rematch(saved.id);
     return this.dto(saved, hasCreds);
   }
 
