@@ -117,3 +117,9 @@ PostgreSQL logs.
 3. Roll the remaining API, worker and web instances.
 
 Migrations are hand-written and reviewed; `synchronize` is never used.
+
+## Timeouts
+
+Payroll calculation for the whole hospital runs in one request (under a minute for 2,000
+staff; see PERFORMANCE.md). Give the reverse proxy and load balancer a read timeout of at
+least 120 seconds for the API.

@@ -170,7 +170,11 @@ ${rows}
 
 * Screens staff use all day (lists, records, the inbox, balances, calendar, dashboard)
   should stay well under 300 ms at p95; reports and downloads under a few seconds.
-* Payroll calculation is a once-a-month, background-style action; it is measured once.
+* Payroll calculation is a once-a-month action, measured once. About 23 ms a person, done
+  one person at a time in one transaction; at 2,000 staff it takes under a minute, so a
+  reverse proxy in front of the API must allow requests of at least two minutes on
+  `POST /payroll/runs/{id}/calculate` (see DEPLOYMENT.md). Batching the per-person queries
+  is the first optimisation if the hospital grows much larger.
 * Attendance grows by about 520,000 rows a year for 2,000 staff (weekdays only here;
   shift workers add weekends). Queries filter by employee or department and date, which the
   indexes \`(employee_id, work_date)\` and \`ix_attendance_date\` serve; partitioning by year is
