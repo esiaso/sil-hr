@@ -2340,6 +2340,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/employees/{id}/attendance/pull": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Connectors_pullOne"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/connectors/{id}/run": {
         parameters: {
             query?: never;
@@ -19441,6 +19457,82 @@ export interface operations {
                 };
             };
             /** @description Requires: connector:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Connectors_pullOne: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: date */
+                    from: string;
+                    /** Format: date */
+                    to: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Fetches this person’s punches for the dates from every pull connector now (up to 62 days); the days are recalculated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        employee_id: string;
+                        from: string;
+                        to: string;
+                        accepted: number;
+                        connectors: {
+                            /** Format: uuid */
+                            connector_id: string;
+                            connector: string;
+                            device_user_ids: string[];
+                            status: string;
+                            received: number;
+                            accepted: number;
+                            duplicates: number;
+                            error: string | null;
+                        }[];
+                    };
+                };
+            };
+            /** @description Requires: attendance:manage */
             403: {
                 headers: {
                     [name: string]: unknown;

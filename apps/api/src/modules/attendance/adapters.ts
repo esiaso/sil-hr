@@ -17,7 +17,8 @@ export interface ConnectorAdapter {
   /** Problems with the non-secret configuration (empty = fine). */
   validate(config: Record<string, unknown>, hasCredentials: boolean): string[];
   test?(c: Connector, creds: Record<string, string>): Promise<string>;
-  pull?(c: Connector, creds: Record<string, string>, from: Date, to: Date): Promise<IncomingPunch[]>;
+  /** `only`: device user ids (Employee No. / emp_code) to fetch, for pulling one person's punches. */
+  pull?(c: Connector, creds: Record<string, string>, from: Date, to: Date, only?: string[]): Promise<IncomingPunch[]>;
 }
 
 const TIMEOUT_MS = 15_000;
@@ -50,14 +51,19 @@ export const bioTimeAdapter: ConnectorAdapter = {
     await bioTimeToken(c, creds);
     return 'Signed in to BioTime';
   },
-  async pull(c, creds, from, to) {
+  async pull(c, creds, from, to, only) {
+    if (only && only.length > 1) {
+      const all: IncomingPunch[] = [];
+      for (const code of only) all.push(...(await this.pull!(c, creds, from, to, [code])));
+      return all;
+    }
     const token = await bioTimeToken(c, creds);
     const tz = str(c.config.timezone) || 'Africa/Nairobi';
     const fmt = (d: Date) => new Intl.DateTimeFormat('sv-SE', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23' }).format(d);
     const out: IncomingPunch[] = [];
     for (let page = 1; page <= 200; page++) {
       const url = new URL('/iclock/api/transactions/', str(c.config.base_url));
-      url.search = new URLSearchParams({ start_time: fmt(from), end_time: fmt(to), page: String(page), page_size: '500' }).toString();
+      url.search = new URLSearchParams({ start_time: fmt(from), end_time: fmt(to), page: String(page), page_size: '500', ...(only?.length ? { emp_code: only[0] } : {}) }).toString();
       const res = await fetch(url, { headers: { Authorization: `JWT ${token}`, Accept: 'application/json' }, signal: AbortSignal.timeout(TIMEOUT_MS) });
       if (!res.ok) throw new Error(`BioTime transactions: HTTP ${res.status}`);
       const body = (await res.json()) as { data?: { id: number | string; emp_code: string; punch_time: string; punch_state?: string; terminal_sn?: string }[]; next?: string | null };
@@ -139,7 +145,12 @@ export const hikvisionIsapiAdapter: ConnectorAdapter = {
     if (!res.ok) throw new Error(`Hikvision device info: HTTP ${res.status}`);
     return 'Reached the Hikvision terminal';
   },
-  async pull(c, creds, from, to) {
+  async pull(c, creds, from, to, only) {
+    if (only && only.length > 1) {
+      const all: IncomingPunch[] = [];
+      for (const no of only) all.push(...(await this.pull!(c, creds, from, to, [no])));
+      return all;
+    }
     const out: IncomingPunch[] = [];
     const searchID = randomUUID();
     const iso = (d: Date) => d.toISOString().replace(/\.\d{3}Z$/, '+00:00');
@@ -147,7 +158,7 @@ export const hikvisionIsapiAdapter: ConnectorAdapter = {
       const res = await digestFetch(new URL('/ISAPI/AccessControl/AcsEvent?format=json', str(c.config.base_url)).toString(), {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ AcsEventCond: { searchID, searchResultPosition: pos, maxResults: 30, major: 5, minor: 75, startTime: iso(from), endTime: iso(to) } }),
+        body: JSON.stringify({ AcsEventCond: { searchID, searchResultPosition: pos, maxResults: 30, major: 5, minor: 75, startTime: iso(from), endTime: iso(to), ...(only?.length ? { employeeNoString: only[0] } : {}) } }),
       }, creds);
       if (!res.ok) throw new Error(`Hikvision events: HTTP ${res.status}`);
       const body = (await res.json()) as { AcsEvent?: { responseStatusStrg?: string; numOfMatches?: number; InfoList?: { employeeNoString?: string; time: string; serialNo?: number; attendanceStatus?: string }[] } };

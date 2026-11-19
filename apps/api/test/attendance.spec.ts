@@ -284,6 +284,45 @@ describe('device connectors', () => {
     }
   });
 
+  it('pull one person’s punches now: only their Employee No. is asked for, and the connector cursor stays put', async () => {
+    const app = await testApp();
+    const p = await newStaff('ICTO');
+    const other = await newStaff('ICTO');
+    const d = pastWeekday(9);
+    const asked: (string | undefined)[] = [];
+    const hik = await listen(async (req, res) => {
+      const auth = String(req.headers.authorization ?? '');
+      if (!auth.startsWith('Digest ')) return void res.writeHead(401, { 'www-authenticate': 'Digest realm="DS-K1T", qop="auth", nonce="n0nce"' }).end();
+      const cond = JSON.parse(await read(req)).AcsEventCond;
+      asked.push(cond.employeeNoString);
+      const all = [
+        { employeeNoString: p.staff, time: zonedToUtc(d, '07:58', TZ).toISOString(), serialNo: 21, attendanceStatus: 'checkIn' },
+        { employeeNoString: other.staff, time: zonedToUtc(d, '08:02', TZ).toISOString(), serialNo: 22, attendanceStatus: 'checkIn' },
+        { employeeNoString: p.staff, time: zonedToUtc(d, '17:03', TZ).toISOString(), serialNo: 23, attendanceStatus: 'checkOut' },
+      ].filter((e) => !cond.employeeNoString || e.employeeNoString === cond.employeeNoString);
+      return void res.writeHead(200, { 'content-type': 'application/json' }).end(JSON.stringify({ AcsEvent: { responseStatusStrg: 'OK', numOfMatches: all.length, InfoList: all } }));
+    });
+    try {
+      const admin = await login(app, 'admin');
+      const c = (await api(app).post(`${B}/connectors`).set(bearer(admin)).send({ code: `hik1_${uniq().toLowerCase()}`, name: 'Ward terminal', type: 'hikvision_isapi', config: { base_url: hik.url }, credentials: { username: 'admin', password: 'hik-pass' } })).body;
+      const hr = await login(app, 'hr.manager');
+      expect((await api(app).post(`${B}/employees/${p.id}/attendance/pull`).set(bearer(hr)).send({ from: d, to: addDays(d, 70) })).status).toBe(422);
+      expect((await api(app).post(`${B}/employees/${p.id}/attendance/pull`).set(bearer(await login(app, 'employee'))).send({ from: d, to: d })).status).toBe(403);
+      const r = await api(app).post(`${B}/employees/${p.id}/attendance/pull`).set(bearer(hr)).send({ from: d, to: d });
+      expect(r.status).toBe(200);
+      const mine = r.body.connectors.find((x: { connector_id: string }) => x.connector_id === c.id);
+      expect(mine).toMatchObject({ status: 'succeeded', device_user_ids: [p.staff], received: 2, accepted: 2 });
+      expect(asked).toEqual([p.staff]);
+      const [conn] = await db(app).query(`SELECT cursor_at FROM connector WHERE id = $1`, [c.id]);
+      expect(conn.cursor_at).toBeNull();
+      const day = (await api(app).get(`${B}/attendance/days`).query({ from: d, to: d, employee_id: p.id }).set(bearer(hr))).body.data[0];
+      expect(day).toMatchObject({ status: 'present' });
+      await api(app).put(`${B}/connectors/${c.id}`).set(bearer(admin)).set('If-Match', `"${c.version}"`).send({ code: c.code, name: c.name, type: c.type, config: c.config, match_by: 'staff_number', is_active: false });
+    } finally {
+      await hik.close();
+    }
+  });
+
   it('Hikvision terminals pushing events (JSON or multipart event_log)', async () => {
     const app = await testApp();
     const p = await newStaff('ICTO');

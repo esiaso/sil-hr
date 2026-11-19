@@ -213,6 +213,14 @@ export class ConnectorsController {
     return this.connectors.test(id);
   }
 
+  @Post('employees/:id/attendance/pull')
+  @RequirePermissions('attendance:manage')
+  @HttpCode(200)
+  @ZResponse(z.object({ employee_id: z.uuid(), from: z.string(), to: z.string(), accepted: z.number().int(), connectors: z.array(z.object({ connector_id: z.uuid(), connector: z.string(), device_user_ids: z.array(z.string()), status: z.string(), received: z.number().int(), accepted: z.number().int(), duplicates: z.number().int(), error: z.string().nullable() })) }), 200, 'Fetches this person’s punches for the dates from every pull connector now (up to 62 days); the days are recalculated')
+  pullOne(@Access() a: AccessProfile, @Id() id: string, @ZBody(z.object({ from: z.iso.date(), to: z.iso.date() })) dto: { from: string; to: string }) {
+    return this.connectors.pullForEmployeeChecked(a, id, dto.from, dto.to);
+  }
+
   @Post('connectors/:id/run')
   @RequirePermissions('connector:manage')
   @HttpCode(200)

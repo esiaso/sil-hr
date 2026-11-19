@@ -8,6 +8,10 @@ import { decrypt, encrypt } from '../../common/crypto';
 import { assertVersion } from '../../common/etag';
 import { notFound, ProblemException, unprocessable } from '../../common/problem';
 import { NotificationsService } from '../notifications/notifications.module';
+import { SettingsService } from '../settings/settings.module';
+import { ScopeService } from '../organisation/scope.service';
+import type { AccessProfile } from '../../common/access';
+import { zonedToUtc } from './attendance.rules';
 import { ADAPTERS, parseHikvisionEvent, parseZkAttlog } from './adapters';
 import { Connector, ConnectorRun, DeviceUserMapping } from './attendance.entities';
 import { AttendanceService, type IncomingPunch } from './attendance.service';
@@ -25,6 +29,8 @@ export class ConnectorsService {
     @InjectDataSource() private readonly dataSource: DataSource,
     private readonly attendance: AttendanceService,
     private readonly notifications: NotificationsService,
+    private readonly settings: SettingsService,
+    private readonly scope: ScopeService,
   ) {}
 
   dto(c: Connector & { credentialsEnc?: string | null }, hasCredentials?: boolean): ConnectorDto {
@@ -81,7 +87,7 @@ export class ConnectorsService {
     }
   }
 
-  private async record(c: Connector, trigger: ConnectorRun['trigger'], from: Date | null, to: Date | null, fn: () => Promise<IncomingPunch[]>) {
+  private async record(c: Connector, trigger: ConnectorRun['trigger'], from: Date | null, to: Date | null, fn: () => Promise<IncomingPunch[]>, moveCursor = true) {
     const runs = this.dataSource.getRepository(ConnectorRun);
     const run = await runs.save(runs.create({ connectorId: c.id, trigger, windowFrom: from, windowTo: to }));
     try {
@@ -89,7 +95,7 @@ export class ConnectorsService {
       const r = await this.attendance.ingest(punches);
       Object.assign(run, { status: r.errors.length ? 'partial' : 'succeeded', finishedAt: new Date(), received: punches.length, accepted: r.accepted, duplicates: r.duplicates, unmatched: r.unmatched, error: r.errors.length ? r.errors.slice(0, 5).map((e) => `#${e.index}: ${e.message}`).join('; ') : null });
       await runs.save(run);
-      await this.dataSource.getRepository(Connector).update({ id: c.id }, { lastRunAt: new Date(), lastSuccessAt: new Date(), ...(to ? { cursorAt: to } : {}) });
+      await this.dataSource.getRepository(Connector).update({ id: c.id }, { lastRunAt: new Date(), lastSuccessAt: new Date(), ...(to && moveCursor ? { cursorAt: to } : {}) });
       await this.refreshHealth(c.id);
       return run;
     } catch (err) {
@@ -119,6 +125,44 @@ export class ConnectorsService {
     const to = new Date();
     const from = new Date((c.cursorAt?.getTime() ?? to.getTime() - FIRST_PULL_MS) - OVERLAP_MS);
     return this.runDto(await this.record(c, trigger, from, to, () => adapter.pull!(c, this.creds(c), from, to)));
+  }
+
+  /**
+   * Fetches one person's punches for a date range from every active pull connector now,
+   * instead of waiting for the schedule (a missing day, a late device, a payroll query).
+   * The person is looked up on each device by their mapped device id, or by staff number
+   * when the connector matches by staff number. The connectors' own cursors do not move.
+   */
+  async pullForEmployeeChecked(access: AccessProfile, employeeId: string, fromDate: string, toDate: string) {
+    const [e] = await this.dataSource.query(`SELECT id, staff_number, branch_id, department_id FROM employee WHERE id = $1 AND deleted_at IS NULL`, [employeeId]);
+    if (!e) throw notFound('Employee');
+    await this.scope.assertAllows(access, 'attendance:manage', { branchId: e.branch_id, departmentId: e.department_id, employeeId: e.id });
+    const days = (Date.parse(toDate) - Date.parse(fromDate)) / 86_400_000;
+    if (days < 0 || days > 62) throw unprocessable('range', 'Choose up to 62 days, with the end on or after the start', [{ path: 'to', message: 'Range' }]);
+    const connectors = await this.pullForEmployee({ id: e.id, staffNumber: e.staff_number }, fromDate, toDate);
+    return { employee_id: e.id, from: fromDate, to: toDate, connectors, accepted: connectors.reduce((s, c) => s + c.accepted, 0) };
+  }
+
+  async pullForEmployee(employee: { id: string; staffNumber: string }, fromDate: string, toDate: string) {
+    const timeZone = await this.settings.get('locale.timezone');
+    const from = zonedToUtc(fromDate, '00:00', timeZone);
+    const to = new Date(zonedToUtc(toDate, '00:00', timeZone).getTime() + 86_400_000);
+    const connectors = await this.dataSource.getRepository(Connector).find({ where: { isActive: true } });
+    const out: { connector_id: string; connector: string; device_user_ids: string[]; status: string; received: number; accepted: number; duplicates: number; error: string | null }[] = [];
+    for (const c of connectors) {
+      const adapter = ADAPTERS[c.type];
+      if (!adapter.pull) continue;
+      const mapped: { device_user_id: string }[] = await this.dataSource.query(`SELECT device_user_id FROM device_user_mapping WHERE connector_id = $1 AND employee_id = $2`, [c.id, employee.id]);
+      const ids = [...new Set([...mapped.map((x) => x.device_user_id), ...(c.matchBy === 'staff_number' ? [employee.staffNumber] : [])])];
+      if (!ids.length) {
+        out.push({ connector_id: c.id, connector: c.name, device_user_ids: [], status: 'skipped', received: 0, accepted: 0, duplicates: 0, error: 'This person is not mapped to a user on these devices' });
+        continue;
+      }
+      const wanted = new Set(ids.map((x) => x.toLowerCase()));
+      const run = await this.record(c, 'manual', from, to, async () => (await adapter.pull!(c, this.creds(c), from, to, ids)).filter((p) => p.deviceUserId && wanted.has(p.deviceUserId.toLowerCase())), false);
+      out.push({ connector_id: c.id, connector: c.name, device_user_ids: ids, status: run.status, received: run.received, accepted: run.accepted, duplicates: run.duplicates, error: run.error });
+    }
+    return out;
   }
 
   /** Worker: runs every active pull connector whose schedule is due. */

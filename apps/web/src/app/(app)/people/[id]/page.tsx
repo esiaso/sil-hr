@@ -10,6 +10,7 @@ import { ApiError, hr, unwrap, withEtag } from '@/lib/api';
 import { useLookups } from '@/lib/lookups';
 import { useSession } from '@/lib/session';
 import { EmployeeLogin } from '@/components/employee-login';
+import { PullAttendance } from '@/components/pull-attendance';
 
 const TABS = ['overview', 'job', 'contacts', 'family', 'qualifications', 'payment', 'documents', 'licences'] as const;
 type Tab = (typeof TABS)[number];
@@ -97,6 +98,7 @@ function Profile() {
   const qc = useQueryClient();
   const [reveal, setReveal] = useState(false);
   const [dialog, setDialog] = useState<'edit' | 'status' | 'transfer' | 'manager' | null>(null);
+  const [pulling, setPulling] = useState(false);
   const df = (d: string | null | undefined) => formatDate(d, settings.date_format);
 
   const emp = useQuery({ queryKey: ['employee', id, reveal], queryFn: () => withEtag(hr.GET('/api/v1/employees/{id}', { params: { path: { id }, query: { include_sensitive: reveal ? 'true' : undefined } as never } })) });
@@ -130,6 +132,7 @@ function Profile() {
             {canLifecycle && <Button variant="secondary" onClick={() => setDialog('transfer')}>Transfer</Button>}
             {canLifecycle && <Button variant="secondary" onClick={() => setDialog('manager')}>Manager</Button>}
             {canLifecycle && <Button variant="secondary" onClick={() => setDialog('status')}>Change status</Button>}
+            {can('attendance:manage') && e.status !== 'exited' && <Button variant="secondary" onClick={() => setPulling(true)}>Pull attendance</Button>}
           </>
         }
       />
@@ -258,6 +261,7 @@ function Profile() {
         <LicencesTab employeeId={id} rows={licences.data} canManage={can('licence:manage')} canVerify={can('licence:verify')} reload={() => { void licences.refetch(); refresh(); }} />
       )}
 
+      {pulling && <PullAttendance employeeId={e.id} name={e.display_name} onClose={() => setPulling(false)} />}
       {dialog === 'edit' && <EditDialog e={e} etag={emp.data.etag} onClose={() => { setDialog(null); refresh(); }} />}
       {dialog === 'status' && <StatusDialog e={e} onClose={() => { setDialog(null); refresh(); }} />}
       {dialog === 'transfer' && <TransferDialog e={e} onClose={() => { setDialog(null); refresh(); }} />}
