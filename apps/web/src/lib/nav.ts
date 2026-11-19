@@ -83,6 +83,8 @@ export const NAV: NavGroup[] = [
     items: [
       { label: 'Payroll runs', href: '/payroll', permission: 'payroll:read' },
       { label: 'Pay and loans', href: '/payroll/people', permission: 'salary:read' },
+      { label: 'P9 forms', href: '/payroll/p9', permission: 'payroll:read' },
+      { label: 'Statutory and bank reports', href: '/reports?r=statutory', permission: 'payroll:read' },
       { label: 'Payroll setup', href: '/payroll/setup', permission: 'salary:read' },
     ],
   },

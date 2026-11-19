@@ -9,3 +9,7 @@ next-env.d.ts
 *.tsbuildinfo
 test-results
 playwright-report
+
+# Playwright output
+apps/e2e/report/
+apps/e2e/test-results/

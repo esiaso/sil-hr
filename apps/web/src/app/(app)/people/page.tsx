@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { EMPLOYEE_STATUSES, EMPLOYMENT_TYPES, formatDate, hireEmployee, type HireEmployee } from '@sil/hr-shared';
+import { EMPLOYEE_STATUSES, EMPLOYMENT_TYPES, GENDERS, MARITAL_STATUSES, formatDate, hireEmployee, type HireEmployee } from '@sil/hr-shared';
 import { Badge, Button, Dialog, Empty, Field, Input, LoadMore, Loading, PageHeader, ProblemBanner, Select } from '@/components/ui';
 import { ApiError, hr, newIdempotencyKey, unwrap } from '@/lib/api';
 import { useLookups } from '@/lib/lookups';
@@ -18,8 +18,19 @@ function HireDialog({ onClose }: { onClose: () => void }) {
   const qc = useQueryClient();
   const [key] = useState(newIdempotencyKey);
   const form = useForm<HireEmployee>({ resolver: zodResolver(hireEmployee) as never, defaultValues: { employment_type: 'permanent', status: 'probation', hire_date: new Date().toISOString().slice(0, 10) } });
+  // Existing staff already work here: they keep their staff number and original hire date, start as active, and get no onboarding checklist.
+  const [existing, setExisting] = useState(false);
+  const pick = (v: boolean) => {
+    setExisting(v);
+    form.setValue('status', v ? 'active' : 'probation');
+    if (v) form.setValue('hire_date', '' as never);
+    else form.setValue('hire_date', new Date().toISOString().slice(0, 10));
+  };
   const save = useMutation({
-    mutationFn: (v: HireEmployee) => unwrap(hr.POST('/api/v1/employees', { params: { header: { 'Idempotency-Key': key } as never }, body: Object.fromEntries(Object.entries(v).map(([k, x]) => [k, x === '' ? null : x])) as HireEmployee })),
+    mutationFn: (v: HireEmployee) => {
+      if (existing && !v.staff_number) { form.setError('staff_number', { message: 'Existing staff keep their staff number' }); throw new Error('Enter the staff number this person already has.'); }
+      return unwrap(hr.POST('/api/v1/employees', { params: { header: { 'Idempotency-Key': key } as never }, body: Object.fromEntries(Object.entries(v).map(([k, x]) => [k, x === '' ? null : x])) as HireEmployee }));
+    },
     onSuccess: (e) => {
       void qc.invalidateQueries({ queryKey: ['employees'] });
       router.push(`/people/${e.id}`);
@@ -35,8 +46,13 @@ function HireDialog({ onClose }: { onClose: () => void }) {
     </Field>
   );
   return (
-    <Dialog open wide title="Hire an employee" onClose={onClose}>
+    <Dialog open wide title="Add an employee" onClose={onClose}>
       <ProblemBanner error={save.error} />
+      <div className="mb-4 flex flex-wrap gap-4 text-sm" role="radiogroup" aria-label="Who are you adding">
+        <label className="flex items-center gap-2"><input type="radio" checked={!existing} onChange={() => pick(false)} /> A new hire</label>
+        <label className="flex items-center gap-2"><input type="radio" checked={existing} onChange={() => pick(true)} /> Someone who already works here</label>
+      </div>
+      {existing && <p className="muted mb-3 text-xs">Use their existing staff number and the date they actually joined. They start as active, and no onboarding checklist is created (that happens only for people who joined in the last 30 days). For many people at once, use People → Import &amp; export.</p>}
       <form noValidate onSubmit={form.handleSubmit((v) => save.mutate(v))} className="space-y-4">
         <div className="grid gap-3 sm:grid-cols-3">
           {f('first_name', 'First name')}
@@ -45,9 +61,11 @@ function HireDialog({ onClose }: { onClose: () => void }) {
           {f('national_id', 'National ID', 'text', 'Stored encrypted')}
           {f('kra_pin', 'KRA PIN')}
           {f('date_of_birth', 'Date of birth', 'date')}
+          <Field label="Gender" htmlFor="h-gender"><Select id="h-gender" {...form.register('gender', { setValueAs: (v) => (v === '' ? undefined : v) })}><option value="">Not recorded</option>{GENDERS.map((g) => <option key={g} value={g}>{g}</option>)}</Select></Field>
+          <Field label="Marital status" htmlFor="h-marital"><Select id="h-marital" {...form.register('marital_status', { setValueAs: (v) => (v === '' ? undefined : v) })}><option value="">Not recorded</option>{MARITAL_STATUSES.map((g) => <option key={g} value={g}>{g}</option>)}</Select></Field>
           {f('work_email', 'Work email', 'email')}
           {f('work_phone', 'Work phone')}
-          {f('staff_number', 'Staff number', 'text', 'Blank = next number')}
+          {f('staff_number', 'Staff number', 'text', existing ? 'Their current staff number' : 'Blank = next number')}
         </div>
         <div className="grid gap-3 sm:grid-cols-3">
           <Field label="Position" htmlFor="h-position" error={err.position_id?.message}>
@@ -62,11 +80,11 @@ function HireDialog({ onClose }: { onClose: () => void }) {
           <Field label="Starts as" htmlFor="h-status">
             <Select id="h-status" {...form.register('status')}>{['onboarding', 'probation', 'active'].map((t) => <option key={t}>{t}</option>)}</Select>
           </Field>
-          {f('hire_date', 'Hire date', 'date')}
+          {f('hire_date', existing ? 'Date they joined' : 'Hire date', 'date')}
           {f('probation_end_date', 'Probation ends', 'date')}
         </div>
         <p className="muted text-xs">The manager is set on the profile after hiring. Other systems are told through hr.employee.hired.v1.</p>
-        <div className="flex justify-end gap-2"><Button type="button" variant="secondary" onClick={onClose}>Cancel</Button><Button type="submit" busy={save.isPending}>Hire</Button></div>
+        <div className="flex justify-end gap-2"><Button type="button" variant="secondary" onClick={onClose}>Cancel</Button><Button type="submit" busy={save.isPending}>{existing ? 'Add employee' : 'Hire'}</Button></div>
       </form>
     </Dialog>
   );
@@ -95,7 +113,7 @@ export default function EmployeesPage() {
   const rows = useMemo(() => (q.data?.pages.flatMap((p) => p.data) ?? []).filter((e) => !('deleted' in e)), [q.data]);
   return (
     <div>
-      <PageHeader title="Employees" description="Everyone the hospital employs, within your scope. Search by name, staff number, work email, or an exact national ID or KRA PIN." actions={can('employee:hire') && <Button onClick={() => setHiring(true)}>Hire</Button>} />
+      <PageHeader title="Employees" description="Everyone the hospital employs, within your scope. Search by name, staff number, work email, or an exact national ID or KRA PIN." actions={can('employee:hire') && <Button onClick={() => setHiring(true)}>Add employee</Button>} />
       <div className="mb-3 flex flex-wrap gap-2">
         <Input aria-label="Search" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} className="max-w-xs" />
         <Select aria-label="Status" value={status} onChange={(e) => setStatus(e.target.value)} className="max-w-40"><option value="">Any status</option>{EMPLOYEE_STATUSES.map((s) => <option key={s}>{s}</option>)}</Select>

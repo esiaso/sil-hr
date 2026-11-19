@@ -2,8 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { stringify } from 'csv-stringify/sync';
 import ExcelJS from 'exceljs';
+import { zipSync } from 'fflate';
 import { DataSource, In } from 'typeorm';
-import { AccessProfile } from '../../common/access';
+import { AccessProfile, scopeAllows } from '../../common/access';
 import { decrypt } from '../../common/crypto';
 import { conflict, notFound, unprocessable } from '../../common/problem';
 import { AuditAction } from '@sil/hr-shared';
@@ -225,6 +226,37 @@ export class PayrollOutputs {
   }
 
   /** P9A for a year from approved payrolls. Staff get their own; payroll staff anyone's. */
+  /** Everyone with an approved payslip in the year (in the caller's payroll:read scope), for the P9 tools. */
+  async p9Employees(access: AccessProfile, year: number) {
+    const rows: { employee_id: string; staff_number: string; employee_name: string; department: string | null; months: number; paye: string; branch_id: string | null; department_id: string | null }[] = await this.dataSource.query(
+      `SELECT s.employee_id, max(s.staff_number) AS staff_number, max(s.employee_name) AS employee_name, max(s.department_name) AS department, count(*)::int AS months, sum(s.paye)::text AS paye,
+              max(e.branch_id::text)::uuid AS branch_id, max(e.department_id::text)::uuid AS department_id
+         FROM payslip s JOIN payroll_run r ON r.id = s.run_id JOIN employee e ON e.id = s.employee_id
+        WHERE r.status IN ('approved', 'paid', 'closed') AND r.period LIKE $1 GROUP BY s.employee_id ORDER BY max(s.staff_number)`,
+      [`${year}-%`],
+    );
+    const f = await this.payroll.scopeFilter(access);
+    return rows.filter((r) => scopeAllows(f, { branchId: r.branch_id, departmentId: r.department_id, employeeId: r.employee_id })).map(({ branch_id: _b, department_id: _d, ...r }) => ({ ...r, paye: Number(r.paye).toFixed(2) }));
+  }
+
+  /** Every P9 for the year in one ZIP (one PDF per person), for issuing to staff or filing. */
+  async p9Bulk(access: AccessProfile, year: number, departmentId?: string): Promise<FileOut> {
+    const people = await this.p9Employees(access, year);
+    let list = people;
+    if (departmentId) {
+      const ids: { id: string }[] = await this.dataSource.query(`SELECT id FROM employee WHERE department_id IN (SELECT id FROM department WHERE id = $1 OR path && ARRAY[$1::uuid])`, [departmentId]);
+      const set = new Set(ids.map((x) => x.id));
+      list = people.filter((p) => set.has(p.employee_id));
+    }
+    if (!list.length) throw unprocessable('no_payslips', `No approved payslips in ${year} for the people you chose`);
+    const files: Record<string, Uint8Array> = {};
+    for (const p of list) {
+      const f = await this.p9(access, p.employee_id, year);
+      files[f.fileName] = new Uint8Array(f.body);
+    }
+    return { fileName: `p9-${year}${departmentId ? '-department' : ''}.zip`, mimeType: 'application/zip', body: Buffer.from(zipSync(files, { level: 6 })) };
+  }
+
   async p9(access: AccessProfile, employeeId: string, year: number): Promise<FileOut> {
     if (access.employeeId !== employeeId && !access.has('payroll:read')) throw notFound('Employee');
     const e = await this.dataSource.getRepository(Employee).createQueryBuilder('e').addSelect('e.kraPinEnc').where({ id: employeeId }).getOne();

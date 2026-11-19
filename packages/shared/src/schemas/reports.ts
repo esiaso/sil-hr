@@ -11,7 +11,13 @@ export const REPORTS = {
   'payroll-cost': 'Payroll cost by department',
   'licence-expiry': 'Licence expiry',
   'contract-expiry': 'Contract expiry',
+  statutory: 'Statutory remittances by month (PAYE, NSSF, SHIF, Housing Levy, NITA)',
+  'statutory-employees': 'Statutory deductions by employee',
+  'bank-payments': 'Salary payments by bank and month',
+  'bank-payments-detail': 'Salary payments by employee (one month)',
 } as const;
+/** Reports that read payroll: they need payroll:read rather than report:read. */
+export const PAYROLL_REPORTS: ReportCode[] = ['statutory', 'statutory-employees', 'bank-payments', 'bank-payments-detail'];
 export type ReportCode = keyof typeof REPORTS;
 
 export const headcountQuery = z.object({ as_at: isoDate.optional(), group_by: z.enum(['department', 'branch', 'employment_type', 'grade', 'gender']).default('department'), format: reportFormat });
@@ -30,6 +36,12 @@ export const payrollCostRow = z.object({ period: z.string(), department: z.strin
 export const expiryQuery = z.object({ within_days: z.coerce.number().int().min(0).max(730).default(90), include_expired: z.enum(['true', 'false']).default('true').transform((v) => v === 'true'), format: reportFormat });
 export const licenceExpiryRow = z.object({ employee_id: uuid, staff_number: z.string(), employee_name: z.string(), department: z.string().nullable(), licensing_body: z.string(), licence_number: z.string(), expiry_date: isoDate, days_left: z.number().int(), verified: z.boolean() });
 export const contractExpiryRow = z.object({ employee_id: uuid, staff_number: z.string(), employee_name: z.string(), department: z.string().nullable(), contract_number: z.string(), contract_type: z.string(), end_date: isoDate, days_left: z.number().int() });
+
+export const statutoryRow = z.object({ period: z.string(), employees: z.number().int(), gross: money, taxable_pay: money, paye: money, nssf_employee: money, nssf_employer: money, nssf_total: money, shif: money, housing_levy_employee: money, housing_levy_employer: money, housing_levy_total: money, nita: money, total_remittance: money });
+export const statutoryEmployeeRow = z.object({ employee_id: uuid, staff_number: z.string(), employee_name: z.string(), department: z.string().nullable(), months: z.number().int(), gross: money, taxable_pay: money, paye: money, nssf: money, shif: money, housing_levy: money });
+export const bankPaymentRow = z.object({ period: z.string(), channel: z.string(), bank: z.string(), employees: z.number().int(), amount: money });
+export const bankPaymentDetailRow = z.object({ employee_id: uuid, staff_number: z.string(), employee_name: z.string(), department: z.string().nullable(), channel: z.string(), bank: z.string(), branch: z.string().nullable(), account: z.string(), amount: money, run_status: z.string() });
+export const periodQueryOne = z.object({ period: z.string().regex(/^\d{4}-(0[1-9]|1[0-2])$/), format: reportFormat });
 
 /** Numbers for the dashboard, each limited to the caller's scope. */
 export const dashboard = z.object({

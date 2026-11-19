@@ -2884,6 +2884,38 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/payroll/p9/employees": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["PayrollRun_p9Employees"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payroll/p9/bulk": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["PayrollRun_p9Bulk"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/me/payslips": {
         parameters: {
             query?: never;
@@ -5404,6 +5436,70 @@ export interface paths {
             cookie?: never;
         };
         get: operations["Reports_contracts"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reports/statutory": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Reports_statutory"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reports/statutory-employees": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Reports_statutoryEmployees"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reports/bank-payments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Reports_bankPayments"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/reports/bank-payments-detail": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Reports_bankPaymentsDetail"];
         put?: never;
         post?: never;
         delete?: never;
@@ -22865,6 +22961,85 @@ export interface operations {
             };
         };
     };
+    PayrollRun_p9Employees: {
+        parameters: {
+            query: {
+                year: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Everyone with an approved payslip in the year: who gets a P9 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        employee_id: string;
+                        staff_number: string;
+                        employee_name: string;
+                        department: string | null;
+                        months: number;
+                        paye: string;
+                    }[];
+                };
+            };
+            /** @description Requires: payroll:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    PayrollRun_p9Bulk: {
+        parameters: {
+            query: {
+                year: number;
+                department_id?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Requires: payroll:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
     PayrollRun_mine: {
         parameters: {
             query?: never;
@@ -38297,6 +38472,359 @@ export interface operations {
                 };
             };
             /** @description Requires: report:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Reports_statutory: {
+        parameters: {
+            query: {
+                from: string;
+                to: string;
+                format?: "json" | "csv" | "xlsx";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Approved payrolls: PAYE, NSSF (staff and employer), SHIF, Housing Levy (staff and employer) and NITA per month, with the total to remit */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        period: string;
+                        employees: number;
+                        gross: string;
+                        taxable_pay: string;
+                        paye: string;
+                        nssf_employee: string;
+                        nssf_employer: string;
+                        nssf_total: string;
+                        shif: string;
+                        housing_levy_employee: string;
+                        housing_levy_employer: string;
+                        housing_levy_total: string;
+                        nita: string;
+                        total_remittance: string;
+                    }[];
+                    "text/csv": {
+                        period: string;
+                        employees: number;
+                        gross: string;
+                        taxable_pay: string;
+                        paye: string;
+                        nssf_employee: string;
+                        nssf_employer: string;
+                        nssf_total: string;
+                        shif: string;
+                        housing_levy_employee: string;
+                        housing_levy_employer: string;
+                        housing_levy_total: string;
+                        nita: string;
+                        total_remittance: string;
+                    }[];
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": {
+                        period: string;
+                        employees: number;
+                        gross: string;
+                        taxable_pay: string;
+                        paye: string;
+                        nssf_employee: string;
+                        nssf_employer: string;
+                        nssf_total: string;
+                        shif: string;
+                        housing_levy_employee: string;
+                        housing_levy_employer: string;
+                        housing_levy_total: string;
+                        nita: string;
+                        total_remittance: string;
+                    }[];
+                };
+            };
+            /** @description Requires: payroll:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Reports_statutoryEmployees: {
+        parameters: {
+            query: {
+                from: string;
+                to: string;
+                format?: "json" | "csv" | "xlsx";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Each person’s statutory deductions over the months */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        employee_id: string;
+                        staff_number: string;
+                        employee_name: string;
+                        department: string | null;
+                        months: number;
+                        gross: string;
+                        taxable_pay: string;
+                        paye: string;
+                        nssf: string;
+                        shif: string;
+                        housing_levy: string;
+                    }[];
+                    "text/csv": {
+                        /** Format: uuid */
+                        employee_id: string;
+                        staff_number: string;
+                        employee_name: string;
+                        department: string | null;
+                        months: number;
+                        gross: string;
+                        taxable_pay: string;
+                        paye: string;
+                        nssf: string;
+                        shif: string;
+                        housing_levy: string;
+                    }[];
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": {
+                        /** Format: uuid */
+                        employee_id: string;
+                        staff_number: string;
+                        employee_name: string;
+                        department: string | null;
+                        months: number;
+                        gross: string;
+                        taxable_pay: string;
+                        paye: string;
+                        nssf: string;
+                        shif: string;
+                        housing_levy: string;
+                    }[];
+                };
+            };
+            /** @description Requires: payroll:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Reports_bankPayments: {
+        parameters: {
+            query: {
+                from: string;
+                to: string;
+                format?: "json" | "csv" | "xlsx";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Net pay by month, channel and bank (primary accounts on file now) */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        period: string;
+                        channel: string;
+                        bank: string;
+                        employees: number;
+                        amount: string;
+                    }[];
+                    "text/csv": {
+                        period: string;
+                        channel: string;
+                        bank: string;
+                        employees: number;
+                        amount: string;
+                    }[];
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": {
+                        period: string;
+                        channel: string;
+                        bank: string;
+                        employees: number;
+                        amount: string;
+                    }[];
+                };
+            };
+            /** @description Requires: payroll:read */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Reports_bankPaymentsDetail: {
+        parameters: {
+            query: {
+                period: string;
+                format?: "json" | "csv" | "xlsx";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description One month: each person’s net pay and where it goes (account numbers masked) */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        employee_id: string;
+                        staff_number: string;
+                        employee_name: string;
+                        department: string | null;
+                        channel: string;
+                        bank: string;
+                        branch: string | null;
+                        account: string;
+                        amount: string;
+                        run_status: string;
+                    }[];
+                    "text/csv": {
+                        /** Format: uuid */
+                        employee_id: string;
+                        staff_number: string;
+                        employee_name: string;
+                        department: string | null;
+                        channel: string;
+                        bank: string;
+                        branch: string | null;
+                        account: string;
+                        amount: string;
+                        run_status: string;
+                    }[];
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": {
+                        /** Format: uuid */
+                        employee_id: string;
+                        staff_number: string;
+                        employee_name: string;
+                        department: string | null;
+                        channel: string;
+                        bank: string;
+                        branch: string | null;
+                        account: string;
+                        amount: string;
+                        run_status: string;
+                    }[];
+                };
+            };
+            /** @description Requires: payroll:read */
             403: {
                 headers: {
                     [name: string]: unknown;

@@ -15,7 +15,8 @@
     "db:seed": "node --env-file-if-exists=../../.env -r ts-node/register/transpile-only src/database/seeds/run-seed.ts",
     "db:seed:prod": "node dist/src/database/seeds/run-seed.js",
     "test": "jest --runInBand",
-    "test:unit": "jest --runInBand test/unit"
+    "test:unit": "jest --runInBand test/unit",
+    "bench": "TEST_DATABASE_URL=${PERF_DATABASE_URL:-postgres://silhr:silhr_dev_password@localhost:55433/silhr_perf} sh -c 'node test/perf/create-db.js && jest --runInBand --testRegex \"perf\\.bench\\.ts$\"'"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1158.0",
@@ -35,6 +36,7 @@
     "decimal.js": "^10.6.0",
     "docx": "9.5.1",
     "exceljs": "^4.4.0",
+    "fflate": "0.8.2",
     "helmet": "^8.1.0",
     "ioredis": "^5.4.2",
     "jose": "^5.10.0",

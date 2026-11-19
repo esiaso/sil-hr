@@ -4,11 +4,12 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useState, type ReactNode } from 'react';
-import { EMPLOYMENT_TYPES, GENDERS, RELATIONSHIPS, STATUS_TRANSITIONS, formatDate, type Employee, type EmployeeStatus } from '@sil/hr-shared';
+import { EMPLOYMENT_TYPES, GENDERS, MARITAL_STATUSES, RELATIONSHIPS, STATUS_TRANSITIONS, formatDate, type Employee, type EmployeeStatus } from '@sil/hr-shared';
 import { Badge, Button, Card, Dialog, Empty, Field, Input, Loading, PageHeader, ProblemBanner, Select, cx } from '@/components/ui';
 import { ApiError, hr, unwrap, withEtag } from '@/lib/api';
 import { useLookups } from '@/lib/lookups';
 import { useSession } from '@/lib/session';
+import { EmployeeLogin } from '@/components/employee-login';
 
 const TABS = ['overview', 'job', 'contacts', 'family', 'qualifications', 'payment', 'documents', 'licences'] as const;
 type Tab = (typeof TABS)[number];
@@ -160,6 +161,7 @@ function Profile() {
             </dl>
             {reveal && e.sensitive_visible && <p className="muted mt-2 text-xs">This view of ID numbers was recorded in the audit trail.</p>}
           </Card>
+          <EmployeeLogin e={e} onChanged={refresh} />
           <Card>
             <h3 className="mb-2 font-semibold">Contact</h3>
             <dl>
@@ -272,11 +274,13 @@ function EditDialog({ e, etag, onClose }: { e: Employee; etag: string; onClose: 
   const fields = ['first_name', 'middle_name', 'last_name', 'work_email', 'work_phone', 'personal_email', 'personal_phone', 'postal_address', 'residential_address', 'nationality', 'nssf_number', 'sha_number', 'date_of_birth'] as const;
   const [v, setV] = useState<Record<string, string>>(Object.fromEntries(fields.map((f) => [f, (e[f] as string | null) ?? ''])));
   const [type, setType] = useState(e.employment_type);
+  const [gender, setGender] = useState<string>(e.gender ?? '');
+  const [marital, setMarital] = useState<string>(e.marital_status ?? '');
   const [ids, setIds] = useState({ national_id: '', kra_pin: '', passport_number: '' });
   const save = useAction(
     () => unwrap(hr.PATCH('/api/v1/employees/{id}', {
       params: { path: { id: e.id }, header: { 'If-Match': etag } },
-      body: { ...Object.fromEntries(Object.entries(v).map(([k, x]) => [k, x === '' ? null : x])), employment_type: type, ...Object.fromEntries(Object.entries(ids).filter(([, x]) => x)) } as never,
+      body: { ...Object.fromEntries(Object.entries(v).map(([k, x]) => [k, x === '' ? null : x])), employment_type: type, gender: gender || null, marital_status: marital || null, ...Object.fromEntries(Object.entries(ids).filter(([, x]) => x)) } as never,
     })),
     onClose,
   );
@@ -286,6 +290,8 @@ function EditDialog({ e, etag, onClose }: { e: Employee; etag: string; onClose: 
       <ProblemBanner error={save.error} />
       <div className="grid gap-3 sm:grid-cols-3">
         {fields.map((f) => <Field key={f} label={f.replace(/_/g, ' ')} htmlFor={`e-${f}`} error={fe[f]}><Input id={`e-${f}`} type={f === 'date_of_birth' ? 'date' : 'text'} value={v[f]} onChange={(x) => setV({ ...v, [f]: x.target.value })} /></Field>)}
+        <Field label="Gender" htmlFor="e-gender"><Select id="e-gender" value={gender} onChange={(x) => setGender(x.target.value)}><option value="">Not recorded</option>{GENDERS.map((g) => <option key={g} value={g}>{g}</option>)}</Select></Field>
+        <Field label="Marital status" htmlFor="e-marital"><Select id="e-marital" value={marital} onChange={(x) => setMarital(x.target.value)}><option value="">Not recorded</option>{MARITAL_STATUSES.map((g) => <option key={g} value={g}>{g}</option>)}</Select></Field>
         <Field label="Employment type" htmlFor="e-type"><Select id="e-type" value={type} onChange={(x) => setType(x.target.value as typeof type)}>{EMPLOYMENT_TYPES.map((t) => <option key={t}>{t}</option>)}</Select></Field>
         {(['national_id', 'kra_pin', 'passport_number'] as const).map((f) => <Field key={f} label={`New ${f.replace(/_/g, ' ')}`} htmlFor={`e-${f}`} hint="Leave blank to keep" error={fe[f]}><Input id={`e-${f}`} value={ids[f]} onChange={(x) => setIds({ ...ids, [f]: x.target.value })} /></Field>)}
       </div>

@@ -54704,6 +54704,185 @@
         ]
       }
     },
+    "/api/v1/payroll/p9/employees": {
+      "get": {
+        "operationId": "PayrollRun_p9Employees",
+        "parameters": [
+          {
+            "name": "year",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 2000,
+              "maximum": 2100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Everyone with an approved payslip in the year: who gets a P9",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "employee_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      "staff_number": {
+                        "type": "string"
+                      },
+                      "employee_name": {
+                        "type": "string"
+                      },
+                      "department": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "months": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "paye": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "employee_id",
+                      "staff_number",
+                      "employee_name",
+                      "department",
+                      "months",
+                      "paye"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Requires: payroll:read"
+          },
+          "default": {
+            "description": "Problem details (RFC 9457)",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "correlation_id": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "path": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "path",
+                          "message"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "title",
+                    "status"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Payroll runs"
+        ]
+      }
+    },
+    "/api/v1/payroll/p9/bulk": {
+      "get": {
+        "operationId": "PayrollRun_p9Bulk",
+        "parameters": [
+          {
+            "name": "year",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 2000,
+              "maximum": 2100
+            }
+          },
+          {
+            "name": "department_id",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            }
+          }
+        ],
+        "responses": {
+          "403": {
+            "description": "Requires: payroll:read"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Payroll runs"
+        ]
+      }
+    },
     "/api/v1/me/payslips": {
       "get": {
         "operationId": "PayrollRun_mine",
@@ -108382,6 +108561,1218 @@
           },
           "403": {
             "description": "Requires: report:read"
+          },
+          "default": {
+            "description": "Problem details (RFC 9457)",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "correlation_id": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "path": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "path",
+                          "message"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "title",
+                    "status"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Reports"
+        ]
+      }
+    },
+    "/api/v1/reports/statutory": {
+      "get": {
+        "operationId": "Reports_statutory",
+        "parameters": [
+          {
+            "name": "from",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+            }
+          },
+          {
+            "name": "to",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+            }
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "default": "json",
+              "type": "string",
+              "enum": [
+                "json",
+                "csv",
+                "xlsx"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Approved payrolls: PAYE, NSSF (staff and employer), SHIF, Housing Levy (staff and employer) and NITA per month, with the total to remit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "period": {
+                        "type": "string"
+                      },
+                      "employees": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "gross": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "taxable_pay": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "paye": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "nssf_employee": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "nssf_employer": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "nssf_total": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "shif": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "housing_levy_employee": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "housing_levy_employer": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "housing_levy_total": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "nita": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "total_remittance": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      }
+                    },
+                    "required": [
+                      "period",
+                      "employees",
+                      "gross",
+                      "taxable_pay",
+                      "paye",
+                      "nssf_employee",
+                      "nssf_employer",
+                      "nssf_total",
+                      "shif",
+                      "housing_levy_employee",
+                      "housing_levy_employer",
+                      "housing_levy_total",
+                      "nita",
+                      "total_remittance"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "period": {
+                        "type": "string"
+                      },
+                      "employees": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "gross": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "taxable_pay": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "paye": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "nssf_employee": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "nssf_employer": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "nssf_total": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "shif": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "housing_levy_employee": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "housing_levy_employer": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "housing_levy_total": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "nita": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "total_remittance": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      }
+                    },
+                    "required": [
+                      "period",
+                      "employees",
+                      "gross",
+                      "taxable_pay",
+                      "paye",
+                      "nssf_employee",
+                      "nssf_employer",
+                      "nssf_total",
+                      "shif",
+                      "housing_levy_employee",
+                      "housing_levy_employer",
+                      "housing_levy_total",
+                      "nita",
+                      "total_remittance"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "period": {
+                        "type": "string"
+                      },
+                      "employees": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "gross": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "taxable_pay": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "paye": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "nssf_employee": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "nssf_employer": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "nssf_total": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "shif": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "housing_levy_employee": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "housing_levy_employer": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "housing_levy_total": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "nita": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "total_remittance": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      }
+                    },
+                    "required": [
+                      "period",
+                      "employees",
+                      "gross",
+                      "taxable_pay",
+                      "paye",
+                      "nssf_employee",
+                      "nssf_employer",
+                      "nssf_total",
+                      "shif",
+                      "housing_levy_employee",
+                      "housing_levy_employer",
+                      "housing_levy_total",
+                      "nita",
+                      "total_remittance"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Requires: payroll:read"
+          },
+          "default": {
+            "description": "Problem details (RFC 9457)",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "correlation_id": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "path": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "path",
+                          "message"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "title",
+                    "status"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Reports"
+        ]
+      }
+    },
+    "/api/v1/reports/statutory-employees": {
+      "get": {
+        "operationId": "Reports_statutoryEmployees",
+        "parameters": [
+          {
+            "name": "from",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+            }
+          },
+          {
+            "name": "to",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+            }
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "default": "json",
+              "type": "string",
+              "enum": [
+                "json",
+                "csv",
+                "xlsx"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Each person’s statutory deductions over the months",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "employee_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      "staff_number": {
+                        "type": "string"
+                      },
+                      "employee_name": {
+                        "type": "string"
+                      },
+                      "department": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "months": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "gross": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "taxable_pay": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "paye": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "nssf": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "shif": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "housing_levy": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      }
+                    },
+                    "required": [
+                      "employee_id",
+                      "staff_number",
+                      "employee_name",
+                      "department",
+                      "months",
+                      "gross",
+                      "taxable_pay",
+                      "paye",
+                      "nssf",
+                      "shif",
+                      "housing_levy"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "employee_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      "staff_number": {
+                        "type": "string"
+                      },
+                      "employee_name": {
+                        "type": "string"
+                      },
+                      "department": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "months": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "gross": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "taxable_pay": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "paye": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "nssf": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "shif": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "housing_levy": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      }
+                    },
+                    "required": [
+                      "employee_id",
+                      "staff_number",
+                      "employee_name",
+                      "department",
+                      "months",
+                      "gross",
+                      "taxable_pay",
+                      "paye",
+                      "nssf",
+                      "shif",
+                      "housing_levy"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "employee_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      "staff_number": {
+                        "type": "string"
+                      },
+                      "employee_name": {
+                        "type": "string"
+                      },
+                      "department": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "months": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "gross": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "taxable_pay": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "paye": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "nssf": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "shif": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "housing_levy": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      }
+                    },
+                    "required": [
+                      "employee_id",
+                      "staff_number",
+                      "employee_name",
+                      "department",
+                      "months",
+                      "gross",
+                      "taxable_pay",
+                      "paye",
+                      "nssf",
+                      "shif",
+                      "housing_levy"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Requires: payroll:read"
+          },
+          "default": {
+            "description": "Problem details (RFC 9457)",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "correlation_id": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "path": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "path",
+                          "message"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "title",
+                    "status"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Reports"
+        ]
+      }
+    },
+    "/api/v1/reports/bank-payments": {
+      "get": {
+        "operationId": "Reports_bankPayments",
+        "parameters": [
+          {
+            "name": "from",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+            }
+          },
+          {
+            "name": "to",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+            }
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "default": "json",
+              "type": "string",
+              "enum": [
+                "json",
+                "csv",
+                "xlsx"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Net pay by month, channel and bank (primary accounts on file now)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "period": {
+                        "type": "string"
+                      },
+                      "channel": {
+                        "type": "string"
+                      },
+                      "bank": {
+                        "type": "string"
+                      },
+                      "employees": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "amount": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      }
+                    },
+                    "required": [
+                      "period",
+                      "channel",
+                      "bank",
+                      "employees",
+                      "amount"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "period": {
+                        "type": "string"
+                      },
+                      "channel": {
+                        "type": "string"
+                      },
+                      "bank": {
+                        "type": "string"
+                      },
+                      "employees": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "amount": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      }
+                    },
+                    "required": [
+                      "period",
+                      "channel",
+                      "bank",
+                      "employees",
+                      "amount"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "period": {
+                        "type": "string"
+                      },
+                      "channel": {
+                        "type": "string"
+                      },
+                      "bank": {
+                        "type": "string"
+                      },
+                      "employees": {
+                        "type": "integer",
+                        "minimum": -9007199254740991,
+                        "maximum": 9007199254740991
+                      },
+                      "amount": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      }
+                    },
+                    "required": [
+                      "period",
+                      "channel",
+                      "bank",
+                      "employees",
+                      "amount"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Requires: payroll:read"
+          },
+          "default": {
+            "description": "Problem details (RFC 9457)",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "minimum": -9007199254740991,
+                      "maximum": 9007199254740991
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "correlation_id": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "path": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "path",
+                          "message"
+                        ],
+                        "additionalProperties": false
+                      }
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "title",
+                    "status"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Reports"
+        ]
+      }
+    },
+    "/api/v1/reports/bank-payments-detail": {
+      "get": {
+        "operationId": "Reports_bankPaymentsDetail",
+        "parameters": [
+          {
+            "name": "period",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+            }
+          },
+          {
+            "name": "format",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "default": "json",
+              "type": "string",
+              "enum": [
+                "json",
+                "csv",
+                "xlsx"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "One month: each person’s net pay and where it goes (account numbers masked)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "employee_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      "staff_number": {
+                        "type": "string"
+                      },
+                      "employee_name": {
+                        "type": "string"
+                      },
+                      "department": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "channel": {
+                        "type": "string"
+                      },
+                      "bank": {
+                        "type": "string"
+                      },
+                      "branch": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "account": {
+                        "type": "string"
+                      },
+                      "amount": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "run_status": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "employee_id",
+                      "staff_number",
+                      "employee_name",
+                      "department",
+                      "channel",
+                      "bank",
+                      "branch",
+                      "account",
+                      "amount",
+                      "run_status"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "text/csv": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "employee_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      "staff_number": {
+                        "type": "string"
+                      },
+                      "employee_name": {
+                        "type": "string"
+                      },
+                      "department": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "channel": {
+                        "type": "string"
+                      },
+                      "bank": {
+                        "type": "string"
+                      },
+                      "branch": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "account": {
+                        "type": "string"
+                      },
+                      "amount": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "run_status": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "employee_id",
+                      "staff_number",
+                      "employee_name",
+                      "department",
+                      "channel",
+                      "bank",
+                      "branch",
+                      "account",
+                      "amount",
+                      "run_status"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "employee_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                      },
+                      "staff_number": {
+                        "type": "string"
+                      },
+                      "employee_name": {
+                        "type": "string"
+                      },
+                      "department": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "channel": {
+                        "type": "string"
+                      },
+                      "bank": {
+                        "type": "string"
+                      },
+                      "branch": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "account": {
+                        "type": "string"
+                      },
+                      "amount": {
+                        "type": "string",
+                        "pattern": "^-?\\d{1,12}(\\.\\d{1,2})?$"
+                      },
+                      "run_status": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "employee_id",
+                      "staff_number",
+                      "employee_name",
+                      "department",
+                      "channel",
+                      "bank",
+                      "branch",
+                      "account",
+                      "amount",
+                      "run_status"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Requires: payroll:read"
           },
           "default": {
             "description": "Problem details (RFC 9457)",

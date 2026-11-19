@@ -190,6 +190,93 @@ export class ReportsService {
     return { title: `Contracts ending within ${q.within_days} days`, rows, columns: [{ key: 'staff_number', label: 'Staff no.' }, { key: 'employee_name', label: 'Name' }, { key: 'department', label: 'Department' }, { key: 'contract_number', label: 'Contract' }, { key: 'contract_type', label: 'Type' }, { key: 'end_date', label: 'Ends' }, { key: 'days_left', label: 'Days left' }] };
   }
 
+  // ---------------------------------------------------------------- statutory and bank payments (payroll:read)
+  private async payrollScope(access: AccessProfile, params: unknown[]) {
+    return scopeSql(await this.scope.filterFor(access, 'payroll:read'), params, { branch: 'dp.branch_id', department: 'ps.department_id', employee: 'ps.employee_id' });
+  }
+
+  /** What is owed to KRA, NSSF, SHA and the Housing Fund for each approved payroll month. */
+  async statutory(access: AccessProfile, q: { from: string; to: string }) {
+    const params: unknown[] = [q.from, q.to];
+    const scope = await this.payrollScope(access, params);
+    const raw: Record<string, string | number>[] = await this.dataSource.query(
+      `SELECT r.period, count(*)::int AS employees, sum(ps.gross)::text AS gross, sum(ps.taxable_pay)::text AS taxable_pay, sum(ps.paye)::text AS paye, sum(ps.nssf)::text AS nssf_employee,
+              sum(ps.shif)::text AS shif, sum(ps.housing_levy)::text AS housing_levy_employee,
+              coalesce(sum((SELECT sum(l.amount) FROM payslip_line l WHERE l.payslip_id = ps.id AND l.code = 'NSSF_ER')), 0)::text AS nssf_employer,
+              coalesce(sum((SELECT sum(l.amount) FROM payslip_line l WHERE l.payslip_id = ps.id AND l.code = 'AHL_ER')), 0)::text AS housing_levy_employer,
+              coalesce(sum((SELECT sum(l.amount) FROM payslip_line l WHERE l.payslip_id = ps.id AND l.code = 'NITA')), 0)::text AS nita
+         FROM payslip ps JOIN payroll_run r ON r.id = ps.run_id LEFT JOIN department dp ON dp.id = ps.department_id
+        WHERE r.status IN ('approved', 'paid', 'closed') AND r.period BETWEEN $1 AND $2 ${scope}
+        GROUP BY r.period ORDER BY r.period`,
+      params,
+    );
+    const rows = raw.map((r) => {
+      const d = (k: string) => new Decimal(r[k] as string);
+      const nssf = d('nssf_employee').plus(d('nssf_employer'));
+      const ahl = d('housing_levy_employee').plus(d('housing_levy_employer'));
+      return {
+        period: r.period as string, employees: r.employees as number, gross: m2(d('gross')), taxable_pay: m2(d('taxable_pay')), paye: m2(d('paye')), nssf_employee: m2(d('nssf_employee')), nssf_employer: m2(d('nssf_employer')), nssf_total: m2(nssf),
+        shif: m2(d('shif')), housing_levy_employee: m2(d('housing_levy_employee')), housing_levy_employer: m2(d('housing_levy_employer')), housing_levy_total: m2(ahl), nita: m2(d('nita')),
+        total_remittance: m2(d('paye').plus(nssf).plus(d('shif')).plus(ahl).plus(d('nita'))),
+      };
+    });
+    return {
+      title: `Statutory remittances ${q.from} to ${q.to}`, rows,
+      columns: [{ key: 'period', label: 'Month' }, { key: 'employees', label: 'Staff' }, { key: 'gross', label: 'Gross pay', money: true }, { key: 'paye', label: 'PAYE', money: true }, { key: 'nssf_employee', label: 'NSSF (staff)', money: true }, { key: 'nssf_employer', label: 'NSSF (employer)', money: true }, { key: 'nssf_total', label: 'NSSF total', money: true }, { key: 'shif', label: 'SHIF', money: true }, { key: 'housing_levy_employee', label: 'Housing Levy (staff)', money: true }, { key: 'housing_levy_employer', label: 'Housing Levy (employer)', money: true }, { key: 'housing_levy_total', label: 'Housing Levy total', money: true }, { key: 'nita', label: 'NITA', money: true }, { key: 'total_remittance', label: 'Total to remit', money: true }],
+    };
+  }
+
+  /** Each person's statutory deductions over a range of months (for queries, audits and leavers). */
+  async statutoryByEmployee(access: AccessProfile, q: { from: string; to: string }) {
+    const params: unknown[] = [q.from, q.to];
+    const scope = await this.payrollScope(access, params);
+    const raw: Record<string, string | number>[] = await this.dataSource.query(
+      `SELECT ps.employee_id, ps.staff_number, ps.employee_name, max(ps.department_name) AS department, count(*)::int AS months, sum(ps.gross)::text AS gross, sum(ps.taxable_pay)::text AS taxable_pay,
+              sum(ps.paye)::text AS paye, sum(ps.nssf)::text AS nssf, sum(ps.shif)::text AS shif, sum(ps.housing_levy)::text AS housing_levy
+         FROM payslip ps JOIN payroll_run r ON r.id = ps.run_id LEFT JOIN department dp ON dp.id = ps.department_id
+        WHERE r.status IN ('approved', 'paid', 'closed') AND r.period BETWEEN $1 AND $2 ${scope}
+        GROUP BY ps.employee_id, ps.staff_number, ps.employee_name ORDER BY ps.staff_number`,
+      params,
+    );
+    const rows = raw.map((r) => ({ ...r, gross: m2(r.gross as string), taxable_pay: m2(r.taxable_pay as string), paye: m2(r.paye as string), nssf: m2(r.nssf as string), shif: m2(r.shif as string), housing_levy: m2(r.housing_levy as string) }));
+    return {
+      title: `Statutory deductions by employee ${q.from} to ${q.to}`, rows,
+      columns: [{ key: 'staff_number', label: 'Staff no.' }, { key: 'employee_name', label: 'Name' }, { key: 'department', label: 'Department' }, { key: 'months', label: 'Months' }, { key: 'gross', label: 'Gross pay', money: true }, { key: 'taxable_pay', label: 'Taxable pay', money: true }, { key: 'paye', label: 'PAYE', money: true }, { key: 'nssf', label: 'NSSF', money: true }, { key: 'shif', label: 'SHIF', money: true }, { key: 'housing_levy', label: 'Housing Levy', money: true }],
+    };
+  }
+
+  /** Net pay by month, channel and bank: what each bank or M-Pesa batch must carry. Accounts are the primary ones on file today. */
+  async bankPayments(access: AccessProfile, q: { from: string; to: string }) {
+    const params: unknown[] = [q.from, q.to];
+    const scope = await this.payrollScope(access, params);
+    const raw: { period: string; channel: string | null; bank: string | null; employees: number; amount: string }[] = await this.dataSource.query(
+      `SELECT r.period, a.kind AS channel, CASE WHEN a.kind = 'mobile_money' THEN 'M-Pesa' ELSE a.bank_name END AS bank, count(*)::int AS employees, sum(ps.net)::text AS amount
+         FROM payslip ps JOIN payroll_run r ON r.id = ps.run_id LEFT JOIN department dp ON dp.id = ps.department_id
+         LEFT JOIN employee_bank_account a ON a.employee_id = ps.employee_id AND a.is_primary
+        WHERE r.status IN ('approved', 'paid', 'closed') AND r.period BETWEEN $1 AND $2 AND ps.net > 0 ${scope}
+        GROUP BY 1, 2, 3 ORDER BY 1, 2, 3`,
+      params,
+    );
+    const rows = raw.map((r) => ({ period: r.period, channel: r.channel === 'mobile_money' ? 'Mobile money' : r.channel === 'bank' ? 'Bank' : 'No account on file', bank: r.bank ?? '–', employees: r.employees, amount: m2(r.amount) }));
+    return { title: `Salary payments ${q.from} to ${q.to}`, rows, columns: [{ key: 'period', label: 'Month' }, { key: 'channel', label: 'Channel' }, { key: 'bank', label: 'Bank' }, { key: 'employees', label: 'Staff' }, { key: 'amount', label: 'Net paid', money: true }] };
+  }
+
+  async bankPaymentsDetail(access: AccessProfile, q: { period: string }) {
+    const params: unknown[] = [q.period];
+    const scope = await this.payrollScope(access, params);
+    const raw: Record<string, string | null>[] = await this.dataSource.query(
+      `SELECT ps.employee_id, ps.staff_number, ps.employee_name, ps.department_name AS department, a.kind AS channel, CASE WHEN a.kind = 'mobile_money' THEN 'M-Pesa' ELSE a.bank_name END AS bank, a.branch_name AS branch,
+              a.account_last4, ps.net::text AS amount, r.status AS run_status
+         FROM payslip ps JOIN payroll_run r ON r.id = ps.run_id LEFT JOIN department dp ON dp.id = ps.department_id
+         LEFT JOIN employee_bank_account a ON a.employee_id = ps.employee_id AND a.is_primary
+        WHERE r.period = $1 AND ps.net > 0 ${scope}
+        ORDER BY bank NULLS FIRST, ps.staff_number`,
+      params,
+    );
+    const rows = raw.map((r) => ({ employee_id: r.employee_id!, staff_number: r.staff_number!, employee_name: r.employee_name!, department: r.department, channel: r.channel === 'mobile_money' ? 'Mobile money' : r.channel === 'bank' ? 'Bank' : 'No account on file', bank: r.bank ?? '–', branch: r.branch, account: r.account_last4 ? `••••${r.account_last4}` : '–', amount: m2(r.amount), run_status: r.run_status! }));
+    return { title: `Salary payments for ${q.period}`, rows, columns: [{ key: 'staff_number', label: 'Staff no.' }, { key: 'employee_name', label: 'Name' }, { key: 'department', label: 'Department' }, { key: 'channel', label: 'Channel' }, { key: 'bank', label: 'Bank' }, { key: 'branch', label: 'Branch' }, { key: 'account', label: 'Account' }, { key: 'amount', label: 'Net pay', money: true }, { key: 'run_status', label: 'Payroll' }] };
+  }
+
   // ---------------------------------------------------------------- export
   async export(code: ReportCode, out: ReportOutput<Record<string, unknown>>, format: 'csv' | 'xlsx'): Promise<{ body: Buffer; fileName: string; mimeType: string }> {
     await writeAudit(this.dataSource.manager, { action: 'export', entityType: 'Report', entityId: '00000000-0000-0000-0000-000000000000', after: { report: code, rows: out.rows.length, format } });

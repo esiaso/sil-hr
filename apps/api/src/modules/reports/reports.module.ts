@@ -2,7 +2,7 @@ import { Controller, Get, Module, Res } from '@nestjs/common';
 import { ApiProduces, ApiTags } from '@nestjs/swagger';
 import type { Response } from 'express';
 import { z } from 'zod';
-import { asAtQuery, contractExpiryRow, dashboard, expiryQuery, headcountQuery, headcountRow, leaveLiabilityRow, licenceExpiryRow, overtimeRow, payrollCostRow, periodQuery, periodsQuery, turnoverRow, type ReportCode } from '@sil/hr-shared';
+import { asAtQuery, bankPaymentDetailRow, bankPaymentRow, periodQueryOne, statutoryEmployeeRow, statutoryRow, contractExpiryRow, dashboard, expiryQuery, headcountQuery, headcountRow, leaveLiabilityRow, licenceExpiryRow, overtimeRow, payrollCostRow, periodQuery, periodsQuery, turnoverRow, type ReportCode } from '@sil/hr-shared';
 import { AccessProfile } from '../../common/access';
 import { Access, RequirePermissions } from '../../common/decorators';
 import { ZQuery, ZResponse } from '../../common/zod';
@@ -86,6 +86,38 @@ export class ReportsController {
   @ZResponse(z.array(contractExpiryRow), 200, 'Active fixed-term contracts ending within the window')
   async contracts(@Access() a: AccessProfile, @ZQuery(expiryQuery) q: Q<typeof expiryQuery>, @Res({ passthrough: true }) res: Response) {
     return this.send(res, 'contract-expiry', q.format, await this.reports.contractExpiry(a, q));
+  }
+
+  @Get('reports/statutory')
+  @RequirePermissions('payroll:read')
+  @ApiProduces('application/json', 'text/csv', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+  @ZResponse(z.array(statutoryRow), 200, 'Approved payrolls: PAYE, NSSF (staff and employer), SHIF, Housing Levy (staff and employer) and NITA per month, with the total to remit')
+  async statutory(@Access() a: AccessProfile, @ZQuery(periodsQuery) q: Q<typeof periodsQuery>, @Res({ passthrough: true }) res: Response) {
+    return this.send(res, 'statutory', q.format, await this.reports.statutory(a, q));
+  }
+
+  @Get('reports/statutory-employees')
+  @RequirePermissions('payroll:read')
+  @ApiProduces('application/json', 'text/csv', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+  @ZResponse(z.array(statutoryEmployeeRow), 200, 'Each person’s statutory deductions over the months')
+  async statutoryEmployees(@Access() a: AccessProfile, @ZQuery(periodsQuery) q: Q<typeof periodsQuery>, @Res({ passthrough: true }) res: Response) {
+    return this.send(res, 'statutory-employees', q.format, await this.reports.statutoryByEmployee(a, q));
+  }
+
+  @Get('reports/bank-payments')
+  @RequirePermissions('payroll:read')
+  @ApiProduces('application/json', 'text/csv', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+  @ZResponse(z.array(bankPaymentRow), 200, 'Net pay by month, channel and bank (primary accounts on file now)')
+  async bankPayments(@Access() a: AccessProfile, @ZQuery(periodsQuery) q: Q<typeof periodsQuery>, @Res({ passthrough: true }) res: Response) {
+    return this.send(res, 'bank-payments', q.format, await this.reports.bankPayments(a, q));
+  }
+
+  @Get('reports/bank-payments-detail')
+  @RequirePermissions('payroll:read')
+  @ApiProduces('application/json', 'text/csv', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+  @ZResponse(z.array(bankPaymentDetailRow), 200, 'One month: each person’s net pay and where it goes (account numbers masked)')
+  async bankPaymentsDetail(@Access() a: AccessProfile, @ZQuery(periodQueryOne) q: Q<typeof periodQueryOne>, @Res({ passthrough: true }) res: Response) {
+    return this.send(res, 'bank-payments-detail', q.format, await this.reports.bankPaymentsDetail(a, q));
   }
 }
 

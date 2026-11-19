@@ -337,6 +337,20 @@ export class PayrollRunController {
     send(res, await this.outputs.p9(a, q.employee_id, q.year));
   }
 
+  @Get('payroll/p9/employees')
+  @RequirePermissions('payroll:read')
+  @ZResponse(z.array(z.object({ employee_id: z.uuid(), staff_number: z.string(), employee_name: z.string(), department: z.string().nullable(), months: z.number().int(), paye: z.string() })), 200, 'Everyone with an approved payslip in the year: who gets a P9')
+  p9Employees(@Access() a: AccessProfile, @ZQuery(z.object({ year: z.coerce.number().int().min(2000).max(2100) })) q: { year: number }) {
+    return this.outputs.p9Employees(a, q.year);
+  }
+
+  @Get('payroll/p9/bulk')
+  @RequirePermissions('payroll:read')
+  @ApiProduces('application/zip')
+  async p9Bulk(@Access() a: AccessProfile, @ZQuery(z.object({ year: z.coerce.number().int().min(2000).max(2100), department_id: z.uuid().optional() })) q: { year: number; department_id?: string }, @Res() res: Response) {
+    send(res, await this.outputs.p9Bulk(a, q.year, q.department_id));
+  }
+
   @Get('me/payslips')
   @ZResponse(z.array(payslip), 200, 'Your approved payslips, newest first')
   mine(@Access() a: AccessProfile) {

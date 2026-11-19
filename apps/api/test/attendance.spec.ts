@@ -121,6 +121,8 @@ describe('attendance from punches', () => {
     const hr = await login(app, 'hr.manager');
     let mon = addDays(today(), 14);
     while (new Date(`${mon}T00:00:00Z`).getUTCDay() !== 1) mon = addDays(mon, 1);
+    // A week with no public holiday (e.g. not Jamhuri Day on a Saturday).
+    while ((await db(app).query(`SELECT 1 FROM public_holiday WHERE date BETWEEN $1 AND $2`, [mon, addDays(mon, 6)])).length) mon = addDays(mon, 7);
     // Works Sat and Sun, off Mon to Fri.
     await api(app).post(`${B}/rosters/pattern`).set(bearer(hr)).send({ employee_ids: [p.id], from: mon, to: addDays(mon, 6), pattern: ['OFF', 'OFF', 'OFF', 'OFF', 'OFF', 'D', 'D'] });
     const annual = await idOf(app, 'leave_type' as never, 'code', 'annual');

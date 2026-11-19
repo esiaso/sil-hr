@@ -50,6 +50,11 @@ export class PayrollService implements OnModuleInit {
   private readonly logger = new Logger('Payroll');
   private readonly providers: PayItemsProvider[] = [];
 
+  /** The rows of payroll the caller may see. */
+  scopeFilter(access: AccessProfile) {
+    return this.scope.filterFor(access, 'payroll:read');
+  }
+
   registerItemsProvider(fn: PayItemsProvider): void {
     this.providers.push(fn);
   }

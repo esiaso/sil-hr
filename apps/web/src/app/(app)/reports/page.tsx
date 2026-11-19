@@ -3,7 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
 import { Suspense, useState } from 'react';
-import { formatDate, formatMoney, REPORTS, type ReportCode } from '@sil/hr-shared';
+import { formatDate, formatMoney, PAYROLL_REPORTS, REPORTS, type ReportCode } from '@sil/hr-shared';
 import { Button, Card, Empty, Field, Input, Loading, PageHeader, ProblemBanner, Select , buttonClass } from '@/components/ui';
 import { ApiError } from '@/lib/api';
 import { useSession } from '@/lib/session';
@@ -18,28 +18,34 @@ const COLUMNS: Record<ReportCode, Col[]> = {
   'overtime-cost': [{ key: 'period', label: 'Month' }, { key: 'department', label: 'Department' }, { key: 'hours_recorded', label: 'Hours recorded' }, { key: 'hours_paid', label: 'Hours paid' }, { key: 'amount_paid', label: 'Paid', kind: 'money' }],
   'payroll-cost': [{ key: 'period', label: 'Month' }, { key: 'department', label: 'Department' }, { key: 'cost_centre', label: 'Cost centre' }, { key: 'employees', label: 'Staff' }, { key: 'gross', label: 'Gross', kind: 'money' }, { key: 'employer_contributions', label: 'Employer contributions', kind: 'money' }, { key: 'total_cost', label: 'Total cost', kind: 'money' }, { key: 'net', label: 'Net', kind: 'money' }],
   'licence-expiry': [{ key: 'staff_number', label: 'Staff no.' }, { key: 'employee_name', label: 'Name' }, { key: 'department', label: 'Department' }, { key: 'licensing_body', label: 'Body' }, { key: 'licence_number', label: 'Licence' }, { key: 'expiry_date', label: 'Expires', kind: 'date' }, { key: 'days_left', label: 'Days left' }, { key: 'verified', label: 'Verified', kind: 'bool' }],
+  statutory: [{ key: 'period', label: 'Month' }, { key: 'employees', label: 'Staff' }, { key: 'gross', label: 'Gross pay', kind: 'money' }, { key: 'paye', label: 'PAYE', kind: 'money' }, { key: 'nssf_employee', label: 'NSSF staff', kind: 'money' }, { key: 'nssf_employer', label: 'NSSF employer', kind: 'money' }, { key: 'shif', label: 'SHIF', kind: 'money' }, { key: 'housing_levy_employee', label: 'Housing Levy staff', kind: 'money' }, { key: 'housing_levy_employer', label: 'Housing Levy employer', kind: 'money' }, { key: 'nita', label: 'NITA', kind: 'money' }, { key: 'total_remittance', label: 'Total to remit', kind: 'money' }],
+  'statutory-employees': [{ key: 'staff_number', label: 'Staff no.' }, { key: 'employee_name', label: 'Name' }, { key: 'department', label: 'Department' }, { key: 'months', label: 'Months' }, { key: 'gross', label: 'Gross pay', kind: 'money' }, { key: 'paye', label: 'PAYE', kind: 'money' }, { key: 'nssf', label: 'NSSF', kind: 'money' }, { key: 'shif', label: 'SHIF', kind: 'money' }, { key: 'housing_levy', label: 'Housing Levy', kind: 'money' }],
+  'bank-payments': [{ key: 'period', label: 'Month' }, { key: 'channel', label: 'Channel' }, { key: 'bank', label: 'Bank' }, { key: 'employees', label: 'Staff' }, { key: 'amount', label: 'Net paid', kind: 'money' }],
+  'bank-payments-detail': [{ key: 'staff_number', label: 'Staff no.' }, { key: 'employee_name', label: 'Name' }, { key: 'department', label: 'Department' }, { key: 'channel', label: 'Channel' }, { key: 'bank', label: 'Bank' }, { key: 'branch', label: 'Branch' }, { key: 'account', label: 'Account' }, { key: 'amount', label: 'Net pay', kind: 'money' }, { key: 'run_status', label: 'Payroll' }],
   'contract-expiry': [{ key: 'staff_number', label: 'Staff no.' }, { key: 'employee_name', label: 'Name' }, { key: 'department', label: 'Department' }, { key: 'contract_number', label: 'Contract' }, { key: 'contract_type', label: 'Type' }, { key: 'end_date', label: 'Ends', kind: 'date' }, { key: 'days_left', label: 'Days left' }],
 };
-const SUMMED = new Set(['active', 'probation', 'on_notice', 'suspended', 'female', 'male', 'total', 'days', 'liability', 'hours_recorded', 'hours_paid', 'amount_paid', 'employees', 'gross', 'employer_contributions', 'total_cost', 'net']);
+const SUMMED = new Set(['paye', 'nssf_employee', 'nssf_employer', 'nssf_total', 'shif', 'housing_levy_employee', 'housing_levy_employer', 'housing_levy_total', 'nita', 'total_remittance', 'nssf', 'housing_levy', 'amount', 'active', 'probation', 'on_notice', 'suspended', 'female', 'male', 'total', 'days', 'liability', 'hours_recorded', 'hours_paid', 'amount_paid', 'employees', 'gross', 'employer_contributions', 'total_cost', 'net']);
 
 export default function ReportsPage() {
   return <Suspense fallback={<Loading />}><Reports /></Suspense>;
 }
 
 function Reports() {
-  const { settings } = useSession();
+  const { settings, can } = useSession();
+  const allowed = (Object.keys(REPORTS) as ReportCode[]).filter((c) => (PAYROLL_REPORTS.includes(c) ? can('payroll:read') : can('report:read')));
   const sp = useSearchParams();
   const now = new Date();
   const y = now.getFullYear();
   const ym = now.toISOString().slice(0, 7);
-  const [code, setCode] = useState<ReportCode>((sp.get('r') as ReportCode) in REPORTS ? (sp.get('r') as ReportCode) : 'headcount');
+  const [code, setCode] = useState<ReportCode>(allowed.includes(sp.get('r') as ReportCode) ? (sp.get('r') as ReportCode) : allowed[0] ?? 'headcount');
   const [p, setP] = useState({ as_at: '', group_by: 'department', from: `${y}-01-01`, to: now.toISOString().slice(0, 10), from_m: `${y}-01`, to_m: ym, within_days: '90', include_expired: 'true' });
   const params = (): Record<string, string> => {
     switch (code) {
       case 'headcount': return { group_by: p.group_by, ...(p.as_at ? { as_at: p.as_at } : {}) };
       case 'turnover': return { from: p.from, to: p.to };
       case 'leave-liability': return p.as_at ? { as_at: p.as_at } : {};
-      case 'overtime-cost': case 'payroll-cost': return { from: p.from_m, to: p.to_m };
+      case 'overtime-cost': case 'payroll-cost': case 'statutory': case 'statutory-employees': case 'bank-payments': return { from: p.from_m, to: p.to_m };
+      case 'bank-payments-detail': return { period: p.to_m };
       default: return { within_days: p.within_days, include_expired: p.include_expired };
     }
   };
@@ -62,11 +68,12 @@ function Reports() {
       <PageHeader title="Reports" description="Figures for the staff in your area. Every report downloads as CSV or Excel; downloads are recorded in the audit trail." />
       <Card>
         <div className="flex flex-wrap items-end gap-3">
-          <Field label="Report" htmlFor="rp-code"><Select id="rp-code" value={code} onChange={(e) => setCode(e.target.value as ReportCode)}>{Object.entries(REPORTS).map(([k, l]) => <option key={k} value={k}>{l}</option>)}</Select></Field>
+          <Field label="Report" htmlFor="rp-code"><Select id="rp-code" value={code} onChange={(e) => setCode(e.target.value as ReportCode)}>{allowed.map((k) => <option key={k} value={k}>{REPORTS[k]}</option>)}</Select></Field>
           {code === 'headcount' && <><Field label="Group by" htmlFor="rp-g"><Select id="rp-g" value={p.group_by} onChange={(e) => setP({ ...p, group_by: e.target.value })}><option value="department">Department</option><option value="branch">Branch</option><option value="employment_type">Employment type</option><option value="grade">Grade</option><option value="gender">Gender</option></Select></Field>{field('as_at', 'As at', 'date')}</>}
           {code === 'leave-liability' && field('as_at', 'As at', 'date')}
           {code === 'turnover' && <>{field('from', 'From', 'date')}{field('to', 'To', 'date')}</>}
-          {(code === 'overtime-cost' || code === 'payroll-cost') && <>{field('from_m', 'From month', 'month')}{field('to_m', 'To month', 'month')}</>}
+          {['overtime-cost', 'payroll-cost', 'statutory', 'statutory-employees', 'bank-payments'].includes(code) && <>{field('from_m', 'From month', 'month')}{field('to_m', 'To month', 'month')}</>}
+          {code === 'bank-payments-detail' && field('to_m', 'Month', 'month')}
           {(code === 'licence-expiry' || code === 'contract-expiry') && <>{field('within_days', 'Within days', 'number')}<label className="flex items-center gap-2 pb-2 text-sm"><input type="checkbox" checked={p.include_expired === 'true'} onChange={(e) => setP({ ...p, include_expired: String(e.target.checked) })} /> Include already expired</label></>}
           <div className="ml-auto flex gap-2 pb-0.5"><a className={buttonClass('secondary')} href={`/api/v1/reports/${code}?${qs}&format=csv`}>CSV</a><a className={buttonClass('secondary')} href={`/api/v1/reports/${code}?${qs}&format=xlsx`}>Excel</a><Button variant="ghost" onClick={() => void q.refetch()}>Refresh</Button></div>
         </div>

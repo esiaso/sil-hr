@@ -1,0 +1,13 @@
+{
+  "name": "@sil/hr-e2e",
+  "private": true,
+  "description": "End-to-end journeys (Playwright) against an isolated Compose stack",
+  "scripts": {
+    "test": "playwright test",
+    "stack:up": "docker compose -p silhr-e2e --env-file ../../docker/e2e.env -f ../../docker-compose.yml up -d --build --wait api worker web webhook-sink",
+    "stack:down": "docker compose -p silhr-e2e --env-file ../../docker/e2e.env -f ../../docker-compose.yml down -v"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1"
+  }
+}
