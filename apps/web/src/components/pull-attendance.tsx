@@ -6,6 +6,7 @@ import { useSession } from '@/lib/session';
 import { useState } from 'react';
 import { Badge, Button, Dialog, Field, Input, ProblemBanner } from '@/components/ui';
 import { hr, unwrap } from '@/lib/api';
+import { Input as TextInput } from '@/components/ui';
 
 /** Fetch one person's punches from the clocking devices now, for chosen dates (up to 62 days). */
 export function PullAttendance({ employeeId, name, onClose }: { employeeId: string; name: string; onClose: () => void }) {
@@ -36,6 +37,7 @@ export function PullAttendance({ employeeId, name, onClose }: { employeeId: stri
                   {c.device_user_ids.length ? `Device user ${c.device_user_ids.join(', ')} · ${c.received} received · ${c.accepted} new · ${c.duplicates} already had` : ''}
                   {c.error ? ` ${c.error}` : ''}
                 </div>
+                {c.status === 'skipped' && <LinkHere connectorId={c.connector_id} employeeId={employeeId} onLinked={() => pull.mutate()} />}
               </li>
             ))}
           </ul>
@@ -48,5 +50,20 @@ export function PullAttendance({ employeeId, name, onClose }: { employeeId: stri
       )}
       <div className="mt-4 flex justify-end gap-2"><Button variant="secondary" onClick={onClose}>Close</Button><Button busy={pull.isPending} onClick={() => pull.mutate()}>Pull now</Button></div>
     </Dialog>
+  );
+}
+
+/** Links this person to their number on one device, then pulls again. */
+function LinkHere({ connectorId, employeeId, onLinked }: { connectorId: string; employeeId: string; onLinked: () => void }) {
+  const { can } = useSession();
+  const [no, setNo] = useState('');
+  const link = useMutation({ mutationFn: () => unwrap(hr.PUT('/api/v1/connectors/{id}/mappings', { params: { path: { id: connectorId } }, body: { device_user_id: no, employee_id: employeeId } })), onSuccess: onLinked });
+  if (!can('connector:manage')) return <div className="mt-1 text-xs text-amber-700">Ask an administrator to link this person on the device connector (Integrations → Device connectors).</div>;
+  return (
+    <div className="mt-2 flex flex-wrap items-center gap-2">
+      <TextInput aria-label="Employee No. on the device" placeholder="Their Employee No. on the device" className="max-w-56" value={no} onChange={(e) => setNo(e.target.value.trim())} />
+      <Button variant="secondary" disabled={!no} busy={link.isPending} onClick={() => link.mutate()}>Link and pull</Button>
+      {link.error ? <span className="text-xs text-red-600">{(link.error as Error).message}</span> : null}
+    </div>
   );
 }

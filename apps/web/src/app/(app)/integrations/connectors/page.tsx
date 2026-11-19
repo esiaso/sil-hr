@@ -76,7 +76,8 @@ function Detail({ c }: { c: Connector }) {
       </div>
       {c.push_url && <p className="text-sm">Set the device to push to <code className="break-all">{c.push_url}</code></p>}
       <div>
-        <h3 className="mb-1 text-sm font-semibold">Device users not matched to anyone</h3>
+        <div className="mb-1 flex items-center justify-between"><h3 className="text-sm font-semibold">Device users not matched to anyone</h3><Button variant="ghost" onClick={() => setMapFor('')}>Link a device user…</Button></div>
+        {c.match_by === 'mapping' && <p className="muted mb-1 text-xs">This connector matches people only through links. If staff are enrolled on the device under their staff numbers, set "Match by" to Staff number instead (Edit) and no links are needed.</p>}
         {!unmatched.data ? <Loading /> : !unmatched.data.length ? <p className="muted text-sm">None. Every punch found its person.</p> : (
           <table className="data text-sm"><thead><tr><th>Device user</th><th>Punches</th><th>Last seen</th><th /></tr></thead>
             <tbody>{unmatched.data.map((u) => <tr key={u.device_user_id}><td>{u.device_user_id}</td><td>{u.punches}</td><td>{t(u.last_seen)}</td><td><Button variant="ghost" onClick={() => setMapFor(u.device_user_id)}>Link to a person</Button></td></tr>)}</tbody>
@@ -97,23 +98,25 @@ function Detail({ c }: { c: Connector }) {
           </table>
         )}
       </div>
-      {mapFor && <MapDialog connectorId={c.id} deviceUserId={mapFor} onClose={() => { setMapFor(null); refresh(); }} />}
+      {mapFor !== null && <MapDialog connectorId={c.id} deviceUserId={mapFor} onClose={() => { setMapFor(null); refresh(); }} />}
     </div>
   );
 }
 
-function MapDialog({ connectorId, deviceUserId, onClose }: { connectorId: string; deviceUserId: string; onClose: () => void }) {
+function MapDialog({ connectorId, deviceUserId: given, onClose }: { connectorId: string; deviceUserId: string; onClose: () => void }) {
+  const [deviceUserId, setDeviceUserId] = useState(given);
   const [search, setSearch] = useState('');
   const [emp, setEmp] = useState('');
   const found = useQuery({ queryKey: ['map-search', search], enabled: search.length >= 2, queryFn: () => unwrap(hr.GET('/api/v1/employees', { params: { query: { limit: 20, search } } })) });
   const save = useMutation({ mutationFn: () => unwrap(hr.PUT('/api/v1/connectors/{id}/mappings', { params: { path: { id: connectorId } }, body: { device_user_id: deviceUserId, employee_id: emp } })), onSuccess: onClose });
   return (
-    <Dialog open title={`Device user ${deviceUserId}`} onClose={onClose}>
+    <Dialog open title={given ? `Device user ${given}` : 'Link a device user to a person'} onClose={onClose}>
       <ProblemBanner error={save.error} />
+      {!given && <Field label="Employee No. on the device" htmlFor="mp-d" hint="The number the person is enrolled under on the terminal (Hikvision Employee No. / ZKTeco user ID)"><Input id="mp-d" value={deviceUserId} onChange={(e) => setDeviceUserId(e.target.value.trim())} /></Field>}
       <Field label="Find the person" htmlFor="mp-s"><Input id="mp-s" placeholder="Name or staff number" value={search} onChange={(e) => setSearch(e.target.value)} /></Field>
       <div className="mt-2 max-h-56 overflow-y-auto text-sm">{found.data?.data.map((e) => <label key={e.id} className="flex items-center gap-1 py-0.5"><input type="radio" name="mp-emp" checked={emp === e.id} onChange={() => setEmp(e.id)} />{e.first_name} {e.last_name} <span className="muted">{e.staff_number}</span></label>)}</div>
       <p className="muted mt-2 text-xs">Earlier punches from this device user are matched straight away.</p>
-      <div className="mt-4 flex justify-end gap-2"><Button variant="secondary" onClick={onClose}>Cancel</Button><Button disabled={!emp} busy={save.isPending} onClick={() => save.mutate()}>Link</Button></div>
+      <div className="mt-4 flex justify-end gap-2"><Button variant="secondary" onClick={onClose}>Cancel</Button><Button disabled={!emp || !deviceUserId} busy={save.isPending} onClick={() => save.mutate()}>Link</Button></div>
     </Dialog>
   );
 }
