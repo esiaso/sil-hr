@@ -4,11 +4,13 @@ import Decimal from 'decimal.js';
 import { DataSource, EntityManager } from 'typeorm';
 import { z } from 'zod';
 import {
-  completeExit, createContract, createLifecycleRequest, PERMISSION_CODES, updateChecklistTask, upsertChecklistTemplate, type AssigneeGroup,
+  completeExit, createContract, createLifecycleRequest, updateContract, PERMISSION_CODES, updateChecklistTask, upsertChecklistTemplate, type AssigneeGroup,
 } from '@sil/hr-shared';
 import { AccessProfile, applyScope, scopeAllows, systemAccess } from '../../common/access';
 import { assertVersion } from '../../common/etag';
 import { conflict, forbidden, notFound, unprocessable } from '../../common/problem';
+import { writeAudit } from '../audit/audit.subscriber';
+import { DocumentsService } from '../documents/documents.module';
 import { Employee } from '../employees/employee.entities';
 import { EmployeesService } from '../employees/employees.service';
 import { OutboxService } from '../events/events.module';
@@ -54,6 +56,7 @@ export class LifecycleService implements OnModuleInit {
     private readonly payroll: PayrollService,
     private readonly leave: LeaveService,
     private readonly procurement: ProcurementClient,
+    private readonly docs: DocumentsService,
   ) {}
 
   onModuleInit(): void {
@@ -123,6 +126,44 @@ export class LifecycleService implements OnModuleInit {
     return outer ? work(outer) : this.dataSource.transaction(work);
   }
 
+  /** Corrects the terms of a contract in force; every change is audited. */
+  async updateContract(access: AccessProfile, id: string, dto: Dto<typeof updateContract>, version: number) {
+    return this.dataSource.transaction(async (m) => {
+      const c = await m.getRepository(EmployeeContract).findOne({ where: { id }, lock: { mode: 'pessimistic_write' } });
+      if (!c) throw notFound('Contract');
+      await this.assertScope(access, 'contract:manage', await this.employee(m, c.employeeId));
+      assertVersion(c.version, version);
+      if (c.status !== 'active' && c.status !== 'draft') throw conflict('contract_closed', `A ${c.status} contract cannot be changed`);
+      if (dto.end_date && dto.end_date < c.startDate) throw unprocessable('end_before_start', 'The end date is before the start', [{ path: 'end_date', message: 'Before start' }]);
+      const before = { endDate: c.endDate, probationMonths: c.probationMonths, noticeDays: c.noticeDays, basic: c.basic, terms: c.terms };
+      Object.assign(c, { endDate: dto.end_date ?? null, probationMonths: dto.probation_months ?? null, noticeDays: dto.notice_days, basic: dto.basic ?? null, terms: dto.terms ?? null, remindedAt: dto.end_date !== before.endDate ? null : c.remindedAt });
+      await m.getRepository(EmployeeContract).save(c);
+      await writeAudit(m, { action: 'update', entityType: 'EmployeeContract', entityId: c.id, before, after: { endDate: c.endDate, probationMonths: c.probationMonths, noticeDays: c.noticeDays, basic: c.basic, terms: c.terms } });
+      return this.contractDto(m, c);
+    });
+  }
+
+  /** Records the signed copy of a contract (PDF or scan). */
+  async attachContractDocument(access: AccessProfile, id: string, file: Express.Multer.File | undefined) {
+    if (!file) throw unprocessable('file_required', 'Attach the signed contract', [{ path: 'file', message: 'Required' }]);
+    const m = this.dataSource.manager;
+    const c = await m.getRepository(EmployeeContract).findOneBy({ id });
+    if (!c) throw notFound('Contract');
+    await this.assertScope(access, 'contract:manage', await this.employee(m, c.employeeId));
+    const doc = await this.docs.create({ owner_type: 'employee', owner_id: c.employeeId, title: `Signed contract ${c.number}`, category: 'signed_contract', is_sensitive: 'true' }, file, access.actorId);
+    c.documentId = doc.id;
+    await m.getRepository(EmployeeContract).save(c);
+    return this.contractDto(m, c);
+  }
+
+  async contractDocument(access: AccessProfile, id: string) {
+    const m = this.dataSource.manager;
+    const c = await m.getRepository(EmployeeContract).findOneBy({ id });
+    if (!c?.documentId) throw notFound('Signed contract');
+    if (c.employeeId !== access.employeeId) await this.assertScope(access, 'contract:read', await this.employee(m, c.employeeId));
+    return this.docs.read(c.documentId);
+  }
+
   // ================================================================== requests
   async requestDto(m: EntityManager, r: LifecycleRequest) {
     const e = await this.employee(m, r.employeeId);
@@ -132,11 +173,28 @@ export class LifecycleService implements OnModuleInit {
     };
   }
 
-  async requests(access: AccessProfile, q: { employee_id?: string; status?: string }) {
+  /** Withdraws a request that is still waiting (or was returned): the requester, or anyone who may raise such requests for that person. */
+  async cancelRequest(access: AccessProfile, id: string) {
+    await this.dataSource.transaction(async (m) => {
+      const r = await m.getRepository(LifecycleRequest).findOne({ where: { id }, lock: { mode: 'pessimistic_write' } });
+      if (!r) throw notFound('Request');
+      if (r.createdBy !== access.actorId) await this.assertScope(access, 'lifecycle:request', await this.employee(m, r.employeeId));
+      if (!['pending', 'returned'].includes(r.status)) throw conflict('decided', `The request is ${r.status}`);
+      await this.workflow.cancel(m, 'lifecycle_change', r.id);
+      r.status = 'cancelled';
+      await m.getRepository(LifecycleRequest).save(r);
+      await writeAudit(m, { action: 'update', entityType: 'LifecycleRequest', entityId: r.id, after: { status: 'cancelled' } });
+    });
+    const m = this.dataSource.manager;
+    return this.requestDto(m, (await m.getRepository(LifecycleRequest).findOneBy({ id }))!);
+  }
+
+  async requests(access: AccessProfile, q: { employee_id?: string; status?: string; kind?: string }) {
     const m = this.dataSource.manager;
     const qb = m.getRepository(LifecycleRequest).createQueryBuilder('r').innerJoin(Employee, 'e', 'e.id = r.employee_id').orderBy('r.createdAt', 'DESC').take(500);
     if (q.employee_id) qb.andWhere('r.employee_id = :e', { e: q.employee_id });
     if (q.status) qb.andWhere('r.status = :s', { s: q.status });
+    if (q.kind) qb.andWhere('r.kind = :k', { k: q.kind });
     applyScope(qb, await this.scope.filterFor(access, 'lifecycle:request'), { branch: 'e.branch_id', department: 'e.department_id', employee: 'e.id' });
     return Promise.all((await qb.getMany()).map((r) => this.requestDto(m, r)));
   }

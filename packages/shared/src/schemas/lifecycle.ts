@@ -42,6 +42,14 @@ export const createContract = z
   })
   .refine((v) => !v.end_date || v.end_date >= v.start_date, { path: ['end_date'], message: 'Ends before it starts' })
   .refine((v) => !['fixed_term', 'locum', 'internship'].includes(v.contract_type) || !!v.end_date, { path: ['end_date'], message: 'A fixed-term contract needs an end date' });
+/** What can change on a contract already in force (type and dates change through a renewal). */
+export const updateContract = z.object({
+  end_date: isoDate.nullish(),
+  probation_months: z.number().int().min(0).max(12).nullish(),
+  notice_days: z.number().int().min(0).max(365),
+  basic: money.nullish(),
+  terms: optionalText(4000),
+});
 export const contractQuery = z.object({ employee_id: uuid.optional(), expiring_within_days: z.coerce.number().int().min(0).max(730).optional(), status: z.enum(['draft', 'active', 'ended', 'renewed', 'terminated']).optional() });
 
 // ---------------------------------------------------------------- lifecycle requests

@@ -3444,6 +3444,38 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/contracts/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["Lifecycle_updateContract"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/contracts/{id}/document": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["Lifecycle_contractDocument"];
+        put?: never;
+        post: operations["Lifecycle_attach"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/lifecycle-requests": {
         parameters: {
             query?: never;
@@ -3454,6 +3486,22 @@ export interface paths {
         get: operations["Lifecycle_requests"];
         put?: never;
         post: operations["Lifecycle_createRequest"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/lifecycle-requests/{id}/cancel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["Lifecycle_cancelRequest"];
         delete?: never;
         options?: never;
         head?: never;
@@ -26127,11 +26175,209 @@ export interface operations {
             };
         };
     };
+    Lifecycle_updateContract: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description ETag of the version being changed */
+                "If-Match": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    end_date?: string | null;
+                    probation_months?: number | null;
+                    notice_days: number;
+                    basic?: string | null;
+                    terms?: string | null;
+                };
+            };
+        };
+        responses: {
+            /** @description End date, probation, notice, basic and special terms of a contract in force (audited). Type and start change through a renewal. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name?: string;
+                        staff_number?: string;
+                        /** @enum {string} */
+                        contract_type: "permanent" | "fixed_term" | "probation" | "locum" | "internship" | "casual";
+                        position_id: string | null;
+                        position_title?: string | null;
+                        /** Format: date */
+                        start_date: string;
+                        end_date: string | null;
+                        probation_months: number | null;
+                        notice_days: number;
+                        basic: string | null;
+                        terms: string | null;
+                        document_id: string | null;
+                        /** @enum {string} */
+                        status: "draft" | "active" | "ended" | "renewed" | "terminated";
+                        renewed_from_id: string | null;
+                        days_left: number | null;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: contract:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Lifecycle_contractDocument: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    Lifecycle_attach: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": {
+                    /** Format: binary */
+                    file: string;
+                };
+            };
+        };
+        responses: {
+            /** @description Attaches the signed copy */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name?: string;
+                        staff_number?: string;
+                        /** @enum {string} */
+                        contract_type: "permanent" | "fixed_term" | "probation" | "locum" | "internship" | "casual";
+                        position_id: string | null;
+                        position_title?: string | null;
+                        /** Format: date */
+                        start_date: string;
+                        end_date: string | null;
+                        probation_months: number | null;
+                        notice_days: number;
+                        basic: string | null;
+                        terms: string | null;
+                        document_id: string | null;
+                        /** @enum {string} */
+                        status: "draft" | "active" | "ended" | "renewed" | "terminated";
+                        renewed_from_id: string | null;
+                        days_left: number | null;
+                        /** Format: date-time */
+                        created_at: string;
+                        /** Format: date-time */
+                        updated_at: string;
+                        version: number;
+                    };
+                };
+            };
+            /** @description Requires: contract:manage */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
     Lifecycle_requests: {
         parameters: {
             query?: {
                 employee_id?: string;
                 status?: "pending" | "approved" | "rejected" | "returned" | "cancelled";
+                kind?: "promotion" | "transfer" | "confirmation" | "contract_renewal" | "resignation" | "termination" | "final_dues";
             };
             header?: never;
             path?: never;
@@ -26291,6 +26537,81 @@ export interface operations {
         responses: {
             /** @description Promotion, transfer, confirmation, contract renewal, resignation or termination; goes to the LIFECYCLE approval workflow */
             201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** Format: uuid */
+                        id: string;
+                        number: string;
+                        /** @enum {string} */
+                        kind: "promotion" | "transfer" | "confirmation" | "contract_renewal" | "resignation" | "termination" | "final_dues";
+                        /** Format: uuid */
+                        employee_id: string;
+                        employee_name: string;
+                        staff_number: string;
+                        /** Format: date */
+                        effective_date: string;
+                        details: {
+                            [key: string]: unknown;
+                        };
+                        reason: string | null;
+                        /** @enum {string} */
+                        status: "pending" | "approved" | "rejected" | "returned" | "cancelled";
+                        decision_comment: string | null;
+                        workflow_instance_id: string | null;
+                        result: {
+                            [key: string]: unknown;
+                        } | null;
+                        /** Format: date-time */
+                        created_at: string;
+                    };
+                };
+            };
+            /** @description Requires: lifecycle:request */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Problem details (RFC 9457) */
+            default: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/problem+json": {
+                        type: string;
+                        title: string;
+                        status: number;
+                        detail?: string;
+                        instance?: string;
+                        correlation_id?: string;
+                        code?: string;
+                        errors?: {
+                            path: string;
+                            message: string;
+                        }[];
+                    };
+                };
+            };
+        };
+    };
+    Lifecycle_cancelRequest: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Withdraws a request still waiting for approval (or returned) */
+            200: {
                 headers: {
                     [name: string]: unknown;
                 };

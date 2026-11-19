@@ -1,10 +1,11 @@
-import { Controller, Get, HttpCode, Module, Param, ParseUUIDPipe, Post, Put, Res } from '@nestjs/common';
-import { ApiProduces, ApiTags } from '@nestjs/swagger';
+import { Controller, Get, HttpCode, Module, Param, ParseUUIDPipe, Post, Put, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiBody, ApiConsumes, ApiProduces, ApiTags } from '@nestjs/swagger';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import type { Response } from 'express';
 import { z } from 'zod';
 import {
-  addRelationsNote, checklist, checklistTask, checklistTemplate, completeExit, contract, contractQuery, createContract, createLifecycleRequest, createRelationsCase, exitClearance, issueLetter,
+  addRelationsNote, checklist, checklistTask, checklistTemplate, completeExit, contract, updateContract, LIFECYCLE_KINDS, contractQuery, createContract, createLifecycleRequest, createRelationsCase, exitClearance, issueLetter,
   issuedLetter, letterTemplate, lifecycleRequest, raiseComplaint, relationsCase, updateChecklistTask, updateRelationsCase, upsertChecklistTemplate, upsertLetterTemplate,
 } from '@sil/hr-shared';
 import { AccessProfile } from '../../common/access';
@@ -52,11 +53,39 @@ export class LifecycleController {
     return this.lc.createContract(a, dto);
   }
 
+  @Put('contracts/:id')
+  @RequirePermissions('contract:manage')
+  @ApiIfMatch()
+  @ZResponse(contract, 200, 'End date, probation, notice, basic and special terms of a contract in force (audited). Type and start change through a renewal.')
+  updateContract(@Access() a: AccessProfile, @Id() id: string, @ZBody(updateContract) dto: Q<typeof updateContract>, @IfMatch() v: number) {
+    return this.lc.updateContract(a, id, dto, v);
+  }
+
+  @Post('contracts/:id/document')
+  @RequirePermissions('contract:manage')
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({ schema: { type: 'object', required: ['file'], properties: { file: { type: 'string', format: 'binary' } } } as never })
+  @UseInterceptors(FileInterceptor('file', { limits: { fileSize: 20 * 1024 * 1024, files: 1 } }))
+  @ZResponse(contract, 201, 'Attaches the signed copy')
+  attach(@Access() a: AccessProfile, @Id() id: string, @UploadedFile() file: Express.Multer.File | undefined) {
+    return this.lc.attachContractDocument(a, id, file);
+  }
+
+  @Get('contracts/:id/document')
+  @ApiProduces('application/pdf')
+  async contractDocument(@Access() a: AccessProfile, @Id() id: string, @Res() res: Response) {
+    const f = await this.lc.contractDocument(a, id);
+    res.setHeader('content-type', f.mimeType);
+    res.setHeader('content-disposition', `attachment; filename="${f.fileName.replace(/["\\\r\n]/g, '_')}"`);
+    res.setHeader('cache-control', 'no-store');
+    res.send(f.body);
+  }
+
   // ---------------------------------------------------------------- requests
   @Get('lifecycle-requests')
   @RequirePermissions('lifecycle:request')
   @ZResponse(z.array(lifecycleRequest))
-  requests(@Access() a: AccessProfile, @ZQuery(z.object({ employee_id: z.uuid().optional(), status: status.optional() })) q: { employee_id?: string; status?: string }) {
+  requests(@Access() a: AccessProfile, @ZQuery(z.object({ employee_id: z.uuid().optional(), status: status.optional(), kind: z.enum(Object.keys(LIFECYCLE_KINDS) as [keyof typeof LIFECYCLE_KINDS]).optional() })) q: { employee_id?: string; status?: string; kind?: string }) {
     return this.lc.requests(a, q);
   }
 
@@ -65,6 +94,14 @@ export class LifecycleController {
   @ZResponse(lifecycleRequest, 201, 'Promotion, transfer, confirmation, contract renewal, resignation or termination; goes to the LIFECYCLE approval workflow')
   createRequest(@Access() a: AccessProfile, @ZBody(createLifecycleRequest) dto: Q<typeof createLifecycleRequest>) {
     return this.lc.createRequest(a, dto);
+  }
+
+  @Post('lifecycle-requests/:id/cancel')
+  @RequirePermissions('lifecycle:request')
+  @HttpCode(200)
+  @ZResponse(lifecycleRequest, 200, 'Withdraws a request still waiting for approval (or returned)')
+  cancelRequest(@Access() a: AccessProfile, @Id() id: string) {
+    return this.lc.cancelRequest(a, id);
   }
 
   // ---------------------------------------------------------------- checklists
