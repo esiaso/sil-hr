@@ -103,6 +103,13 @@ services:
     build: { context: ., target: api }
     environment:
       <<: *api-env
+    # Device and other credentials named in config/site.json (e.g. HIK_MAIN_GATE_PASSWORD) come from .env.
+    env_file:
+      - path: .env
+        required: false
+    # Hospital facts (config/site.json), applied on start-up when the file changes.
+    volumes:
+      - ./config:/repo/config:ro
     ports:
       - "${API_PORT:-3310}:3000"
     depends_on:

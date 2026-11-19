@@ -276,6 +276,7 @@ verification), document_type (required per employment type)
 | D48 | **Reports are SQL over the live tables, limited by `report:read` scope**, rather than a separate warehouse; headcount uses the position assignment in force on the date asked. Exports are audited. | Small hospital volumes; one source of truth; a warehouse can be added later by consuming events. |
 | D49 | **The FHIR registry is a read-only projection**, built on request from HR tables, with licence status as an extension. No FHIR server, no write-back. | HR owns practitioner data (§6.5); the HMIS reads it. |
 | D50 | **Rebranded as PeopleTrack without renaming internals.** User-facing text, the web theme, PDFs, Word letters, emails, calendar feeds and the API title use the brand (`BRAND` in `@sil/hr-shared`); package names, `urn:sil:hr:` identifiers, event types and storage keys stay. Seeded notification wording is rewritten once on boot. | Integrations, stored events and webhooks keep working; the brand lives in one constant. |
+| D51 | **Hospital facts in one configuration file** (`config/site.json`), validated as a whole and applied through the same services as the screens, only when the file changes (its SHA-256 is remembered), and audited with a change report. Secrets are referenced by environment-variable name, never written in the file. | Facts arrive over time from different people; one reviewed file is easier to track than many screens, and re-applying an unchanged file never overwrites later edits. |
 
 ## 8. Open questions for the hospital (not needed for slice 1)
 

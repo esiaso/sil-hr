@@ -13,3 +13,6 @@ playwright-report
 # Playwright output
 apps/e2e/report/
 apps/e2e/test-results/
+
+# Hospital configuration (copy of config/site.example.json, filled in per site)
+config/site.json

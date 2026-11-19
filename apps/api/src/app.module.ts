@@ -21,6 +21,7 @@ import { WorkplaceModule } from './modules/workplace/workplace.module';
 import { ExpensesModule } from './modules/expenses/expenses.module';
 import { ReportsModule } from './modules/reports/reports.module';
 import { FhirModule } from './modules/fhir/fhir.module';
+import { SiteConfigModule } from './modules/site-config/site-config.module';
 import { LeaveModule } from './modules/leave/leave.module';
 import { WorkflowModule } from './modules/workflow/workflow.module';
 import { EventsModule } from './modules/events/events.module';
@@ -61,6 +62,7 @@ import { WebhooksModule } from './modules/webhooks/webhooks.module';
     ExpensesModule,
     ReportsModule,
     FhirModule,
+    SiteConfigModule,
     HealthModule,
   ],
   providers: [

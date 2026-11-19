@@ -1,0 +1,132 @@
+{
+  "_note": "Hospital facts for PeopleTrack. Copy this file to config/site.json, fill in what you know, and restart the API (or press Apply now under Administration → Settings). Every section is optional: delete a section, or set a value to null, to keep what is in the system. Keys starting with _ are comments. Never put passwords or API keys here: name the environment variable that holds them. Values marked TO CONFIRM are placeholders.",
+  "version": 1,
+
+  "payroll": {
+    "_note": "pay_day 0 = the last working day of the month; otherwise the day of the month (moved back to the previous working day if it falls on a weekend or holiday).",
+    "pay_day": 0,
+    "proration_basis": "working_days",
+    "monthly_hours": 195,
+    "bank_file": {
+      "_note": "TO CONFIRM: the salary bank's Excel template. Fields available: employee_name, staff_number, national_id, account_name, account_number, bank_name, bank_code, branch_name, branch_code, amount, reference, pay_date, fixed (a constant, with value).",
+      "code": "BANK_XLSX",
+      "name": "Bank transfer (Excel)",
+      "file_type": "xlsx",
+      "is_default": true,
+      "columns": [
+        { "header": "Beneficiary Name", "field": "account_name" },
+        { "header": "Account Number", "field": "account_number" },
+        { "header": "Bank Code", "field": "bank_code" },
+        { "header": "Branch Code", "field": "branch_code" },
+        { "header": "Amount", "field": "amount" },
+        { "header": "Narration", "field": "reference" },
+        { "header": "Staff Number", "field": "staff_number" }
+      ]
+    },
+    "mpesa": {
+      "_note": "TO CONFIRM: method is b2c_portal (Safaricom M-Pesa bulk payment portal), bank_bulk (through the bank's mobile money service) or other. Set the columns to the template that method expects.",
+      "code": "MPESA_CSV",
+      "name": "M-Pesa bulk payment (CSV)",
+      "method": "b2c_portal",
+      "file_type": "csv",
+      "is_default": true,
+      "columns": [
+        { "header": "Phone Number", "field": "account_number" },
+        { "header": "Amount", "field": "amount" },
+        { "header": "Name", "field": "account_name" },
+        { "header": "Reference", "field": "reference" }
+      ]
+    },
+    "chart_of_accounts": {
+      "_note": "TO CONFIRM with finance: the general ledger codes for the payroll journal. debit/credit null clears a side; leave a key out to keep it.",
+      "EARNINGS": { "debit": "TBD-5100" },
+      "OVERTIME": { "debit": "TBD-5110" },
+      "DEDUCTIONS": { "credit": "TBD-2190" },
+      "EMPLOYER": { "debit": "TBD-5150", "credit": "TBD-2180" },
+      "NET_PAY": { "credit": "TBD-2100" },
+      "PAYE": { "credit": "TBD-2110" },
+      "NSSF": { "credit": "TBD-2120" },
+      "NSSF_ER": { "debit": "TBD-5151", "credit": "TBD-2120" },
+      "SHIF": { "credit": "TBD-2130" },
+      "AHL": { "credit": "TBD-2140" },
+      "AHL_ER": { "debit": "TBD-5152", "credit": "TBD-2140" },
+      "NITA": { "debit": "TBD-5153", "credit": "TBD-2150" },
+      "LOAN": { "credit": "TBD-1310" },
+      "ADVANCE": { "credit": "TBD-1320" }
+    }
+  },
+
+  "medical": {
+    "_note": "TO CONFIRM: the scheme's real categories and limits (KES a scheme year). New limits apply from effective_from; earlier claims keep the limits they were made under. job_grade null = everyone not covered by a grade-specific line.",
+    "effective_from": "2027-01-01",
+    "schemes": [
+      {
+        "code": "SMS",
+        "name": "Staff Medical Scheme",
+        "year_start_month": 1,
+        "unused_limit_policy": "reset",
+        "max_dependants": 5,
+        "over_limit_action": "approval",
+        "contributions_enabled": false,
+        "categories": [
+          { "code": "inpatient", "name": "Inpatient", "sharing": "shared", "co_pay_pct": 0, "limits": [{ "job_grade": null, "annual_limit": "1000000.00" }, { "job_grade": "G1", "annual_limit": "2000000.00" }, { "job_grade": "G2", "annual_limit": "2000000.00" }, { "job_grade": "G3", "annual_limit": "2000000.00" }] },
+          { "code": "outpatient", "name": "Outpatient", "sharing": "shared", "co_pay_pct": 10, "per_visit_cap": "20000.00", "limits": [{ "job_grade": null, "annual_limit": "100000.00" }, { "job_grade": "G1", "annual_limit": "200000.00" }, { "job_grade": "G2", "annual_limit": "200000.00" }, { "job_grade": "G3", "annual_limit": "200000.00" }] },
+          { "code": "maternity", "name": "Maternity", "sharing": "shared", "waiting_days": 270, "principal_and_spouse_only": true, "limits": [{ "job_grade": null, "annual_limit": "150000.00" }] },
+          { "code": "dental", "name": "Dental", "sharing": "per_person", "co_pay_pct": 20, "limits": [{ "job_grade": null, "annual_limit": "30000.00", "dependant_limit": "30000.00" }] },
+          { "code": "optical", "name": "Optical", "sharing": "per_person", "limits": [{ "job_grade": null, "annual_limit": "25000.00", "dependant_limit": "25000.00" }] }
+        ],
+        "contribution_rates": []
+      }
+    ]
+  },
+
+  "cpd_requirements": [
+    { "licensing_body": "KMPDC", "points_per_year": 50, "description": "Kenya Medical Practitioners and Dentists Council (published: 50 a calendar year)" },
+    { "licensing_body": "KMLTTB", "points_per_year": 50, "description": "Kenya Medical Laboratory Technicians and Technologists Board (published: 50 a calendar year)" },
+    { "licensing_body": "NCK", "points_per_year": 20, "description": "Nursing Council of Kenya (TO CONFIRM)" }
+  ],
+
+  "performance": {
+    "_note": "TO CONFIRM: appraisal ratings are 1 to 5; each band starts at its min. low_rating: completed appraisals below it are flagged to HR.",
+    "rating_bands": [
+      { "min": 4.5, "label": "Outstanding" },
+      { "min": 3.5, "label": "Exceeds expectations" },
+      { "min": 2.5, "label": "Meets expectations" },
+      { "min": 1.5, "label": "Below expectations" },
+      { "min": 0, "label": "Unsatisfactory" }
+    ],
+    "low_rating": 2.5
+  },
+
+  "mandatory_training": [
+    { "_note": "TO CONFIRM: the hospital's mandatory training list. mandatory_for: all, clinical (licensed or clinical posts) or none. refresh_months null = once.", "code": "BLS", "title": "Basic Life Support (BLS)", "category": "clinical", "mandatory_for": "clinical", "refresh_months": 24, "pass_mark": 80, "cpd_points": 5 },
+    { "code": "IPC", "title": "Infection prevention and control", "mandatory_for": "all", "refresh_months": 12, "cpd_points": 2 },
+    { "code": "FIRE", "title": "Fire safety and evacuation", "mandatory_for": "all", "refresh_months": 12 },
+    { "code": "INDUCT", "title": "Hospital induction", "category": "induction", "mandatory_for": "all", "refresh_months": null }
+  ],
+
+  "sms": {
+    "_note": "TO CONFIRM: the Africa's Talking account. The API key stays in the environment variable SMS_API_KEY. Add \"sms\" to a notification template's channels for it to send texts.",
+    "enabled": false,
+    "username": "",
+    "sender_id": ""
+  },
+
+  "devices": [
+    {
+      "_note": "TO CONFIRM: one entry per clocking terminal or BioTime server. Types: hikvision_isapi (PeopleTrack pulls), hikvision_push (terminals push), zkteco_biotime (pull from the BioTime server), zkteco_push (devices push via ADMS). Credentials come from the named environment variables. Delete this example entry if you have no devices yet.",
+      "code": "main_gate_hik",
+      "name": "Main gate terminal",
+      "type": "hikvision_isapi",
+      "model": "DS-K1T341 (TO CONFIRM)",
+      "firmware": "TO CONFIRM",
+      "base_url": "http://10.0.0.21",
+      "timezone": "Africa/Nairobi",
+      "match_by": "staff_number",
+      "schedule_minutes": 15,
+      "active": false,
+      "username_env": "HIK_MAIN_GATE_USERNAME",
+      "password_env": "HIK_MAIN_GATE_PASSWORD"
+    }
+  ]
+}

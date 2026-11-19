@@ -43,10 +43,39 @@ export default function SettingsPage() {
   return (
     <div>
       <PageHeader title="Settings" description="Business configuration lives here, not in code: currency, timezone, date format, working week, leave year, password policy, webhook retries. Changes are audited." />
+      {can('setting:manage') && <SiteConfigCard />}
       <ProblemBanner error={q.error} />
       {!q.data ? <Loading /> : (
         <div className="surface overflow-x-auto rounded-xl">
           <table className="data"><tbody>{q.data.map((s) => <SettingRow key={`${s.key}:${JSON.stringify(s.value)}`} s={s} canEdit={can('setting:manage')} />)}</tbody></table>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/** config/site.json: hospital facts applied from a file (see config/site.example.json). */
+function SiteConfigCard() {
+  const qc = useQueryClient();
+  const st = useQuery({ queryKey: ['site-config'], queryFn: () => unwrap(hr.GET('/api/v1/admin/site-config')) });
+  const apply = useMutation({ mutationFn: () => unwrap(hr.POST('/api/v1/admin/site-config/apply')), onSuccess: () => { void qc.invalidateQueries({ queryKey: ['site-config'] }); void qc.invalidateQueries({ queryKey: ['settings'] }); } });
+  const last = apply.data ?? st.data?.last_applied;
+  return (
+    <div className="surface mb-4 rounded-xl p-4 text-sm">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <div>
+          <div className="font-semibold">Hospital configuration file</div>
+          <div className="muted text-xs">{st.data ? (st.data.exists ? `${st.data.file}${st.data.pending ? ' · has changes not yet applied' : ' · applied'}` : `No file at ${st.data.file}. Copy config/site.example.json to config/site.json and fill in what you know.`) : 'Checking…'}</div>
+        </div>
+        {st.data?.exists && <Button variant={st.data.pending ? 'primary' : 'secondary'} busy={apply.isPending} onClick={() => apply.mutate()}>Apply now</Button>}
+      </div>
+      <ProblemBanner error={st.error ?? apply.error} />
+      {last && (
+        <div className="mt-3">
+          {'at' in last && <div className="muted text-xs">Last applied {new Date(last.at).toLocaleString('en-GB')}</div>}
+          {last.changes.length > 0 && <ul className="mt-1 list-disc pl-5">{last.changes.map((c, i) => <li key={i}>{c}</li>)}</ul>}
+          {'applied' in last && !last.changes.length && <div className="muted mt-1">Nothing changed.</div>}
+          {last.warnings.length > 0 && <ul className="mt-1 list-disc pl-5 text-amber-700">{last.warnings.map((w, i) => <li key={i}>{w}</li>)}</ul>}
         </div>
       )}
     </div>

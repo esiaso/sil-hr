@@ -206,6 +206,9 @@ development keys or sample data.
 
 ## Needs confirmation
 
+Most of the items below are set in one file, [`config/site.json`](config/README.md) (copy `config/site.example.json`), applied on start-up or from Administration → Settings, so they can be filled in as they are confirmed without code changes.
+
+
 * **Clocking devices.** The ZKTeco (BioTime API, ADMS push) and Hikvision (ISAPI) adapters
   follow the vendors' published protocols and are tested against mock servers, not real
   terminals. Before go-live: the device models and firmware in use, whether a BioTime

@@ -18,7 +18,6 @@ import { PerformanceGoal, PerformanceIndicator, PerformanceReview, ReviewCycle }
 
 type Dto<T extends z.ZodType> = z.infer<T>;
 const r2 = (x: Decimal.Value | null) => (x === null ? null : new Decimal(x).toFixed(2));
-const LOW_RATING = 2.5;
 
 /** Weighted mean of the scores of agreed goals, or null while any is missing. */
 export function weightedRating(goals: { weight: number; score: number | null }[]): string | null {
@@ -185,7 +184,8 @@ export class PerformanceService implements OnModuleInit {
     await this.cycle(id);
     const bands = new Map<string, number>();
     const finals: { final_rating: string }[] = await this.dataSource.query(`SELECT final_rating FROM performance_review WHERE cycle_id = $1 AND final_rating IS NOT NULL AND status IN ('acknowledgement', 'completed')`, [id]);
-    for (const f of finals) bands.set(ratingBand(f.final_rating)!, (bands.get(ratingBand(f.final_rating)!) ?? 0) + 1);
+    const scale = await this.bands();
+    for (const f of finals) bands.set(ratingBand(f.final_rating, scale)!, (bands.get(ratingBand(f.final_rating, scale)!) ?? 0) + 1);
     const depts: { department_name: string | null; reviews: number; completed: number; average: string | null }[] = await this.dataSource.query(
       `SELECT d.name AS department_name, count(r.id)::int AS reviews, count(r.id) FILTER (WHERE r.status = 'completed')::int AS completed,
               round(avg(r.final_rating) FILTER (WHERE r.status IN ('acknowledgement', 'completed')), 2)::text AS average
@@ -193,7 +193,7 @@ export class PerformanceService implements OnModuleInit {
         WHERE r.cycle_id = $1 GROUP BY d.name ORDER BY d.name`,
       [id],
     );
-    return { cycle_id: id, bands: ['Outstanding', 'Exceeds expectations', 'Meets expectations', 'Below expectations', 'Unsatisfactory'].map((b) => ({ band: b, count: bands.get(b) ?? 0 })), departments: depts.map((d) => ({ ...d, average: d.average === null ? null : r2(d.average) })) };
+    return { cycle_id: id, bands: [...scale].sort((a, b) => b.min - a.min).map((b) => ({ band: b.label, count: bands.get(b.label) ?? 0 })), departments: depts.map((d) => ({ ...d, average: d.average === null ? null : r2(d.average) })) };
   }
 
   // ================================================================== reviews
@@ -227,10 +227,14 @@ export class PerformanceService implements OnModuleInit {
     return { r, c, row, who };
   }
 
-  private summary(r: PerformanceReview, c: ReviewCycle, row: ReviewRow, goals: number) {
+  private async bands(m?: EntityManager) {
+    return this.settings.get('performance.rating_bands', m);
+  }
+
+  private summary(r: PerformanceReview, c: ReviewCycle, row: ReviewRow, goals: number, bands: { min: number; label: string }[]) {
     return {
       id: r.id, cycle_id: r.cycleId, cycle_name: c.name, employee_id: r.employeeId, employee_name: row.employee_name, staff_number: row.staff_number, position_title: row.position_title, department_name: row.department_name,
-      reviewer_user_id: r.reviewerUserId, reviewer_name: row.reviewer_name, status: r.status, self_rating: r2(r.selfRating), manager_rating: r2(r.managerRating), final_rating: r2(r.finalRating), band: ratingBand(r.finalRating),
+      reviewer_user_id: r.reviewerUserId, reviewer_name: row.reviewer_name, status: r.status, self_rating: r2(r.selfRating), manager_rating: r2(r.managerRating), final_rating: r2(r.finalRating), band: ratingBand(r.finalRating, bands),
       goals, updated_at: r.updatedAt.toISOString(), version: r.version,
     };
   }
@@ -254,7 +258,7 @@ export class PerformanceService implements OnModuleInit {
     const open = c.status !== 'closed';
     const managerTurn = r.status === 'manager_review' || (r.status === 'self_review' && today > c.selfReviewDue);
     return {
-      ...this.summary(r, c, row, goals.filter((g) => g.status === 'agreed').length),
+      ...this.summary(r, c, row, goals.filter((g) => g.status === 'agreed').length, await this.bands()),
       ...(hideManager ? { manager_rating: null, final_rating: null, band: null } : {}),
       cycle_status: c.status, period_start: c.periodStart, period_end: c.periodEnd, self_review_due: c.selfReviewDue, manager_review_due: c.managerReviewDue,
       goal_list: goals.map((g) => this.goalDto(g, g.indicatorId ? names.get(g.indicatorId) ?? null : null, hideManager)),
@@ -276,7 +280,8 @@ export class PerformanceService implements OnModuleInit {
   private async summaries(m: EntityManager, rows: PerformanceReview[]) {
     const cycles = new Map((await m.getRepository(ReviewCycle).findBy({ id: In([...new Set(rows.map((r) => r.cycleId))]) })).map((c) => [c.id, c]));
     const counts = new Map<string, number>((await m.query(`SELECT review_id, count(*)::int AS n FROM performance_goal WHERE status = 'agreed' AND review_id = ANY($1::uuid[]) GROUP BY review_id`, [rows.map((r) => r.id)])).map((x: { review_id: string; n: number }) => [x.review_id, x.n]));
-    return Promise.all(rows.map(async (r) => this.summary(r, cycles.get(r.cycleId)!, await this.row(m, r), counts.get(r.id) ?? 0)));
+    const bands = await this.bands(m);
+    return Promise.all(rows.map(async (r) => this.summary(r, cycles.get(r.cycleId)!, await this.row(m, r), counts.get(r.id) ?? 0, bands)));
   }
 
   async reviews(access: AccessProfile, q: { cycle_id?: string; status?: string }) {
@@ -446,7 +451,7 @@ export class PerformanceService implements OnModuleInit {
         r.calibrationComment = null;
         const instance = await this.workflow.submit(m, {
           requestType: 'performance_review', kind: c.kind, subjectId: r.id, subjectEmployeeId: r.employeeId, requesterUserId: access.actorId, value: Number(r.managerRating),
-          summary: `Appraisal of ${row.employee_name} (${c.name}): ${r.managerRating}, ${ratingBand(r.managerRating)}`,
+          summary: `Appraisal of ${row.employee_name} (${c.name}): ${r.managerRating}, ${ratingBand(r.managerRating, await this.bands(m))}`,
         });
         r.workflowInstanceId = instance.id;
       }
@@ -492,10 +497,10 @@ export class PerformanceService implements OnModuleInit {
       if (r.status !== 'acknowledgement') throw conflict('not_ready', 'This review is not waiting for you');
       Object.assign(r, { employeeAgrees: dto.agree, employeeComment: dto.comment ?? null, acknowledgedAt: new Date(), status: 'completed' });
       await m.getRepository(PerformanceReview).save(r);
-      const band = ratingBand(r.finalRating)!;
+      const band = ratingBand(r.finalRating, await this.bands(m))!;
       await this.outbox.record(m, 'hr.performance.review_completed.v1', r.employeeId, { id: r.id, employee_id: r.employeeId, staff_number: row.staff_number, cycle_id: c.id, cycle_name: c.name, final_rating: r2(r.finalRating)!, band, employee_agrees: dto.agree });
       const reasons: string[] = [];
-      if (Number(r.finalRating) < LOW_RATING) reasons.push(`the final rating is ${r2(r.finalRating)} (${band}); consider an improvement plan`);
+      if (Number(r.finalRating) < (await this.settings.get('performance.low_rating', m))) reasons.push(`the final rating is ${r2(r.finalRating)} (${band}); consider an improvement plan`);
       if (!dto.agree) reasons.push('the employee does not agree with it');
       if (reasons.length) await this.notifications.notifyPermissionHolders('performance:manage', 'performance_review_flag', { employee: row.employee_name, staff_number: row.staff_number, cycle: c.name, reason: reasons.join(', and ') }, `/performance/reviews/${r.id}`, m);
     });

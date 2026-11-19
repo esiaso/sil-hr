@@ -123,3 +123,9 @@ Migrations are hand-written and reviewed; `synchronize` is never used.
 Payroll calculation for the whole hospital runs in one request (under a minute for 2,000
 staff; see PERFORMANCE.md). Give the reverse proxy and load balancer a read timeout of at
 least 120 seconds for the API.
+
+## Hospital configuration
+
+Mount `config/` read-only into the API container (Compose does this) and keep `config/site.json`
+with the site's facts; see [config/README.md](../config/README.md). Device and SMS credentials go
+in the environment (`.env` is passed to the API container).

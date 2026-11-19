@@ -132,7 +132,9 @@ export function normalisePhone(raw: string): string | null {
 class SmsChannel implements NotificationChannel {
   readonly name = 'sms';
   async send(m: EntityManager, to: { userId: string; phone: string | null }, msg: { title: string; body: string }) {
-    if (!loadEnv().sms.username || !to.phone) return;
+    if (!to.phone) return;
+    const [u] = await m.query(`SELECT value FROM setting WHERE key = 'sms.username'`);
+    if (!(u?.value || loadEnv().sms.username)) return;
     const [s] = await m.query(`SELECT value FROM setting WHERE key = 'sms.enabled'`);
     if (!s || s.value !== true) return;
     const phone = normalisePhone(to.phone);
@@ -224,7 +226,10 @@ export class NotificationsService {
    */
   async sendPendingSms(limit = 50): Promise<number> {
     const env = loadEnv();
-    if (!env.sms.username || !env.sms.apiKey) return 0;
+    const fromDb = async (key: string) => ((await this.dataSource.query(`SELECT value FROM setting WHERE key = $1`, [key]))[0]?.value as string | undefined) || null;
+    const username = (await fromDb('sms.username')) ?? env.sms.username;
+    const senderId = (await fromDb('sms.sender_id')) ?? env.sms.senderId;
+    if (!username || !env.sms.apiKey) return 0;
     let sent = 0;
     await this.dataSource.transaction(async (m) => {
       const rows: { id: string; phone: string; body: string; attempts: number }[] = await m.query(
@@ -232,7 +237,7 @@ export class NotificationsService {
       );
       for (const r of rows) {
         try {
-          const form = new URLSearchParams({ username: env.sms.username!, to: r.phone, message: r.body, ...(env.sms.senderId ? { from: env.sms.senderId } : {}) });
+          const form = new URLSearchParams({ username, to: r.phone, message: r.body, ...(senderId ? { from: senderId } : {}) });
           const res = await fetch(env.sms.url, { method: 'POST', headers: { apiKey: env.sms.apiKey!, accept: 'application/json', 'content-type': 'application/x-www-form-urlencoded' }, body: form, signal: AbortSignal.timeout(15_000) });
           const json = (await res.json().catch(() => ({}))) as { SMSMessageData?: { Recipients?: { status?: string; statusCode?: number; messageId?: string }[]; Message?: string } };
           const rec = json.SMSMessageData?.Recipients?.[0];

@@ -125,7 +125,9 @@ export const RATING_BANDS: { min: number; label: string }[] = [
   { min: 1.5, label: 'Below expectations' },
   { min: 0, label: 'Unsatisfactory' },
 ];
-export const ratingBand = (r: string | number | null | undefined): string | null => (r === null || r === undefined || r === '' ? null : RATING_BANDS.find((b) => Number(r) >= b.min)!.label);
+/** The band a rating falls in; `bands` comes from the performance.rating_bands setting (highest first). */
+export const ratingBand = (r: string | number | null | undefined, bands: { min: number; label: string }[] = RATING_BANDS): string | null =>
+  r === null || r === undefined || r === '' ? null : ([...bands].sort((a, b) => b.min - a.min).find((b) => Number(r) >= b.min) ?? bands[bands.length - 1])?.label ?? null;
 const rating = z.string().regex(/^\d(\.\d{1,2})?$/);
 const reviewStatus = z.enum(['goal_setting', 'self_review', 'manager_review', 'approval', 'acknowledgement', 'completed']);
 
